@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+*{font-family: 'Nunito', sans-serif;}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.react-tel-input {
+    width: 200px !important;
+    border: 1px solid rgb(234, 234, 234);
+    border-left: none;
+    text-decoration: underline;
+    box-sizing:border-box;
+}
+.form-control {
+    border:none !important;
+    width: auto !important;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    height: auto !important;
+    line-height: 22px !important;
+}
+
+.flag-dropdown {
+    background: #fff !important;
+    border:none !important;
+    border-right: 1px solid rgb(237, 237, 237) !important;
+
+}
+.css-4pax7l-MuiPickersLayout-root .MuiPickersLayout-actionBar{
+    display:none!important;
+}
+.css-15jcv2p-MuiPickersToolbar-content {
+    display:none!important;
+}
+
+.css-4pax7l-MuiPickersLayout-root {
+    position:relative!important;
+}
+.css-1hbyad5-MuiTypography-root {
+    display:none!important;
+}
+
+.MuiPickersToolbar-root {
+    display:none !important;
+}
+
+.MuiDialogActions-root {
+    display:none !important;
+}
+
+select option {
+    background: white;
+}
+
+:where(.css-dev-only-do-not-override-amq5gd).ant-select-single .ant-select-selector {
+    border-radius: 0;
+}
