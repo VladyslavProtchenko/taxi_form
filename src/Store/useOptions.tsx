@@ -40,9 +40,9 @@ interface Store {
 }
 export const useOptions = create<Store>((set) => ({
     options: {
-        carType: '',
+        carType: 'sedan (max 4)',
         passengers:{
-            adults:0,
+            adults:1,
             kids:[],
             babies:0,
         },
@@ -107,7 +107,7 @@ export const useOptions = create<Store>((set) => ({
                 isActive: false,
             },
             {
-                title: 'Regular Stroller',
+                title: 'Regular stroller',
                 quantity: 1,
                 isActive: false,
             },
@@ -119,22 +119,22 @@ export const useOptions = create<Store>((set) => ({
         ],
         pets: [
             {
-                title: ' dog? ',
+                title: 'Dog',
                 cage: false,
                 isActive: true,
             },
             {
-                title: 'cat',
+                title: 'Cat',
                 cage: false,
                 isActive: false
             },
             {
-                title: 'rabbit',
+                title: 'Rabbit',
                 cage: false,
                 isActive: false
             },
             {
-                title: 'other',
+                title: 'Other',
                 cage: false,
                 isActive: false
             },

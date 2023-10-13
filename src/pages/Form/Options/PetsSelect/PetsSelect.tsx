@@ -1,88 +1,71 @@
-import { useState } from 'react';
-import AddButton from '../../../../UI/components/AddButton';
-import RemoveButton from '../../../../UI/components/RemoveButton';
-import useOnclickOutside from "react-cool-onclickoutside";
-import { MdPets } from "react-icons/md";
 import { useOptions } from '../../../../Store/useOptions';
+import type { MenuProps } from 'antd';
+import Dropdown from 'antd/es/dropdown/dropdown';
+import { PiDog } from "react-icons/pi";
+import { LuCat } from "react-icons/lu";
+import { MdPets } from "react-icons/md";
 
 
 const PetsSelect = () => {
-    const ref = useOnclickOutside(() => setIsOpen(false));
-    const [isOpen, setIsOpen] = useState(false)
     const {options, setPets} = useOptions()
 
+    const items: MenuProps['items'] = [];
+    options.pets.filter(item=>!item.isActive).map((item,index) =>{
+        items.push({
+            key: index,
+            label: (<span onClick={()=>setPets(options.pets.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
+    })
+
     return (
-        <div className={container} ref={ref}>
-            <div className={petsItemMain} >
-                <div ><MdPets/></div>
-                <div>Pets</div>
-                <AddButton onClick={()=>setIsOpen(!isOpen)}/>
-            </div>
-
-            {options.pets.filter(item=>item.isActive === true).map(item=>(
-                <div className={petsItem} onClick={()=>setIsOpen(false)} key={item.title}>
-                    <div className='w-2/5'>{item.title}</div>
-
-                    <div className={bagCount}>
-                        (cage) 
-                        <input type="checkbox" 
-                            className='ml-1'
-                            checked={item.cage} 
-                            onChange={()=>{
-                                setPets(options.pets.map(rem=>item.title === rem.title ? {...rem, cage:!rem.cage} : rem ))
-                            }}/>
-                    </div>
-                    
-                    {options.pets[0].title !== item.title
-                        ?<RemoveButton 
-                            style='opacity-0 group-hover:opacity-100'
-                            onClick={()=>{
-                            setPets(options.pets.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
-                        }}/>
-                        :<div className="w-4"></div>
-                    }
-                </div>
-            ))}
-            
-                
-            {isOpen 
-                && (options.pets.filter(item=>item.isActive===false).length >0) 
-                && 
-            <ul className={submenu} >
-                <div className='text-sm px-4 py-2'>select your pets</div>
-                {options.pets.filter(item=>!item.isActive).map(bag=>(
-                    <div 
-                        className={subItem} 
-                        key={bag.title}
-                        onClick={()=>{
-                            setPets(options.pets.map(item=>item.title === bag.title ? {...item, isActive: true} : item))
-                        }}
-                    >
-                    <label className={label}>
-                        <div className={addItem}
-                            >+</div>
-                        <span>{bag.title}</span>
-                    </label>
-                </div>
-                ))}
-
-            </ul>}
+        <div className={container}>
+        <div className='flex justify-center w-full border-t'>
+            <span className='bg-white -translate-y-1/2 px-2 text-gray-400'>pets </span>
         </div>
+        {options.pets.filter(item=>item.isActive === true).map((item)=>(
+            <div className={card} key={item.title}>
+                <div className='flex items-center space-x-2'>
+                    {(item.title =='Dog')
+                    ?<PiDog className='w-6 h-6'/>
+                    :(item.title =='Cat')
+                    ?<LuCat className='w-6 h-6'/>
+                    :(item.title =='Rabbit')
+                    ?<span className={rabbitIcon}></span>
+                    :<MdPets className='w-6 h-6'/>}
+                    <span className=' text-gray-400' > {item.title}</span>
+                </div>
+                <div className={bagCount}>
+                        (cage) 
+                    <input type="checkbox" 
+                        className='ml-1'
+                        checked={item.cage} 
+                        onChange={()=>{
+                            setPets(options.pets.map(rem=>item.title === rem.title ? {...rem, cage:!rem.cage} : rem ))
+                        }}
+                    />
+                </div>
+                {item.title != options.pets[0].title  
+                    ? <div className={qntMinus+ ' absolute -right-4'} onClick={()=>{setPets(options.pets.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))}}>-</div>
+                    : <div className=''></div>
+                }
+            </div>
+        ))}
+        {options.pets.filter(item=>item.isActive !== true).length > 0 && <Dropdown menu={{ items }} placement="bottomLeft" className='self-start'>
+            <div className={qntPlus+ ' w-4 h-4'}>+</div>
+        </Dropdown>}
+    </div>
     );
 };
 
+
 export default PetsSelect;
 
-const addItem ='opacity-0 group-hover:opacity-100 text-green-400 group-hover:text-green-300 group-active:text-green-200 text-2xl font-bold cursor-pointer '
-const bagCount ='flex space-x-2 text-gray-500 text-xs'
-const subItem = 'flex px-2 py-2 hover:bg-yellow-100 justify-between group'
-const label = 'flex  items-center w-full space-x-4 cursor-pointer group'
 
-const petsItemMain = 'flex items-center w-full px-2 py-1 group justify-between py-2 bg-yellow-100'
-const petsItem = 'flex items-center justify-between w-full px-2 py-1 hover:bg-yellow-200 group'
+const rabbitIcon ='w-5 h-5 overflow-hidden bg-contain bg-[url("https://i.pinimg.com/originals/2b/21/54/2b2154655f0eedb3dd372c1301c5552f.png")] scale-[130%]'
 
-const submenu = 'flex flex-col shadow absolute top-0 border border-black right-1/2  bg-white z-10 w-[200px] sm:top-[100%] sm:w-full sm:left-0'
-const container = 'flex flex-col items-center  relative  cursor-pointer text-sm w-full'
+const qntPlus = 'flex h-6 w-6 items-center justify-center cursor-pointer  font-bold bg-green-400 active:bg-green-500 border border-black rounded-full' 
+const qntMinus = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  bg-red-500 active:bg-red-600 border border-black rounded-full' 
+const bagCount ='flex space-x-2 ml-auto'
+const card = 'relative flex px-4 py-2 cursor-pointer w-full'
 
-
+const container = 'flex w-full flex-col items-center px-4 pb-2 '
 

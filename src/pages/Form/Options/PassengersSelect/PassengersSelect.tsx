@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { IoPeopleOutline } from "react-icons/io5";
+import { IoPeopleOutline, } from "react-icons/io5";
+import { LiaBabyCarriageSolid } from "react-icons/lia";
 import { useOptions } from '../../../../Store/useOptions';
 
 
@@ -32,25 +33,23 @@ const PassengersSelect = () => {
 
     return (
         <div className={container} >
-            <div className={mainItem}>
-                <IoPeopleOutline />
-                <span>Passengers</span>
-                <div></div>
+            <div className='flex justify-center w-full border-t'>
+                <span className='bg-white -translate-y-1/2 px-2 text-gray-400 text-base'>Passengers</span>
             </div>
-            <ul className={submenu}>
+            <ul className={content}>
                 <div className={subItem}>
-                    <label className={label}>Adults</label>
+                    <label className={label}><IoPeopleOutline className='w-7 h-7'/></label>
                     <div className={bagCount}>
                         <div 
-                            className={qnt} 
+                            className={qntMinus} 
                             onClick={()=>{
                                     if(!adults ) return;
                                     setAdults(adults - 1 )
                                 }}
                         > - </div>
-                        <div className="plus">{adults}</div>
+                        <div className={count}>{adults}</div>
                         <div 
-                            className={qnt} 
+                            className={qntPlus} 
                             onClick={()=>{
                                 if((children.length + adults) >=4  && options.carType !== 'VAN (5-7)') return;
                                 if((children.length + adults)  >= 7) return;
@@ -61,19 +60,19 @@ const PassengersSelect = () => {
                 </div>
 
                 <div className={subItem} >
-                    Children
+                    <span className={kidsIcon}></span>
                     <div className={bagCount}>
                         <div 
-                            className={qnt} 
+                            className={qntMinus} 
                             onClick={()=>{
                                     if(!children.length) return;
                                     children.pop()
                                     setChildren([...children] )
                                 }}
                         > - </div>
-                        <div className="plus">{children.length}</div>
+                        <div className={count}>{children.length}</div>
                         <div 
-                            className={qnt} 
+                            className={qntPlus} 
                             onClick={()=>{
                                 if(!adults) return;
                                 if((children.length + adults) >= 7 ) return;
@@ -91,10 +90,10 @@ const PassengersSelect = () => {
                 {children.length > 0 && <div className={kidsContainer}>
                     {children.map((item) => (
                     <div className={childrenCard} key={item.id} onClick={(e)=> e.stopPropagation()}>
-                        Kid #<span>{item.id}</span>
+                        <span >Kid # {item.id}</span>
                         <div className={bagCount}>
                             <div 
-                                className={qnt} 
+                                className={qntKids} 
                                 onClick={()=>{
                                         if(item.age <= 0) return setChildren(
                                             children.filter((child)=> child.id!== item.id)
@@ -106,9 +105,9 @@ const PassengersSelect = () => {
                                         }) )
                                     }}
                             > - </div>
-                            <div>{item.age} years</div>
+                            <div >{item.age} years</div>
                             <div 
-                                className={qnt} 
+                                className={qntKids} 
                                 onClick={()=>{
                                     if(item.age >= 8) return;
                                         
@@ -123,18 +122,18 @@ const PassengersSelect = () => {
                 </div>}
                 
                 <div className={subItem}>
-                    <label className={label}>Babies</label>
+                    <span className={label}><LiaBabyCarriageSolid className='w-7 h-7'/></span>
                     <div className={bagCount}>
                         <div 
-                            className={qnt} 
+                            className={qntMinus} 
                             onClick={()=>{
                                     if(!babies ) return;
                                     setBabies(babies - 1 )
                                 }}
                         > - </div>
-                        <div className="plus">{babies}</div>
+                        <div className={count}>{babies}</div>
                         <div 
-                            className={qnt} 
+                            className={qntPlus} 
                             onClick={()=>{
                                 if(babies >= adults) return;
                                 if(babies >= 1  && options.carType !== 'VAN (5-7)') return;
@@ -145,6 +144,10 @@ const PassengersSelect = () => {
                         >+</div>
                     </div>
                 </div>
+
+                {((children.length + adults) > 5) && <div className={extraFee}>
+                    <span className={fee}>You will have extra fee 5%</span>
+                </div>}
             </ul>
         </div>
     );
@@ -152,16 +155,22 @@ const PassengersSelect = () => {
 
 export default PassengersSelect;
 
-const childrenCard = 'flex border px-1 text-xs py-1 border-yellow-300 shadow rounded mr-1 mb-1 items-center'
-const kidsContainer = 'flex flex-col px-2 py-2'
+const fee='text-gray-400 italic text-xs'
+const extraFee =' flex px-4 py-2  justify-between '
+
+const childrenCard = 'flex border px-3  py-3 border-gray-400 shadow rounded mb-1 items-center justify-between '
+const kidsContainer = 'flex flex-col py-2'
 
 const label = 'flex space-x-1'
-const bagCount ='flex space-x-[2px] items-center'
-const qnt = 'cursor-pointer w-4 text-center text-xl font-bold text-yellow-400' 
+const bagCount ='flex space-x-2 items-center'
 
-const subItem = 'relative flex px-4 py-2 hover:bg-yellow-200 justify-between cursor-pointer'
-const submenu = 'flex flex-col pb-2 bg-white border-black'
+const count = ' text-xl px-2'
+const qntPlus = 'flex h-6 w-6 items-center justify-center cursor-pointer  font-bold bg-green-400 active:bg-green-500 border border-black rounded-full' 
+const qntMinus = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  bg-red-500 active:bg-red-600 border border-black rounded-full' 
+const qntKids = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  border border-black rounded-full' 
 
-const mainItem = "flex justify-between py-2 bg-yellow-100 px-2" 
+const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] scale-[130%]'
+const subItem = 'relative flex px-4 py-2 justify-between cursor-pointer'
+const content = 'flex flex-col pb-2 bg-white px-4'
 
 const container = 'relative text-sm w-full'

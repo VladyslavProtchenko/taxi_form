@@ -3,18 +3,18 @@ import AddressSection from './Address/AddressSection';
 import OptionsSection from './Options/OptionsSection';
 import { useSteps } from '../../Store/useSteps';
 import Steps from './Steps';
-import { useInfo } from '../../Store/useInfo';
-import { useLocation } from '../../Store/useLocation';
-import { useReturnLocation } from '../../Store/useReturnLocation';
-import { useOptions } from '../../Store/useOptions';
+// import { useInfo } from '../../Store/useInfo';
+// import { useLocation } from '../../Store/useLocation';
+// import { useReturnLocation } from '../../Store/useReturnLocation';
+// import { useOptions } from '../../Store/useOptions';
 import PaymentSection from './Payment/Payment';
 
 const Form = () => {
     const { store } = useSteps()
-    const {user} = useInfo()
-    const {user:trip} = useLocation()
-    const {user:returnTrip} = useReturnLocation()
-    const {options} = useOptions()
+    // const {user} = useInfo()
+    // const {user:trip} = useLocation()
+    // const {user:returnTrip} = useReturnLocation()
+    // const {options} = useOptions()
 
     // const sendOrder = () => {
 
@@ -75,7 +75,7 @@ const Form = () => {
 
     return (
         <div  className={container}>
-            <div className="md:hidden lg:hidden xl:hidden 2xl:hidden flex flex-col w-full items-center">
+            <div className="hidden w-full sm:flex-col sm:flex items-center sm:max-w-[576px]">
                 {store.steps === 1 && <InfoSection />}
                 {store.steps === 2 && <AddressSection />}
                 {store.steps === 3 && <OptionsSection />}
@@ -91,9 +91,9 @@ const Form = () => {
             </div>
             {/* <div className={button} onClick={sendOrder}>
                 order now! 
-            </div> */}
+            </div>
 
-            <div className="flex text-xs text-gray-400 space-x-5 flex-wrap max-w-[1024px] sm:w-[320px]">
+            <div className="flex text-xs text-gray-400 space-x-5 flex-wrap max-w-[1024px] sm:max-w-[576px]">
 
                 <span>gender: { user.gender}</span>
                 <span>extra gender: {user.extraGender1}</span>
@@ -165,7 +165,7 @@ const Form = () => {
                 <span>pets: {options.pets[1].isActive && options.pets[1].title} </span>
                 <span>pets: {options.pets[2].isActive && options.pets[2].title} </span>
                 <span>pets: {options.pets[3].isActive && options.pets[3].title} </span>
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -173,4 +173,4 @@ const Form = () => {
 export default Form;
 
 // const button = ' px-2 py-1 bg-rose-500  self-center cursor-pointer active:bg-rose-400'
-const container = 'pb-16 flex w-full flex-col justify-center border-x min-h-screen bg-white sm:max-width-[767px] sm:border-none w-full sm:px-2 sm:items-center'
+const container = 'pb-16 flex w-full flex-col border-x min-h-screen bg-white sm:max-width-[767px] sm:border-none w-full sm:px-2 sm:items-center'

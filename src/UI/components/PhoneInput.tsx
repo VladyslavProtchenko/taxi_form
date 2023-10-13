@@ -1,10 +1,10 @@
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'
-import SelectInput from './SelectInput';
 import { useEffect, useState } from 'react';
 import { IoPhonePortraitOutline } from "react-icons/io5";
 import { AiOutlineHome } from "react-icons/ai";
 import { GiModernCity } from "react-icons/gi";
+import { Select } from 'antd';
 
 
 const countries = [
@@ -48,7 +48,6 @@ const countries = [
     ["China", "86"],
     ["Colombia", "57"],
     ["Comoros", "269"],
-    ["Congo", "243"],
     ["Congo", "242"],
     ["Costa Rica", "506"],
     ["Côte d’Ivoire", "225"],
@@ -209,6 +208,7 @@ const countries = [
     ["United Arab Emirates", "971"],
     ["United Kingdom", "44"],
     ["United States", "1"],
+    ["USA", "1"],
     ["Uruguay", "598"],
     ["Uzbekistan", "998"],
     ["Vanuatu", "678"],
@@ -238,14 +238,19 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
     const [phoneType, setPhoneType] = useState(1)
     const [isOpen, setIsOpen] = useState(false)
 
+    const [val, setVal] = useState(0)
+    const [res, setRes] = useState(0)
+    
     useEffect(()=>{
         if(country) {
-            console.log(country)
-            const res = countries.find((item) => item[0].toLowerCase().includes(country[0].toLowerCase()))
+            const find = country
+            const res = countries.find((item) => item[0].toLowerCase().includes(find.toLowerCase()))
             if(res) setCountryCode(res[1])  
         } else { setCountryCode('1') }
     },[country])
 
+    const filterOption = (input: string, option?: { label: string; value: string }) => 
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)}>
@@ -256,14 +261,31 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                     {phoneType !== 3 && <div className={subItem} onClick={()=>setPhoneType(3)}><GiModernCity /></div>}
                 </div>}
             </div>
-            <SelectInput 
-                width={100}
-                source={countries.map((item)=> item[0])} 
-                placeholder='country' 
-                onChange={setCountry} 
+
+            <Select
+                className={res > val ? 'error': res === val ? 'success' : 'default'}
+                showSearch
+                value={country ? country : 'Canada'}
+                style={{width:118, height: 30}}
+                onChange={setCountry}
+                filterOption={filterOption}
+                options={countries.map((item)=>(
+                    {
+                        value: item[0],
+                        label: item[0],
+                    }
+                ))}
             />
+
             <PhoneInput
-                country={'us'}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                isValid={(value, country:any,) => {
+                    const res = country.format.split(".").length-1;
+                    setVal(value.length)
+                    setRes(res)
+                    return true
+                }}
+                country={'ca'}
                 value={countryCode}
                 onChange={(e, countryName:ICountry)=>{
                     setCountry(countryName.name)
@@ -277,8 +299,8 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
 export default PhoneNumberInput
 
 const subItem = 'px-2 text-black hover:bg-yellow-200 px-2 py-1'
-const phoneLabel = 'z-20 flex relative items-center px-2 cursor-pointer hover:bg-yellow-100 sm:hidden'
-const subLabel = ' left-0 pb-1  bg-white border-black border-[1px] flex flex-col absolute top-[115%] items-center cursor-pointer '
-const container = 'flex'
+const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer hover:bg-yellow-100'
+const subLabel = ' left-0 pb-1 z-50  bg-white border-black border-[1px] flex flex-col absolute top-[115%] items-center cursor-pointer '
+const container = 'flex border'
 
 

@@ -19,7 +19,6 @@ export default function DatePicker({onChange, getFullDate}:IDate) {
             onChange(parsedDate.format('DD/MM/YYYY'))
         }
 
-
     return (
         <div className="relative" >
             <div className={pickUpTime}>

@@ -1,34 +1,37 @@
+import { Select } from "antd";
+import { useStore } from "../../../Store";
 import { useInfo } from "../../../Store/useInfo";
 import { useLocation } from "../../../Store/useLocation";
-import { useOptions } from "../../../Store/useOptions";
-// import { useReturnLocation } from "../../../Store/useReturnLocation";
+import { Input } from 'antd';
+const { TextArea } = Input;
 
 const PaymentSection = () => {
-    const {user} = useInfo()
-    const {user:location} = useLocation()
-    const {options} = useOptions()
-
+    const {user} = useStore()
+    const { setPaymentMethod} = useInfo()
+    const { setTripType} = useLocation()
 
     return (
         <section className={section}>
-            
-            <div className={mobileContent}>
 
-            </div>
             <div className={content}>
-                <div className="name">Dear,{user.gender}, {user.name} you car:</div>
-                <div className="catTitle">{options.carType}</div>
-                <div className="date">Will arrive {location.date}, at: {location.time}</div>
-                <div className="trip">From: {location.pickUpLocation} to {location.dropOffLocation}</div>
+                <span className={box}>
+                    <Select  placeholder='Trip type' style={{ width:200 , height: 30}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
+                <span className={box}>
+                    <Select placeholder='Payment method' style={{ width:200 , height: 30}}onChange={setPaymentMethod}options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
             </div>
-
+            <div className={additional}>
+                <span className={textArea}>
+                        <TextArea rows={2} placeholder='Additional information'/></span>
+            </div>
         </section>
     );
 };
 
 export default PaymentSection;
 
-const mobileContent = 'md:hidden lg:hidden xl:hidden 2xl:hidden'
+const additional ='flex additional w-2/3 px-2'
+const content ='flex w-1/3 px-2'
 
-const content = 'flex text-xs text-gray-500'
-const section = 'flex flex-col w-full mb-8 p-8 sm:py-8 sm:px-1 border-b border-gray-300 sm:w-[320px] lg:w-[1024px] xl:w-[1024px] 2xl:w-[1024px] sm:border-none sm:m-0'
+const box ='flex border h-min pl-3 w-[100px]'
+const textArea ='flex border h-min pl-3 w-full rounded'
+const section = 'flex w-full px-8  sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 '

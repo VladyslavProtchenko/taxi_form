@@ -1,99 +1,76 @@
-import { useState } from 'react';
-import AddButton from '../../../../UI/components/AddButton';
-import RemoveButton from '../../../../UI/components/RemoveButton';
-import useOnclickOutside from "react-cool-onclickoutside";
-import { MdOutlineStroller } from "react-icons/md";
 import { useOptions } from '../../../../Store/useOptions';
-
-
+import type { MenuProps } from 'antd';
+import Dropdown from 'antd/es/dropdown/dropdown';
+import { LiaBabyCarriageSolid } from "react-icons/lia";
+import { MdOutlineStroller } from "react-icons/md";
+import { MdOutlineAirlineSeatFlatAngled } from "react-icons/md";
 const CarSeatsSelect = () => {
-    const ref = useOnclickOutside(() => setIsOpen(false));
     const { options, setCarSeats} = useOptions()
 
-    const [isOpen, setIsOpen] = useState(false)
+    const items: MenuProps['items'] = [];
+    options.carSeats.filter(item=>!item.isActive).map((item,index) =>{
+        items.push({
+            key: index,
+            label: (<span onClick={()=>setCarSeats(options.carSeats.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
+    })
 
     return (
-        <div className={container} ref={ref}>
-            <div className={sportItemMain} >
-
-                <div ><MdOutlineStroller /></div>
-                <div>Car seats</div>
-                <AddButton onClick={()=>setIsOpen(!isOpen)}/>
+        <div className={container}>
+            <div className='flex justify-center w-full border-t'>
+                <span className='bg-white -translate-y-1/2 px-2 text-gray-400'>carSeats </span>
             </div>
-
-            {options.carSeats.filter(item=>item.isActive === true).map(item=>(
-                <div className={sportItem} onClick={()=>setIsOpen(false)} key={item.title}>
-                    <div className='w-2/5'>{item.title}</div>
-
-                    <div className={sportCount}>
+            {options.carSeats.filter(item=>item.isActive === true).map((item)=>(
+                <div className={card} key={item.title}>
+                    <div className='flex items-center space-x-2'>
+                        {(item.title =='Baby seat')
+                        ?<MdOutlineAirlineSeatFlatAngled className='w-6 h-6'/>
+                        :(item.title =='Umbrella stroller')
+                        ?<MdOutlineStroller className='w-6 h-6'/>
+                        :(item.title =='Regular stroller')
+                        ?<LiaBabyCarriageSolid className='w-6 h-6'/>
+                        :<div className={babiSeatIcon}/>}
+                        <span className=' text-gray-400' > {item.title}</span>
+                    </div>
+                    <div className={bagCount}>
                         <div 
-                            className={qnt} 
+                            className={qntMinus} 
                             onClick={()=>{
-                                if(item.title === options.carSeats[0].title && item.quantity <= 0) return;
-                                if(item.quantity <= 0) return setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
+                                if(item.title === options.carSeats[1].title && item.quantity <= 0) return;
+                                if(item.quantity <= 0 ) return setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
                                 setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}
                         > - </div>
-                        <div >{item.quantity}</div>
+                        <div className='text-xl text-center w-7'>{item.quantity}</div>
                         <div  
-                        className={qnt} 
+                        className={qntPlus} 
                             onClick={()=>{
                                 if(item.quantity >= 10) return;
                                 setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
                             }}
                         >+</div>
                     </div>
-                    
-                    {options.carSeats[0].title !== item.title 
-                        ?<RemoveButton 
-                            style='opacity-0 group-hover:opacity-100'
-                            onClick={()=>{
-                                setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
-                        }}/>
-                        : <div className='w-4'></div>
+                    {item.title != options.carSeats[0].title  
+                        ? <div className={qntMinus+ ' absolute -right-4'} onClick={()=>{setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))}}>-</div>
+                        : <div className=''></div>
                     }
                 </div>
             ))}
-            
-                
-            {isOpen 
-                && (options.carSeats.filter(item=>item.isActive===false).length >0) 
-                && 
-            <ul className={submenu} >
-                <div className='text-sm px-4 py-2'>select car seats</div>
-                {options.carSeats.filter(item=>!item.isActive).map(type=>(
-                    <div 
-                        onClick={()=>{
-                            setCarSeats(options.carSeats.map(item=>item.title === type.title ? {...item, isActive: true} : item))
-                        }}
-                        className={subItem} 
-                        key={type.title}
-                    >
-                    <label className={label}>
-                        <div
-                            className={addItem}
-                            >+</div>
-                        <span>{type.title}</span>
-                    </label>
-                </div>
-                ))}
-
-            </ul>}
+            {options.carSeats.filter(item=>item.isActive !== true).length > 0 && <Dropdown menu={{ items }} placement="bottomLeft" className='self-start'>
+                <div className={qntPlus+ ' w-4 h-4'}>+</div>
+            </Dropdown>}
         </div>
     );
 };
 
 export default CarSeatsSelect;
 
-const addItem ='opacity-0 group-hover:opacity-100 text-green-400 group-hover:text-green-300 group-active:text-green-200 text-2xl font-bold cursor-pointer '
-const qnt = 'cursor-pointer w-4 text-center'
-const sportCount ='flex space-x-2'
-const subItem = 'flex px-2 py-2 hover:bg-yellow-100 justify-between group'
-const label = 'flex  items-center w-full space-x-4 cursor-pointer group'
+const qntPlus = 'flex h-6 w-6 items-center justify-center cursor-pointer  font-bold bg-green-400 active:bg-green-500 border border-black rounded-full' 
+const qntMinus = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  bg-red-500 active:bg-red-600 border border-black rounded-full' 
 
-const sportItemMain = 'flex items-center w-full px-2 py-1 group justify-between py-2 bg-yellow-100'
-const sportItem = 'flex items-center justify-between w-full px-2 py-1 hover:bg-yellow-200 group'
+const bagCount ='flex space-x-2 ml-auto'
 
-const submenu = 'flex flex-col shadow absolute top-0 border border-black left-full bg-white z-10 w-[200px] left-0 sm:top-[100%] sm:w-full sm:left-0'
-const container = 'flex flex-col items-center  relative  cursor-pointer text-sm w-full'
+const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
+
+const card = 'relative flex px-4 py-2 cursor-pointer w-full'
+const container = 'flex w-full flex-col items-center px-4 pb-2'
 

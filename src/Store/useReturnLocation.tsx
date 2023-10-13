@@ -17,6 +17,7 @@ interface IUser {
     retDepartureSection: string;
     retAirlines: string;
     retFlight: string;
+    retArrivalTime: string;
 }
 interface Store {
     user: IUser;
@@ -36,6 +37,7 @@ interface Store {
     setRetFlight: (trip:string) => void;
     setRetTripType: (trip:string) => void;
     setRetAirlines: (trip:string) => void;
+    setRetArrivalTime: (trip:string) => void;
 }
 export const useReturnLocation = create<Store>((set) => ({
     user: {
@@ -54,6 +56,7 @@ export const useReturnLocation = create<Store>((set) => ({
         retDepartureSection:'',
         retFlight:'',
         retTripType: '',
+        retArrivalTime: '',
         retAirlines:''
     },
     
@@ -75,4 +78,5 @@ export const useReturnLocation = create<Store>((set) => ({
     setRetFlight: (data) => set((state) => ({ user: {...state.user, retFlight: data } })),
     setRetTripType: (data) => set((state) => ({ user: {...state.user, retTripType: data } })),
     setRetAirlines: (data) => set((state) => ({ user: {...state.user, retAirlines: data } })),
+    setRetArrivalTime: (data) => set((state) => ({ user: {...state.user, retArrivalTime: data } })),
 }))

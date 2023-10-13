@@ -14,10 +14,6 @@ interface SelectProps {
 const SelectInput: React.FC<SelectProps>= ({width, onChange, source, placeholder }) => {
 
 
-    const onSearch = (value: string) => {
-        console.log('search:', value);
-    };
-
 
     const filterOption = (input: string, option?: { label: string; value: string }) => 
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
@@ -27,9 +23,8 @@ const SelectInput: React.FC<SelectProps>= ({width, onChange, source, placeholder
             style={{width, height: 30}}
             placeholder={placeholder}
             onChange={onChange}
-            onSearch={onSearch}
             filterOption={filterOption}
-            options={source.map(item=>(
+            options={source.map((item)=>(
                 {
                     value: item,
                     label: item,

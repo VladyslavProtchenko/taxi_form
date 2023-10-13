@@ -1,6 +1,9 @@
 import React, {  useEffect, useState } from 'react';
-import InputComponent from './Input';
-import SelectInput from './SelectInput';
+import { Input, Select } from 'antd';
+import { useInfo } from '../../Store/useInfo';
+import 'antd/dist/reset.css';
+import { TfiEmail } from "react-icons/tfi";
+
 
 interface InputProps {
     value: string;
@@ -9,13 +12,14 @@ interface InputProps {
 }
 
 const MailInput: React.FC<InputProps> = ({ onChange, placeholder }) => {
-    const [isOpen, setIsOpen] = useState(false)
     const [email, setEmail] = useState({mail:'', domain:''});
-
+    const [isEmail, setISEmail] = useState(0)
+    const { user } = useInfo()
     useEffect(()=>{
         onChange(email.mail+'@'+email.domain)
     },[email])
-    
+
+    console.log(isEmail)
     const domains = [
         "gmail.com",
         "outlook.com",
@@ -37,49 +41,61 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder }) => {
         "comcast.net",
         "verizon.net",
         "qq.com",
-    ];
+    ];    
+    const filterOption = (input: string, option?: { label: string; value: string }) => 
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     return (
         <div className={container}>
-            <InputComponent
-                width={200}
+            <span className='icon'><TfiEmail/></span>
+            <Input
+                onBlur={()=>{
+                    if(pattern.test(user.email)){setISEmail(2)
+                    } else{setISEmail(1) }
+                }}
+                style={{width: 200,fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
                 value={email.mail}
-                onChange={(e:any) => setEmail({
-                    ...email, mail: e.target.value
-                })}
+                onChange={(e) => {
+                    if(pattern.test(user.email)){setISEmail(2)
+                    } else{setISEmail(1) }
+                    setEmail({
+                        ...email, mail: e.target.value
+                    })
+                }}
                 placeholder={placeholder}
             />
-            <div className={domain}>
-                <SelectInput
-                    placeholder='gmail.com'
-                    source={domains}
-                    width={100}
-                    onChange={(e:any) => setEmail({
-                        ...email, domain: e.target.value.substring(1)
-                    })} />
-                {isOpen &&<div className={submenu} onClick={e=> e.stopPropagation()}>
-                        {domains.filter(item => item.includes(email.domain)).map((item, index) => (
-                        <div key={item + index} className={domainItem} onClick={() => {
-                            setEmail({
-                                ...email, domain: item
-                            })
-                            setIsOpen(false)
-                        }}>
-                            {item}
-                        </div>
-                    ))}
-                </div>}
+
+            <div className={domain+ ' domain'}>
+            <div className={label}>@</div>
+            
+            <Select
+                showSearch
+                onBlur={()=>{
+                    if(pattern.test(user.email)){setISEmail(2)
+                    } else{ setISEmail(1)}
+                }}
+                style={{width:118, height: 30, fontWeight: 'bold', borderRadius: 0, borderLeft:'none', color: '#0066ff' }}
+                placeholder='gmail.com'
+                onChange={(value) => {
+                    if(pattern.test(user.email)){ setISEmail(2)
+                    } else{ setISEmail(1)}
+                    setEmail({...email, domain: value})
+                }}
+                filterOption={filterOption}
+                options={domains.map(item=>({ value: item, label: item,}
+                ))}
+            />
             </div>
         </div>
-
     );
 };
 
+
+
 export default MailInput;
 
-const domainItem = 'cursor-pointer hover:bg-gray-50 px-5 '
-const submenu = 'absolute bg-white shadow rounded  top-full max-h-[200px] right-0 overflow-scroll z-10 w-[150px]'
-const domain = 'relative flex items-center '
-
-const container = 'flex text-sm'
+const domain = 'relative flex items-center font-bold text-[#0066ff]'
+const label = 'absolute right-[125px] font-bold text-[#0066ff] text-xl'
+const container = 'flex text-sm border items-center'
 

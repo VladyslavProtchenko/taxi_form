@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FocusEventHandler, useEffect } from 'react';
 import usePlacesAutocomplete, {
     getGeocode,
 } from "use-places-autocomplete";
@@ -10,9 +10,10 @@ interface ILocation {
     onChange: (value: string) => void;
     defaultLocation?: string;
     style?: string;
+    onBlur?: FocusEventHandler<HTMLInputElement>
 }
 
-const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:ILocation) => {
+const GoogleAddressInput = ({ onBlur, placeholder, onChange, defaultLocation, style }:ILocation) => {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
@@ -64,6 +65,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
     return (
         <div className={container+' '+ style} ref={ref}>
             <input
+                onBlur={onBlur}
                 className={input}
                 value={value}
                 onChange={handleInput}
@@ -78,7 +80,8 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
 
 export default GoogleAddressInput;
 
-const input = 'border text-sm w-full cursor-pointer relative px-2 py-1 focus:border-blue-800 w-[200px] outline-none'
-const container = 'relative w-[200px]'
+const input = ' text-sm w-full cursor-pointer relative px-2 py-1 focus:border-blue-800 w-[200px] outline-none'
 const submenu = 'absolute top-full bg-white z-10'
 const oneItem ='cursor-pointer hover:bg-gray-50 px-4 py-1'
+
+const container = 'relative w-[200px]'

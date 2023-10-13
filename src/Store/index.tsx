@@ -39,5 +39,6 @@ export const useStore = create<Store>(() => ({
         paymentList: ['Credit ->(V, M, A)(Opt.)', 'Debit', 'Cash->(CAD, USD)(Opt.)', 'oucher->(Air Canada, Air Transat, Sunwing)(opt.)'],
         flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
 
+        
     },
 }))

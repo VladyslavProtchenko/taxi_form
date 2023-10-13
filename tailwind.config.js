@@ -4,14 +4,16 @@ export default {
   theme: {
     extend: {
       screens: {
-        'sm': {'min':'0', 'max': '767px'},
-        'md': {'min': '768px','max': '1023px'},
-        'lg': {'min': '1024px', 'max': '1279px'},
-        'xl': {'min': '1280px', 'max': '1920px'},
-        '2xl': {'min': '1921px'},
+        'sm': {'max': '576px'},
+        'md': {'max': '768px'},
+        'lg': { 'max': '992px'},
+        'xl': {'max': '1240px'},
+        '2xl': {'max': '1400px'},
       }
     },
   },
+  
   plugins: [],
 }
+
 

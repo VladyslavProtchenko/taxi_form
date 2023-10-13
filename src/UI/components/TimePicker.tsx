@@ -2,23 +2,38 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from 'react';
 import { IoMdTime } from 'react-icons/io';
 import useOnclickOutside from "react-cool-onclickoutside";
+import { useLocation } from "../../Store/useLocation";
+import Required from "./Required";
 
 
 interface InputProps {
     onChange: (value: string) => void;
-    date: string;
+    date?: string;
+    timeNow?:string;
+    style?:string;
 }
 
-const TimePicker: React.FC<InputProps> = ({ onChange, date }) => {
+const TimePicker: React.FC<InputProps> = ({ style, onChange, date, timeNow }) => {
 
     const ref = useOnclickOutside(() => setIsOpen(false));
-
-    const [hour, setHour] = useState('')
-    const [minute, setMinute] = useState('')
+    const { setTaxiNow} = useLocation()
+    const [hour, setHour] = useState(timeNow ? timeNow.slice(0,2) : '')
+    const [minute, setMinute] = useState(timeNow ? timeNow.slice(3) : '')
     const [isOpen, setIsOpen] = useState(false)
+    const [isTime, setIsTime] = useState(0)
 
+    
+
+    useEffect(()=>{
+        setHour(timeNow ? timeNow.slice(0,2) : '')
+        setMinute(timeNow ? timeNow.slice(3) : '')
+
+    },[timeNow])
     useEffect(() => {
         onChange((hour) + ':' + (minute))
+        if(minute && hour) {
+            setIsTime(2)
+        } else setIsTime(1)
     }, [hour, minute])
 
     
@@ -43,7 +58,9 @@ const TimePicker: React.FC<InputProps> = ({ onChange, date }) => {
     const filteredMinutes = minutes.filter(item => item > minutesNow);
     const filteredHours = hours.filter(item => item >= hoursNow);
     return (
-        <div className={container} onClick={() => setIsOpen(true)} ref={ref}>
+        <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' success' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
+            <Required />
+            <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>
             <input
                 className={input}
                 type="text"
@@ -51,7 +68,20 @@ const TimePicker: React.FC<InputProps> = ({ onChange, date }) => {
                 placeholder='hh'
                 maxLength={2}
                 autoFocus={false}
+                onBlur={()=>{
+                    setTaxiNow(false)
+                    if(minute && hour) {
+                        setIsTime(2)
+                    } else {
+                        setIsTime(1)
+                    }
+                }}
                 onChange={(e) => {
+                    if(minute && hour) {
+                        setIsTime(2)
+                    } else {
+                        setIsTime(1)
+                    }
                     const newValue = e.target.value.replace(/[^0-9]/g, '')
                     if (+newValue > 23) return setHour('00')
                     setHour(newValue)
@@ -64,13 +94,25 @@ const TimePicker: React.FC<InputProps> = ({ onChange, date }) => {
                 value={minute}
                 autoFocus={false}
                 maxLength={2}
+                onBlur={()=>{
+                    setTaxiNow(false)
+                    if(minute && hour) {
+                        setIsTime(2)
+                    } else {
+                        setIsTime(1)
+                    }
+                }}
                 onChange={(e) => {
+                    
+                    if(minute && hour) {
+                        setIsTime(2)
+                    } else { setIsTime(1) }
                     const newValue = e.target.value.replace(/[^0-9]/g, '')
                     if (+newValue > 59) return setMinute('59')
                     setMinute(newValue)
                 }}
             />
-            <IoMdTime className='cursor-pointer ' onClick={() => setIsOpen(true)}/>
+            
             {isOpen && <div className={submenu} >
 
                 <div className="overflow-scroll border-r">
@@ -105,7 +147,7 @@ const TimePicker: React.FC<InputProps> = ({ onChange, date }) => {
 
 export default TimePicker;
 
-const input ='pr-2 py-1 text-end pr-[2px] w-[36px] outline-none'
+const input ='pr-2 py-1 text-end pr-[2px] w-[24px] outline-none'
 const input2 ='pr-2 py-1 pl-[2px] w-[35px] outline-none'
 const button ='absolute top-[130px] left-2 bg-blue-600 px-2 text-xs text-white active:bg-blue-400'
 const submenu = "absolute flex shadow top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white z-20"

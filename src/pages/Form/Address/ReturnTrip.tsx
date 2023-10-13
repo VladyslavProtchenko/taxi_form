@@ -4,19 +4,37 @@ import DatePicker from "../../../UI/components/DatePicker";
 import Select from "../../../UI/components/Select";
 import { useStore } from "../../../Store";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
+
 import { useReturnLocation } from "../../../Store/useReturnLocation";
 import { useLocation } from "../../../Store/useLocation";
-import Input from "../../../UI/components/Input";
+import { Input } from "antd";
+import { SlLocationPin } from "react-icons/sl";
+import { PiCalendarCheckLight } from "react-icons/pi";
+import { PiAirplaneTakeoff,PiAirplaneLanding  } from "react-icons/pi";
+import { GiControlTower } from "react-icons/gi";
+
+import Required from "../../../UI/components/Required";
+
+
+
+
+
 
 const TripContent = () => {
-    const { user, setRetPickUpLocation, setRetDropOffLocation, setRetStopFirst, setRetStopSecond, setRetStopLast, setRetDate,setRetTime,setRetDepartureSection,setRetFlight,setRetTripType,setRetAirlines} = useReturnLocation()
+    const { user, setRetPickUpLocation, setRetDropOffLocation, setRetStopFirst, setRetStopSecond, setRetStopLast, setRetDate,setRetTime,setRetDepartureSection,setRetFlight,setRetAirlines } = useReturnLocation()
     const { user: mainUser } = useLocation()
     const { user: userStore } = useStore()
 
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
+
+    const [isFrom, setIsFrom] = useState(0)
+    const [isTo, setIsTo] = useState(0)
+    const [isFlight, setIsFlight] = useState(0)
+    console.log(isFlight)
+
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)']
 
@@ -51,19 +69,34 @@ const TripContent = () => {
 
     },[mainUser.stopFirst, mainUser.stopSecond, mainUser.stopLast])
 
+    useEffect(() =>{
+        if(user.retPickUpLocation)setIsFrom(2)
+        if(user.retDropOffLocation) setIsTo(2)
+    },[user.retPickUpLocation, user.retDropOffLocation ])
+
+
     return (
     <div className={container}>
         <div className={location}>
             <div className={extraCard}>
+                <Required />
+                <span className='icon'><SlLocationPin/></span>
                 <GoogleAddressInput 
-                    style='w-[200px]'
                     defaultLocation={
                         user.retPickUpLocation
                         ?  user.retPickUpLocation
                         : mainUser.dropOffLocation 
                         ? mainUser.dropOffLocation 
                         : ''
-                    } 
+                    }
+                    style={isFrom === 1 ? ' error': isFrom === 2 ? 'success' : 'default' + 'w-[200px] ' } 
+                    onBlur={()=> {
+                        if(user.retPickUpLocation){
+                            setIsFrom(2)
+                        } else {
+                            setIsFrom(1)
+                        }}
+                    }
                     onChange={setRetPickUpLocation}
                     placeholder='Pick up location'
                 />
@@ -81,7 +114,8 @@ const TripContent = () => {
             </div>
 
             {stop.first  &&
-            <div className={extraCard+ ' self-end'}>    
+            <div className={extraCardStop}> 
+                    <span className='icon'><SlLocationPin/></span> 
                     <GoogleAddressInput
                         style='w-[200px]'
                         defaultLocation={
@@ -110,7 +144,8 @@ const TripContent = () => {
             </div>}
 
             {stop.second  && 
-            <div className={extraCard+ ' self-end'}>
+            <div className={extraCardStop}>
+                <span className='icon'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-[200px]'
                     defaultLocation={
@@ -139,7 +174,8 @@ const TripContent = () => {
             </div>}
 
             {stop.last  &&
-            <div className={extraCard+ ' self-end'}>
+            <div className={extraCardStop}>
+                <span className='icon'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-[200px]'
                     defaultLocation={
@@ -172,8 +208,9 @@ const TripContent = () => {
                 </div>}
 
             <div className={extraCard}>
+                <Required />
+                <span className='icon'><SlLocationPin/></span>
                 <GoogleAddressInput 
-                    style='w-[200px]'
                     defaultLocation={
                         user.retDropOffLocation
                         ?  user.retDropOffLocation
@@ -181,6 +218,14 @@ const TripContent = () => {
                         ? mainUser.pickUpLocation 
                         : ''
                     } 
+                    style={isTo === 1 ? ' error': isTo === 2 ? 'success' : 'default' + 'w-[200px] ' } 
+                    onBlur={()=> {
+                        if(user.retDropOffLocation){
+                            setIsTo(2)
+                        } else {
+                            setIsTo(1)
+                        }}
+                    }
                     onChange={setRetDropOffLocation}
                     placeholder='Drop off location'
                 />
@@ -200,7 +245,8 @@ const TripContent = () => {
         <div className={date}>
             <div className={dateTime}>
                 <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
-                    <div className={pickUpTime}>
+                    <Required />
+                    <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {user.retDate ? <span >
                             {fullDate.format('dddd')},  
                             {'  '+fullDate.format('MMM')}
@@ -214,7 +260,6 @@ const TripContent = () => {
                                 : 'th'
                             }
                         {' '+fullDate.format('YYYY')} </span>:  'Choice return data' }
-                    </div> 
                     {isDateOpen && <div className={dateTimeSubmenu}>
                         <DatePicker time={user.retTime} onChange={setRetDate} getFullDate={setFullDate}/>
                         <div className="flex justify-between pl-8">
@@ -226,28 +271,32 @@ const TripContent = () => {
                     </div>}
                 </div>
                 <TimePicker onChange={setRetTime} date={user.retDate}/>
+                <div className='short'>
+                    {(user.retPickUpLocation == isAirport[0] || user.retPickUpLocation == isAirport[1] )
+                    ?< PiAirplaneLanding className='text-2xl ml-1'/>
+                    :<PiAirplaneTakeoff className='text-2xl ml-1'/>}
+                    <Input placeholder='#flight' style={{width:100, borderRadius: 0, height: 30}}
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                            if(user.retPickUpLocation == isAirport[0] || user.retPickUpLocation == isAirport[1]){
+                                user.retFlight.length < 4 ? setIsFlight(1) : setIsFlight(2);
+                            }
+                            setRetFlight(e.target.value)
+                        }}
+                    />
+                </div>
             </div>
 
-            {(user.retPickUpLocation === isAirport[0] || user.retDropOffLocation === isAirport[0])}
+            {(user.retPickUpLocation === isAirport[0] || user.retDropOffLocation === isAirport[0]) && 
             <div className={airportSection}>
-                <Select style='w-[100px] border sm:w-full' source={userStore.tripList} value={user.retTripType} onChange={setRetTripType} placeholder='Trip type' />
-                <Select style="w-[100px] border sm:w-full" source={mainUser.flights} value={user.retDepartureSection} onChange={setRetDepartureSection} placeholder='Departure' />
-                <Select style="w-[100px] border sm:w-full" source={userStore.flights} value={user.retAirlines} onChange={setRetAirlines} placeholder='Airlines' />
-            </div>
+                <span className={airportContainer}>
+                    <span className='icon'><GiControlTower /></span>
+                    <Select width={150} source={userStore.flights}  onChange={setRetAirlines} placeholder='Airlines' />
+                    <Select width={150} source={mainUser.flights}  onChange={setRetDepartureSection} placeholder='Departure' />
+                </span >
+            </div>}
         </div>
 
-        <div className='sm:self-end sm:mb-10'>
-            <Input
-                placeholder='flight#' 
-                width={100}
-                onChange={setRetFlight} 
-                value={ 
-                        user.retAirlines.toLocaleLowerCase().includes('air canada')
-                        ? 'AC'+user.retFlight
-                        : user.retFlight
-                    }
-            />
-        </div>
+                
     </div>
     );
 };
@@ -257,22 +306,24 @@ export default TripContent;
 
 
 const addCircle = ' w-4 h-4 flex items-center justify-center bg-green-300 rounded-full border text-black border-black mr-1'
-const addExtraBtn = 'flex text-xs cursor-pointer ml-3 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
+const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
 
-const pickUpTime = 'flex '
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
 
-const closeStop ="w-4 h-4 bg-red-500 ml-1 text-black border border-black rounded-full flex justify-center cursor-pointer text-bold items-center"
-const extraCard = ' flex relative items-center'
+const closeStop ="absolute w-4 h-4 -right-6 bg-red-500 ml-1 border border-black rounded-full flex justify-center cursor-pointer text-bold  items-center"
 
 
-const dateInput = 'text-xs flex items-center border px-2 py-1 relative w-[200px]'
-const dateTime = 'flex justify-between sm:mb-6'
+const dateInput = 'text-xs flex items-center border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full '
 
-const airportSection = 'flex  justify-between'
+const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
+const airportSection = 'flex sm:items-center sm:justify-center w-full'
+const dateTime = 'flex justify-between sm:mb-2 sm:justify-center space-x-2 sm:items-start'
 
-const date = 'flex flex-col w-1/3 justify-between sm:w-full sm:mb-4 sm:px-0 md:w-1/2 sm:order-first'
-const location ='flex flex-col w-1/3 space-y-8 sm:w-full md:w-1/2 sm:order-last'
-const container = 'flex mb-10 sm:flex-col sm:py-2 pt-4'
+const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
+const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] self-end max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+
+const date = 'flex flex-col w-1/3 justify-between sm:mb-4 sm:px-0 sm:order-first sm:w-full sm:items-center sm:space-y-6 '
+const location ='flex flex-col w-1/3 items-center space-y-2 sm:mb-4 sm:px-0 sm:order-last sm:w-full sm:space-y-3 sm:max-w-[426px] sm:items-start sm:mt-10'
+const container = 'flex relative w-full sm:flex-col sm:items-center sm:space-y-10'

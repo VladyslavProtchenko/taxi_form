@@ -15,7 +15,8 @@ const CustomSelect= ({ onChange, source, placeholder, width}:SelectProps) => {
 
     return (
         <Select
-            defaultValue={placeholder}
+            
+            placeholder={placeholder}
             style={{ width , height: 30}}
             onChange={onChange}
             options={source.map(item=>(

@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import Input from '../../../UI/components/Input';
 import PhoneNumberInput from '../../../UI/components/PhoneInput';
 import MailInput from '../../../UI/components/MailInput';
-import Select from '../../../UI/components/Select';
 import { useInfo } from '../../../Store/useInfo';
-
+import { Input, Select } from 'antd';
+import { BsPeople } from "react-icons/bs";
+import Required from '../../../UI/components/Required';
 
 
 const InfoSection = () => {
     const { user, setName, setGender, setEmail, setPhone,setExtraGender1, setExtraGender2, setExtraName1,setExtraName2, setExtraPhone1, setExtraPhone2, setExtraEmail1, setExtraEmail2, } = useInfo()
-
+    const [isName, setIsName] = useState(0)
+    console.log(isName)
     const [isExtraNameOpen, setIsExtraNameOpen] = useState({
         1:false,
         2:false,
@@ -29,32 +30,45 @@ const InfoSection = () => {
             <div className={content}>
                 
                 <div className={extraContainer}>
-                    <div className={extraCard}>
-                        <div className={label}>
-                            <div className={labelTitle}>gender</div>
-                            <Select width={100} subStyle='sm:left-0 md:left-0' source={user.genderList}  onChange={setGender} placeholder='Mr.' />
-                        </div>
-                        
-                        <div className={label}>
-                            <div className={labelTitle}>name</div>
-                            <Input width={200} onChange={setName} placeholder='Your name' />
-                        </div>
+                    <div className='nameCard'>
+                        <Required />
+                        <span className='icon'><BsPeople/></span>
+                        <Select
+                            placeholder='title'
+                            style={{width: 118, height: 30}}
+                            onChange={setGender}
+                            options={user.genderList.map(item=>({value: item, label: item }))}
+                        />
+                        <Input onBlur={()=>{if(user.name.length < 3) { setIsName(1) } else {setIsName(2) }}} placeholder='Name'onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{if(user.name.length < 2) {setIsName(1)} else { setIsName(2) }setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30}}/>
                     </div>
 
                     {isExtraNameOpen[1] && 
-                    <div className={extraCard}>    
-                        <Select width={100}  source={user.genderList} onChange={setExtraGender1} placeholder='Mr.' />
-                        <Input width={200}  onChange={setExtraName1}  placeholder='Second name' />
-                        <div 
-                            className={extraNameClose}
-                            onClick={()=>{ setIsExtraNameOpen({ ...isExtraNameOpen, 1: false }) }}
-                        >-</div>
+                    <div className='nameCard'>
+                        <span className='icon'><BsPeople/></span>
+                        <Select
+                            placeholder='title'
+                            style={{width: 118, height: 30}}
+                            onChange={setExtraGender1}
+                            options={user.genderList.map(item=>({value: item, label: item }))}
+                        /> 
+                        <Input placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 0, height: 30}}/>
+                        <button className={extraNameClose} onClick={()=>{ setIsExtraNameOpen({ ...isExtraNameOpen, 1: false }) }}>-</button>
                     </div>}
 
                     {isExtraNameOpen[2] &&  
-                    <div className={extraCard}>
-                        <Select width={100} source={user.genderList} onChange={setExtraGender2}  placeholder='Mr.' />
-                        <Input width={200} onChange={setExtraName2}  placeholder='Third name' />
+                    <div className='nameCard'>
+                        <span className='icon'><BsPeople/></span>
+                        <Select
+                            placeholder='title'
+                            style={{width: 118, height: 30}}
+                            onChange={setExtraGender2}
+                            options={user.genderList.map(item=>({value: item, label: item }))}
+                        /> 
+                        <Input 
+                            placeholder='Third name'
+                            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName2(e.target.value)}
+                            style={{width:200, borderRadius: 0, height: 30}}
+                        />
                         <div 
                             className={extraNameClose} 
                             onClick={()=>{ setIsExtraNameOpen({ ...isExtraNameOpen, 2: false }) }}
@@ -68,17 +82,12 @@ const InfoSection = () => {
                     }}>
                         <span className={addButton}>+</span> add name
                     </div>}
-
                 </div>
 
                 <div className={extraContainer+ ' md:order-last'}>
                     <div className={extraCard}>
-                    <div className={label}>
-                        <div className={labelTitle}>email</div>
+                        <Required />
                         <MailInput value={user.email} onChange={setEmail} placeholder='Set second email'/>
-                    </div>
-                        
-
                     </div>
 
                     {isExtraEmailOpen[1] && 
@@ -111,11 +120,8 @@ const InfoSection = () => {
 
                 <div className={extraContainer}>
                     <div className={extraCard}>
-                        <div className={label}>
-                            <div className={labelTitle}>phone</div>
-                            <PhoneNumberInput value={user.phone} onChange={setPhone}/>
-                        </div>
-                        
+                        <Required />
+                        <PhoneNumberInput value={user.phone} onChange={setPhone}/>
                     </div>
 
                     {isExtraPhoneOpen[1] && 
@@ -138,11 +144,10 @@ const InfoSection = () => {
 
                     
                     {(!isExtraPhoneOpen[2] || !isExtraPhoneOpen[1] ) && <div className={addExtraBtn} onClick={()=>{
-                        if(!isExtraPhoneOpen[1]) return setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: true })
-                        if(!isExtraPhoneOpen[2]) return setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: true })
+                            if(!isExtraPhoneOpen[1]) return setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: true })
+                            if(!isExtraPhoneOpen[2]) return setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: true })
                     }}>
-                        <span className={addButton}>+</span> add name
-                    </div>}
+                    <span className={addButton}>+</span> add phone</div>}
 
                 </div>
             </div>
@@ -152,19 +157,17 @@ const InfoSection = () => {
 
 export default InfoSection;
 
-const addButton ='px-1 bg-green-400 border border-black rounded-full text-gray-500 border-gray-500  font-bold'
-const addExtraBtn = 'text-xs cursor-pointer ml-3 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
 
-const label = 'flex flex-col relative'
-const labelTitle = 'font-semibold text-sm pl-2'
+const addButton ='px-1 bg-green-400 border border-black rounded-full text-gray-500 border-gray-500 font-bold'
+const addExtraBtn = 'text-xs cursor-pointer self-center text-gray-400 hover:text-black duration-500 w-[350px]'
 
-const extraNameClose = "absolute w-4 h-4 flex items-center justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black  left-[302px]"
-const extraEmailClose = "absolute w-4 h-4 flex items-center justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black  left-[305px]"
-const extraPhoneClose = "absolute w-4 h-4 flex items-center justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black sm:right-0 left-[335px] md:left-[335px]"
+const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border cursor-pointer font-bold text-black  left-[350px]"
+const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black  left-[353px]"
+const extraPhoneClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black left-[353px]"
 
 const extraCard = ' flex relative items-center'
-const extraContainer = 'flex flex-col w-1/3 space-y-5 sm:w-full sm:mb-10 md:w-1/2 md:mb-8'
+const extraContainer = 'flex flex-col w-1/3 sm:w-full items-center space-y-2'
 
 const header = 'text-xl mb-8 sm:text-center'
-const content ='flex justify-between md:flex-wrap sm:max-w-[320px] sm:items-center sm:flex-col'
-const section = 'flex flex-col w-full mb-8 p-8 sm:py-8 sm:px-1 border-b border-gray-300 sm:w-[320px] lg:w-[1024px] xl:w-[1024px] 2xl:w-[1024px] sm:border-none sm:m-0'
+const content ='flex justify-between sm:items-center sm:flex-col sm:space-y-8 '
+const section = 'flex flex-col w-full p-8 border-b border-gray-300 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 '
