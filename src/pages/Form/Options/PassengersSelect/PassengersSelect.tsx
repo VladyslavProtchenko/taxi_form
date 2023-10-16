@@ -38,7 +38,9 @@ const PassengersSelect = () => {
             </div>
             <ul className={content}>
                 <div className={subItem}>
-                    <label className={label}><IoPeopleOutline className='w-7 h-7'/></label>
+                    <label className={label}><IoPeopleOutline className='w-7 h-7'/>
+                    <span className='ml-2 text-gray-400'>Adults</span>
+                    </label>
                     <div className={bagCount}>
                         <div 
                             className={qntMinus} 
@@ -61,6 +63,7 @@ const PassengersSelect = () => {
 
                 <div className={subItem} >
                     <span className={kidsIcon}></span>
+                    <span className='ml-2 text-gray-400 mr-auto pt-1'>Kids</span>
                     <div className={bagCount}>
                         <div 
                             className={qntMinus} 
@@ -122,7 +125,10 @@ const PassengersSelect = () => {
                 </div>}
                 
                 <div className={subItem}>
-                    <span className={label}><LiaBabyCarriageSolid className='w-7 h-7'/></span>
+                    <span className={label}>
+                        <LiaBabyCarriageSolid className='w-7 h-7'/>
+                        <span className='ml-2 text-gray-400 mr-auto pt-1'>Kids</span>
+                    </span>
                     <div className={bagCount}>
                         <div 
                             className={qntMinus} 
@@ -161,7 +167,7 @@ const extraFee =' flex px-4 py-2  justify-between '
 const childrenCard = 'flex border px-3  py-3 border-gray-400 shadow rounded mb-1 items-center justify-between '
 const kidsContainer = 'flex flex-col py-2'
 
-const label = 'flex space-x-1'
+const label = 'flex items-center'
 const bagCount ='flex space-x-2 items-center'
 
 const count = ' text-xl px-2'
@@ -169,7 +175,7 @@ const qntPlus = 'flex h-6 w-6 items-center justify-center cursor-pointer  font-b
 const qntMinus = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  bg-red-500 active:bg-red-600 border border-black rounded-full' 
 const qntKids = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  border border-black rounded-full' 
 
-const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] scale-[130%]'
+const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[130%]'
 const subItem = 'relative flex px-4 py-2 justify-between cursor-pointer'
 const content = 'flex flex-col pb-2 bg-white px-4'
 

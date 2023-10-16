@@ -2,8 +2,8 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'
 import { useEffect, useState } from 'react';
 import { IoPhonePortraitOutline } from "react-icons/io5";
-import { AiOutlineHome } from "react-icons/ai";
-import { GiModernCity } from "react-icons/gi";
+import { BsTelephone } from "react-icons/bs";
+import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 
 
@@ -254,11 +254,11 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)}>
-                {phoneType === 1 ? <IoPhonePortraitOutline /> : phoneType === 2 ? <AiOutlineHome /> : <GiModernCity />}
+                {phoneType === 1 ? <IoPhonePortraitOutline /> : phoneType === 2 ? <BsTelephone /> : <SlEarphonesAlt />}
                 {isOpen && <div className={subLabel}>
                     {phoneType !== 1 && <div className={subItem} onClick={()=>setPhoneType(1)}><IoPhonePortraitOutline /></div>}
-                    {phoneType !== 2 && <div className={subItem} onClick={()=>setPhoneType(2)}><AiOutlineHome /></div>}
-                    {phoneType !== 3 && <div className={subItem} onClick={()=>setPhoneType(3)}><GiModernCity /></div>}
+                    {phoneType !== 2 && <div className={subItem} onClick={()=>setPhoneType(2)}><BsTelephone /></div>}
+                    {phoneType !== 3 && <div className={subItem} onClick={()=>setPhoneType(3)}><SlEarphonesAlt /></div>}
                 </div>}
             </div>
 

@@ -83,17 +83,15 @@ const Form = () => {
                 {<Steps />} 
             </div>
             
-            <div className="sm:hidden flex flex-col w-full items-center">
+            <div className="sm:hidden flex flex-col items-center">
                 <InfoSection />
                 <AddressSection />
                 <OptionsSection />
                 <PaymentSection />
             </div>
-            {/* <div className={button} onClick={sendOrder}>
-                order now! 
-            </div>
 
-            <div className="flex text-xs text-gray-400 space-x-5 flex-wrap max-w-[1024px] sm:max-w-[576px]">
+
+            {/* <div className="flex text-xs text-gray-400 space-x-5 flex-wrap max-w-[1024px] sm:max-w-[576px]">
 
                 <span>gender: { user.gender}</span>
                 <span>extra gender: {user.extraGender1}</span>
@@ -165,12 +163,11 @@ const Form = () => {
                 <span>pets: {options.pets[1].isActive && options.pets[1].title} </span>
                 <span>pets: {options.pets[2].isActive && options.pets[2].title} </span>
                 <span>pets: {options.pets[3].isActive && options.pets[3].title} </span>
-            </div> */}
+            </div>  */}
         </div>
     );
 };
 
 export default Form;
 
-// const button = ' px-2 py-1 bg-rose-500  self-center cursor-pointer active:bg-rose-400'
-const container = 'pb-16 flex w-full flex-col border-x min-h-screen bg-white sm:max-width-[767px] sm:border-none w-full sm:px-2 sm:items-center'
+const container = 'flex pb-16 flex-col w-full bg-white sm:max-width-[767px] sm:border-none sm:px-2 sm:items-center'

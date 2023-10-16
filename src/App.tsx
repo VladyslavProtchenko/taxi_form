@@ -11,4 +11,4 @@ function App() {
 
 export default App
 
-const container = 'flex w-full min-h-screen justify-center items-start bg-yellow-100'
+const container = 'flex w-screen min-h-screen justify-center'

@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { useLocation } from "../../../Store/useLocation";
 import { useReturnLocation } from "../../../Store/useReturnLocation";
 
-import { PiAirplaneTakeoff,PiAirplaneLanding  } from "react-icons/pi";
+import { MdOutlineFlightLand,MdOutlineFlightTakeoff  } from "react-icons/md";
 import { GiControlTower } from "react-icons/gi";
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
@@ -204,8 +204,8 @@ const TripContent = () => {
                 <TimePicker timeNow={user.taxiNow ? dayjs().format('HH,mm') : '' } onChange={setTime} date={user.date}/>
                 <div className='short'>
                 {(user.pickUpLocation == isAirport[0] || user.pickUpLocation == isAirport[1] )
-                    ?< PiAirplaneLanding className='text-2xl ml-1'/>
-                    :<PiAirplaneTakeoff className='text-2xl ml-1'/>}
+                    ?< MdOutlineFlightLand className='text-2xl ml-1'/>
+                    :<MdOutlineFlightTakeoff className='text-2xl ml-1'/>}
                     <Input placeholder='#flight' style={{width:100, borderRadius: 0, height: 30}}
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>{
                             if(user.pickUpLocation == isAirport[0] || user.pickUpLocation == isAirport[1]){
@@ -271,6 +271,6 @@ const dateTime = 'flex justify-between sm:mb-2 sm:justify-center space-x-2 sm:it
 const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] self-end max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
 
-const date = 'flex flex-col w-1/3 justify-between sm:mb-4 sm:px-0 sm:order-first sm:w-full sm:items-center sm:space-y-3 '
-const location ='flex flex-col w-1/3 items-center space-y-2 sm:mb-4 sm:px-0 sm:order-last sm:w-full sm:space-y-3 sm:max-w-[426px] sm:items-start sm:mt-10'
-const container = 'flex relative w-full sm:flex-col pb-5 sm:items-center sm:space-y-10'
+const date = 'flex flex-col w-1/3  justify-between sm:mb-4 sm:px-0 sm:order-first sm:w-full sm:items-start sm:space-y-6 lg:w-1/2 lg:order-first lg:items-start'
+const location ='flex flex-col w-1/3 items-center space-y-2 sm:mb-4 sm:px-0 sm:order-last sm:w-full sm:space-y-3 sm:max-w-[426px] sm:items-start sm:mt-10 lg:w-1/2 lg:mt-6 lg:items-start'
+const container = 'flex relative w-full sm:flex-col sm:items-center sm:space-y-10 lg:flex-col lg:items-start lg:space-y-10'

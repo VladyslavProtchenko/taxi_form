@@ -29,7 +29,7 @@ const InfoSection = () => {
             <div className={header}>Personal info</div>
             <div className={content}>
                 
-                <div className={extraContainer}>
+                <div className={extraContainer }>
                     <div className='nameCard'>
                         <Required />
                         <span className='icon'><BsPeople/></span>
@@ -84,7 +84,7 @@ const InfoSection = () => {
                     </div>}
                 </div>
 
-                <div className={extraContainer+ ' md:order-last'}>
+                <div className={extraContainer}>
                     <div className={extraCard}>
                         <Required />
                         <MailInput value={user.email} onChange={setEmail} placeholder='Set second email'/>
@@ -118,7 +118,7 @@ const InfoSection = () => {
 
                 </div>
 
-                <div className={extraContainer}>
+                <div className={extraContainer + ' lg:w-1/2'}>
                     <div className={extraCard}>
                         <Required />
                         <PhoneNumberInput value={user.phone} onChange={setPhone}/>
@@ -166,8 +166,8 @@ const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded
 const extraPhoneClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black left-[353px]"
 
 const extraCard = ' flex relative items-center'
-const extraContainer = 'flex flex-col w-1/3 sm:w-full items-center space-y-2'
+const extraContainer = 'flex flex-col w-1/3 sm:w-full items-center space-y-2 lg:w-1/2 '
 
-const header = 'text-xl mb-8 sm:text-center'
-const content ='flex justify-between sm:items-center sm:flex-col sm:space-y-8 '
-const section = 'flex flex-col w-full p-8 border-b border-gray-300 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 '
+const header = 'text-xl mb-8 sm:text-center lg:text-center'
+const content ='flex justify-between sm:items-center sm:flex-col sm:space-y-8  lg:flex-col lg:items-center lg:space-y-4'
+const section = 'flex flex-col w-full p-8 border-b border-gray-300 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:items-start'
