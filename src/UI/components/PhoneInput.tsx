@@ -5,6 +5,7 @@ import { IoPhonePortraitOutline } from "react-icons/io5";
 import { BsTelephone } from "react-icons/bs";
 import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
+import { useValidation } from '../../Store/useValidation';
 
 
 const countries = [
@@ -233,6 +234,7 @@ interface IPhone {
 }
 
 function PhoneNumberInput({ value, onChange }: IPhone) {
+    const { setIsPhone } = useValidation()
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
     const [phoneType, setPhoneType] = useState(1)
@@ -240,13 +242,17 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
 
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
+
+    useEffect(()=>{
+        setIsPhone(val === res)
+    },[val, res])
     
     useEffect(()=>{
         if(country) {
-            const find = country
-            const res = countries.find((item) => item[0].toLowerCase().includes(find.toLowerCase()))
-            if(res) setCountryCode(res[1])  
-        } else { setCountryCode('1') }
+            const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
+        console.log(res)
+            if(res) setCountryCode(res[1])
+        } 
     },[country])
 
     const filterOption = (input: string, option?: { label: string; value: string }) => 
@@ -263,9 +269,8 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
             </div>
 
             <Select
-                className={res > val ? 'error': res === val ? 'success' : 'default'}
                 showSearch
-                value={country ? country : 'Canada'}
+                placeholder='Canada'
                 style={{width:118, height: 30}}
                 onChange={setCountry}
                 filterOption={filterOption}
@@ -276,7 +281,6 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                     }
                 ))}
             />
-
             <PhoneInput
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 isValid={(value, country:any,) => {
@@ -285,6 +289,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                     setRes(res)
                     return true
                 }}
+                priority={{ca: 0, us: 1,kz: 0, ru: 1}}
                 country={'ca'}
                 value={countryCode}
                 onChange={(e, countryName:ICountry)=>{

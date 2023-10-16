@@ -23,6 +23,7 @@ interface IUser {
     extraPhone3:string;
 
     paymentMethod: string,
+    additionalText:string,
 
 }
 interface Store {
@@ -50,6 +51,7 @@ interface Store {
     setExtraPhone3:(value: string) => void;
 
     setPaymentMethod:(value: string) => void;
+    setAdditionalText:(value: string) => void;
 }
 export const useInfo = create<Store>((set) => ({
     user: {
@@ -73,7 +75,10 @@ export const useInfo = create<Store>((set) => ({
         extraPhone1:'',
         extraPhone2:'',
         extraPhone3:'',
+
+        
         paymentMethod: '',
+        additionalText:'',
     },
     
     setGender: (data) => set((state) => ({ user: {...state.user, gender: data } })),
@@ -97,5 +102,6 @@ export const useInfo = create<Store>((set) => ({
     setExtraPhone3: (name) => set(state => ({ user: {...state.user, setExtraPhone3: name }})),
 
     setPaymentMethod: (name) => set(state => ({ user: {...state.user, paymentMethod: name }})),
+    setAdditionalText: (name) => set(state => ({ user: {...state.user, additionalText: name }})),
 
 }))

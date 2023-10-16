@@ -3,12 +3,12 @@ import TripContent from "./TripContent";
 import { useReturnLocation } from "../../../Store/useReturnLocation";
 
 const AddressSection = () => {
-    const { user } = useReturnLocation()
+    const { returnTrip } = useReturnLocation()
 
     return (
         <section className={section}>
             <TripContent />
-            {user.isReturnTrip &&  <ReturnTrip />}
+            {returnTrip.isReturnTrip &&  <ReturnTrip />}
         </section>
     );
 };

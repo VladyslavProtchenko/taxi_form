@@ -3,75 +3,127 @@ import AddressSection from './Address/AddressSection';
 import OptionsSection from './Options/OptionsSection';
 import { useSteps } from '../../Store/useSteps';
 import Steps from './Steps';
-// import { useInfo } from '../../Store/useInfo';
-// import { useLocation } from '../../Store/useLocation';
-// import { useReturnLocation } from '../../Store/useReturnLocation';
-// import { useOptions } from '../../Store/useOptions';
+import { useInfo } from '../../Store/useInfo';
+import { useLocation } from '../../Store/useLocation';
+import { useReturnLocation } from '../../Store/useReturnLocation';
+import { useOptions } from '../../Store/useOptions';
 import PaymentSection from './Payment/Payment';
+import { useValidation } from '../../Store/useValidation';
+
 
 const Form = () => {
     const { store } = useSteps()
-    // const {user} = useInfo()
-    // const {user:trip} = useLocation()
-    // const {user:returnTrip} = useReturnLocation()
-    // const {options} = useOptions()
+    const {user} = useInfo()
+    const {user:trip} = useLocation()
+    const {returnTrip} = useReturnLocation()
+    const {options} = useOptions()
+    const { 
+        // validation, 
+        setIsName,
+        setIsEmail, 
+        setIsTitle,
+        setIsPhone,
+        setIsFrom,
+        setIsTo,
+        setIsDate,
+        setIsTime,
+        setIsFlight,
+        setIsDeparture,
 
-    // const sendOrder = () => {
+    } = useValidation()
 
-    //     const newOrder = {
-    //         gender: user.gender,
-    //         extraGender1: user.extraGender1,
-    //         extraGender2: user.extraGender2,
+    const sendOrder = () => {
 
-    //         name: user.name,
-    //         extraName: user.extraName1,
-    //         extraName2: user.extraName2,
+        const newOrder = {
+            gender: user.gender,
+            gender2: user.extraGender1,
+            gender3: user.extraGender2,
 
-    //         email: user.email,
-    //         extraEmail: user.extraEmail1,
-    //         extraEmail2: user.extraEmail2,
+            name: user.name,
+            name2: user.extraName1,
+            name3: user.extraName2,
 
-    //         phone: user.phone,
-    //         extraPhone: user.extraPhone1,
-    //         extraPhone2: user.extraPhone2,
 
-    //         fromLocation: trip.pickUpLocation,
-    //         to: trip.dropOffLocation,
-    //         stop1: trip.stopFirst,
-    //         stop2: trip.stopSecond,
-    //         stop3: trip.stopLast,
+            email: user.email,
+            email2: user.extraEmail1,
+            email3: user.extraEmail2,
+
+            phone: user.phone,
+            phone2: user.extraPhone1,
+            phone3: user.extraPhone2,
+
+
+            fromLocation: trip.pickUpLocation,
+            to: trip.dropOffLocation,
+            stop1: trip.stopFirst,
+            stop2: trip.stopSecond,
+            stop3: trip.stopLast,
             
-    //         date: trip.date,
-    //         time: trip.time,
+            date: trip.date,
+            time: trip.time,
 
-    //         tripType: trip.date,
-    //         departure: trip.departureSection,
-    //         flight: trip.flight,
+            flight: trip.flight,
+            bus: trip.bus,
+            train: trip.train,
 
-    //         isReturnTrip: returnTrip.isReturnTrip,
+            departure: trip.departureSection,
+            airline: trip.airline,
 
-    //         returnFromLocation: trip.pickUpLocation,
-    //         returnTo: trip.dropOffLocation,
-    //         returnStop1: trip.stopFirst,
-    //         returnStop2: trip.stopSecond,
-    //         returnStop3: trip.stopLast,
+
+            isReturnTrip: returnTrip.isReturnTrip,
+
+
+            returnFrom: returnTrip.from,
+            returnTo: returnTrip.to,
+            returnStop1: returnTrip.stop1,
+            returnStop2: returnTrip.stop2,
+            returnStop3: returnTrip.stop3,
             
-    //         returnDate: trip.date,
-    //         returnTime: trip.time,
+            returnDate: returnTrip.date,
+            returnTime: returnTrip.time,
 
-    //         returnTripType: trip.date,
-    //         returnDeparture: trip.departureSection,
-    //         returnFlight: trip.flight,
+            returnFlight: returnTrip.flight,
+            returnBus: returnTrip.bus,
+            returnTrain: returnTrip.train,
 
-    //         carType: options.carType,
-    //         passengers: options.passengers,
-    //         baggage: options.baggage,
-    //         carSeats: options.carSeats,
-    //         sport: options.sport,
-    //         pets: options.pets,
-    //     } 
-    //     console.log(newOrder)
-    // }
+            returnDeparture: returnTrip.departure,
+            returnAirline: returnTrip.airlines,
+
+            carType: options.carType,
+            passengers: options.passengers,
+            baggage: options.baggage,
+            carSeats: options.carSeats,
+            sport: options.sport,
+            pets: options.pets,
+
+            tripType: trip.date,
+            paymentMethod: user.paymentMethod,
+            notes: user.additionalText,
+        }
+
+        setIsTitle(true)
+        setIsName(true)
+        setIsEmail(true)
+        setIsPhone(true)
+
+        setIsFrom(true)
+        setIsTo(true)
+
+        setIsDate(true)
+        setIsTime(true)
+
+        setIsFlight(true)
+
+        setIsDeparture(true)
+
+        if(user.name.length < 3) return setIsName(false)
+        if(!user.gender) return setIsTitle(false)
+
+        const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if(!pattern.test(user.email)) return setIsEmail(false)
+
+        console.log(newOrder)
+    }
 
     return (
         <div  className={container}>
@@ -87,83 +139,9 @@ const Form = () => {
                 <InfoSection />
                 <AddressSection />
                 <OptionsSection />
-                <PaymentSection />
+                <PaymentSection sendOrder={sendOrder}/>
             </div>
 
-
-            {/* <div className="flex text-xs text-gray-400 space-x-5 flex-wrap max-w-[1024px] sm:max-w-[576px]">
-
-                <span>gender: { user.gender}</span>
-                <span>extra gender: {user.extraGender1}</span>
-                <span>extra gender 2: {user.extraGender2}</span>
-
-                <span>name: {user.name}</span>
-                <span>extra name: {user.extraName1}</span>
-                <span>extra name 2: {user.extraName2}</span>
-
-
-                <span>email: {user.email}</span>
-                <span>extra email: {user.extraEmail1}</span>
-                <span>extra email 2: {user.extraEmail2}</span>
-
-                <span>phone: {user.phone}</span>
-                <span>extra phone: {user.extraPhone1}</span>
-                <span>extra phone 2: {user.extraPhone2}</span>
-
-
-                <span>Pick up location: {trip.pickUpLocation}</span>
-                <span>Stop 1 location: {trip.stopFirst}</span>
-                <span>Stop 2 location: {trip.stopSecond}</span>
-                <span>Stop 3 location: {trip.stopLast}</span>
-                <span>Drop off location: {trip.dropOffLocation}</span>
-
-                <span>Date: {trip.date}</span>
-                <span>Time: {trip.time}</span>
-
-                <span>Trip type: {trip.tripType}</span>
-                <span>departure: {trip.departureSection}</span>
-                <span>flight: {trip.flight}</span>
-
-
-                <span>Return pick up location: {returnTrip.retPickUpLocation}</span>
-                <span>Return Stop 1 location: {returnTrip.retStopFirst}</span>
-                <span>Return Stop 2 location: {returnTrip.retStopSecond}</span>
-                <span>Return Stop 3 location: {returnTrip.retStopLast}</span>
-                <span>Return Drop off location: {returnTrip.retDropOffLocation}</span>
-
-                <span>Return Date: {returnTrip.retDate}</span>
-                <span>Return Time: {returnTrip.retTime}</span>
-
-                <span>Return Trip type: {returnTrip.retTripType}</span>
-                <span>Return departure: {returnTrip.retDepartureSection}</span>
-                <span>Return flight: {returnTrip.retFlight}</span>
-
-
-                <span>Car type: {options.carType}</span>
-                <span>Passengers:{options.passengers.adults + options.passengers.kids.length + options.passengers.babies}</span>
-                <span>Kids: {options.passengers.kids.length}</span>
-                <span>Babies: {options.passengers.babies}</span>
-
-                <span>Baggage: {options.baggage[0].title} : {options.baggage[0].quantity} </span>
-                <span>Baggage: {options.baggage[1].title} : {options.baggage[1].quantity} </span>
-                <span>Baggage: {options.baggage[2].title} : {options.baggage[2].quantity} </span>
-                <span>Baggage: {options.baggage[3].title} : {options.baggage[3].quantity} </span>
-
-                <span>Seats: {options.carSeats[0].title} : {options.carSeats[0].quantity} </span>
-                <span>Seats: {options.carSeats[1].title} : {options.carSeats[1].quantity} </span>
-                <span>Seats: {options.carSeats[2].title} : {options.carSeats[2].quantity} </span>
-                <span>Seats: {options.carSeats[3].title} : {options.carSeats[3].quantity} </span>
-
-                <span>sport: {options.sport[0].title} : {options.sport[0].quantity} </span>
-                <span>sport: {options.sport[1].title} : {options.sport[1].quantity} </span>
-                <span>sport: {options.sport[2].title} : {options.sport[2].quantity} </span>
-                <span>sport: {options.sport[3].title} : {options.sport[3].quantity} </span>
-
-                <span>pets: {options.pets[0].isActive && options.pets[0].title} </span>
-                <span>pets: {options.pets[1].isActive && options.pets[1].title} </span>
-                <span>pets: {options.pets[2].isActive && options.pets[2].title} </span>
-                <span>pets: {options.pets[3].isActive && options.pets[3].title} </span>
-            </div>  */}
         </div>
     );
 };

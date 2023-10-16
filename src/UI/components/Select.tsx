@@ -15,7 +15,6 @@ const CustomSelect= ({ onChange, source, placeholder, width}:SelectProps) => {
 
     return (
         <Select
-            
             placeholder={placeholder}
             style={{ width , height: 30}}
             onChange={onChange}
@@ -28,6 +27,3 @@ const CustomSelect= ({ onChange, source, placeholder, width}:SelectProps) => {
 
 
 export default CustomSelect;
-
-// const oneItem = 'cursor-pointer hover:bg-yellow-200 px-4 py-1'
-// const submenu = 'w-[200px] text-black py-1 border-[1px] border-black absolute sm:w-full sm:min-w-[200px] py-2 md:right-0 sm:right-0  shadow-xl bg-white z-20 max-h-[200px] overflow-scroll top-[106%]'

@@ -5,9 +5,13 @@ import { useLocation } from "../../../Store/useLocation";
 import { Input } from 'antd';
 const { TextArea } = Input;
 
-const PaymentSection = () => {
+interface ISendOrder {
+    sendOrder: () => void;
+  }
+
+const PaymentSection = ({sendOrder}:ISendOrder) => {
     const {user} = useStore()
-    const { setPaymentMethod} = useInfo()
+    const { setPaymentMethod, setAdditionalText } = useInfo()
     const { setTripType} = useLocation()
 
     return (
@@ -18,11 +22,13 @@ const PaymentSection = () => {
                     <Select  placeholder='Trip type' style={{ width:200 , height: 30}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
                 <span className={box}>
                     <Select placeholder='Payment method' style={{ width:200 , height: 30}}onChange={setPaymentMethod}options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
-                    <button className={btn}>Order</button>
+                    <button className={btn} onClick={sendOrder}>Order</button>
             </div>
             <div className={additional}>
                 <span className={textArea}>
-                        <TextArea rows={2} placeholder='Additional information'/></span>
+                        <TextArea rows={2} placeholder='Additional information' onChange={(e)=>{
+                            setAdditionalText(e.target.value)
+                        }}/></span>
             </div>
             {/* <div className={modal}>thank you for order</div> */}
         </section>

@@ -33,9 +33,7 @@ const PassengersSelect = () => {
 
     return (
         <div className={container} >
-            <div className='flex justify-center w-full border-t'>
-                <span className='bg-white -translate-y-1/2 px-2 text-gray-400 text-base'>Passengers</span>
-            </div>
+
             <ul className={content}>
                 <div className={subItem}>
                     <label className={label}><IoPeopleOutline className='w-7 h-7'/>

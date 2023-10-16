@@ -1,19 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js, ts,tsx,jsx}"],
+  content: ["./src/**/*.{html,js,ts,tsx,jsx}"],
   theme: {
     extend: {
       screens: {
-        'sm': {'max': '576px'},
-        'md': {'max': '768px'},
-        'lg': { 'max': '992px'},
-        'xl': {'max': '1240px'},
-        '2xl': {'max': '1400px'},
+        'sm': { 'max': '768px'},
+        'lg': {'min': '769px', 'max': '992px'},
+        'xl': {'min': '993px', 'max': '1240px'},
+        '2xl': {'min': '1241px'},
       }
     },
   },
   
   plugins: [],
 }
+
+
+
+
+
 
 

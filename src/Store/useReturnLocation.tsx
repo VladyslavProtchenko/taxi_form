@@ -2,81 +2,96 @@ import { create } from 'zustand'
 
 interface IUser {
     isReturnTrip: boolean;
+    isReturnFlight: boolean;
 
-    retPickUpLocation: string;
-    retDropOffLocation: string;
+    from: string;
+    to: string;
 
-    retStopFirst: string;
-    retStopSecond: string;
-    retStopLast: string;
+    stop1: string;
+    stop2: string;
+    stop3: string;
 
-    retDate: string;
-    retTime: string;
+    date: string;
+    time: string;
 
-    retTripType: string;
-    retDepartureSection: string;
-    retAirlines: string;
-    retFlight: string;
-    retArrivalTime: string;
+    flight: string;
+    bus: string;
+    train: string;
+
+
+    tripType: string;
+    airlines: string;
+    departure:string;
+
+    arrivalTime: string;
+
+    
 }
 interface Store {
-    user: IUser;
+    returnTrip: IUser;
     setIsReturnTrip: (value: boolean) => void;
 
-    setRetPickUpLocation: (trip:string) => void;
-    setRetDropOffLocation: (trip:string) => void;
+    setFrom: (trip:string) => void;
+    setTo: (trip:string) => void;
 
-    setRetStopFirst: (trip:string) => void;
-    setRetStopSecond: (trip:string) => void;
-    setRetStopLast: (trip:string) => void;
+    setStop1: (trip:string) => void;
+    setStop2: (trip:string) => void;
+    setStop3: (trip:string) => void;
 
-    setRetDate: (trip:string) => void;
-    setRetTime: (trip:string) => void;
+    setDate: (trip:string) => void;
+    setTime: (trip:string) => void;
 
-    setRetDepartureSection: (trip:string) => void;
-    setRetFlight: (trip:string) => void;
-    setRetTripType: (trip:string) => void;
-    setRetAirlines: (trip:string) => void;
-    setRetArrivalTime: (trip:string) => void;
+    setDeparture: (trip:string) => void;
+    setFlight: (trip:string) => void;
+    setTripType: (trip:string) => void;
+    setAirlines: (trip:string) => void;
+    setArrivalTime: (trip:string) => void;
+
+    setIsFlight: (trip:boolean) => void;
 }
 export const useReturnLocation = create<Store>((set) => ({
-    user: {
+    returnTrip: {
         isReturnTrip: false,
+        isReturnFlight: false,
 
-        retPickUpLocation: '',
-        retDropOffLocation: '',
+        from: '',
+        to: '',
 
-        retStopFirst: '',
-        retStopSecond: '',
-        retStopLast: '',
+        stop1: '',
+        stop2: '',
+        stop3: '',
 
-        retDate:'',
-        retTime: '',
+        date:'',
+        time: '',
 
-        retDepartureSection:'',
-        retFlight:'',
-        retTripType: '',
-        retArrivalTime: '',
-        retAirlines:''
+        flight:'',
+        bus:'',
+        train:'',
+        departure:'',
+        tripType: '',
+        arrivalTime: '',
+        airlines:'',
+
     },
     
 
+    setIsReturnTrip: (data) => set((state) => ({ returnTrip: {...state.returnTrip, isReturnTrip: data } })),
 
-    setIsReturnTrip: (data) => set((state) => ({ user: {...state.user, isReturnTrip: data } })),
+    setFrom: (data) => set((state) => ({ returnTrip: {...state.returnTrip, from: data } })),
+    setTo: (data) => set((state) => ({ returnTrip: {...state.returnTrip, to: data } })),
 
-    setRetPickUpLocation: (data) => set((state) => ({ user: {...state.user, retPickUpLocation: data } })),
-    setRetDropOffLocation: (data) => set((state) => ({ user: {...state.user, retDropOffLocation: data } })),
+    setStop1: (data) => set((state) => ({ returnTrip: {...state.returnTrip, stop1: data } })),
+    setStop2: (data) => set((state) => ({ returnTrip: {...state.returnTrip, stop2: data } })),
+    setStop3:  (data) => set((state) => ({ returnTrip: {...state.returnTrip, stop3: data } })),
 
-    setRetStopFirst: (data) => set((state) => ({ user: {...state.user, retStopFirst: data } })),
-    setRetStopSecond: (data) => set((state) => ({ user: {...state.user, retStopSecond: data } })),
-    setRetStopLast:  (data) => set((state) => ({ user: {...state.user, retStopLast: data } })),
+    setDate: (data) => set((state) => ({ returnTrip: {...state.returnTrip, date: data } })),
+    setTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, time: data } })),
 
-    setRetDate: (data) => set((state) => ({ user: {...state.user, retDate: data } })),
-    setRetTime: (data) => set((state) => ({ user: {...state.user, retTime: data } })),
+    setDeparture: (data) => set((state) => ({ returnTrip: {...state.returnTrip, departure: data } })),
+    setFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, flight: data } })),
+    setTripType: (data) => set((state) => ({ returnTrip: {...state.returnTrip, tripType: data } })),
+    setAirlines: (data) => set((state) => ({ returnTrip: {...state.returnTrip, airlines: data } })),
+    setArrivalTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, arrivalTime: data } })),
 
-    setRetDepartureSection: (data) => set((state) => ({ user: {...state.user, retDepartureSection: data } })),
-    setRetFlight: (data) => set((state) => ({ user: {...state.user, retFlight: data } })),
-    setRetTripType: (data) => set((state) => ({ user: {...state.user, retTripType: data } })),
-    setRetAirlines: (data) => set((state) => ({ user: {...state.user, retAirlines: data } })),
-    setRetArrivalTime: (data) => set((state) => ({ user: {...state.user, retArrivalTime: data } })),
+    setIsFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, isReturnFlight: data } })),
 }))

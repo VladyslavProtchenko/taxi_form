@@ -18,9 +18,7 @@ const PetsSelect = () => {
 
     return (
         <div className={container}>
-        <div className='flex justify-center w-full border-t'>
-            <span className='bg-white -translate-y-1/2 px-2 text-gray-400'>pets </span>
-        </div>
+
         {options.pets.filter(item=>item.isActive === true).map((item)=>(
             <div className={card} key={item.title}>
                 <div className='flex items-center space-x-2'>

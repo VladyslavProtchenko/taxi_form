@@ -5,12 +5,12 @@ import { useInfo } from '../../../Store/useInfo';
 import { Input, Select } from 'antd';
 import { BsPeople } from "react-icons/bs";
 import Required from '../../../UI/components/Required';
+import { useValidation } from '../../../Store/useValidation';
 
 
 const InfoSection = () => {
     const { user, setName, setGender, setEmail, setPhone,setExtraGender1, setExtraGender2, setExtraName1,setExtraName2, setExtraPhone1, setExtraPhone2, setExtraEmail1, setExtraEmail2, } = useInfo()
-    const [isName, setIsName] = useState(0)
-    console.log(isName)
+    const { validation } = useValidation()
     const [isExtraNameOpen, setIsExtraNameOpen] = useState({
         1:false,
         2:false,
@@ -23,14 +23,14 @@ const InfoSection = () => {
         1:false,
         2:false,
     })
-
+    console.log(validation.isName)
     return (
         <section className={section}>
-            <div className={header}>Personal info</div>
+            <div className={header}>Order info</div>
             <div className={content}>
                 
                 <div className={extraContainer }>
-                    <div className='nameCard'>
+                    <div className={ (validation.isName && validation.isTitle ) ? 'nameCard2 border': 'nameCard2 border border-red-500' }>
                         <Required />
                         <span className='icon'><BsPeople/></span>
                         <Select
@@ -39,7 +39,7 @@ const InfoSection = () => {
                             onChange={setGender}
                             options={user.genderList.map(item=>({value: item, label: item }))}
                         />
-                        <Input onBlur={()=>{if(user.name.length < 3) { setIsName(1) } else {setIsName(2) }}} placeholder='Name'onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{if(user.name.length < 2) {setIsName(1)} else { setIsName(2) }setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30}}/>
+                        <Input placeholder='Name'onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30}}/>
                     </div>
 
                     {isExtraNameOpen[1] && 
@@ -118,8 +118,8 @@ const InfoSection = () => {
 
                 </div>
 
-                <div className={extraContainer + ' lg:w-1/2'}>
-                    <div className={extraCard}>
+                <div className={extraContainer }>
+                    <div className={validation.isPhone ? extraCard: extraCard+ ' border border-red-500' } >
                         <Required />
                         <PhoneNumberInput value={user.phone} onChange={setPhone}/>
                     </div>
@@ -159,15 +159,15 @@ export default InfoSection;
 
 
 const addButton ='px-1 bg-green-400 border border-black rounded-full text-gray-500 border-gray-500 font-bold'
-const addExtraBtn = 'text-xs cursor-pointer self-center text-gray-400 hover:text-black duration-500 w-[350px]'
+const addExtraBtn = 'text-xs cursor-pointer ml-4 text-gray-400 hover:text-black duration-500 w-[350px]'
 
 const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border cursor-pointer font-bold text-black  left-[350px]"
 const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black  left-[353px]"
 const extraPhoneClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black left-[353px]"
 
 const extraCard = ' flex relative items-center'
-const extraContainer = 'flex flex-col w-1/3 sm:w-full items-center space-y-2 lg:w-1/2 '
+const extraContainer = 'flex flex-col 2xl:w-1/3 sm:w-full items-center space-y-2'
 
-const header = 'text-xl mb-8 sm:text-center lg:text-center'
-const content ='flex justify-between sm:items-center sm:flex-col sm:space-y-8  lg:flex-col lg:items-center lg:space-y-4'
-const section = 'flex flex-col w-full p-8 border-b border-gray-300 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:items-start'
+const header = 'mb-2 italic text-gray-400 uppercase sm:text-center lg:text-center'
+const content ='flex justify-between flex-wrap  sm:items-center sm:flex-col sm:space-y-8  lg:flex-col lg:items-center lg:space-y-4'
+const section = 'flex flex-col w-full px-8  pt-16 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:items-start'

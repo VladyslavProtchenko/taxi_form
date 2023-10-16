@@ -2,7 +2,7 @@ import { useReturnLocation } from '../../Store/useReturnLocation';
 import { useSteps } from '../../Store/useSteps';
 
 const Steps = () => {
-    const {  user, setIsReturnTrip } = useReturnLocation()
+    const { returnTrip, setIsReturnTrip } = useReturnLocation()
 
     const { store, setSteps } = useSteps()
 
@@ -18,7 +18,7 @@ const Steps = () => {
 
         {store.steps === 2 &&<div 
             className={returnBtn}
-            onClick={() => setIsReturnTrip(!user.isReturnTrip)}
+            onClick={() => setIsReturnTrip(!returnTrip.isReturnTrip)}
         >return trip</div>}
 
         {store.steps != 4 && <div 
