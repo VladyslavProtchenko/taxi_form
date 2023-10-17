@@ -1,7 +1,6 @@
 import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
 import DatePicker from "../../../UI/components/DatePicker";
-import Select from "../../../UI/components/Select";
 import { useStore } from "../../../Store";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import dayjs from "dayjs";
 
 import { useReturnLocation } from "../../../Store/useReturnLocation";
 import { useLocation } from "../../../Store/useLocation";
-import { Input } from "antd";
+import { Input, Select } from "antd";
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { MdOutlineFlightLand,MdOutlineFlightTakeoff  } from "react-icons/md";
@@ -17,6 +16,7 @@ import { GiControlTower } from "react-icons/gi";
 import { FaBus,FaTrain } from "react-icons/fa";
 
 import Required from "../../../UI/components/Required";
+import { useValidation } from "../../../Store/useValidation";
 
 
 
@@ -24,12 +24,10 @@ const TripContent = () => {
     const { returnTrip, setFrom, setTo, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setFlight,setAirlines,setIsFlight } = useReturnLocation()
     const { user: mainUser } = useLocation()
     const { user: userStore } = useStore()
+    const { validation, setIsMontrealBack, setIsMontrealPickBack } =useValidation()
 
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
-
-    const [isFrom, setIsFrom] = useState(0)
-    const [isTo, setIsTo] = useState(0)
 
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
@@ -65,53 +63,77 @@ const TripContent = () => {
 
     },[mainUser.stopFirst, mainUser.stopSecond, mainUser.stopLast])
 
-    useEffect(() =>{
-        if(returnTrip.from)setIsFrom(2)
-        if(returnTrip.to) setIsTo(2)
-    },[returnTrip.from, returnTrip.to ])
+    useEffect(()=>{
+        //if montreal airport is pick up location  we need require departure and flight.
+        //if if montreal airport is pick up location we need just show departure and flight.
+        //if just airport we need show flight number
+        if(returnTrip.from.toLowerCase().includes('yul')
+            || returnTrip.from.toLowerCase().includes('montréal airport') 
+            || returnTrip.from.toLowerCase().includes(isAirport[0].toLowerCase())
+            || returnTrip.from.toLowerCase().includes(isAirport[1].toLowerCase())
+            || returnTrip.from.toLowerCase().includes(isAirport[2].toLowerCase())
+            || returnTrip.to.toLowerCase().includes('montréal airport') 
+            || returnTrip.to.toLowerCase().includes('yul') 
+            || returnTrip.to.toLowerCase().includes(isAirport[0].toLowerCase())
+            || returnTrip.to.toLowerCase().includes(isAirport[1].toLowerCase())
+            || returnTrip.to.toLowerCase().includes(isAirport[2].toLowerCase())
+        ){ 
+            setIsMontrealBack(true)
+        } else { 
+            setIsMontrealBack(false) 
+        }
 
+        if(returnTrip.from.toLowerCase().includes('yul')
+            || returnTrip.from.toLowerCase().includes('montréal airport') 
+            || returnTrip.from.toLowerCase().includes(isAirport[0].toLowerCase())
+            || returnTrip.from.toLowerCase().includes(isAirport[1].toLowerCase())
+            || returnTrip.from.toLowerCase().includes(isAirport[2].toLowerCase())
+        ) {
+            setIsMontrealPickBack(true)
+            setIsFlight(true)
+        }else{
+            setIsFlight(false)
+            setIsMontrealPickBack(false)
+        }
+
+    },[returnTrip.from, returnTrip.to])
 
     return (
     <div className={container}>
         <div className={location}>
-            <div className={extraCard}>
+            <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
                 <Required />
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon text-green-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     defaultLocation={
                         returnTrip.from
-                        ?  returnTrip.from
-                        : mainUser.pickUpLocation 
-                        ? mainUser.pickUpLocation
+                        ? returnTrip.from
+                        : mainUser.dropOffLocation 
+                        ? mainUser.dropOffLocation
                         : ''
-                    }
-                    style={isFrom === 1 ? ' error': isFrom === 2 ? 'success' : 'default' + 'w-[200px] ' } 
-                    onBlur={()=> {
-                        if(returnTrip.from){
-                            setIsFrom(2)
-                        } else {
-                            setIsFrom(1)
-                        }}
                     }
                     onChange={setFrom}
                     placeholder='Pick up location'
                 />
-                <Select 
-                    width={100}
-                    placeholder='favorites'
-                    source={
-                        userStore.defaultLocations.filter(item => !item.includes(returnTrip.to)).length > 0 
-                        ? userStore.defaultLocations.filter(item => !item.includes(returnTrip.to))
-                        : userStore.defaultLocations
-                        } 
-                    value={''} 
+
+                <Select
+                    placeholder='favorite'
+                    style={{ width:200 , height: 30}}
+                    className='favorite truncate pl-6'
                     onChange={setFrom}
+                    options={
+                        (userStore.defaultLocations.filter(item => !item.includes(returnTrip.to)).length > 0 
+                        ? userStore.defaultLocations.filter(item => !item.includes(returnTrip.to))
+                        : userStore.defaultLocations).map(item=>(
+                            {value: item, label: item}
+                        ))
+                    }
                 />
             </div>
 
             {stop.first  &&
             <div className={extraCardStop}> 
-                    <span className='icon'><SlLocationPin/></span> 
+                    <span className='icon text-orange-400'><SlLocationPin/></span> 
                     <GoogleAddressInput
                         style='w-[200px]'
                         defaultLocation={
@@ -141,7 +163,7 @@ const TripContent = () => {
 
             {stop.second  && 
             <div className={extraCardStop}>
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-[200px]'
                     defaultLocation={
@@ -171,7 +193,7 @@ const TripContent = () => {
 
             {stop.last  &&
             <div className={extraCardStop}>
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-[200px]'
                     defaultLocation={
@@ -203,9 +225,9 @@ const TripContent = () => {
                 <span className={addCircle}>+</span>add stop
                 </div>}
 
-            <div className={extraCard}>
+            <div className={validation.isBackTo ? extraCard : extraCard +' border-red-500'}>
                 <Required />
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon text-red-500'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     defaultLocation={
                         returnTrip.to
@@ -214,33 +236,29 @@ const TripContent = () => {
                         ? mainUser.pickUpLocation 
                         : ''
                     } 
-                    style={isTo === 1 ? ' error': isTo === 2 ? 'success' : 'default' + 'w-[200px] ' } 
-                    onBlur={()=> {
-                        if(returnTrip.to){
-                            setIsTo(2)
-                        } else {
-                            setIsTo(1)
-                        }}
-                    }
+                    style={'w-[200px] '} 
                     onChange={setTo}
                     placeholder='Drop off location'
                 />
                 <Select 
-                    width={100}
-                    placeholder='favorites' 
-                    source={
-                        userStore.defaultLocations.filter(item => !item.includes(returnTrip.from)).length > 0
-                        ? userStore.defaultLocations.filter(item => !item.includes(returnTrip.from))
-                        : userStore.defaultLocations}
-                    value={''} 
+                    placeholder='favorite'
+                    style={{ width:200 , height: 30}}
+                    className='favorite truncate pl-6'
                     onChange={setTo}
+                    options={
+                        (userStore.defaultLocations.filter(item => !item.includes(returnTrip.from)).length > 0
+                        ? userStore.defaultLocations.filter(item => !item.includes(returnTrip.from))
+                        : userStore.defaultLocations).map(item=>(
+                            {value: item, label: item}
+                        ))
+                    }
                 />
             </div>
         </div>
 
         <div className={date}>
             <div className={dateTime}>
-                <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <Required />
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {returnTrip.date ? <span >
@@ -269,9 +287,20 @@ const TripContent = () => {
                 <TimePicker onChange={setTime} date={returnTrip.time}/>
 
                 {returnTrip.isReturnFlight 
-                ?<div className='short'>
+                ?<div 
+                    className={
+                        !mainUser.isFlight ? 'short opacity-50 border'
+                        : !validation.isMontrealPick 
+                        ? 'short border'
+                        : returnTrip.flight.length < 3 
+                        ? 'short + border-red-500 border' 
+                        : 'short border'  
+                    }
+                >
                     {(returnTrip.to.toLowerCase().includes('airport'))
                         ?<MdOutlineFlightTakeoff className='text-2xl ml-1'/>
+                        :(returnTrip.from.toLowerCase().includes('airport'))
+                        ?< MdOutlineFlightLand className='text-2xl ml-1'/>  
                         :(returnTrip.to.toLowerCase().includes('bus'))
                         ? <FaBus className='text-xl ml-1'/>
                         :(returnTrip.to.toLowerCase().includes('train'))
@@ -288,7 +317,7 @@ const TripContent = () => {
                             : ''
                         }
                     </div>
-                    <Input placeholder='#flight' style={{width:100, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                    <Input placeholder='#' style={{width:100, borderRadius: 0, height: 30, paddingLeft:0}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
                 </div>
                 : <div className="min-w-[110px] h-[32px]"></div>
                 }
@@ -300,22 +329,12 @@ const TripContent = () => {
                 </div>
             </div>
 
-            {(returnTrip.from.toLowerCase().includes('yul')
-                || returnTrip.from.toLowerCase().includes('montréal airport') 
-                || returnTrip.from.toLowerCase().includes(isAirport[0].toLowerCase())
-                || returnTrip.from.toLowerCase().includes(isAirport[1].toLowerCase())
-                || returnTrip.from.toLowerCase().includes(isAirport[2].toLowerCase())
-                || returnTrip.to.toLowerCase().includes('montréal airport') 
-                || returnTrip.to.toLowerCase().includes('yul') 
-                || returnTrip.to.toLowerCase().includes(isAirport[0].toLowerCase())
-                || returnTrip.to.toLowerCase().includes(isAirport[1].toLowerCase())
-                || returnTrip.to.toLowerCase().includes(isAirport[2].toLowerCase())
-            ) &&   
+            {(validation.isMontrealPickBack || (validation.isFlight && validation.isMontrealBack)) &&   
             <div className={airportSection}>
                 <span className={airportContainer}>
                     <span className='icon'><GiControlTower /></span>
-                    <Select width={150} source={userStore.flights}  onChange={setAirlines} placeholder='Airlines' />
-                    <Select width={150} source={mainUser.flights}  onChange={setDeparture} placeholder='Departure' />
+                    <Select placeholder='Airlines' style={{ width:'50%' , height: 30}}onChange={setAirlines}options={userStore.flights.map(item=>({value: item, label: item}))}/>
+                    <Select placeholder='Departure' style={{ width:'50%' , height: 30}}onChange={setDeparture}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
                 </span >
             </div>}
         </div>

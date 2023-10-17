@@ -3,25 +3,40 @@ import SportSelect from "./SportSelect/SportSelect";
 import CarSeatSelect from "./CarSeats/CarSeatsSelect";
 import PetsSelect from "./PetsSelect/PetsSelect";
 import PassengersSelect from "./PassengersSelect/PassengersSelect";
-import { IoCarSportOutline } from "react-icons/io5";
 import { useStore } from "../../../Store";
 import { useOptions } from "../../../Store/useOptions";
 import { Select } from "antd";
+import { useValidation } from "../../../Store/useValidation";
+
+import { IoCarSportOutline } from "react-icons/io5";
+import { LiaShuttleVanSolid } from "react-icons/lia";
+import { PiJeepLight } from "react-icons/pi";
+import { AiOutlineStop } from "react-icons/ai";
 
 
 const OptionsSection = () => {
 
     const {user } = useStore()
-    const { setCarType } = useOptions()
+    const { options, setCarType } = useOptions()
+    const { validation } = useValidation()
 
     return (
         <section className={section}>
-            <div className={type}>
-                <span className='icon'><IoCarSportOutline/></span>
+            <div className={validation.isCarType ? type : type + ' border-red-500'}>
+                <span className='icon'>
+                    {options.carType === 'VAN (5-7)'
+                    ? <LiaShuttleVanSolid/>
+                    :options.carType === 'SUV (max 4)'
+                    ?<PiJeepLight/>
+                    :options.carType === 'limo (disabled)'
+                    ?<AiOutlineStop/>
+                    :<IoCarSportOutline/>
+                    
+                    }
+                    </span>
                 <Select
                     placeholder='sedan (max 4)' 
-                    className='sm:w-full'
-                    style={{width:200,  height: 30}}
+                    style={{width:"100%",  height: 30}}
                     onChange={setCarType}
                     options={user.carList.map(item=>(
                         {value: item, label: item}

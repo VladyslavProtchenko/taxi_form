@@ -23,7 +23,6 @@ const InfoSection = () => {
         1:false,
         2:false,
     })
-    console.log(validation.isName)
     return (
         <section className={section}>
             <div className={header}>Order info</div>

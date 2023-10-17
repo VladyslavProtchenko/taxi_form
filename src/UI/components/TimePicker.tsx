@@ -22,7 +22,6 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, timeNow }) =>
     const [isOpen, setIsOpen] = useState(false)
     const [isTime, setIsTime] = useState(0)
 
-    
 
     useEffect(()=>{
         setHour(timeNow ? timeNow.slice(0,2) : '')
@@ -58,7 +57,7 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, timeNow }) =>
     const filteredMinutes = minutes.filter(item => item > minutesNow);
     const filteredHours = hours.filter(item => item >= hoursNow);
     return (
-        <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' success' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
+        <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
             <Required />
             <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>
             <input

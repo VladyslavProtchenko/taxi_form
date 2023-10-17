@@ -2,7 +2,7 @@ import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
 import DatePicker from "../../../UI/components/DatePicker";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useLocation } from "../../../Store/useLocation";
 import { useReturnLocation } from "../../../Store/useReturnLocation";
@@ -17,9 +17,11 @@ import { FaBus,FaTrain } from "react-icons/fa";
 import { Input, Select } from "antd";
 import Required from "../../../UI/components/Required";
 import { useStore } from "../../../Store";
+import { useValidation } from "../../../Store/useValidation";
 
 const TripContent = () => {
     const {  returnTrip, setIsReturnTrip } = useReturnLocation()
+    const { validation,setIsMontreal,setIsMontrealPick,setIsAirport, setIsReturn } = useValidation()
     const { 
         user, 
         setPickUpLocation, 
@@ -34,7 +36,9 @@ const TripContent = () => {
         setAirline,
         setTaxiNow,
         setIsFlight,
+        
     } = useLocation()
+
     const { user: info } = useStore()
 
     const [fullDate, setFullDate] = useState(dayjs())
@@ -43,14 +47,55 @@ const TripContent = () => {
     const [stop, setStop] = useState({first:false,second:false,last: false,})
     const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
 
+    useEffect(()=>{
+        //if montreal airport is pick up location  we need require departure and flight.
+        //if if montreal airport is pick up location we need just show departure and flight.
+        //if just airport we need show flight number
+        if(user.pickUpLocation.toLowerCase().includes('yul')
+            || user.pickUpLocation.toLowerCase().includes('montréal airport') 
+            || user.pickUpLocation.toLowerCase().includes(isAirport[0].toLowerCase())
+            || user.pickUpLocation.toLowerCase().includes(isAirport[1].toLowerCase())
+            || user.pickUpLocation.toLowerCase().includes(isAirport[2].toLowerCase())
+            || user.dropOffLocation.toLowerCase().includes('montréal airport') 
+            || user.dropOffLocation.toLowerCase().includes('yul') 
+            || user.dropOffLocation.toLowerCase().includes(isAirport[0].toLowerCase())
+            || user.dropOffLocation.toLowerCase().includes(isAirport[1].toLowerCase())
+            || user.dropOffLocation.toLowerCase().includes(isAirport[2].toLowerCase())
+        ){ 
+            setIsMontreal(true)
+        } else { 
+            setIsMontreal(false) 
+        }
+
+        if(user.pickUpLocation.toLowerCase().includes('yul')
+            || user.pickUpLocation.toLowerCase().includes('montréal airport') 
+            || user.pickUpLocation.toLowerCase().includes(isAirport[0].toLowerCase())
+            || user.pickUpLocation.toLowerCase().includes(isAirport[1].toLowerCase())
+            || user.pickUpLocation.toLowerCase().includes(isAirport[2].toLowerCase())
+        ) {
+            setIsMontrealPick(true)
+            setIsFlight(true)
+        }else{
+            setIsFlight(false)
+            setIsMontrealPick(false)
+        }
+        if(user.pickUpLocation.toLowerCase().includes('airport')|| user.dropOffLocation.toLowerCase().includes('airport')) {
+            setIsAirport(true)
+        } else {
+            setIsAirport(false)        
+        }
+
+
+    },[user.pickUpLocation, user.dropOffLocation])
+
     return (
     <div className={container}>
         <div className={location}>
-            <div className={extraCard}>
+            <div className={validation.isFrom ? extraCard : extraCard +' border-red-500'}>
                 <Required />
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon text-green-500'><SlLocationPin/></span>
                 <GoogleAddressInput
-                    style='w-[200px] border-r' 
+                    style='w-[200px]' 
                     defaultLocation={user.pickUpLocation ? user.pickUpLocation : ''} 
                     onChange={setPickUpLocation}
                     placeholder='Pick up location'
@@ -71,7 +116,7 @@ const TripContent = () => {
             </div>
             {stop.first && 
             <div className={extraCardStop}>
-                <span className='icon'><SlLocationPin/></span>  
+                <span className='icon text-orange-400'><SlLocationPin/></span>  
                 <GoogleAddressInput 
                     style='w-[200px]'
                     defaultLocation={''} 
@@ -89,7 +134,7 @@ const TripContent = () => {
 
             {stop.second &&  
             <div className={extraCardStop}>
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-[200px]'
                     defaultLocation={''} 
@@ -107,7 +152,7 @@ const TripContent = () => {
 
             {stop.last &&  
             <div className={extraCardStop}>
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
                     
                     style='w-[200px]'
@@ -133,12 +178,11 @@ const TripContent = () => {
                 <span className={addCircle}>+</span>add stop
             </div>}
 
-            <div className={extraCard}> 
+            <div className={validation.isTo ? extraCard : extraCard +' border-red-500'}> 
                 <Required />
-                <span className='icon'><SlLocationPin/></span>
+                <span className='icon  text-red-500'><SlLocationPin/></span>
                 <GoogleAddressInput
-                    style='w-[200px] border-r' 
-
+                    style='w-[200px]' 
                     defaultLocation={user.dropOffLocation ? user.dropOffLocation : ''} 
                     onChange={setDropOffLocation}
                     placeholder='Drop off location'
@@ -162,7 +206,7 @@ const TripContent = () => {
         
         <div className={date}>
             <div className={dateTime}>
-                <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <Required />
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
                     <span>{fullDate.format('dddd')},  
@@ -187,15 +231,26 @@ const TripContent = () => {
                     </div>}
                 </div>
                 <TimePicker timeNow={user.taxiNow ? dayjs().format('HH,mm') : '' } onChange={setTime} date={user.date}/>
-                {user.isFlight 
-                ?<div className='short'>
+                
+                <div 
+                    className={
+                        !user.isFlight ? 'short opacity-50 border'
+                        : !validation.isMontrealPick 
+                        ? 'short border'
+                        : user.flight.length < 3 
+                        ? 'short + border-red-500 border' 
+                        : 'short border'  
+                    }
+                >
                     {(user.dropOffLocation.toLowerCase().includes('airport'))
                         ?<MdOutlineFlightTakeoff className='text-2xl ml-1'/>
+                        :(user.pickUpLocation.toLowerCase().includes('airport'))
+                        ?< MdOutlineFlightLand className='text-2xl ml-1'/>
                         :(user.dropOffLocation.toLowerCase().includes('bus'))
                         ? <FaBus className='text-xl ml-1'/>
                         :(user.dropOffLocation.toLowerCase().includes('train'))
                         ? <FaTrain className='text-xl ml-1'/>
-                        :< MdOutlineFlightLand className='text-2xl ml-1'/>                  
+                        :< MdOutlineFlightLand className='text-2xl ml-1'/>               
                     }   
                     <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
                         {user.airline.toLowerCase().includes('canada') 
@@ -207,10 +262,9 @@ const TripContent = () => {
                             : ''
                         }
                     </div>
-                    <Input placeholder='#flight' style={{width:100, paddingLeft:0, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                    <Input placeholder='#number' disabled={(!user.isFlight)} style={{width:100, paddingLeft:0, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
                 </div>
-                : <div className="min-w-[110px] h-[32px]"></div>
-                }
+                
             </div>
             <div className={checkboxes}>
                 <div onClick={()=>setTaxiNow(!user.taxiNow)} className={checkCard}>
@@ -218,29 +272,23 @@ const TripContent = () => {
                     <span>Taxi now!</span>
                 </div>
 
-                <div onClick={()=>setIsFlight(!user.isFlight)} className={checkCard}>
-                    <input type="checkbox" checked={user.isFlight} className='cursor-pointer'/>
+                {(validation.isMontreal || validation.isAirport) && <div onClick={()=>{
+                        if(validation.isMontrealPick) return;
+                        setIsFlight(!user.isFlight)
+                    }} className={checkCard}>
+                    <input type="checkbox" checked={(user.isFlight)} className='cursor-pointer'/>
                     <span>set flight</span>
-                </div>
+                </div>}
             </div>
             
 
-            {(user.pickUpLocation.toLowerCase().includes('yul')
-                || user.pickUpLocation.toLowerCase().includes('montréal airport') 
-                || user.pickUpLocation.toLowerCase().includes(isAirport[0].toLowerCase())
-                || user.pickUpLocation.toLowerCase().includes(isAirport[1].toLowerCase())
-                || user.pickUpLocation.toLowerCase().includes(isAirport[2].toLowerCase())
-                || user.dropOffLocation.toLowerCase().includes('montréal airport') 
-                || user.dropOffLocation.toLowerCase().includes('yul') 
-                || user.dropOffLocation.toLowerCase().includes(isAirport[0].toLowerCase())
-                || user.dropOffLocation.toLowerCase().includes(isAirport[1].toLowerCase())
-                || user.dropOffLocation.toLowerCase().includes(isAirport[2].toLowerCase())
-            ) &&  
+            {((validation.isMontreal &&  user.isFlight) || validation.isMontrealPick) &&
             <div className={airportSection}>
-                <span className={airportContainer}>
-                    <span className='icon'><GiControlTower /></span>
+                <span className={validation.isDeparture ?  airportContainer : airportContainer + ' border-red-500' }>
+                {validation.isMontrealPick && <Required />}
+                <span className='icon'><GiControlTower /></span>
                     <Select 
-                        style={{width: 150}} 
+                        style={{width: '50%'}} 
                         options={user.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
@@ -248,7 +296,7 @@ const TripContent = () => {
                         placeholder='Airlines' 
                     />
                     <Select 
-                        style={{width: 150}} 
+                        style={{width: '50%'}} 
                         options={user.departureSections.map(item=>(
                             {value: item, label: item}
                         ))}   
@@ -259,7 +307,10 @@ const TripContent = () => {
             </div>}
         </div>
 
-        <div className={returnTrip.isReturnTrip ? front : back } onClick={()=>setIsReturnTrip(!returnTrip.isReturnTrip)}>
+        <div className={returnTrip.isReturnTrip ? front : back } onClick={()=>{
+                setIsReturnTrip(!returnTrip.isReturnTrip)
+                setIsReturn(!validation.isReturn)
+            }}>
             <h1>{!returnTrip.isReturnTrip ? ' + ' : ' - '}Return trip</h1>
         </div>
 
@@ -284,17 +335,17 @@ const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 
 
 const closeStop ="absolute w-4 h-4 -right-6 bg-red-500 ml-1 border border-black rounded-full flex justify-center cursor-pointer text-bold  items-center"
 
-const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
+const airportContainer ='flex relative w-full border sm:max-w-[380px] sm:space-between items-center sm:items-center'
 const dateInput = 'text-xs flex items-center border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full '
 
 
-const airportSection = 'flex sm:items-center sm:justify-center w-full'
-const dateTime = 'flex justify-between sm:mb-2 sm:justify-center space-x-2 sm:items-start'
+const airportSection = 'flex w-full '
+const dateTime = 'flex justify-between sm:mb-2 sm:justify-center space-x-2 '
 
 
 const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] self-end max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
 
 const date = ' flex flex-col 2xl:w-1/3 justify-between sm:mb-4 sm:px-0 sm:order-first sm:w-full sm:items-start'
-const location ='flex flex-col 2xl:w-1/3 items-center space-y-2 sm:mb-4 sm:px-0 sm:order-last sm:w-full sm:items-start sm:space-y-3 sm:max-w-[426px] sm:mt-10  lg:mt-6 lg:items-start xl:w-1/2 xl:items-start'
+const location ='flex flex-col 2xl:w-1/3 items-center space-y-2 sm:mb-4 sm:px-0 sm:order-last sm:w-full sm:items-start sm:space-y-3 sm:max-w-[426px] sm:mt-10 sm:self-start lg:mt-6 lg:items-start xl:w-1/2 xl:items-start'
 const container = 'flex relative w-full sm:flex-col  sm:space-y-10 lg:flex-col lg:items-start lg:space-y-10 sm:items-center'

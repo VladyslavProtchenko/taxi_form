@@ -2,7 +2,7 @@ import { useReturnLocation } from '../../Store/useReturnLocation';
 import { useSteps } from '../../Store/useSteps';
 
 const Steps = () => {
-    const { returnTrip, setIsReturnTrip } = useReturnLocation()
+    const {  returnTrip, setIsReturnTrip } = useReturnLocation()
 
     const { store, setSteps } = useSteps()
 

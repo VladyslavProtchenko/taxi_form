@@ -18,7 +18,7 @@ const Form = () => {
     const {returnTrip} = useReturnLocation()
     const {options} = useOptions()
     const { 
-        // validation, 
+        validation, 
         setIsName,
         setIsEmail, 
         setIsTitle,
@@ -29,7 +29,13 @@ const Form = () => {
         setIsTime,
         setIsFlight,
         setIsDeparture,
-
+        setIsBackFrom,
+        setIsBackTo,
+        setIsDateBack,
+        setIsTimeBack,
+        setIsFlightBack,
+        setIsDepartureBack,
+        setIsPayment,
     } = useValidation()
 
     const sendOrder = () => {
@@ -51,7 +57,6 @@ const Form = () => {
             phone: user.phone,
             phone2: user.extraPhone1,
             phone3: user.extraPhone2,
-
 
             fromLocation: trip.pickUpLocation,
             to: trip.dropOffLocation,
@@ -108,21 +113,65 @@ const Form = () => {
 
         setIsFrom(true)
         setIsTo(true)
-
         setIsDate(true)
         setIsTime(true)
 
         setIsFlight(true)
-
         setIsDeparture(true)
 
-        if(user.name.length < 3) return setIsName(false)
-        if(!user.gender) return setIsTitle(false)
+        setIsBackFrom(true)
+        setIsBackTo(true)
+        setIsDateBack(true)
+        setIsTimeBack(true)
 
+        setIsFlightBack(true)
+        setIsDepartureBack(true)
+
+        setIsPayment(true)
+
+        
+        if(user.name.length < 3) {
+            alert('Name required')
+            return  setIsName(false) 
+        } 
+        if(!user.gender) {
+            alert('Title required')
+            return setIsTitle(false)
+        }
         const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if(!pattern.test(user.email)) return setIsEmail(false)
+        if(!pattern.test(user.email)) {
+            alert('Email required')
+            return setIsEmail(false)  
+        }
+[]
+        if(!trip.pickUpLocation) {
+            alert('Set pick up address')
+            return setIsFrom(false)
+        }
+        if(!trip.dropOffLocation) {
+            alert('Set drop off address')
+            return setIsTo(false)
+        }
+
+        if(!trip.date) return setIsDate(false)
+        if(!trip.time) return setIsTime(false)
+        if(validation.isMontrealPick && !trip.flight) return setIsFlight(false)
+        if(validation.isMontrealPick && (!trip.departureSection || !trip.airline)) return setIsDeparture(false)
+        
+        if(validation.isReturn && !returnTrip.from) return setIsBackFrom(false)
+        if(validation.isReturn && !returnTrip.to)  return setIsBackTo(true)
+
+        if(validation.isReturn && !returnTrip.date) return setIsDateBack(false)
+        if(validation.isReturn && !returnTrip.time) return  setIsTimeBack(false)
+
+        
+        if(validation.isReturn && validation.isMontrealPickBack && !returnTrip.flight) return setIsFlightBack(false)
+        if(validation.isReturn && validation.isMontrealPickBack && (!returnTrip.departure || !returnTrip.airlines)) return setIsDepartureBack(false)
+
+        if(!user.paymentMethod) return setIsPayment(false)
 
         console.log(newOrder)
+        alert('order created')
     }
 
     return (

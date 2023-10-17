@@ -132,7 +132,6 @@ select option {
     display: flex;
     align-items: center;
     width: 110px;
-    border: 1px solid #dedede;
 }
 .shortxl {
     display: flex;

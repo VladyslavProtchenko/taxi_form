@@ -60,10 +60,10 @@ interface Store {
 export const useLocation = create<Store>((set) => ({
     user: {
         tripList:['Business (need receipt)', 'Vacation', 'Else'],
-        departureSections: ['Departure (Domestic)', 'Departure (International)', 'Departure (USA)', 'Arrival'],
+        departureSections: ['Domestic', 'International', 'USA', 'Arrival'],
         flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
 
-        isFlight: true,
+        isFlight: false,
         taxiNow: false,
 
 

@@ -3,16 +3,18 @@ import { useStore } from "../../../Store";
 import { useInfo } from "../../../Store/useInfo";
 import { useLocation } from "../../../Store/useLocation";
 import { Input } from 'antd';
+import { useValidation } from "../../../Store/useValidation";
 const { TextArea } = Input;
 
 interface ISendOrder {
     sendOrder: () => void;
-  }
+}
 
 const PaymentSection = ({sendOrder}:ISendOrder) => {
     const {user} = useStore()
     const { setPaymentMethod, setAdditionalText } = useInfo()
     const { setTripType} = useLocation()
+    const { validation } = useValidation()
 
     return (
         <section className={section}>
@@ -20,7 +22,7 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
             <div className={content}>
                 <span className={box}>
                     <Select  placeholder='Trip type' style={{ width:200 , height: 30}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
-                <span className={box}>
+                <span className={validation.isPayment ? box: box +' border-red-500'}>
                     <Select placeholder='Payment method' style={{ width:200 , height: 30}}onChange={setPaymentMethod}options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
                     <button className={btn} onClick={sendOrder}>Order</button>
             </div>

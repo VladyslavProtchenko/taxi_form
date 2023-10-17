@@ -9,6 +9,13 @@ interface IUser {
     isTo: boolean;
     isFrom: boolean;
 
+    isAirport: boolean;
+
+    isMontreal: boolean,
+    isMontrealBack: boolean,
+    isMontrealPick: boolean,
+    isMontrealPickBack: boolean,
+
     isFlight: boolean;
     isDeparture: boolean;
 
@@ -40,6 +47,12 @@ interface Store {
     setIsFrom:(value: boolean) => void;
     setIsTo:(value: boolean) => void;
 
+    setIsAirport:(value: boolean) => void;
+    setIsMontreal:(value: boolean) => void;
+    setIsMontrealBack:(value: boolean) => void;
+    setIsMontrealPick:(value: boolean) => void;
+    setIsMontrealPickBack:(value: boolean) => void;
+
     setIsFlight:(value: boolean) => void;
     setIsDeparture:(value: boolean) => void;
 
@@ -68,29 +81,37 @@ export const useValidation = create<Store>((set) => ({
         isEmail: true,
         isPhone: false,
     
-        isTo: false,
-        isFrom: false,
+        isTo: true,
+        isFrom: true,
+
+        isAirport: false,
     
+        isMontreal: false,
+        isMontrealBack: false,
+        isMontrealPick: false,
+        isMontrealPickBack: false,
+
         isFlight: false,
-        isDeparture: false,
-    
-        isDate: false,
-        isTime: false,
+        isDeparture: true,
+
+        isDate: true,
+        isTime: true,
     
         isReturn: false,
     
-        isBackTo: false,
-        isBackFrom: false,
+        isBackTo: true,
+        isBackFrom: true,
         
-        isDateBack: false,
-        isTimeBack: false,
+        isDateBack: true,
+        isTimeBack: true,
     
         
-        isFlightBack: false,
-        isDepartureBack: false,
+        isFlightBack: true,
+        isDepartureBack: true,
         
-        isCarType: false,
-        isPayment: false,
+        isCarType: true,
+        isPayment: true,
+
     },
 
     setIsTitle: (name) => set(state => ({ validation: {...state.validation, isTitle: name }})),
@@ -98,8 +119,14 @@ export const useValidation = create<Store>((set) => ({
     setIsEmail: (name) => set(state => ({ validation: {...state.validation, isEmail: name }})),
     setIsPhone: (name) => set(state => ({ validation: {...state.validation, isPhone: name }})),
 
-    setIsFrom: (name) => set(state => ({ validation: {...state.validation, isTo: name }})),
-    setIsTo: (name) => set(state => ({ validation: {...state.validation, isFrom: name }})),
+    setIsFrom: (name) => set(state => ({ validation: {...state.validation, isFrom: name }})),
+    setIsTo: (name) => set(state => ({ validation: {...state.validation, isTo: name }})),
+
+    setIsAirport: (name) => set(state => ({ validation: {...state.validation, isAirport: name }})),
+    setIsMontreal: (name) => set(state => ({ validation: {...state.validation, isMontreal: name }})),
+    setIsMontrealBack: (name) => set(state => ({ validation: {...state.validation, isMontrealBack: name }})),    
+    setIsMontrealPick: (name) => set(state => ({ validation: {...state.validation, isMontrealPick: name }})),
+    setIsMontrealPickBack: (name) => set(state => ({ validation: {...state.validation, isMontrealPickBack: name }})),
 
     setIsFlight: (name) => set(state => ({ validation: {...state.validation, isFlight: name }})),
     setIsDeparture: (name) => set(state => ({ validation: {...state.validation, isDeparture: name }})),
