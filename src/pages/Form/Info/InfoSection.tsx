@@ -38,7 +38,7 @@ const InfoSection = () => {
                             onChange={setGender}
                             options={user.genderList.map(item=>({value: item, label: item }))}
                         />
-                        <Input placeholder='Name'onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30}}/>
+                        <Input placeholder='Name'onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30, border:'none'}}/>
                     </div>
 
                     {isExtraNameOpen[1] && 
