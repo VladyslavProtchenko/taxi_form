@@ -30,7 +30,7 @@ const BagsSelect = () => {
                         <div 
                             className={qntMinus} 
                             onClick={()=>{
-                                if(item.title === options.baggage[1].title && item.quantity <= 0) return;
+                                if(item.title === options.baggage[0].title && item.quantity <= 0) return;
                                 if(item.quantity <= 0 ) return setBaggage(options.baggage.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
                                 setBaggage(options.baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}

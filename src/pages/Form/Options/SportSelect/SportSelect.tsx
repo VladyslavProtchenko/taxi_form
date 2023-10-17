@@ -36,7 +36,7 @@ const SportsSelect = () => {
                         <div 
                             className={qntMinus} 
                             onClick={()=>{
-                                if(item.title === options.sport[1].title && item.quantity <= 0) return;
+                                if(item.title === options.sport[0].title && item.quantity <= 0) return;
                                 if(item.quantity <= 0 ) return setSport(options.sport.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
                                 setSport(options.sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}

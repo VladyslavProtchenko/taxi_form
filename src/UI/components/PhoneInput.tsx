@@ -7,7 +7,6 @@ import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 import { useValidation } from '../../Store/useValidation';
 
-
 const countries = [
     ["Afghanistan", "93"],
     ["Albania", "355"],
@@ -250,9 +249,8 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
     useEffect(()=>{
         if(country) {
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
-        console.log(res)
             if(res) setCountryCode(res[1])
-        } 
+        }
     },[country])
 
     const filterOption = (input: string, option?: { label: string; value: string }) => 
@@ -270,7 +268,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
 
             <Select
                 showSearch
-                placeholder='Canada'
+                placeholder={country}
                 style={{width:118, height: 30}}
                 onChange={setCountry}
                 filterOption={filterOption}
@@ -285,6 +283,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 isValid={(value, country:any,) => {
                     const res = country.format.split(".").length-1;
+                    setCountry(country.name)
                     setVal(value.length)
                     setRes(res)
                     return true
@@ -307,5 +306,3 @@ const subItem = 'px-2 text-black hover:bg-yellow-200 px-2 py-1'
 const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer hover:bg-yellow-100'
 const subLabel = ' left-0 pb-1 z-50  bg-white border-black border-[1px] flex flex-col absolute top-[115%] items-center cursor-pointer '
 const container = 'flex border'
-
-
