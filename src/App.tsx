@@ -1,10 +1,10 @@
-import Form from "./pages/Form/Form"
+import { Outlet } from "react-router-dom"
 
 function App() {
 
   return (
     <div className={container}>
-      <Form />
+      <Outlet />
     </div>
   )
 }
