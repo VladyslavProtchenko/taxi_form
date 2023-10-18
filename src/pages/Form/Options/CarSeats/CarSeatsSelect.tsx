@@ -32,7 +32,7 @@ const CarSeatsSelect = () => {
                         <div 
                             className={qntMinus} 
                             onClick={()=>{
-                                if(item.title === options.carSeats[0].title && item.quantity <= 0) return;
+                                if(item.title === options.carSeats[0].title && item.quantity === 0) return;
                                 if(item.quantity <= 0 ) return setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
                                 setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}

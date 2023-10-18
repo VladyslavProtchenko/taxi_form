@@ -7,6 +7,7 @@ import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 import { useValidation } from '../../Store/useValidation';
 
+
 const countries = [
     ["Afghanistan", "93"],
     ["Albania", "355"],
@@ -221,7 +222,6 @@ const countries = [
 ];
 
 interface ICountry {
-    
 countryCode:string;
 dialCode:string;
 format:string;
@@ -243,13 +243,16 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
     const [res, setRes] = useState(0)
 
     useEffect(()=>{
+        if(val >=12) return setIsPhone(true)
         setIsPhone(val === res)
     },[val, res])
     
     useEffect(()=>{
         if(country) {
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
-            if(res) setCountryCode(res[1])
+            if(res) {
+                setCountryCode(res[1])
+            }
         }
     },[country])
 
@@ -271,6 +274,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                 placeholder={country}
                 style={{width:118, height: 30}}
                 onChange={setCountry}
+                value={country || 'Canada'}
                 filterOption={filterOption}
                 options={countries.map((item)=>(
                     {
@@ -283,7 +287,6 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 isValid={(value, country:any,) => {
                     const res = country.format.split(".").length-1;
-                    setCountry(country.name)
                     setVal(value.length)
                     setRes(res)
                     return true
@@ -305,4 +308,6 @@ export default PhoneNumberInput
 const subItem = 'px-2 text-black hover:bg-yellow-200 px-2 py-1'
 const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer hover:bg-yellow-100'
 const subLabel = ' left-0 pb-1 z-50  bg-white border-black border-[1px] flex flex-col absolute top-[115%] items-center cursor-pointer '
-const container = 'flex border'
+const container = 'flex '
+
+

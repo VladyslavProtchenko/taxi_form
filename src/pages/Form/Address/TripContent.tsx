@@ -154,6 +154,7 @@ const TripContent = () => {
             <div className={extraCardStop}>
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
+                    
                     style='w-[200px]'
                     defaultLocation={ ''} 
                     onChange={setStopLast}
@@ -230,6 +231,7 @@ const TripContent = () => {
                     </div>}
                 </div>
                 <TimePicker timeNow={user.taxiNow ? dayjs().format('HH,mm') : '' } onChange={setTime} date={user.date}/>
+                
                 <div 
                     className={
                         !user.isFlight ? 'short opacity-50 border'
@@ -249,7 +251,7 @@ const TripContent = () => {
                         :(user.dropOffLocation.toLowerCase().includes('train'))
                         ? <FaTrain className='text-xl ml-1'/>
                         :< MdOutlineFlightLand className='text-2xl ml-1'/>               
-                    }
+                    }   
                     <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
                         {user.airline.toLowerCase().includes('canada') 
                             ? 'AC'
@@ -260,7 +262,7 @@ const TripContent = () => {
                             : ''
                         }
                     </div>
-                    <Input placeholder='#number' disabled={(!user.isFlight)} style={{width:100, paddingLeft:0, borderRadius: 0, height: 30,border:'none'}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                    <Input placeholder='#number' disabled={(!user.isFlight)} style={{width:100, paddingLeft:0, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
                 </div>
                 
             </div>

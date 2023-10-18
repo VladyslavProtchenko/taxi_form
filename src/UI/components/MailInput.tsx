@@ -47,7 +47,7 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder }) => {
         <div className={validation.isEmail ? container : container +' border-red-500'}>
             <span className='icon'><TfiEmail/></span>
             <Input
-                style={{width: 200,fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff', border:'none' }}
+                style={{width: 200,fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
                 value={email.mail}
                 onChange={(e) => setEmail({...email, mail: e.target.value})}
                 placeholder={placeholder}

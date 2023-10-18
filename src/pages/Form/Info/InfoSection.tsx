@@ -38,7 +38,7 @@ const InfoSection = () => {
                             onChange={setGender}
                             options={user.genderList.map(item=>({value: item, label: item }))}
                         />
-                        <Input placeholder='Name'onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30, border:'none'}}/>
+                        <Input placeholder='Name'onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30}}/>
                     </div>
 
                     {isExtraNameOpen[1] && 
@@ -50,7 +50,7 @@ const InfoSection = () => {
                             onChange={setExtraGender1}
                             options={user.genderList.map(item=>({value: item, label: item }))}
                         /> 
-                        <Input placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 0, height: 30, border:'none'}}/>
+                        <Input placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 0, height: 30}}/>
                         <button className={extraNameClose} onClick={()=>{ setIsExtraNameOpen({ ...isExtraNameOpen, 1: false }) }}>-</button>
                     </div>}
 
@@ -66,7 +66,7 @@ const InfoSection = () => {
                         <Input 
                             placeholder='Third name'
                             onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName2(e.target.value)}
-                            style={{width:200, borderRadius: 0, height: 30, border:'none'}}
+                            style={{width:200, borderRadius: 0, height: 30}}
                         />
                         <div 
                             className={extraNameClose} 
@@ -118,7 +118,7 @@ const InfoSection = () => {
                 </div>
 
                 <div className={extraContainer }>
-                    <div className={validation.isPhone ? extraCard: extraCard+ ' border border-red-500' } >
+                    <div className={validation.isPhone ? extraCard+' border': extraCard + ' border border-red-500' } >
                         <Required />
                         <PhoneNumberInput value={user.phone} onChange={setPhone}/>
                     </div>
