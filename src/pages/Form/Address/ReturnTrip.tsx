@@ -317,7 +317,7 @@ const TripContent = () => {
                             : ''
                         }
                     </div>
-                    <Input placeholder='#' style={{width:100, borderRadius: 0, height: 30, paddingLeft:0}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                    <Input placeholder='number' style={{width:100, borderRadius: 0, height: 30, paddingLeft:0, border: 'none'}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
                 </div>
                 : <div className="min-w-[110px] h-[32px]"></div>
                 }

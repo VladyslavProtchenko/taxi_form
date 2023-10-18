@@ -28,7 +28,7 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
             </div>
             <div className={additional}>
                 <span className={textArea}>
-                        <TextArea rows={2} style={{borderRadius: 10,resize: 'none'}} placeholder='Additional information' onChange={(e)=>{
+                        <TextArea rows={2} style={{borderRadius: 5, resize: 'none', border: 'none'}} placeholder='Additional information' onChange={(e)=>{
                             setAdditionalText(e.target.value)
                         }}/></span>
             </div>
