@@ -90,178 +90,69 @@ const TripContent = () => {
 
     return (
     <div className={container}>
-        <div className={location}>
-            <div className={validation.isFrom ? extraCard : extraCard +' border-red-500'}>
-                <span className='icon text-green-500'><SlLocationPin/></span>
-                <GoogleAddressInput
-                    style='w-[200px]' 
-                    defaultLocation={user.pickUpLocation || ''} 
-                    onChange={setPickUpLocation}
-                    placeholder='Pick up location'
-                />
-                <Select
-                    placeholder='favorite locations'
-                    style={{ width:200 , height: 30}}
-                    className='favorite pl-6 truncate'
-                    onChange={setPickUpLocation}
-                    options={(
-                        info.defaultLocations.filter(item => !item.includes(user.dropOffLocation)).length > 0 
-                        ? info.defaultLocations.filter(item => !item.includes(user.dropOffLocation))
-                        : info.defaultLocations
-                    ).map(item=>(
-                        {value: item, label: item}
-                    ))}
-                />
+
+        <div className={dateTime}>
+            <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                <span className='icon text-xl'><PiCalendarCheckLight/></span>
+                <span>{fullDate.format('dddd')},  
+                {'  '+fullDate.format('MMM')}
+                {'.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
+                                            ? 'st'
+                                            :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
+                                            ?  'nd'
+                                            :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
+                                            ? 'rd'
+                                            : 'th'
+                                        }
+                {' '+fullDate.format('YYYY')}</span>
+                {isDateOpen && <div className={dateTimeSubmenu}>
+                    <DatePicker time={user.time} onChange={setDate} getFullDate={setFullDate}/>
+                    <div className="flex justify-between pl-8">
+                        <div className={setDateBtn} onClick={(e)=> {
+                                e.stopPropagation();
+                                setIsDateOpen(false)
+                            }}>accept</div>
+                    </div>
+                </div>}
             </div>
-            {stop.first && 
-            <div className={extraCardStop}>
-                <span className='icon text-orange-400'><SlLocationPin/></span>  
-                <GoogleAddressInput
-                    style='w-[200px]'
-                    defaultLocation={user.stopFirst || ''} 
-                    onChange={setStopFirst}
-                    placeholder='Stop'
-                />
-                <div 
-                    className={closeStop} 
-                    onClick={()=>{ 
-                        setStopFirst('')
-                        setStop({ ...stop, first: false }) 
-                    }}
-                >-</div>
-            </div>}
-
-            {stop.second &&  
-            <div className={extraCardStop}>
-                <span className='icon  text-orange-400'><SlLocationPin/></span>
-                <GoogleAddressInput 
-                    defaultLocation={user.stopSecond || ''} 
-                    style='w-[200px]'
-                    onChange={setStopSecond}
-                    placeholder='Second stop'
-                />
-                <div 
-                    className={closeStop}  
-                    onClick={()=>{ 
-                        setStopSecond('')
-                        setStop({ ...stop, second: false }) 
-                    }}
-                >-</div> 
-            </div>}
-
-            {stop.last &&  
-            <div className={extraCardStop}>
-                <span className='icon  text-orange-400'><SlLocationPin/></span>
-                <GoogleAddressInput
-                    style='w-[200px]'
-                    defaultLocation={user.stopLast || ''} 
-                    onChange={setStopLast}
-                    placeholder='Last stop'
-                />
-                <div 
-                    className={closeStop}  
-                    onClick={()=>{ 
-                        setStopLast('')
-                        setStop({ ...stop, last: false }) 
-                    }}
-                >-</div> 
-            </div>}
-
-            {(!stop.first || !stop.second || !stop.last) 
-            && <div className={addExtraBtn} onClick={()=>{
-                if(!stop.first) return setStop({ ...stop, first: true })
-                if(!stop.second) return setStop({ ...stop, second: true })
-                if(!stop.last) return setStop({ ...stop, last: true })
-            }}>
-                <span className={addCircle}>+</span>add stop
-            </div>}
-
-            <div className={validation.isTo ? extraCard : extraCard +' border-red-500'}> 
-                <span className='icon  text-red-500'><SlLocationPin/></span>
-                <GoogleAddressInput
-                    style='w-[200px]' 
-                    defaultLocation={user.dropOffLocation || ''} 
-                    onChange={setDropOffLocation}
-                    placeholder='Drop off location'
-                />
-
-                <Select
-                    placeholder='favorite locations'
-                    style={{ width:200 , height: 30}}
-                    className='favorite truncate pl-6'
-                    onChange={setDropOffLocation}
-                    options={
-                        (info.defaultLocations.filter(item => !item.includes(user.pickUpLocation)).length > 0
-                        ? info.defaultLocations.filter(item => !item.includes(user.pickUpLocation))
-                        : info.defaultLocations).map(item=>(
-                            {value: item, label: item}
-                        ))
+            <TimePicker timeNow={user.taxiNow ? dayjs().format('HH,mm') : '' } onChange={setTime} date={user.date}/>
+            
+            <div 
+                className={
+                    !user.isFlight ? 'short opacity-50 border'
+                    : !validation.isMontrealPick 
+                    ? 'short border'
+                    : user.flight.length < 3 
+                    ? 'short + border-red-500 border' 
+                    : 'short border'  
+                }
+            >
+                {(user.dropOffLocation.toLowerCase().includes('airport'))
+                    ?<MdOutlineFlightTakeoff className='text-2xl ml-1'/>
+                    :(user.pickUpLocation.toLowerCase().includes('airport'))
+                    ?< MdOutlineFlightLand className='text-2xl ml-1'/>
+                    :(user.dropOffLocation.toLowerCase().includes('bus'))
+                    ? <FaBus className='text-xl ml-1'/>
+                    :(user.dropOffLocation.toLowerCase().includes('train'))
+                    ? <FaTrain className='text-xl ml-1'/>
+                    :< MdOutlineFlightLand className='text-2xl ml-1'/>               
+                }   
+                <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                    {user.airline.toLowerCase().includes('canada') 
+                        ? 'AC'
+                        : user.airline.toLowerCase().includes('transat') 
+                        ? 'TC'
+                        : user.airline.toLowerCase().includes('quatar') 
+                        ? 'QR'
+                        : ''
                     }
-                />
+                </div>
+                <Input placeholder='#' disabled={(!user.isFlight)} style={{width:100, paddingLeft:0, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
             </div>
         </div>
-        
+
         <div className={date}>
-            <div className={dateTime}>
-                <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
-                    <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                    <span>{fullDate.format('dddd')},  
-                    {'  '+fullDate.format('MMM')}
-                    {'.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
-                                                ? 'st'
-                                                :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
-                                                ?  'nd'
-                                                :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
-                                                ? 'rd'
-                                                : 'th'
-                                            }
-                    {' '+fullDate.format('YYYY')}</span>
-                    {isDateOpen && <div className={dateTimeSubmenu}>
-                        <DatePicker time={user.time} onChange={setDate} getFullDate={setFullDate}/>
-                        <div className="flex justify-between pl-8">
-                            <div className={setDateBtn} onClick={(e)=> {
-                                    e.stopPropagation();
-                                    setIsDateOpen(false)
-                                }}>accept</div>
-                        </div>
-                    </div>}
-                </div>
-                <TimePicker timeNow={user.taxiNow ? dayjs().format('HH,mm') : '' } onChange={setTime} date={user.date}/>
-                
-                <div 
-                    className={
-                        !user.isFlight ? 'short opacity-50 border'
-                        : !validation.isMontrealPick 
-                        ? 'short border'
-                        : user.flight.length < 3 
-                        ? 'short + border-red-500 border' 
-                        : 'short border'  
-                    }
-                >
-                    {(user.dropOffLocation.toLowerCase().includes('airport'))
-                        ?<MdOutlineFlightTakeoff className='text-2xl ml-1'/>
-                        :(user.pickUpLocation.toLowerCase().includes('airport'))
-                        ?< MdOutlineFlightLand className='text-2xl ml-1'/>
-                        :(user.dropOffLocation.toLowerCase().includes('bus'))
-                        ? <FaBus className='text-xl ml-1'/>
-                        :(user.dropOffLocation.toLowerCase().includes('train'))
-                        ? <FaTrain className='text-xl ml-1'/>
-                        :< MdOutlineFlightLand className='text-2xl ml-1'/>               
-                    }   
-                    <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
-                        {user.airline.toLowerCase().includes('canada') 
-                            ? 'AC'
-                            : user.airline.toLowerCase().includes('transat') 
-                            ? 'TC'
-                            : user.airline.toLowerCase().includes('quatar') 
-                            ? 'QR'
-                            : ''
-                        }
-                    </div>
-                    <Input placeholder='#' disabled={(!user.isFlight)} style={{width:100, paddingLeft:0, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
-                </div>
-                
-            </div>
+
             <div className={checkboxes}>
                 <div onClick={()=>setTaxiNow(!user.taxiNow)} className={checkCard}>
                     <input type="checkbox" checked={user.taxiNow} className='cursor-pointer'/>
@@ -276,7 +167,7 @@ const TripContent = () => {
                     <span>set flight</span>
                 </div>}
             </div>
-            
+
 
             {((validation.isMontreal &&  user.isFlight) || validation.isMontrealPick) &&
             <div className={airportSection}>
@@ -303,6 +194,118 @@ const TripContent = () => {
             </div>}
         </div>
 
+        <div className={validation.isFrom ? extraCard : extraCard +' border-red-500'}>
+            <span className='icon text-green-500'><SlLocationPin/></span>
+            <GoogleAddressInput
+                style='w-[200px]' 
+                defaultLocation={user.pickUpLocation || ''} 
+                onChange={setPickUpLocation}
+                placeholder='Pick up location'
+            />
+            <Select
+                placeholder='favorite locations'
+                style={{ width:200 , height: 30}}
+                className='favorite pl-6 truncate'
+                onChange={setPickUpLocation}
+                options={(
+                    info.defaultLocations.filter(item => !item.includes(user.dropOffLocation)).length > 0 
+                    ? info.defaultLocations.filter(item => !item.includes(user.dropOffLocation))
+                    : info.defaultLocations
+                ).map(item=>(
+                    {value: item, label: item}
+                ))}
+            />
+        </div>
+        {stop.first && 
+        <div className={extraCardStop}>
+            <span className='icon text-orange-400'><SlLocationPin/></span>  
+            <GoogleAddressInput
+                style='w-[200px]'
+                defaultLocation={user.stopFirst || ''} 
+                onChange={setStopFirst}
+                placeholder='Stop'
+            />
+            <div 
+                className={closeStop} 
+                onClick={()=>{ 
+                    setStopFirst('')
+                    setStop({ ...stop, first: false }) 
+                }}
+            >-</div>
+        </div>}
+
+        {stop.second &&  
+        <div className={extraCardStop}>
+            <span className='icon  text-orange-400'><SlLocationPin/></span>
+            <GoogleAddressInput 
+                defaultLocation={user.stopSecond || ''} 
+                style='w-[200px]'
+                onChange={setStopSecond}
+                placeholder='Second stop'
+            />
+            <div 
+                className={closeStop}  
+                onClick={()=>{ 
+                    setStopSecond('')
+                    setStop({ ...stop, second: false }) 
+                }}
+            >-</div> 
+        </div>}
+
+        {stop.last &&  
+        <div className={extraCardStop}>
+            <span className='icon  text-orange-400'><SlLocationPin/></span>
+            <GoogleAddressInput
+                style='w-[200px]'
+                defaultLocation={user.stopLast || ''} 
+                onChange={setStopLast}
+                placeholder='Last stop'
+            />
+            <div 
+                className={closeStop}  
+                onClick={()=>{ 
+                    setStopLast('')
+                    setStop({ ...stop, last: false }) 
+                }}
+            >-</div> 
+        </div>}
+
+        {(!stop.first || !stop.second || !stop.last) 
+        && <div className={addExtraBtn} onClick={()=>{
+            if(!stop.first) return setStop({ ...stop, first: true })
+            if(!stop.second) return setStop({ ...stop, second: true })
+            if(!stop.last) return setStop({ ...stop, last: true })
+        }}>
+            <span className={addCircle}>+</span>add stop
+        </div>}
+
+        <div className={validation.isTo ? extraCard : extraCard +' border-red-500'}> 
+            <span className='icon  text-red-500'><SlLocationPin/></span>
+            <GoogleAddressInput
+                style='w-[200px]' 
+                defaultLocation={user.dropOffLocation || ''} 
+                onChange={setDropOffLocation}
+                placeholder='Drop off location'
+            />
+
+            <Select
+                placeholder='favorite locations'
+                style={{ width:200 , height: 30}}
+                className='favorite truncate pl-6'
+                onChange={setDropOffLocation}
+                options={
+                    (info.defaultLocations.filter(item => !item.includes(user.pickUpLocation)).length > 0
+                    ? info.defaultLocations.filter(item => !item.includes(user.pickUpLocation))
+                    : info.defaultLocations).map(item=>(
+                        {value: item, label: item}
+                    ))
+                }
+            />
+        </div>
+
+        
+
+
         <div className={returnTrip.isReturnTrip ? front : back } onClick={()=>{
                 setIsReturnTrip(!returnTrip.isReturnTrip)
                 setIsReturn(!validation.isReturn)
@@ -320,8 +323,8 @@ export default TripContent;
 const checkboxes = 'flex w-full sm:mb-8 2xl:mb-auto'
 const checkCard = 'flex text-xs cursor-pointer space-x-2 w-full mb-auto mt-2 max-w-[400px] sm:pl-2'
 
-const back = 'absolute left-1/2 -bottom-10  -translate-x-1/2  px-2 py-1  sm:hidden flex items-center  hover:text-green-300 text-green-400 text-sm font-bold cursor-pointer'
-const front = ' absolute left-1/2 -bottom-10 -translate-x-1/2  px-2 py-1 sm:hidden flex sm:  items-center hover:text-red-300 text-red-400 text-sm font-bold  cursor-pointer'
+const back = 'absolute right-20 top-1/2 px-2 py-1  sm:hidden flex items-center  hover:text-green-300 text-green-400 text-sm font-bold cursor-pointer'
+const front = ' absolute right-20 top-1/2   px-2 py-1 sm:hidden flex sm:  items-center hover:text-red-300 text-red-400 text-sm font-bold  cursor-pointer'
 
 const addCircle = ' w-4 h-4 flex items-center justify-center bg-green-300 rounded-full border text-black border-black mr-1'
 const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
@@ -335,13 +338,13 @@ const airportContainer ='flex relative w-full border sm:max-w-[380px] sm:space-b
 const dateInput = 'text-xs flex items-center border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full '
 
 
-const airportSection = 'flex w-full '
-const dateTime = 'flex justify-between sm:mb-2 sm:justify-center space-x-2 '
+const airportSection = 'flex w-full  self-start'
+const dateTime = 'flex sm:mb-2 sm:justify-center space-x-2 '
 
 
-const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] self-end max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+const extraCardStop = 'flex relative items-center border w-full  max-w-[250px] sm:max-w-[310px] ml-[100px] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
 
-const date = ' flex flex-col 2xl:w-1/3 justify-between sm:mb-4 sm:px-0 sm:order-first sm:w-full sm:items-start'
-const location ='flex flex-col 2xl:w-1/3 items-center space-y-2 sm:mb-4 sm:px-0 sm:order-last sm:w-full sm:items-start sm:space-y-3 sm:max-w-[426px] sm:mt-10 sm:self-start lg:mt-6 lg:items-start xl:w-1/2 xl:items-start'
-const container = 'flex relative w-full sm:flex-col  sm:space-y-10 lg:flex-col lg:items-start lg:space-y-10 sm:items-center'
+const date = ' flex flex-col  sm:mb-4 sm:px-0 sm:order-first sm:w-full items-start justify-start'
+
+const container = 'flex border p-10 rounded shadow flex-col w-1/2 relative space-y-3 sm:flex-col  sm:space-y-10 lg:flex-col lg:items-start lg:space-y-10 sm:items-center'

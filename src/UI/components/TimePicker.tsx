@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { IoMdTime } from 'react-icons/io';
 import useOnclickOutside from "react-cool-onclickoutside";
 import { useLocation } from "../../Store/useLocation";
-import Required from "./Required";
 
 
 interface InputProps {
@@ -58,7 +57,6 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, timeNow }) =>
     const filteredHours = hours.filter(item => item >= hoursNow);
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
-            <Required />
             <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>
             <input
                 className={input}
