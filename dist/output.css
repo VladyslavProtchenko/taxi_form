@@ -1510,6 +1510,10 @@ select option {
   border-color:white !important;
 }
 
+:where(.css-amq5gd).ant-input-affix-wrapper {
+  border: none !important;
+}
+
 .hover\:border:hover{
   border-width: 1px;
 }
