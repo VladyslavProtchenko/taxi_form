@@ -1510,7 +1510,11 @@ select option {
   border-color:white !important;
 }
 
-:where(.css-amq5gd).ant-input-affix-wrapper {
+:where.ant-input-affix-wrapper {
+  border: none !important;
+}
+
+:where(.css-amq5gd).ant-input {
   border: none !important;
 }
 
