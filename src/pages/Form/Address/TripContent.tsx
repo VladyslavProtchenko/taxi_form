@@ -21,7 +21,7 @@ import { useValidation } from "../../../Store/useValidation";
 
 const TripContent = () => {
     const {  returnTrip, setIsReturnTrip } = useReturnLocation()
-    const { validation,setIsMontreal,setIsMontrealPick,setIsAirport, setIsReturn } = useValidation()
+    const { validation, setIsMontreal,setIsMontrealPick,setIsAirport, setIsReturn } = useValidation()
     const { 
         user, 
         setPickUpLocation, 
@@ -92,11 +92,10 @@ const TripContent = () => {
     <div className={container}>
         <div className={location}>
             <div className={validation.isFrom ? extraCard : extraCard +' border-red-500'}>
-                <Required />
                 <span className='icon text-green-500'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-[200px]' 
-                    defaultLocation={user.pickUpLocation ? user.pickUpLocation : ''} 
+                    defaultLocation={user.pickUpLocation || ''} 
                     onChange={setPickUpLocation}
                     placeholder='Pick up location'
                 />
@@ -117,9 +116,9 @@ const TripContent = () => {
             {stop.first && 
             <div className={extraCardStop}>
                 <span className='icon text-orange-400'><SlLocationPin/></span>  
-                <GoogleAddressInput 
+                <GoogleAddressInput
                     style='w-[200px]'
-                    defaultLocation={''} 
+                    defaultLocation={user.stopFirst || ''} 
                     onChange={setStopFirst}
                     placeholder='Stop'
                 />
@@ -136,8 +135,8 @@ const TripContent = () => {
             <div className={extraCardStop}>
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
+                    defaultLocation={user.stopSecond || ''} 
                     style='w-[200px]'
-                    defaultLocation={''} 
                     onChange={setStopSecond}
                     placeholder='Second stop'
                 />
@@ -154,9 +153,8 @@ const TripContent = () => {
             <div className={extraCardStop}>
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
-                    
                     style='w-[200px]'
-                    defaultLocation={ ''} 
+                    defaultLocation={user.stopLast || ''} 
                     onChange={setStopLast}
                     placeholder='Last stop'
                 />
@@ -179,11 +177,10 @@ const TripContent = () => {
             </div>}
 
             <div className={validation.isTo ? extraCard : extraCard +' border-red-500'}> 
-                <Required />
                 <span className='icon  text-red-500'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-[200px]' 
-                    defaultLocation={user.dropOffLocation ? user.dropOffLocation : ''} 
+                    defaultLocation={user.dropOffLocation || ''} 
                     onChange={setDropOffLocation}
                     placeholder='Drop off location'
                 />
@@ -207,7 +204,6 @@ const TripContent = () => {
         <div className={date}>
             <div className={dateTime}>
                 <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
-                    <Required />
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
                     <span>{fullDate.format('dddd')},  
                     {'  '+fullDate.format('MMM')}
@@ -262,7 +258,7 @@ const TripContent = () => {
                             : ''
                         }
                     </div>
-                    <Input placeholder='number' disabled={(!user.isFlight)} style={{width:100, paddingLeft:0, borderRadius: 0, height: 30, border: 'none'}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                    <Input placeholder='#' disabled={(!user.isFlight)} style={{width:100, paddingLeft:0, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
                 </div>
                 
             </div>

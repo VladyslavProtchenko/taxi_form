@@ -10,8 +10,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Form from './pages/Form/Form.tsx';
-import Success from './pages/Success/Success.tsx';
 
 const router = createBrowserRouter([
   {
@@ -19,12 +17,8 @@ const router = createBrowserRouter([
     element: <App />,
     children:[
       {
-        path:'/',
-        element: <Form />,
-      },
-      {
-        path:'/success',
-        element: <Success />,
+        path: "/success",
+        element: <App />,
       },
     ]
   },

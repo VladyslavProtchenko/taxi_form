@@ -768,17 +768,9 @@ video {
   height: 28px;
 }
 
-.h-\[32px\]{
-  height: 32px;
-}
-
 .h-min{
   height: -moz-min-content;
   height: min-content;
-}
-
-.h-screen{
-  height: 100vh;
 }
 
 .max-h-\[150px\]{
@@ -833,10 +825,6 @@ video {
   width: 100px;
 }
 
-.w-\[150px\]{
-  width: 150px;
-}
-
 .w-\[200px\]{
   width: 200px;
 }
@@ -863,10 +851,6 @@ video {
 
 .w-screen{
   width: 100vw;
-}
-
-.min-w-\[110px\]{
-  min-width: 110px;
 }
 
 .max-w-\[1240px\]{
@@ -925,10 +909,6 @@ video {
   cursor: text;
 }
 
-.resize{
-  resize: both;
-}
-
 .flex-col{
   flex-direction: column;
 }
@@ -947,6 +927,12 @@ video {
 
 .justify-between{
   justify-content: space-between;
+}
+
+.space-x-1 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]){
@@ -1085,9 +1071,9 @@ video {
   background-color: rgb(254 240 138 / var(--tw-bg-opacity));
 }
 
-.bg-yellow-300{
+.bg-yellow-400{
   --tw-bg-opacity: 1;
-  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
+  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
 
 .bg-\[url\(\"https\:\/\/cdn0\.iconfinder\.com\/data\/icons\/child-1-1\/70\/boy-child-children-girl-512\.png\"\)\]{
@@ -1172,6 +1158,10 @@ video {
 
 .pl-1{
   padding-left: 0.25rem;
+}
+
+.pl-2{
+  padding-left: 0.5rem;
 }
 
 .pl-3{
@@ -1512,6 +1502,14 @@ select option {
           padding-inline-end: 7px !important;
 }
 
+.ant-select-selection-search {
+  inset-inline-start: 0px!important;
+}
+
+.ant-input-affix-wrapper:focus-within {
+  border-color:white !important;
+}
+
 .hover\:border:hover{
   border-width: 1px;
 }
@@ -1639,10 +1637,6 @@ select option {
     order: 9999;
   }
 
-  .sm\:m-0{
-    margin: 0px;
-  }
-
   .sm\:mb-2{
     margin-bottom: 0.5rem;
   }
@@ -1651,16 +1645,8 @@ select option {
     margin-bottom: 1rem;
   }
 
-  .sm\:mb-6{
-    margin-bottom: 1.5rem;
-  }
-
   .sm\:mb-8{
     margin-bottom: 2rem;
-  }
-
-  .sm\:ml-auto{
-    margin-left: auto;
   }
 
   .sm\:mr-\[20\%\]{
@@ -1671,20 +1657,12 @@ select option {
     margin-top: 2.5rem;
   }
 
-  .sm\:mt-\[100px\]{
-    margin-top: 100px;
-  }
-
   .sm\:flex{
     display: flex;
   }
 
   .sm\:hidden{
     display: none;
-  }
-
-  .sm\:w-1\/2{
-    width: 50%;
   }
 
   .sm\:w-\[240px\]{
@@ -1725,14 +1703,6 @@ select option {
 
   .sm\:flex-col{
     flex-direction: column;
-  }
-
-  .sm\:flex-col-reverse{
-    flex-direction: column-reverse;
-  }
-
-  .sm\:flex-wrap{
-    flex-wrap: wrap;
   }
 
   .sm\:items-start{

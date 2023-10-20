@@ -28,10 +28,11 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
             </div>
             <div className={additional}>
                 <span className={textArea}>
-                        <TextArea rows={2} style={{borderRadius: 5, resize: 'none', border: 'none'}} placeholder='Additional information' onChange={(e)=>{
+                        <TextArea rows={2} placeholder='Additional information' onChange={(e)=>{
                             setAdditionalText(e.target.value)
                         }}/></span>
             </div>
+            {/* <div className={modal}>thank you for order</div> */}
         </section>
     );
 };
@@ -39,10 +40,10 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
 export default PaymentSection;
 
 
-const btn = 'py-2 px-4 rounded bg-yellow-300 self-start text-white active:bg-yellow-200 mx-auto sm:m-0 sm:ml-auto sm:mt-[100px] '
-const additional ='flex additional w-2/3 px-2 sm:w-full sm:mb-6'
-const content ='flex w-1/3 px-2 lg:mb-4 lg:space-x-4 sm:w-full sm:flex-wrap'
+const btn = 'py-2 px-4 rounded bg-yellow-400 self-start text-white active:bg-yellow-200 mx-auto'
+const additional ='flex additional w-2/3 px-2'
+const content ='flex w-1/3 px-2 lg:mb-4 lg:space-x-4'
 
-const box ='flex border h-min pl-3 w-[100px] sm:w-1/2'
+const box ='flex border h-min pl-3 w-[100px]'
 const textArea ='flex border h-min w-full rounded-xl'
-const section = 'flex w-full px-8  sm:max-w-[576px] sm:border-none sm:flex-col-reverse  max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col '
+const section = 'flex w-full px-8  sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col'

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 interface IUser {
     isReturnTrip: boolean;
-    isReturnFlight: boolean;
+    isFlight: boolean;
 
     from: string;
     to: string;
@@ -17,7 +17,6 @@ interface IUser {
     flight: string;
     bus: string;
     train: string;
-
 
     tripType: string;
     airlines: string;
@@ -52,7 +51,7 @@ interface Store {
 export const useReturnLocation = create<Store>((set) => ({
     returnTrip: {
         isReturnTrip: false,
-        isReturnFlight: false,
+        isFlight: false,
 
         from: '',
         to: '',
@@ -93,5 +92,5 @@ export const useReturnLocation = create<Store>((set) => ({
     setAirlines: (data) => set((state) => ({ returnTrip: {...state.returnTrip, airlines: data } })),
     setArrivalTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, arrivalTime: data } })),
 
-    setIsFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, isReturnFlight: data } })),
+    setIsFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, isFlight: data } })),
 }))

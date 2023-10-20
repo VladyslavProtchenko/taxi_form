@@ -9,21 +9,20 @@ import { useReturnLocation } from '../../Store/useReturnLocation';
 import { useOptions } from '../../Store/useOptions';
 import PaymentSection from './Payment/Payment';
 import { useValidation } from '../../Store/useValidation';
-import { useNavigate } from "react-router-dom";
+
 
 const Form = () => {
-    const navigate = useNavigate()
     const { store } = useSteps()
     const {user} = useInfo()
     const {user:trip} = useLocation()
     const {returnTrip} = useReturnLocation()
     const {options} = useOptions()
-
     const { 
         validation, 
         setIsName,
         setIsEmail, 
         setIsTitle,
+        setIsPhone,
         setIsFrom,
         setIsTo,
         setIsDate,
@@ -37,7 +36,6 @@ const Form = () => {
         setIsFlightBack,
         setIsDepartureBack,
         setIsPayment,
-        setIsPhone,
     } = useValidation()
 
     const sendOrder = () => {
@@ -111,6 +109,7 @@ const Form = () => {
         setIsTitle(true)
         setIsName(true)
         setIsEmail(true)
+        setIsPhone(true)
 
         setIsFrom(true)
         setIsTo(true)
@@ -132,19 +131,19 @@ const Form = () => {
 
         
         if(user.name.length < 3) {
+            alert('Name required')
             return  setIsName(false) 
         } 
         if(!user.gender) {
+            alert('Title required')
             return setIsTitle(false)
         }
         const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if(!pattern.test(user.email)) {
+            alert('Email required')
             return setIsEmail(false)  
         }
-        if(!validation.isPhone) {
-            return setIsPhone(false)  
-        }
-
+[]
         if(!trip.pickUpLocation) {
             alert('Set pick up address')
             return setIsFrom(false)
@@ -170,7 +169,7 @@ const Form = () => {
         if(validation.isReturn && validation.isMontrealPickBack && (!returnTrip.departure || !returnTrip.airlines)) return setIsDepartureBack(false)
 
         if(!user.paymentMethod) return setIsPayment(false)
-        navigate('/success'); 
+
         console.log(newOrder)
         alert('order created')
     }
@@ -181,7 +180,7 @@ const Form = () => {
                 {store.steps === 1 && <InfoSection />}
                 {store.steps === 2 && <AddressSection />}
                 {store.steps === 3 && <OptionsSection />}
-                {store.steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
+                {store.steps === 4 && <h1>finish</h1>}
                 {<Steps />} 
             </div>
             

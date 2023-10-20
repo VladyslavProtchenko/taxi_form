@@ -7,7 +7,6 @@ import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 import { useValidation } from '../../Store/useValidation';
 
-
 const countries = [
     ["Afghanistan", "93"],
     ["Albania", "355"],
@@ -238,10 +237,8 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
     const [countryCode, setCountryCode] = useState(value)
     const [phoneType, setPhoneType] = useState(1)
     const [isOpen, setIsOpen] = useState(false)
-
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
-
     useEffect(()=>{
         if(val >=12) return setIsPhone(true)
         setIsPhone(val === res)
@@ -250,9 +247,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
     useEffect(()=>{
         if(country) {
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
-            if(res) {
-                setCountryCode(res[1])
-            }
+            if(res) { setCountryCode(res[1]) }
         }
     },[country])
 
@@ -263,18 +258,17 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)}>
                 {phoneType === 1 ? <IoPhonePortraitOutline /> : phoneType === 2 ? <BsTelephone /> : <SlEarphonesAlt />}
                 {isOpen && <div className={subLabel}>
-                    {phoneType !== 1 && <div className={subItem} onClick={()=>setPhoneType(1)}><IoPhonePortraitOutline /></div>}
-                    {phoneType !== 2 && <div className={subItem} onClick={()=>setPhoneType(2)}><BsTelephone /></div>}
-                    {phoneType !== 3 && <div className={subItem} onClick={()=>setPhoneType(3)}><SlEarphonesAlt /></div>}
+                    {phoneType !== 1 && <div className={subItem} onClick={()=>setPhoneType(1)}><IoPhonePortraitOutline /><span className='text-xs text-gray-400 ml-1'> (mobile)</span></div>}
+                    {phoneType !== 2 && <div className={subItem} onClick={()=>setPhoneType(2)}><BsTelephone /><span className='text-xs text-gray-400 ml-1'> (home)</span></div>}
+                    {phoneType !== 3 && <div className={subItem} onClick={()=>setPhoneType(3)}><SlEarphonesAlt /><span className='text-xs text-gray-400 ml-1'> (work)</span></div>}
                 </div>}
             </div>
-
             <Select
                 showSearch
-                placeholder={country}
+                value={country || null}
+                placeholder={country || "Canada"}
                 style={{width:118, height: 30}}
                 onChange={setCountry}
-                value={country || 'Canada'}
                 filterOption={filterOption}
                 options={countries.map((item)=>(
                     {
@@ -291,7 +285,8 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                     setRes(res)
                     return true
                 }}
-                priority={{ca: 0, us: 1,kz: 0, ru: 1}}
+                preferredCountries={['ca']}
+                priority={(country==='USA' || country.toLowerCase() ==="united states") ? {ca: 1, us: 0,kz: 0, ru: 1} : {ca: 0, us: 1,kz: 0, ru: 1} }
                 country={'ca'}
                 value={countryCode}
                 onChange={(e, countryName:ICountry)=>{
@@ -305,9 +300,9 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
 
 export default PhoneNumberInput
 
-const subItem = 'px-2 text-black hover:bg-yellow-200 px-2 py-1'
+const subItem = 'px-2 text-black hover:bg-yellow-200 px-2 py-1 flex items-center'
 const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer hover:bg-yellow-100'
 const subLabel = ' left-0 pb-1 z-50  bg-white border-black border-[1px] flex flex-col absolute top-[115%] items-center cursor-pointer '
-const container = 'flex '
+const container = 'flex'
 
 

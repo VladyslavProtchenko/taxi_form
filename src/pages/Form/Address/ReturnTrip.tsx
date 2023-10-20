@@ -286,10 +286,10 @@ const TripContent = () => {
                 </div>
                 <TimePicker onChange={setTime} date={returnTrip.time}/>
 
-                {returnTrip.isReturnFlight 
-                ?<div 
+                
+                <div 
                     className={
-                        !mainUser.isFlight ? 'short opacity-50 border'
+                        !returnTrip.isFlight ? 'short opacity-50 border'
                         : !validation.isMontrealPick 
                         ? 'short border'
                         : returnTrip.flight.length < 3 
@@ -317,17 +317,16 @@ const TripContent = () => {
                             : ''
                         }
                     </div>
-                    <Input placeholder='number' style={{width:100, borderRadius: 0, height: 30, paddingLeft:0, border: 'none'}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                    <Input placeholder='#' disabled={(!returnTrip.isFlight)}  style={{width:100, borderRadius: 0, height: 30, paddingLeft:0}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
                 </div>
-                : <div className="min-w-[110px] h-[32px]"></div>
-                }
             </div>
+            {(validation.isMontrealBack || validation.isAirport) && 
             <div className={checkboxes}>
-                <div onClick={()=>setIsFlight(!returnTrip.isReturnFlight)} className={checkCard}>
-                    <input type="checkbox" checked={returnTrip.isReturnFlight} className='cursor-pointer'/>
+                <div onClick={()=>setIsFlight(!returnTrip.isFlight)} className={checkCard}>
+                    <input type="checkbox" checked={returnTrip.isFlight} className='cursor-pointer'/>
                     <span>set flight</span>
                 </div>
-            </div>
+            </div>}
 
             {(validation.isMontrealPickBack || (validation.isFlight && validation.isMontrealBack)) &&   
             <div className={airportSection}>

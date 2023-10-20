@@ -166,3 +166,10 @@ select option {
 .favorite .ant-select-selection-item {
     padding-inline-end: 7px !important;
 }
+
+.ant-select-selection-search {
+    inset-inline-start: 0px!important;
+}
+.ant-input-affix-wrapper:focus-within {
+    border-color:white !important;
+}

@@ -76,13 +76,13 @@ interface Store {
 }
 export const useValidation = create<Store>((set) => ({
     validation: {
-        isTitle: true,
-        isName: true,
-        isEmail: true,
+        isTitle: false,
+        isName: false,
+        isEmail: false,
         isPhone: false,
     
-        isTo: true,
-        isFrom: true,
+        isTo: false,
+        isFrom: false,
 
         isAirport: false,
     
@@ -94,23 +94,23 @@ export const useValidation = create<Store>((set) => ({
         isFlight: false,
         isDeparture: true,
 
-        isDate: true,
-        isTime: true,
+        isDate: false,
+        isTime: false,
     
         isReturn: false,
     
-        isBackTo: true,
-        isBackFrom: true,
+        isBackTo: false,
+        isBackFrom: false,
         
-        isDateBack: true,
-        isTimeBack: true,
+        isDateBack: false,
+        isTimeBack: false,
     
         
         isFlightBack: true,
         isDepartureBack: true,
         
-        isCarType: true,
-        isPayment: true,
+        isCarType: false,
+        isPayment: false,
 
     },
 
