@@ -169,9 +169,9 @@ const addExtraBtn = 'text-xs cursor-pointer ml-4 text-gray-400 hover:text-black 
 
 const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border cursor-pointer font-bold text-black  left-[350px]"
 const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black  left-[353px]"
-const extraPhoneClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black left-[353px]"
+const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black left-[353px]"
 
-const extraCard = ' flex relative items-center overflow-hidden'
+const extraCard = ' flex relative items-center '
 const extraContainer = 'flex flex-col 2xl:w-1/3 sm:w-full items-center space-y-2'
 
 const header = 'mb-2 italic text-gray-400 uppercase sm:text-center lg:text-center'

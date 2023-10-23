@@ -170,15 +170,6 @@ const TripContent = () => {
                     <span>set flight</span>
                 </div>
             </div>}
-
-            {(validation.isMontrealPickBack || (validation.isFlight && validation.isMontrealBack)) &&   
-            <div className={airportSection}>
-                <span className={airportContainer}>
-                    <span className='icon'><GiControlTower /></span>
-                    <Select placeholder='Airlines' style={{ width:'50%' , height: 30}}onChange={setAirlines}options={userStore.flights.map(item=>({value: item, label: item}))}/>
-                    <Select placeholder='Departure' style={{ width:'50%' , height: 30}}onChange={setDeparture}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
-                </span >
-            </div>}
         </div>
         <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
             <span className='icon text-green-400'><SlLocationPin/></span>
@@ -332,6 +323,16 @@ const TripContent = () => {
             />
         </div>
 
+
+        {(validation.isMontrealPickBack || (validation.isFlight && validation.isMontrealBack)) &&   
+        <div className={airportSection}>
+            <span className={airportContainer}>
+                <span className='icon'><GiControlTower /></span>
+                <Select placeholder='Airlines' style={{ width:'50%' , height: 30}}onChange={setAirlines}options={userStore.flights.map(item=>({value: item, label: item}))}/>
+                <Select placeholder='Departure' style={{ width:'50%' , height: 30}}onChange={setDeparture}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
+            </span >
+        </div>}
+
         {!returnTrip.isReturnTrip && <div className='absolute top-0 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
     </div>
     );
@@ -350,18 +351,16 @@ const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
-
 const closeStop ="absolute w-4 h-4 -right-6 bg-red-500 ml-1 border border-black rounded-full flex justify-center cursor-pointer text-bold  items-center"
-
 
 const dateInput = 'text-xs flex items-center border py-1 relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full '
 
 const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
-const airportSection = 'flex sm:items-center sm:justify-center w-full'
-const dateTime = 'flex sm:justify-center space-x-2 sm:items-start'
+const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
+const dateTime = 'flex sm:justify-center space-x-2 sm:items-start items-start'
 
 const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
-const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] self-end max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 
-const date = 'flex flex-col sm:mb-4 sm:px-0 sm:order-first sm:w-full sm:items-start sm:space-y-1'
+const date = 'flex sm:mb-4 sm:px-0 sm:w-full sm:items-start sm:space-y-1'
 const container = 'flex flex-col border p-10  border-gray-600 xl:border-l-white 2xl:border-l-white space-y-3 relative w-1/2 sm:w-full'

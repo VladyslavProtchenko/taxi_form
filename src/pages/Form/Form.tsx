@@ -180,9 +180,10 @@ const Form = () => {
                 {store.steps === 1 && <InfoSection />}
                 {store.steps === 2 && <AddressSection />}
                 {store.steps === 3 && <OptionsSection />}
-                {store.steps === 4 && <div className='flex w-full h-5/6 justify-center items-center'>
+                {store.steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
+                {/* <div className='flex w-full h-5/6 justify-center items-center'>
                         <div>Order sent</div>
-                    </div>}
+                    </div>} */}
                 <Steps/>
             </div>
             

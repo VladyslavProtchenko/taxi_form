@@ -167,31 +167,6 @@ const TripContent = () => {
                     <span>set flight</span>
                 </div>}
             </div>
-
-
-            {((validation.isMontreal &&  user.isFlight) || validation.isMontrealPick) &&
-            <div className={airportSection}>
-                <span className={validation.isDeparture ?  airportContainer : airportContainer + ' border-red-500' }>
-                {validation.isMontrealPick && <Required />}
-                <span className='icon'><GiControlTower /></span>
-                    <Select 
-                        style={{width: '50%'}} 
-                        options={user.flights.map(item=>(
-                            {value: item, label: item}
-                        ))} 
-                        onChange={setAirline} 
-                        placeholder='Airlines' 
-                    />
-                    <Select 
-                        style={{width: '50%'}} 
-                        options={user.departureSections.map(item=>(
-                            {value: item, label: item}
-                        ))}   
-                        onChange={setDepartureSection} 
-                        placeholder='Departure' 
-                    />
-                </span>
-            </div>}
         </div>
 
         <div className={validation.isFrom ? extraCard : extraCard +' border-red-500'}>
@@ -303,14 +278,38 @@ const TripContent = () => {
             />
         </div>
 
+        {((validation.isMontreal &&  user.isFlight) || validation.isMontrealPick) &&
+            <div className={airportSection}>
+                <span className={validation.isDeparture ?  airportContainer : airportContainer + ' border-red-500' }>
+                {validation.isMontrealPick && <Required />}
+                <span className='icon'><GiControlTower /></span>
+                    <Select 
+                        style={{width: '50%'}} 
+                        options={user.flights.map(item=>(
+                            {value: item, label: item}
+                        ))} 
+                        onChange={setAirline} 
+                        placeholder='Airlines' 
+                    />
+                    <Select 
+                        style={{width: '50%'}} 
+                        options={user.departureSections.map(item=>(
+                            {value: item, label: item}
+                        ))}   
+                        onChange={setDepartureSection} 
+                        placeholder='Departure' 
+                    />
+                </span>
+            </div>}
+
         
 
 
-        <div className={returnTrip.isReturnTrip ? front : back } onClick={()=>{
+        <div className={returnTrip.isReturnTrip ? button + ' text-red-500 hover:text-red-400' : button + ' ' } onClick={()=>{
                 setIsReturnTrip(!returnTrip.isReturnTrip)
                 setIsReturn(!validation.isReturn)
             }}>
-            <h1>{!returnTrip.isReturnTrip ? ' + ' : ' - '}Return trip</h1>
+            <h1>{!returnTrip.isReturnTrip ? '+' : '- '}RETURN</h1>
         </div>
 
     </div>
@@ -320,11 +319,10 @@ const TripContent = () => {
 export default TripContent;
 
 
-const checkboxes = 'flex w-full sm:mb-8 2xl:mb-auto'
+const checkboxes = 'flex w-full 2xl:mb-auto'
 const checkCard = 'flex text-xs cursor-pointer space-x-2 w-full mb-auto mt-2 max-w-[400px] sm:pl-2'
 
-const back = 'absolute right-20 top-1/2 px-2 py-1  sm:hidden flex items-center  hover:text-green-300 text-green-400 text-sm font-bold cursor-pointer'
-const front = ' absolute right-20 top-1/2   px-2 py-1 sm:hidden flex sm:  items-center hover:text-red-300 text-red-400 text-sm font-bold  cursor-pointer'
+const button = 'absolute right-0 sm:right-1/2 top-[120px] sm:top-full sm:-translate-y-[6px] sm:py-0 px-2 py-1 pt-2 rounded-xl translate-x-1/2  z-20  bg-white flex items-center  hover:text-green-300 text-green-400 text-sm font-bold cursor-pointer'
 
 const addCircle = ' w-4 h-4 flex items-center justify-center bg-green-300 rounded-full border text-black border-black mr-1'
 const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
@@ -338,13 +336,13 @@ const airportContainer ='flex relative w-full border sm:max-w-[380px] sm:space-b
 const dateInput = 'text-xs flex items-center border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full '
 
 
-const airportSection = 'flex w-full  self-start'
+const airportSection = 'flex w-full  self-start max-w-[350px]'
 const dateTime = 'flex sm:mb-2 sm:justify-center space-x-2 items-start '
 
 
-const extraCardStop = 'flex relative items-center border w-full  max-w-[250px] sm:max-w-[310px] ml-[100px] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+const extraCardStop = 'flex relative items-center border w-full max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
 
-const date = ' flex flex-col  sm:mb-4 sm:px-0 sm:order-first sm:w-full items-start justify-start'
+const date = ' flex flex-col  sm:mb-4 sm:px-0 sm:w-full items-start justify-start'
 
 const container = 'flex border p-10 border-gray-600 flex-col w-1/2 sm:w-full relative space-y-3'

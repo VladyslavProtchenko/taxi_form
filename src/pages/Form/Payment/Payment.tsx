@@ -40,10 +40,10 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
 export default PaymentSection;
 
 
-const btn = 'py-2 px-4 rounded bg-yellow-400 self-start text-white active:bg-yellow-200 mx-auto'
-const additional ='flex additional w-2/3 px-2'
-const content ='flex w-1/3 px-2 lg:mb-4 lg:space-x-4'
+const btn = 'py-2 px-4 rounded bg-yellow-400 self-start text-white active:bg-yellow-200 xl:mx-auto sm:ml-auto'
+const additional ='flex additional w-2/3 px-2 sm:w-full'
+const content ='flex w-1/3 px-2 lg:mb-4 lg:space-x-4 sm:w-full sm:mb-10'
 
 const box ='flex border h-min pl-3 w-[100px]'
 const textArea ='flex border h-min w-full rounded-xl'
-const section = 'flex w-full px-8  sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col'
+const section = 'flex w-full px-8 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col sm:flex-col'
