@@ -1839,6 +1839,11 @@ select option {
 }
 
 @media (min-width: 769px) and (max-width: 992px){
+  .lg\:mx-auto{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .lg\:mb-4{
     margin-bottom: 1rem;
   }
