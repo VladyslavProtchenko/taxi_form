@@ -339,7 +339,7 @@ const dateInput = 'text-xs flex items-center border py-1 relative w-[200px] sm:m
 
 
 const airportSection = 'flex w-full  self-start'
-const dateTime = 'flex sm:mb-2 sm:justify-center space-x-2 '
+const dateTime = 'flex sm:mb-2 sm:justify-center space-x-2 items-start '
 
 
 const extraCardStop = 'flex relative items-center border w-full  max-w-[250px] sm:max-w-[310px] ml-[100px] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
@@ -347,4 +347,4 @@ const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max
 
 const date = ' flex flex-col  sm:mb-4 sm:px-0 sm:order-first sm:w-full items-start justify-start'
 
-const container = 'flex border p-10 rounded shadow flex-col w-1/2 relative space-y-3 sm:flex-col  sm:space-y-10 lg:flex-col lg:items-start lg:space-y-10 sm:items-center'
+const container = 'flex border p-10 border-gray-600 flex-col w-1/2 sm:w-full relative space-y-3'

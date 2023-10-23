@@ -364,4 +364,4 @@ const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max
 const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] self-end max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 
 const date = 'flex flex-col sm:mb-4 sm:px-0 sm:order-first sm:w-full sm:items-start sm:space-y-1'
-const container = 'flex flex-col border p-10 rounded shadow space-y-3 relative w-1/2 sm:flex-col sm:items-center sm:space-y-10 lg:flex-col lg:items-start lg:space-y-10'
+const container = 'flex flex-col border p-10  border-gray-600 xl:border-l-white 2xl:border-l-white space-y-3 relative w-1/2 sm:w-full'

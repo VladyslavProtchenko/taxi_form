@@ -17,9 +17,9 @@ const Steps = () => {
         >back</div>}
 
         {store.steps === 2 &&<div 
-            className={returnBtn}
+            className={returnTrip.isReturnTrip ? returnBtn + ' text-red-500': returnBtn +''}
             onClick={() => setIsReturnTrip(!returnTrip.isReturnTrip)}
-        >return trip</div>}
+        >{returnTrip.isReturnTrip? '-': '+'}return trip</div>}
 
         {store.steps != 4 && <div 
             className={(store.steps === 1)? navBtn+' ml-auto': navBtn}
@@ -37,4 +37,4 @@ export default Steps;
 const navBtn = ' px-2 py-1 bg-yellow-200  rounded active:bg-yellow-100 active:text-gray-500'
 const returnBtn = 'self-center   text-green-300 active:text-green-500'
 
-const buttons = 'flex max-w-[320px] w-full justify-between px-3 '
+const buttons = 'flex max-w-[320px] w-full justify-between px-3 mt-auto mb-10'

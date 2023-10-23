@@ -127,6 +127,7 @@ select option {
     width:350px;
     position: relative;
     align-items: center;
+    overflow: hidden;
 }
 .short {
     display: flex;

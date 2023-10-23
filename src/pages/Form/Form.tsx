@@ -176,12 +176,14 @@ const Form = () => {
 
     return (
         <div  className={container}>
-            <div className="hidden w-full sm:flex-col sm:flex items-center sm:max-w-[576px]">
+            <div className="hidden w-full sm:flex-col sm:flex items-center sm:max-w-[576px] h-full">
                 {store.steps === 1 && <InfoSection />}
                 {store.steps === 2 && <AddressSection />}
                 {store.steps === 3 && <OptionsSection />}
-                {store.steps === 4 && <h1>finish</h1>}
-                {<Steps />} 
+                {store.steps === 4 && <div className='flex w-full h-5/6 justify-center items-center'>
+                        <div>Order sent</div>
+                    </div>}
+                <Steps/>
             </div>
             
             <div className="sm:hidden flex flex-col items-center">
@@ -197,4 +199,4 @@ const Form = () => {
 
 export default Form;
 
-const container = 'flex pb-16 flex-col w-full bg-white sm:max-width-[767px] sm:border-none sm:px-2 sm:items-center'
+const container = 'flex  flex-col w-full h-[100&]] bg-white sm:max-width-[767px] sm:border-none sm:px-2'
