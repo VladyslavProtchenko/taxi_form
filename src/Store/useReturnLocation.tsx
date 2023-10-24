@@ -14,13 +14,15 @@ interface IUser {
     date: string;
     time: string;
 
+    icon:number;
     flight: string;
     bus: string;
     train: string;
 
     tripType: string;
-    airlines: string;
+    airline: string;
     departure:string;
+    departure2:string;
 
     arrivalTime: string;
 
@@ -41,6 +43,8 @@ interface Store {
     setTime: (trip:string) => void;
 
     setDeparture: (trip:string) => void;
+    setDeparture2: (trip:string) => void;
+    setIcon: (trip:number) => void;
     setFlight: (trip:string) => void;
     setTripType: (trip:string) => void;
     setAirlines: (trip:string) => void;
@@ -63,13 +67,15 @@ export const useReturnLocation = create<Store>((set) => ({
         date:'',
         time: '',
 
+        icon: 1,
         flight:'',
         bus:'',
         train:'',
         departure:'',
+        departure2:'',
         tripType: '',
         arrivalTime: '',
-        airlines:'',
+        airline:'',
 
     },
     
@@ -87,6 +93,8 @@ export const useReturnLocation = create<Store>((set) => ({
     setTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, time: data } })),
 
     setDeparture: (data) => set((state) => ({ returnTrip: {...state.returnTrip, departure: data } })),
+    setDeparture2: (data) => set((state) => ({ returnTrip: {...state.returnTrip, departure2: data } })),
+    setIcon: (data) => set((state) => ({ returnTrip: {...state.returnTrip, icon: data } })),
     setFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, flight: data } })),
     setTripType: (data) => set((state) => ({ returnTrip: {...state.returnTrip, tripType: data } })),
     setAirlines: (data) => set((state) => ({ returnTrip: {...state.returnTrip, airlines: data } })),

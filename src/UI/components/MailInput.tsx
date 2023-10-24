@@ -12,7 +12,6 @@ interface InputProps {
 }
 
 const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMail }) => {
-    // const [email, setEmail] = useState({mail:'', domain:''});
     const [domains, ] = useState([
         "gmail.com",
         "outlook.com",
@@ -38,14 +37,8 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
     const [customDomain, setCustomDomain ] = useState('')
 
     const { validation } = useValidation()
-
-    // useEffect(()=>{
-    //     onChange(email.mail+'@'+email.domain)
-    // },[email])
-
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
-    console.log(mainMail)
     return (
         <div className={(!validation.isEmail && mainMail) ? container  +' border-red-500': container}>
             <span className='icon'><TfiEmail/></span>
@@ -80,5 +73,5 @@ export default MailInput;
 
 const domainBox = 'relative flex items-center font-bold text-[#0066ff]'
 const label = 'absolute right-[125px] font-bold text-[#0066ff] text-xl'
-const container = ' flex text-sm border items-center hover:border-[#0066ff]'
+const container = ' flex text-sm border items-center'
 

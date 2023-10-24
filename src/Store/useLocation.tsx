@@ -22,17 +22,16 @@ interface IUser {
     stopSecond:string;
     stopLast:string;
 
-    isFlight: boolean;
-    
+    icon: number;
     flight:string;
     bus: string,
     train:string,
 
     airline:string;
-    departureSection: string;
+    departure: string;
+    departure2: string;
     tripType:string;
     arrivalTime:string;
-
 }
 interface Store {
     user: IUser;
@@ -47,8 +46,11 @@ interface Store {
     setStopFirst: (value: string) => void;
     setStopSecond: (value: string) => void;
     setStopLast: (value: string) => void;
-    setDepartureSection: (section: string) => void;
+    setDeparture: (section: string) => void;
+    setDeparture2: (section: string) => void;
 
+
+    setIcon: (value: number) => void;
     setFlight: (value: string) => void;
     setTrain: (value: string) => void;
     setBus: (value: string) => void;
@@ -70,7 +72,6 @@ export const useLocation = create<Store>()(
                 isFlight: false,
                 taxiNow: false,
 
-
                 pickUpLocation: '',
                 dropOffLocation: '',
 
@@ -78,12 +79,14 @@ export const useLocation = create<Store>()(
                 stopSecond: '',
                 stopLast: '',
 
+                icon:1,
                 flight: '',
                 bus: '',
                 train:'',
 
                 airline:'',
-                departureSection: '',
+                departure: '',
+                departure2: '',
                 arrivalTime: '',
 
                 date: today,
@@ -98,12 +101,14 @@ export const useLocation = create<Store>()(
             setStopSecond: (data) => set((state) => ({ user: {...state.user, stopSecond: data } })),
             setStopLast: (data) => set((state) => ({ user: {...state.user, stopLast: data } })),
             
+            setIcon: (data) => set((state) => ({ user: {...state.user, icon: data } })),
             setFlight: (data) => set((state) => ({ user: {...state.user, flight: data } })),
             setBus: (data) => set((state) => ({ user: {...state.user, bus: data } })),
             setTrain: (data) => set((state) => ({ user: {...state.user, train: data } })),
 
             setAirline: (data) => set((state) => ({ user: {...state.user, airline: data } })),
-            setDepartureSection: (data) => set((state) => ({ user: {...state.user, departureSection: data } })),
+            setDeparture: (data) => set((state) => ({ user: {...state.user, departure: data } })),
+            setDeparture2: (data) => set((state) => ({ user: {...state.user, departure2: data } })),
             setArrivalTime: (data) => set((state) => ({ user: {...state.user, arrivalTime: data } })),
 
             setDate: (data) => set((state) => ({ user: {...state.user, date: data } })),

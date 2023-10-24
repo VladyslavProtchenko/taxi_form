@@ -1,29 +1,33 @@
+import { ChangeEvent, useEffect, useState } from "react";
+import { Input, Select } from "antd";
+import dayjs from "dayjs";
+import useOnclickOutside from "react-cool-onclickoutside";
+
 import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
 import DatePicker from "../../../UI/components/DatePicker";
 import { useStore } from "../../../Store";
-import useOnclickOutside from "react-cool-onclickoutside";
-import { ChangeEvent, useEffect, useState } from "react";
-import dayjs from "dayjs";
-
-import { useReturnLocation } from "../../../Store/useReturnLocation";
-import { useLocation } from "../../../Store/useLocation";
-import { Input, Select } from "antd";
-import { SlLocationPin } from "react-icons/sl";
-import { PiCalendarCheckLight } from "react-icons/pi";
-import { MdOutlineFlightLand,MdOutlineFlightTakeoff  } from "react-icons/md";
-import { GiControlTower } from "react-icons/gi";
-import { FaBus,FaTrain } from "react-icons/fa";
 
 import { useValidation } from "../../../Store/useValidation";
+import { useReturnLocation } from "../../../Store/useReturnLocation";
+import { useLocation } from "../../../Store/useLocation";
 
-
+import { SlLocationPin } from "react-icons/sl";
+import { PiCalendarCheckLight } from "react-icons/pi";
+import { GiControlTower } from "react-icons/gi";
+import { FaBus,FaTrain } from "react-icons/fa";
+import { FaSailboat, FaHotel } from "react-icons/fa6";
+import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 
 const TripContent = () => {
-    const { returnTrip, setFrom, setTo, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setFlight,setAirlines,setIsFlight } = useReturnLocation()
+    const { returnTrip, setFrom, setTo,setIcon, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setDeparture2,setFlight,setAirlines,setIsFlight } = useReturnLocation()
     const { user: mainUser } = useLocation()
     const { user: userStore } = useStore()
     const { validation, setIsMontrealBack, setIsMontrealPickBack } =useValidation()
+    const [trigger, setTrigger] = useState({
+        1: 1,
+        2:1,
+    })
 
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
@@ -97,13 +101,15 @@ const TripContent = () => {
 
     },[returnTrip.from, returnTrip.to])
 
+    console.log(trigger)
     return (
     <div className={container}>
 
-        <div className={dateTime}>
+        <div className={date}>
             <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                 <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                    {returnTrip.date ? <span >
+                    {returnTrip.date ? 
+                    <div className='flex items-center'>
                         {fullDate.format('dddd')},  
                         {'  '+fullDate.format('MMM')}
                         {'.  '+fullDate.format('D')}
@@ -115,7 +121,7 @@ const TripContent = () => {
                             ? 'rd'
                             : 'th'
                         }
-                    {' '+fullDate.format('YYYY')} </span>:  'Choice return data' }
+                    {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choice return data</div> }
                 {isDateOpen && <div className={dateTimeSubmenu}>
                     <DatePicker time={returnTrip.time} onChange={setDate} getFullDate={setFullDate}/>
                     <div className="flex justify-between pl-8">
@@ -127,77 +133,78 @@ const TripContent = () => {
                 </div>}
             </div>
             <TimePicker onChange={setTime} date={returnTrip.time}/>
+        </div>
 
+        <div className={type}>
             
-            <div 
-                className={
-                    !returnTrip.isFlight ? 'short opacity-50 border'
-                    : !validation.isMontrealPick 
-                    ? 'short border'
-                    : returnTrip.flight.length < 3 
-                    ? 'short + border-red-500 border' 
-                    : 'short border'  
-                }
-            >
-                {(returnTrip.to.toLowerCase().includes('airport'))
-                    ?<MdOutlineFlightTakeoff className='text-2xl ml-1'/>
-                    :(returnTrip.from.toLowerCase().includes('airport'))
-                    ?< MdOutlineFlightLand className='text-2xl ml-1'/>  
-                    :(returnTrip.to.toLowerCase().includes('bus'))
-                    ? <FaBus className='text-xl ml-1'/>
-                    :(returnTrip.to.toLowerCase().includes('train'))
-                    ? <FaTrain className='text-xl ml-1'/>
-                    :< MdOutlineFlightLand className='text-2xl ml-1'/>                  
-                }
-                <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
-                    {returnTrip.airlines.toLowerCase().includes('canada') 
+            <div className={icons}>
+                <MdFlightTakeoff className={returnTrip.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(0)}}/>
+                <FaTrain className={returnTrip.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(1)}}/>
+                <FaBus className={returnTrip.icon == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
+                <FaSailboat className={returnTrip.icon == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(3)}}/>
+                <FaHotel className={returnTrip.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(4)}}/>
+            </div>
+
+            <div className={flightCard }>
+                {returnTrip.icon === 1 && <Select 
+                    className='favorite w-1/2 max-h-[30px]'
+                    style={{width: '100px'}} 
+                    options={mainUser.flights.map(item=>(
+                        {value: item, label: item}
+                    ))} 
+                    onChange={setAirlines} 
+                    placeholder='Airlines' 
+                />}
+                
+                {returnTrip.icon === 1
+                    ?<MdFlightTakeoff className='text-xl mx-1'/>
+                    :returnTrip.icon === 2
+                    ?< FaTrain className=' mx-1'/>
+                    :returnTrip.icon === 3
+                    ? <FaBus className=' mx-1'/>
+                    :returnTrip.icon === 4
+                    ? <FaSailboat className=' mx-1'/>
+                    :returnTrip.icon === 5 
+                    ?<FaHotel className='mx-1'/>
+                    :<MdFlightLand className='text-xl mx-1'/>
+                }   
+                {returnTrip.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                    {returnTrip.airline.toLowerCase().includes('canada') 
                         ? 'AC'
-                        : returnTrip.airlines.toLowerCase().includes('transat') 
+                        : returnTrip.airline.toLowerCase().includes('transat') 
                         ? 'TC'
-                        : returnTrip.airlines.toLowerCase().includes('quatar') 
+                        : returnTrip.airline.toLowerCase().includes('quatar') 
                         ? 'QR'
                         : ''
                     }
-                </div>
-                <Input placeholder='#' disabled={(!returnTrip.isFlight)}  style={{width:100, borderRadius: 0, height: 30, paddingLeft:0}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                </div>}
+                <Input placeholder='#' style={{width:70, paddingLeft:0, borderRadius: 0, height: 30}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
             </div>
         </div>
-        <div className={setFlights}>
-            {(validation.isMontrealBack || validation.isAirport) && 
-            <div className={checkboxes}>
-                <div onClick={()=>setIsFlight(!returnTrip.isFlight)} className={checkCard}>
-                    <input type="checkbox" checked={returnTrip.isFlight} className='cursor-pointer'/>
-                    <span>set flight</span>
-                </div>
-            </div>}
-        </div>
-        <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
-            <span className='icon text-green-400'><SlLocationPin/></span>
-            <GoogleAddressInput 
-                defaultLocation={
-                    returnTrip.from
-                    ? returnTrip.from
-                    : mainUser.dropOffLocation 
-                    ? mainUser.dropOffLocation
-                    : ''
-                }
-                onChange={setFrom}
-                placeholder='Pick up location'
-            />
 
-            <Select
-                placeholder='favorite'
-                style={{ width:200 , height: 30}}
-                className='favorite truncate pl-6'
-                onChange={setFrom}
-                options={
-                    (userStore.defaultLocations.filter(item => !item.includes(returnTrip.to)).length > 0 
-                    ? userStore.defaultLocations.filter(item => !item.includes(returnTrip.to))
-                    : userStore.defaultLocations).map(item=>(
-                        {value: item, label: item}
-                    ))
-                }
-            />
+
+        <div className={locationCard}>
+            <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
+                <span className='icon text-green-400'><SlLocationPin/></span>
+                <GoogleAddressInput 
+                    style='w-full' 
+                    defaultLocation={
+                        returnTrip.from
+                        ? returnTrip.from
+                        : mainUser.dropOffLocation && trigger[1] 
+                        ? mainUser.dropOffLocation
+                        : ''
+                    }
+                    onChange={(e)=> {
+                        setFrom(e)
+                        setTrigger({...trigger, 1: 0})
+                    }}
+                    placeholder='Pick up location'
+                />
+            </div>
+            <div className="border flex items-center w-1/3 ">
+                <Select placeholder='Departure' className='favorite' style={{ height: 30}}onChange={setDeparture}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
+            </div>
         </div>
 
         {stop.first  &&
@@ -294,33 +301,28 @@ const TripContent = () => {
             <span className={addCircle}>+</span>add stop
             </div>}
 
-        <div className={validation.isBackTo ? extraCard : extraCard +' border-red-500'}>
-            <span className='icon text-red-500'><SlLocationPin/></span>
-            <GoogleAddressInput 
-                defaultLocation={
-                    returnTrip.to
-                    ?  returnTrip.to
-                    : mainUser.pickUpLocation 
-                    ? mainUser.pickUpLocation 
-                    : ''
-                } 
-                style={'w-[200px] '} 
-                onChange={setTo}
-                placeholder='Drop off location'
-            />
-            <Select 
-                placeholder='favorite'
-                style={{ width:200 , height: 30}}
-                className='favorite truncate pl-6'
-                onChange={setTo}
-                options={
-                    (userStore.defaultLocations.filter(item => !item.includes(returnTrip.from)).length > 0
-                    ? userStore.defaultLocations.filter(item => !item.includes(returnTrip.from))
-                    : userStore.defaultLocations).map(item=>(
-                        {value: item, label: item}
-                    ))
-                }
-            />
+        <div className={locationCard}>
+            <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
+                <span className='icon text-green-400'><SlLocationPin/></span>
+                <GoogleAddressInput 
+                    defaultLocation={
+                        returnTrip.to 
+                        ?  returnTrip.to
+                        : mainUser.pickUpLocation && trigger[2]
+                        ? mainUser.pickUpLocation 
+                        : ''
+                    } 
+                    style='w-full' 
+                    onChange={(e)=> {
+                        setTo(e)
+                        setTrigger({...trigger, 2: 0})
+                    }}
+                    placeholder='Drop off location'
+                />
+            </div>
+            <div className="border flex items-center w-1/3 ">
+                <Select placeholder='Departure' className='favorite ' style={{ height: 30}}onChange={setDeparture2}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
+            </div>
         </div>
 
 
@@ -329,7 +331,6 @@ const TripContent = () => {
             <span className={airportContainer}>
                 <span className='icon'><GiControlTower /></span>
                 <Select placeholder='Airlines' style={{ width:'50%' , height: 30}}onChange={setAirlines}options={userStore.flights.map(item=>({value: item, label: item}))}/>
-                <Select placeholder='Departure' style={{ width:'50%' , height: 30}}onChange={setDeparture}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
             </span >
         </div>}
 
@@ -342,8 +343,10 @@ const TripContent = () => {
 export default TripContent;
 
 
-const checkboxes = 'flex w-full mb-auto w-1/2 self-end'
-const checkCard = 'flex text-xs cursor-pointer space-x-2 w-full mb-auto mt-2 max-w-[400px] sm:pl-2'
+const iconItem = 'text-gray-300 active:text-gray-400 hover:text-gray-500 cursor-pointer'
+const icons = 'flex w-1/3 justify-around pt-1'
+const type = 'flex items-center justify-between w-full 2xl:w-3/4 space-x-4'
+const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5 2xl:w-3/4 '
 
 const addCircle = ' w-4 h-4 flex items-center justify-center bg-green-300 rounded-full border text-black border-black mr-1'
 const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
@@ -357,10 +360,10 @@ const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max
 
 const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
 const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
-const dateTime = 'flex space-x-2 sm:items-start items-start'
+const date = 'flex space-x-2 sm:items-start items-start w-full 2xl:w-3/4  justify-between'
 
-const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
+const locationCard = 'flex relative items-center w-full 2xl:w-3/4 space-x-2'
+const extraCard = 'flex relative items-center border w-full 2xl:w-3/4'
 const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%] lg:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 
-const setFlights = 'flex sm:mb-4 sm:px-0 sm:w-full sm:items-start sm:space-y-1'
 const container = 'flex flex-col border p-10  border-gray-600 space-y-3 relative w-[48%] sm:w-full'

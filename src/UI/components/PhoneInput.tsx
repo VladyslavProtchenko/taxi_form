@@ -232,7 +232,7 @@ interface IPhone {
 }
 
 function PhoneNumberInput({ value, onChange }: IPhone) {
-    const { setIsPhone } = useValidation()
+    const {setIsPhone } = useValidation()
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
     const [phoneType, setPhoneType] = useState(1)

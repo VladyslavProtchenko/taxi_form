@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import usePlacesAutocomplete, {
     getGeocode,
 } from "use-places-autocomplete";
@@ -40,7 +40,6 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
     }, [isLoaded, init]);
 
     const ref = useOnclickOutside(() => clearSuggestions());
-    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => { setValue(e.target.value) };
 
     const handleSelect = ({ description }:{description: string}) => () => {
         setValue(description, false);
@@ -68,12 +67,14 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
                 allowClear
                 className={input}
                 value={value}
-                onChange={handleInput}
+                onChange={(e)=>{
+                    onChange(e.target.value)
+                    setValue(e.target.value)
+                }}
                 disabled={!ready}
                 placeholder={placeholder}
             />
             {status === "OK" && <ul className={submenu}>{renderSuggestions()}</ul>}
-
         </div>
     );
 };

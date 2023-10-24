@@ -16,15 +16,10 @@ const Steps = () => {
             }}
         >back</div>}
 
-        {/* {store.steps === 2 &&<div 
-            className={returnTrip.isReturnTrip ? returnBtn + ' text-red-500': returnBtn +''}
-            onClick={() => setIsReturnTrip(!returnTrip.isReturnTrip)}
-        >{returnTrip.isReturnTrip? '-': '+'}return trip</div>} */}
-
         {store.steps != 4 && <div 
             className={(store.steps === 1)? navBtn+' ml-auto': navBtn}
             onClick={() =>{
-                if(store.steps >= 4 ) return setSteps(4)
+                if(store.steps >= 5 ) return setSteps(4)
                 setSteps(store.steps + 1)
             }}
         >next</div>}

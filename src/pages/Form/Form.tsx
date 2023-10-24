@@ -9,6 +9,7 @@ import { useReturnLocation } from '../../Store/useReturnLocation';
 import { useOptions } from '../../Store/useOptions';
 import PaymentSection from './Payment/Payment';
 import { useValidation } from '../../Store/useValidation';
+import { useEffect } from 'react';
 
 
 const Form = () => {
@@ -37,6 +38,41 @@ const Form = () => {
         setIsDepartureBack,
         setIsPayment,
     } = useValidation()
+
+    useEffect(()=>{
+        setIsTitle(false)
+        setIsName(false)
+        setIsEmail(false)
+        setIsPayment(false)
+
+        if(user.gender) setIsTitle(true)
+        if(user.name.length > 3) setIsName(true) 
+        const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if(pattern.test(user.email)) setIsEmail(true)
+        if(user.paymentMethod) setIsPayment(true)
+    },[user])
+
+    useEffect(()=>{
+        setIsFrom(false)
+        setIsTo(false)
+        setIsDate(false)
+        setIsTime(false) 
+        setIsBackFrom(false)
+        setIsBackTo(false)
+        setIsDateBack(false)
+        setIsTimeBack(false)
+
+        if(trip.pickUpLocation) setIsFrom(true)
+        if(trip.dropOffLocation) setIsTo(true)
+        if(trip.date) setIsDate(true)
+        if(trip.time) setIsTime(true) 
+        if(validation.isReturn && ( returnTrip.from || trip.dropOffLocation )) setIsBackFrom(true)
+        if(validation.isReturn && ( returnTrip.to || trip.pickUpLocation )) setIsBackTo(true)
+        if(validation.isReturn && returnTrip.date) setIsDateBack(true)
+        if(validation.isReturn && returnTrip.time) setIsTimeBack(true)
+    },[trip,returnTrip])
+
+
 
     const sendOrder = () => {
 
@@ -71,7 +107,7 @@ const Form = () => {
             bus: trip.bus,
             train: trip.train,
 
-            departure: trip.departureSection,
+            departure: trip.departure,
             airline: trip.airline,
 
 
@@ -92,7 +128,7 @@ const Form = () => {
             returnTrain: returnTrip.train,
 
             returnDeparture: returnTrip.departure,
-            returnAirline: returnTrip.airlines,
+            returnAirline: returnTrip.airline,
 
             carType: options.carType,
             passengers: options.passengers,
@@ -109,7 +145,6 @@ const Form = () => {
         setIsTitle(true)
         setIsName(true)
         setIsEmail(true)
-        setIsPhone(true)
 
         setIsFrom(true)
         setIsTo(true)
@@ -129,24 +164,25 @@ const Form = () => {
 
         setIsPayment(true)
 
-        
-        if(user.name.length < 3) {
-            alert('Name required')
-            return  setIsName(false) 
-        } 
         if(!user.gender) {
             alert('Title required')
             return setIsTitle(false)
         }
+
+        if(user.name.length < 3) {
+            alert('Name required')
+            return  setIsName(false) 
+        } 
+
         const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if(!pattern.test(user.email)) {
             alert('Email required')
             return setIsEmail(false)  
         }
-        if(validation.isPhone) {
+        if(!validation.isPhone) {
             alert('Phone required')
+            return setIsPhone(false)
         }
-[]
         if(!trip.pickUpLocation) {
             alert('Set pick up address')
             return setIsFrom(false)
@@ -168,7 +204,7 @@ const Form = () => {
             alert('flight is required')
             return setIsFlight(false)
         }
-        if(validation.isMontrealPick && (!trip.departureSection || !trip.airline)){
+        if(validation.isMontrealPick && (!trip.departure || !trip.airline)){
             alert('departure section is required')
             return setIsDeparture(false) 
         } 
@@ -196,7 +232,7 @@ const Form = () => {
             alert('flight is required')
             return setIsFlightBack(false)
         }
-        if(validation.isReturn && validation.isMontrealPickBack && (!returnTrip.departure || !returnTrip.airlines)) {
+        if(validation.isReturn && validation.isMontrealPickBack && (!returnTrip.departure || !returnTrip.airline)) {
             alert('departure is required')
             return setIsDepartureBack(false)
         }
@@ -208,7 +244,6 @@ const Form = () => {
         console.log(newOrder)
         alert('order created')
     }
-
     return (
         <div  className={container}>
             <div className="hidden w-full sm:flex-col sm:flex items-center sm:max-w-[576px] h-full">
@@ -216,9 +251,9 @@ const Form = () => {
                 {store.steps === 2 && <AddressSection />}
                 {store.steps === 3 && <OptionsSection />}
                 {store.steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
-                {/* <div className='flex w-full h-5/6 justify-center items-center'>
+                {store.steps === 5 &&<div className='flex w-full h-5/6 justify-center items-center'>
                         <div>Order sent</div>
-                    </div>} */}
+                    </div>}
                 <Steps/>
             </div>
             
