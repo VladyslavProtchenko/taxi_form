@@ -5,7 +5,6 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useLocation } from "../../../Store/useLocation";
-import { useReturnLocation } from "../../../Store/useReturnLocation";
 
 import { MdOutlineFlightLand,MdOutlineFlightTakeoff  } from "react-icons/md";
 import { GiControlTower } from "react-icons/gi";
@@ -20,8 +19,7 @@ import { useStore } from "../../../Store";
 import { useValidation } from "../../../Store/useValidation";
 
 const TripContent = () => {
-    const {  returnTrip, setIsReturnTrip } = useReturnLocation()
-    const { validation, setIsMontreal,setIsMontrealPick,setIsAirport, setIsReturn } = useValidation()
+    const { validation, setIsMontreal,setIsMontrealPick,setIsAirport } = useValidation()
     const { 
         user, 
         setPickUpLocation, 
@@ -151,7 +149,7 @@ const TripContent = () => {
             </div>
         </div>
 
-        <div className={date}>
+        <div className={setFlights}>
 
             <div className={checkboxes}>
                 <div onClick={()=>setTaxiNow(!user.taxiNow)} className={checkCard}>
@@ -301,17 +299,6 @@ const TripContent = () => {
                     />
                 </span>
             </div>}
-
-        
-
-
-        <div className={returnTrip.isReturnTrip ? button + ' text-red-500 hover:text-red-400' : button + ' ' } onClick={()=>{
-                setIsReturnTrip(!returnTrip.isReturnTrip)
-                setIsReturn(!validation.isReturn)
-            }}>
-            <h1>{!returnTrip.isReturnTrip ? '+' : '- '}RETURN</h1>
-        </div>
-
     </div>
     );
 };
@@ -322,7 +309,6 @@ export default TripContent;
 const checkboxes = 'flex w-full 2xl:mb-auto'
 const checkCard = 'flex text-xs cursor-pointer space-x-2 w-full mb-auto mt-2 max-w-[400px] sm:pl-2'
 
-const button = 'absolute right-0 sm:right-1/2 top-[120px] sm:top-full sm:-translate-y-[6px] sm:py-0 px-2 py-1 pt-2 rounded-xl translate-x-1/2  z-20  bg-white flex items-center  hover:text-green-300 text-green-400 text-sm font-bold cursor-pointer'
 
 const addCircle = ' w-4 h-4 flex items-center justify-center bg-green-300 rounded-full border text-black border-black mr-1'
 const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
@@ -333,16 +319,16 @@ const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 
 const closeStop ="absolute w-4 h-4 -right-6 bg-red-500 ml-1 border border-black rounded-full flex justify-center cursor-pointer text-bold  items-center"
 
 const airportContainer ='flex relative w-full border sm:max-w-[380px] sm:space-between items-center sm:items-center'
-const dateInput = 'text-xs flex items-center border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full '
+const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full'
 
 
 const airportSection = 'flex w-full  self-start max-w-[350px]'
-const dateTime = 'flex sm:mb-2 sm:justify-center space-x-2 items-start '
+const dateTime = 'flex sm:mb-2  space-x-2 items-start '
 
 
-const extraCardStop = 'flex relative items-center border w-full max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+const extraCardStop = 'flex relative items-center border w-full max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%]  lg:ml-[5%]  max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
 
-const date = ' flex flex-col  sm:mb-4 sm:px-0 sm:w-full items-start justify-start'
+const setFlights = ' flex flex-col  sm:mb-4 sm:px-0 sm:w-full items-start justify-start'
 
-const container = 'flex border p-10 border-gray-600 flex-col w-1/2 sm:w-full relative space-y-3'
+const container = 'flex border p-10 border-gray-600 flex-col w-[48%] sm:w-full relative space-y-3'

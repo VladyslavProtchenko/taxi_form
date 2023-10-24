@@ -143,6 +143,9 @@ const Form = () => {
             alert('Email required')
             return setIsEmail(false)  
         }
+        if(validation.isPhone) {
+            alert('Phone required')
+        }
 []
         if(!trip.pickUpLocation) {
             alert('Set pick up address')
@@ -153,23 +156,55 @@ const Form = () => {
             return setIsTo(false)
         }
 
-        if(!trip.date) return setIsDate(false)
-        if(!trip.time) return setIsTime(false)
-        if(validation.isMontrealPick && !trip.flight) return setIsFlight(false)
-        if(validation.isMontrealPick && (!trip.departureSection || !trip.airline)) return setIsDeparture(false)
+        if(!trip.date) {
+            alert('date is required')
+            return setIsDate(false)
+        }
+        if(!trip.time){
+            alert('time is required')
+            return setIsTime(false) 
+        } 
+        if(validation.isMontrealPick && !trip.flight) {
+            alert('flight is required')
+            return setIsFlight(false)
+        }
+        if(validation.isMontrealPick && (!trip.departureSection || !trip.airline)){
+            alert('departure section is required')
+            return setIsDeparture(false) 
+        } 
         
-        if(validation.isReturn && !returnTrip.from) return setIsBackFrom(false)
-        if(validation.isReturn && !returnTrip.to)  return setIsBackTo(true)
+        if(validation.isReturn && !returnTrip.from){
+            alert('return address is required')
+            return setIsBackFrom(false)
+        } 
+        if(validation.isReturn && !returnTrip.to)  {
+            alert('return to address is required')
+            return setIsBackTo(true)
+        }
 
-        if(validation.isReturn && !returnTrip.date) return setIsDateBack(false)
-        if(validation.isReturn && !returnTrip.time) return  setIsTimeBack(false)
+        if(validation.isReturn && !returnTrip.date) {
+            alert('date is required')
+            return setIsDateBack(false)
+        }
+        if(validation.isReturn && !returnTrip.time) {
+            alert('time is required')
+            return  setIsTimeBack(false)
+        }
 
         
-        if(validation.isReturn && validation.isMontrealPickBack && !returnTrip.flight) return setIsFlightBack(false)
-        if(validation.isReturn && validation.isMontrealPickBack && (!returnTrip.departure || !returnTrip.airlines)) return setIsDepartureBack(false)
+        if(validation.isReturn && validation.isMontrealPickBack && !returnTrip.flight) {
+            alert('flight is required')
+            return setIsFlightBack(false)
+        }
+        if(validation.isReturn && validation.isMontrealPickBack && (!returnTrip.departure || !returnTrip.airlines)) {
+            alert('departure is required')
+            return setIsDepartureBack(false)
+        }
 
-        if(!user.paymentMethod) return setIsPayment(false)
-
+        if(!user.paymentMethod){
+            alert('choice payment method')
+            return setIsPayment(false)
+        }
         console.log(newOrder)
         alert('order created')
     }

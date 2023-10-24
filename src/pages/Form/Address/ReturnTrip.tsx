@@ -162,7 +162,7 @@ const TripContent = () => {
                 <Input placeholder='#' disabled={(!returnTrip.isFlight)}  style={{width:100, borderRadius: 0, height: 30, paddingLeft:0}}onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
             </div>
         </div>
-        <div className={date}>
+        <div className={setFlights}>
             {(validation.isMontrealBack || validation.isAirport) && 
             <div className={checkboxes}>
                 <div onClick={()=>setIsFlight(!returnTrip.isFlight)} className={checkCard}>
@@ -353,14 +353,14 @@ const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 
 
 const closeStop ="absolute w-4 h-4 -right-6 bg-red-500 ml-1 border border-black rounded-full flex justify-center cursor-pointer text-bold  items-center"
 
-const dateInput = 'text-xs flex items-center border py-1 relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full '
+const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full '
 
 const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
 const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
-const dateTime = 'flex sm:justify-center space-x-2 sm:items-start items-start'
+const dateTime = 'flex space-x-2 sm:items-start items-start'
 
 const extraCard = 'flex relative items-center border w-full max-w-[350px] sm:max-w-[310px]'
-const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%] lg:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 
-const date = 'flex sm:mb-4 sm:px-0 sm:w-full sm:items-start sm:space-y-1'
-const container = 'flex flex-col border p-10  border-gray-600 xl:border-l-white 2xl:border-l-white space-y-3 relative w-1/2 sm:w-full'
+const setFlights = 'flex sm:mb-4 sm:px-0 sm:w-full sm:items-start sm:space-y-1'
+const container = 'flex flex-col border p-10  border-gray-600 space-y-3 relative w-[48%] sm:w-full'

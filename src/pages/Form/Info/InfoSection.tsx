@@ -27,7 +27,7 @@ const InfoSection = () => {
             <div className={header}>Order info</div>
             <div className={content}>
                 
-                <div className={extraContainer }>
+                <div className={extraContainer+'' }>
                     <div className={ (validation.isName && validation.isTitle ) ? 'nameCard2 border': 'nameCard2 border border-red-500' }>
                         <span className='icon'><BsPeople/></span>
                         <Select
@@ -92,7 +92,7 @@ const InfoSection = () => {
                     </div>}
                 </div>
 
-                <div className={extraContainer}>
+                <div className={extraContainer+''}>
                     <div className={extraCard}>
                         <MailInput value={user.email} mainMail={true} onChange={setEmail} placeholder='Set second email'/>
                     </div>
@@ -125,7 +125,7 @@ const InfoSection = () => {
 
                 </div>
 
-                <div className={extraContainer }>
+                <div className={extraContainer +' xl:mt-4'}>
                     <div className={validation.isPhone ? extraCard +' border': extraCard+ ' border border-red-500' } >
                         <PhoneNumberInput value={user.phone} onChange={setPhone}/>
                     </div>
@@ -172,7 +172,7 @@ const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded
 const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black left-[353px]"
 
 const extraCard = ' flex relative items-center '
-const extraContainer = 'flex flex-col 2xl:w-1/3 sm:w-full items-center space-y-2'
+const extraContainer = 'flex flex-col 2xl:w-1/3 xl:w-[48%] sm:w-full items-start space-y-2'
 
 const header = 'mb-2 italic text-gray-400 uppercase sm:text-center lg:text-center'
 const content ='flex justify-between flex-wrap  sm:items-center sm:flex-col sm:space-y-8  lg:flex-col lg:items-center lg:space-y-4'
