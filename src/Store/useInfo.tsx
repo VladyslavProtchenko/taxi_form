@@ -66,7 +66,7 @@ export const useInfo = create<IStore>()(
                 extraName2: '',
                 extraName3: '',
 
-                email: '',
+                email: '@',
                 extraEmail1: '',
                 extraEmail2: '',
                 extraEmail3: '',

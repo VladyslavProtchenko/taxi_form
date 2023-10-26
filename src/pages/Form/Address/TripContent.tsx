@@ -32,7 +32,10 @@ const TripContent = () => {
         setAirline,
         setIsFlight,
         setIcon,
+        setIcon2,
+        setAirlineBack,
     } = useLocation()
+
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
@@ -105,7 +108,7 @@ const TripContent = () => {
                     </div>
                 </div>}
             </div>
-            <TimePicker timeNow={user.taxiNow ? dayjs().format('HH,mm') : '' } onChange={setTime} date={user.date}/> 
+            <TimePicker time={user.time}  onChange={setTime} date={user.date}/> 
         </div>
 
         <div className={type}>
@@ -152,9 +155,15 @@ const TripContent = () => {
                         : ''
                     }
                 </div>}
-                <Input placeholder='#' className={user.icon === 1 ? ' max-w-[80px]': '' } style={{ width:'100%', paddingLeft:0, borderRadius: 0, height: 30}} onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                <Input 
+                    placeholder={user.icon === 1 ?'####': user.icon === 2 ? 'Train#' : user.icon === 3 ? "Bus#" : user.icon === 4 ? 'Boat#': 'Room#'} 
+                    className={user.icon === 1 ? ' max-w-[80px]': '' } 
+                    style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}
+                />
             </div>}
         </div>
+
         <div className={locationCard}>
             <div className={validation.isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                 <span className='icon text-green-500'><SlLocationPin/></span>
@@ -261,6 +270,59 @@ const TripContent = () => {
                 placeholder='Departure' 
             />
             </div>
+        </div>
+
+        <div className={type}>
+            
+            <div className={icons}>
+                <MdFlightTakeoff className={user.icon2 == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon2(1)}}/>
+                <FaTrain className={user.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
+                <FaBus className={user.icon2 == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(3)}}/>
+                <FaSailboat className={user.icon2 == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(4)}}/>
+                <FaHotel className={user.icon2 == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(5)}}/>
+            </div>
+
+            {user.icon2 && <div className={flightCard }>
+                {user.icon2 === 1 && 
+                <Select 
+                    className='favorite w-1/2 max-h-[30px]'
+                    style={{width: '100px'}} 
+                    options={user.flights.map(item=>(
+                        {value: item, label: item}
+                    ))} 
+                    onChange={setAirlineBack} 
+                    placeholder='Airlines' 
+                />}
+                
+                {user.icon2 === 1
+                    ?<MdFlightTakeoff className='text-xl mx-1'/>
+                    :user.icon2 === 2
+                    ?< FaTrain className=' mx-1'/>
+                    :user.icon2 === 3
+                    ? <FaBus className=' mx-1'/>
+                    :user.icon2 === 4
+                    ? <FaSailboat className=' mx-1'/>
+                    :user.icon2 === 5 
+                    ?<FaHotel className='mx-1'/>
+                    :<MdFlightLand className='text-xl mx-1'/>
+                }
+                {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                    {user.airlineBack.toLowerCase().includes('canada') 
+                        ? 'AC'
+                        : user.airlineBack.toLowerCase().includes('transat') 
+                        ? 'TC'
+                        : user.airlineBack.toLowerCase().includes('quatar') 
+                        ? 'QR'
+                        : ''
+                    }
+                </div>}
+                <Input 
+                    placeholder={user.icon2 === 1 ?'####': user.icon2 === 2 ? 'Train#' : user.icon2 === 3 ? "Bus#" : user.icon2 === 4 ? 'Boat#': 'Room#'} 
+                    className={user.icon === 1 ? ' max-w-[80px]': '' } 
+                    style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}
+                />
+            </div>}
         </div>
     </div>
     );

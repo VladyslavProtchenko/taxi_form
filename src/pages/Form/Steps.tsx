@@ -1,35 +1,72 @@
-// import { useReturnLocation } from '../../Store/useReturnLocation';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { useSteps } from '../../Store/useSteps';
+import { useValidation } from '../../Store/useValidation';
+import { useEffect, useState } from 'react';
 
 const Steps = () => {
-    // const {  returnTrip, setIsReturnTrip } = useReturnLocation()
-
     const { store, setSteps } = useSteps()
+    const { validation } = useValidation()
+    const [disabled, setDisabled] = useState(true)
 
+    useEffect(()=>{
+        setDisabled(true)
+        if(store.steps === 1 && (validation.isTitle && validation.isName && validation.isPhone && validation.isEmail)) return setDisabled(false);
+        if(validation.isReturn && store.steps === 2
+            && (!validation.isDateBack || !validation.isTimeBack)
+        ) return setDisabled(true)
+
+        if(validation.isReturn && store.steps === 2 
+            && validation.isDateBack
+            && validation.isTimeBack
+        )  return setDisabled(false);
+
+        if(store.steps === 2 && 
+            (validation.isDate 
+            && validation.isTime 
+            && validation.isFrom
+            && validation.isTo
+        )) return setDisabled(false);
+
+        if(store.steps === 3 && validation.isCarType)return setDisabled(false);
+    },[store.steps, validation, validation.isReturn])
+    
     return (
-        <div className={buttons}>
+        <div className={disabled ? buttons: buttons +' text:gray-300 active:text-gray-300'}>
         {store.steps != 1 && <div 
             className={navBtn}
             onClick={() =>{
                 if(store.steps <=1 ) return setSteps(1)
                 setSteps(store.steps - 1)
             }}
-        >back</div>}
+        ><AiOutlineLeft/>back</div>}
 
         {store.steps != 4 && <div 
-            className={(store.steps === 1)? navBtn+' ml-auto': navBtn}
+            className={!disabled 
+                ? navBtn + `${store.steps === 1? ' ml-auto': ''}`
+                : ' text-gray-200 active:text-gray-200 ' + navBtn+ `${store.steps === 1? ' ml-auto': ''}`}
             onClick={() =>{
                 if(store.steps >= 5 ) return setSteps(4)
+                if(disabled) return;
+
+                if(store.steps === 2 && 
+                    (validation.isDate 
+                    && !validation.isTime 
+                    && !validation.isFrom
+                    && !validation.isTo
+                    && (validation.isReturn && !validation.isDateBack)
+                    && (validation.isReturn && !validation.isTimeBack)
+                    && (validation.isReturn && !validation.isBackFrom)
+                    && (validation.isReturn && !validation.isBackTo)
+                    )) return;
+
                 setSteps(store.steps + 1)
             }}
-        >next</div>}
+        >next<AiOutlineRight/></div>}
     </div>
     );
 };
 
 export default Steps;
 
-const navBtn = ' px-2 py-1 bg-yellow-200  rounded active:bg-yellow-100 active:text-gray-500'
-// const returnBtn = 'self-center   text-green-300 active:text-green-500'
-
+const navBtn = ' flex items-center text-2xl active:text-gray-500'
 const buttons = 'flex max-w-[320px] w-full justify-between px-3 mt-auto mb-10'

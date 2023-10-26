@@ -8,26 +8,20 @@ import { useLocation } from "../../Store/useLocation";
 interface InputProps {
     onChange: (value: string) => void;
     date?: string;
-    timeNow?:string;
+    time: string;
     style?:string;
 }
 
-const TimePicker: React.FC<InputProps> = ({ style, onChange, date, timeNow }) => {
-
+const TimePicker: React.FC<InputProps> = ({ style, onChange, date,time }) => {
     const ref = useOnclickOutside(() => setIsOpen(false));
     const { setTaxiNow} = useLocation()
-    const [hour, setHour] = useState(timeNow ? timeNow.slice(0,2) : '')
-    const [minute, setMinute] = useState(timeNow ? timeNow.slice(3) : '')
+    const [hour, setHour] = useState(time.replace(/:/g, '') ? time.slice(0,2) : '')
+    const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3) :  '')
     const [isOpen, setIsOpen] = useState(false)
     const [isTime, setIsTime] = useState(0)
 
-
-    useEffect(()=>{
-        setHour(timeNow ? timeNow.slice(0,2) : '')
-        setMinute(timeNow ? timeNow.slice(3) : '')
-
-    },[timeNow])
     useEffect(() => {
+        
         onChange((hour) + ':' + (minute))
         if(minute && hour) {
             setIsTime(2)

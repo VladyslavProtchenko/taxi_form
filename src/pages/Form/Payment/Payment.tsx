@@ -26,13 +26,13 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
                     <Select placeholder='Payment method' style={{ width:200 , height: 30}}onChange={setPaymentMethod}options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
                     <button className={btn} onClick={sendOrder}>Order</button>
             </div>
+            
             <div className={additional}>
                 <span className={textArea}>
                         <TextArea rows={2} placeholder='Additional information' onChange={(e)=>{
                             setAdditionalText(e.target.value)
                         }}/></span>
             </div>
-            {/* <div className={modal}>thank you for order</div> */}
         </section>
     );
 };

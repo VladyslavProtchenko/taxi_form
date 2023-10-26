@@ -11,7 +11,6 @@ import PaymentSection from './Payment/Payment';
 import { useValidation } from '../../Store/useValidation';
 import { useEffect } from 'react';
 
-
 const Form = () => {
     const { store } = useSteps()
     const {user} = useInfo()
@@ -37,8 +36,8 @@ const Form = () => {
         setIsFlightBack,
         setIsDepartureBack,
         setIsPayment,
+        setIsCarType
     } = useValidation()
-
     useEffect(()=>{
         setIsTitle(false)
         setIsName(false)
@@ -50,7 +49,9 @@ const Form = () => {
         const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if(pattern.test(user.email)) setIsEmail(true)
         if(user.paymentMethod) setIsPayment(true)
-    },[user])
+
+        if(options.carType) setIsCarType(true)
+    },[user,options])
 
     useEffect(()=>{
         setIsFrom(false)
@@ -65,82 +66,80 @@ const Form = () => {
         if(trip.pickUpLocation) setIsFrom(true)
         if(trip.dropOffLocation) setIsTo(true)
         if(trip.date) setIsDate(true)
-        if(trip.time) setIsTime(true) 
+        if(trip.time.length === 5 ) setIsTime(true)
         if(validation.isReturn && ( returnTrip.from || trip.dropOffLocation )) setIsBackFrom(true)
         if(validation.isReturn && ( returnTrip.to || trip.pickUpLocation )) setIsBackTo(true)
         if(validation.isReturn && returnTrip.date) setIsDateBack(true)
-        if(validation.isReturn && returnTrip.time) setIsTimeBack(true)
+        if(validation.isReturn && returnTrip.time.length === 5) setIsTimeBack(true)
     },[trip,returnTrip])
-
-
 
     const sendOrder = () => {
 
-        const newOrder = {
-            gender: user.gender,
-            gender2: user.extraGender1,
-            gender3: user.extraGender2,
+        // const newOrder = {
+        //     gender: user.gender,
+        //     gender2: user.extraGender1,
+        //     gender3: user.extraGender2,
 
-            name: user.name,
-            name2: user.extraName1,
-            name3: user.extraName2,
+        //     name: user.name,
+        //     name2: user.extraName1,
+        //     name3: user.extraName2,
 
 
-            email: user.email,
-            email2: user.extraEmail1,
-            email3: user.extraEmail2,
+        //     email: user.email,
+        //     email2: user.extraEmail1,
+        //     email3: user.extraEmail2,
 
-            phone: user.phone,
-            phone2: user.extraPhone1,
-            phone3: user.extraPhone2,
+        //     phone: user.phone,
+        //     phone2: user.extraPhone1,
+        //     phone3: user.extraPhone2,
 
-            fromLocation: trip.pickUpLocation,
-            to: trip.dropOffLocation,
-            stop1: trip.stopFirst,
-            stop2: trip.stopSecond,
-            stop3: trip.stopLast,
+        //     fromLocation: trip.pickUpLocation,
+        //     to: trip.dropOffLocation,
+        //     stop1: trip.stopFirst,
+        //     stop2: trip.stopSecond,
+        //     stop3: trip.stopLast,
             
-            date: trip.date,
-            time: trip.time,
+        //     date: trip.date,
+        //     time: trip.time,
 
-            flight: trip.flight,
-            bus: trip.bus,
-            train: trip.train,
+        //     flight: trip.flight,
+        //     bus: trip.bus,
+        //     train: trip.train,
 
-            departure: trip.departure,
-            airline: trip.airline,
-
-
-            isReturnTrip: returnTrip.isReturnTrip,
+        //     departure: trip.departure,
+        //     airline: trip.airline,
 
 
-            returnFrom: returnTrip.from,
-            returnTo: returnTrip.to,
-            returnStop1: returnTrip.stop1,
-            returnStop2: returnTrip.stop2,
-            returnStop3: returnTrip.stop3,
+        //     isReturnTrip: returnTrip.isReturnTrip,
+
+
+        //     returnFrom: returnTrip.from,
+        //     returnTo: returnTrip.to,
+        //     returnStop1: returnTrip.stop1,
+        //     returnStop2: returnTrip.stop2,
+        //     returnStop3: returnTrip.stop3,
             
-            returnDate: returnTrip.date,
-            returnTime: returnTrip.time,
+        //     returnDate: returnTrip.date,
+        //     returnTime: returnTrip.time,
 
-            returnFlight: returnTrip.flight,
-            returnBus: returnTrip.bus,
-            returnTrain: returnTrip.train,
+        //     returnFlight: returnTrip.flight,
+        //     returnBus: returnTrip.bus,
+        //     returnTrain: returnTrip.train,
 
-            returnDeparture: returnTrip.departure,
-            returnAirline: returnTrip.airline,
+        //     returnDeparture: returnTrip.departure,
+        //     returnAirline: returnTrip.airline,
 
-            carType: options.carType,
-            passengers: options.passengers,
-            baggage: options.baggage,
-            carSeats: options.carSeats,
-            sport: options.sport,
-            pets: options.pets,
+        //     carType: options.carType,
+        //     passengers: options.passengers,
+        //     baggage: options.baggage,
+        //     carSeats: options.carSeats,
+        //     sport: options.sport,
+        //     pets: options.pets,
 
-            tripType: trip.date,
-            paymentMethod: user.paymentMethod,
-            notes: user.additionalText,
-        }
+        //     tripType: trip.date,
+        //     paymentMethod: user.paymentMethod,
+        //     notes: user.additionalText,
+        // }
 
         setIsTitle(true)
         setIsName(true)
@@ -241,7 +240,6 @@ const Form = () => {
             alert('choice payment method')
             return setIsPayment(false)
         }
-        console.log(newOrder)
         alert('order created')
     }
     return (
@@ -269,5 +267,4 @@ const Form = () => {
 };
 
 export default Form;
-
 const container = 'flex  flex-col w-full h-[100&]] bg-white sm:max-width-[767px] sm:border-none sm:px-2'

@@ -20,20 +20,10 @@ const OptionsSection = () => {
     const { setCarType } = useOptions()
     const { validation } = useValidation()
 
-
     return (
         <section className={section}>
             <div className={validation.isCarType ? type : type + ' border-red-500'}>
-                {/* <span className='icon'>
-                    {options.carType === 'VAN (5-7)'
-                    ? <LiaShuttleVanSolid/>
-                    :options.carType === 'SUV (max 4)'
-                    ?<PiJeepLight/>
-                    :options.carType === 'limo (disabled)'
-                    ?<AiOutlineStop/>
-                    :<IoCarSportOutline/>
-                    }
-                </span> */}
+
                 <Select
                     style={{width:"100%",  height: 30}}
                     placeholder='Select car'

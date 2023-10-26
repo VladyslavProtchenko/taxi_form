@@ -6,7 +6,6 @@ import { Input, Select } from 'antd';
 import { BsPeople } from "react-icons/bs";
 import { useValidation } from '../../../Store/useValidation';
 
-
 const InfoSection = () => {
     const { user, setName, setGender, setEmail, setPhone,setExtraGender1, setExtraGender2, setExtraName1,setExtraName2, setExtraPhone1, setExtraPhone2, setExtraEmail1, setExtraEmail2, } = useInfo()
     const { validation } = useValidation()
@@ -26,8 +25,7 @@ const InfoSection = () => {
         <section className={section}>
             <div className={header}>Order info</div>
             <div className={content}>
-                
-                <div className={extraContainer+'' }>
+                <div className={extraContainer}>
                     <div className={ (validation.isName && validation.isTitle ) ? 'nameCard2 border': 'nameCard2 border border-red-500' }>
                         <span className='icon'><BsPeople/></span>
                         <Select
@@ -92,7 +90,7 @@ const InfoSection = () => {
                     </div>}
                 </div>
 
-                <div className={extraContainer+''}>
+                <div className={extraContainer}>
                     <div className={extraCard}>
                         <MailInput value={user.email} mainMail={true} onChange={setEmail} placeholder='Set second email'/>
                     </div>
