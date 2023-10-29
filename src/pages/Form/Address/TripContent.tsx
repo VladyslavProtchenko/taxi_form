@@ -12,8 +12,10 @@ import { useValidation } from "../../../Store/useValidation";
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { FaBus,FaTrain } from "react-icons/fa";
-import { FaSailboat, FaHotel } from "react-icons/fa6";
+import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
+import { MdLocalHotel } from "react-icons/md";
+
 
 const TripContent = () => {
     const { validation, setIsMontreal,setIsMontrealPick,setIsAirport } = useValidation()
@@ -114,11 +116,11 @@ const TripContent = () => {
         <div className={type}>
             
             <div className={icons}>
-                <MdFlightTakeoff className={user.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
+                <MdFlightLand className={user.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
                 <FaTrain className={user.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
                 <FaBus className={user.icon == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(3)}}/>
                 <FaSailboat className={user.icon == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(4)}}/>
-                <FaHotel className={user.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
+                <MdLocalHotel className={user.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
             </div>
 
             {user.icon && <div className={flightCard }>
@@ -134,7 +136,7 @@ const TripContent = () => {
                 />}
                 
                 {user.icon === 1
-                    ?<MdFlightTakeoff className='text-xl mx-1'/>
+                    ?<MdFlightLand className='text-xl mx-1'/>
                     :user.icon === 2
                     ?< FaTrain className=' mx-1'/>
                     :user.icon === 3
@@ -142,8 +144,8 @@ const TripContent = () => {
                     :user.icon === 4
                     ? <FaSailboat className=' mx-1'/>
                     :user.icon === 5 
-                    ?<FaHotel className='mx-1'/>
-                    :<MdFlightLand className='text-xl mx-1'/>
+                    ?<MdLocalHotel className='mx-1'/>
+                    :<MdFlightTakeoff className='text-xl mx-1'/>
                 }   
                 {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
                     {user.airline.toLowerCase().includes('canada') 
@@ -252,7 +254,7 @@ const TripContent = () => {
 
         <div className={locationCard}>
             <div className={validation.isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
-                <span className='icon text-green-500'><SlLocationPin/></span>
+                <span className='icon text-red-500'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full' 
                     defaultLocation={user.dropOffLocation || ''} 
@@ -279,7 +281,7 @@ const TripContent = () => {
                 <FaTrain className={user.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
                 <FaBus className={user.icon2 == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(3)}}/>
                 <FaSailboat className={user.icon2 == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(4)}}/>
-                <FaHotel className={user.icon2 == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(5)}}/>
+                <MdLocalHotel className={user.icon2 == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(5)}}/>
             </div>
 
             {user.icon2 && <div className={flightCard }>
@@ -303,7 +305,7 @@ const TripContent = () => {
                     :user.icon2 === 4
                     ? <FaSailboat className=' mx-1'/>
                     :user.icon2 === 5 
-                    ?<FaHotel className='mx-1'/>
+                    ?<MdLocalHotel className='mx-1'/>
                     :<MdFlightLand className='text-xl mx-1'/>
                 }
                 {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>

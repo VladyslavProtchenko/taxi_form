@@ -301,7 +301,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
 export default PhoneNumberInput
 
 const subItem = 'px-2 text-black hover:bg-yellow-200 px-2 py-1 flex items-center'
-const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer hover:bg-yellow-100'
+const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer'
 const subLabel = ' left-0 pb-1 z-50  bg-white border-black border-[1px] flex flex-col absolute top-[115%] items-center cursor-pointer '
 const container = 'flex'
 

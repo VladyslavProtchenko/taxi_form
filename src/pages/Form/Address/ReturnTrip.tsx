@@ -16,8 +16,10 @@ import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { GiControlTower } from "react-icons/gi";
 import { FaBus,FaTrain } from "react-icons/fa";
-import { FaSailboat, FaHotel } from "react-icons/fa6";
+import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
+import { MdLocalHotel } from "react-icons/md";
+
 
 const TripContent = () => {
     const { returnTrip, setFrom, setTo,setIcon, setIconBack, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setDeparture2,setFlight,setAirlines,setAirlinesBack,setIsFlight } = useReturnLocation()
@@ -131,11 +133,11 @@ const TripContent = () => {
 
         <div className={type}>
             <div className={icons}>
-                <MdFlightTakeoff className={returnTrip.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
+                <MdFlightLand className={returnTrip.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
                 <FaTrain className={returnTrip.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
                 <FaBus className={returnTrip.icon == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(3)}}/>
                 <FaSailboat className={returnTrip.icon == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(4)}}/>
-                <FaHotel className={returnTrip.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
+                <MdLocalHotel className={returnTrip.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
             </div>
 
             <div className={flightCard }>
@@ -150,7 +152,7 @@ const TripContent = () => {
                 />}
                 
                 {returnTrip.icon === 1
-                    ?<MdFlightTakeoff className='text-xl mx-1'/>
+                    ?<MdFlightLand className='text-xl mx-1'/>
                     :returnTrip.icon === 2
                     ?< FaTrain className=' mx-1'/>
                     :returnTrip.icon === 3
@@ -158,8 +160,8 @@ const TripContent = () => {
                     :returnTrip.icon === 4
                     ? <FaSailboat className=' mx-1'/>
                     :returnTrip.icon === 5 
-                    ?<FaHotel className='mx-1'/>
-                    :<MdFlightLand className='text-xl mx-1'/>
+                    ?<MdLocalHotel className='mx-1'/>
+                    :<MdFlightTakeoff className='text-xl mx-1'/>
                 }   
                 {returnTrip.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
                     {returnTrip.airline.toLowerCase().includes('canada') 
@@ -299,7 +301,7 @@ const TripContent = () => {
 
         <div className={locationCard}>
             <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
-                <span className='icon text-green-400'><SlLocationPin/></span>
+                <span className='icon text-red-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     defaultLocation={
                         returnTrip.to 
@@ -328,7 +330,7 @@ const TripContent = () => {
                 <FaTrain className={returnTrip.iconBack == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(2)}}/>
                 <FaBus className={returnTrip.iconBack == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(3)}}/>
                 <FaSailboat className={returnTrip.iconBack == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(4)}}/>
-                <FaHotel className={returnTrip.iconBack == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(5)}}/>
+                <MdLocalHotel className={returnTrip.iconBack == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(5)}}/>
             </div>
 
             <div className={flightCard }>
@@ -351,7 +353,7 @@ const TripContent = () => {
                     :returnTrip.iconBack === 4
                     ? <FaSailboat className=' mx-1'/>
                     :returnTrip.iconBack === 5 
-                    ?<FaHotel className='mx-1'/>
+                    ?<MdLocalHotel className='mx-1'/>
                     :<MdFlightLand className='text-xl mx-1'/>
                 }   
                 {returnTrip.iconBack === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>

@@ -162,12 +162,12 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-const addButton ='px-1 bg-green-400 border border-black rounded-full text-gray-500 border-gray-500 font-bold'
-const addExtraBtn = 'text-xs cursor-pointer ml-4 text-gray-400 hover:text-black duration-500 w-[350px]'
+const addButton ='px-1 bg-green-300 border border-black rounded-full text-gray-500 border-gray-500 font-bold '
+const addExtraBtn = 'text-xs cursor-pointer ml-4 text-black duration-300 w-[350px] opacity-50 hover:opacity-100'
 
-const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border cursor-pointer font-bold text-black  left-[350px]"
-const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black  left-[353px]"
-const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border right-2 cursor-pointer font-bold text-black left-[353px]"
+const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black cursor-pointer font-bold text-black  left-[352px] opacity-20 hover:opacity-100 duration-300 "
+const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black  left-[355px] opacity-25 hover:opacity-100 duration-300 "
+const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black left-[355px] opacity-25 hover:opacity-100 duration-300 "
 
 const extraCard = ' flex relative items-center '
 const extraContainer = 'flex flex-col 2xl:w-1/3 xl:w-[48%] sm:w-full items-start space-y-2'
