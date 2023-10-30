@@ -11,8 +11,8 @@ import { useValidation } from "../../../Store/useValidation";
 
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
-import { FaBus,FaTrain } from "react-icons/fa";
-import { FaSailboat } from "react-icons/fa6";
+import { FaBus } from "react-icons/fa";
+import { FaSailboat, FaTrainTram } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 
@@ -31,6 +31,7 @@ const TripContent = () => {
         setDeparture,
         setDeparture2,
         setFlight,
+        setFlight2,
         setAirline,
         setIsFlight,
         setIcon,
@@ -117,7 +118,7 @@ const TripContent = () => {
             
             <div className={icons}>
                 <MdFlightLand className={user.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
-                <FaTrain className={user.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
+                <FaTrainTram className={user.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
                 <FaBus className={user.icon == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(3)}}/>
                 <FaSailboat className={user.icon == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(4)}}/>
                 <MdLocalHotel className={user.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
@@ -138,7 +139,7 @@ const TripContent = () => {
                 {user.icon === 1
                     ?<MdFlightLand className='text-xl mx-1'/>
                     :user.icon === 2
-                    ?< FaTrain className=' mx-1'/>
+                    ?< FaTrainTram className=' mx-1'/>
                     :user.icon === 3
                     ? <FaBus className=' mx-1'/>
                     :user.icon === 4
@@ -278,7 +279,7 @@ const TripContent = () => {
             
             <div className={icons}>
                 <MdFlightTakeoff className={user.icon2 == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon2(1)}}/>
-                <FaTrain className={user.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
+                <FaTrainTram className={user.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
                 <FaBus className={user.icon2 == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(3)}}/>
                 <FaSailboat className={user.icon2 == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(4)}}/>
                 <MdLocalHotel className={user.icon2 == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(5)}}/>
@@ -299,7 +300,7 @@ const TripContent = () => {
                 {user.icon2 === 1
                     ?<MdFlightTakeoff className='text-xl mx-1'/>
                     :user.icon2 === 2
-                    ?< FaTrain className=' mx-1'/>
+                    ?<FaTrainTram className=' mx-1'/>
                     :user.icon2 === 3
                     ? <FaBus className=' mx-1'/>
                     :user.icon2 === 4
@@ -322,7 +323,7 @@ const TripContent = () => {
                     placeholder={user.icon2 === 1 ?'####': user.icon2 === 2 ? 'Train#' : user.icon2 === 3 ? "Bus#" : user.icon2 === 4 ? 'Boat#': 'Room#'} 
                     className={user.icon === 1 ? ' max-w-[80px]': '' } 
                     style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value)}
                 />
             </div>}
         </div>

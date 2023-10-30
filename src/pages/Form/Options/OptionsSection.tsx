@@ -17,7 +17,7 @@ import { AiOutlineStop } from "react-icons/ai";
 const OptionsSection = () => {
 
     const {user } = useStore()
-    const { setCarType } = useOptions()
+    const { options, setCarType } = useOptions()
     const { validation } = useValidation()
 
     return (
@@ -28,6 +28,7 @@ const OptionsSection = () => {
                     style={{width:"100%",  height: 30}}
                     placeholder='Select car'
                     onChange={setCarType}
+                    value={options.carType || 'sedan (max 4)'}
                     options={user.carList.map(item=>(
                         {
                             value: item, 

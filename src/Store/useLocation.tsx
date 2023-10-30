@@ -27,6 +27,7 @@ interface IUser {
     icon2: number;
 
     flight:string;
+    flight2:string;
     bus: string,
     train:string,
 
@@ -59,6 +60,7 @@ interface Store {
     setIcon2: (value: number) => void;
 
     setFlight: (value: string) => void;
+    setFlight2: (value: string) => void;
     setTrain: (value: string) => void;
     setBus: (value: string) => void;
 
@@ -91,6 +93,7 @@ export const useLocation = create<Store>()(
                 icon:1,
                 icon2:1,
                 flight: '',
+                flight2: '',
                 bus: '',
                 train:'',
 
@@ -116,6 +119,7 @@ export const useLocation = create<Store>()(
             setIcon2: (data) => set((state) => ({ user: {...state.user, icon2: data } })),
 
             setFlight: (data) => set((state) => ({ user: {...state.user, flight: data } })),
+            setFlight2: (data) => set((state) => ({ user: {...state.user, flight2: data } })),
             setBus: (data) => set((state) => ({ user: {...state.user, bus: data } })),
             setTrain: (data) => set((state) => ({ user: {...state.user, train: data } })),
 

@@ -5,7 +5,7 @@ import { useOptions } from '../../../../Store/useOptions';
 
 
 const PassengersSelect = () => {
-    const {options, setPassengers} = useOptions()
+    const {options, setPassengers, setCarType} = useOptions()
     const [adults, setAdults] = useState(options.passengers.adults)
     const [babies, setBabies] = useState(options.passengers.babies)
     const [children, setChildren] = useState<{id:number; age:number}[]>(options.passengers.kids)
@@ -51,6 +51,7 @@ const PassengersSelect = () => {
                         <div 
                             className={qntPlus} 
                             onClick={()=>{
+                                if((children.length + adults) >=4) setCarType('VAN (5-7)')
                                 if((children.length + adults) >=4  && options.carType !== 'VAN (5-7)') return;
                                 if((children.length + adults)  >= 7) return;
                                 setAdults(adults + 1)

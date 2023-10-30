@@ -15,14 +15,14 @@ import { useLocation } from "../../../Store/useLocation";
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { GiControlTower } from "react-icons/gi";
-import { FaBus,FaTrain } from "react-icons/fa";
-import { FaSailboat } from "react-icons/fa6";
+import { FaBus } from "react-icons/fa";
+import { FaSailboat, FaTrainTram } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 
 
 const TripContent = () => {
-    const { returnTrip, setFrom, setTo,setIcon, setIconBack, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setDeparture2,setFlight,setAirlines,setAirlinesBack,setIsFlight } = useReturnLocation()
+    const { returnTrip, setFrom, setTo,setIcon, setIcon2, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setDeparture2,setFlight,setFlight2,setAirlines,setAirlinesBack,setIsFlight } = useReturnLocation()
     const { user: mainUser } = useLocation()
     const { user: userStore } = useStore()
     const { validation, setIsMontrealBack, setIsMontrealPickBack } =useValidation()
@@ -134,7 +134,7 @@ const TripContent = () => {
         <div className={type}>
             <div className={icons}>
                 <MdFlightLand className={returnTrip.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
-                <FaTrain className={returnTrip.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
+                <FaTrainTram className={returnTrip.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
                 <FaBus className={returnTrip.icon == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(3)}}/>
                 <FaSailboat className={returnTrip.icon == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(4)}}/>
                 <MdLocalHotel className={returnTrip.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
@@ -154,7 +154,7 @@ const TripContent = () => {
                 {returnTrip.icon === 1
                     ?<MdFlightLand className='text-xl mx-1'/>
                     :returnTrip.icon === 2
-                    ?< FaTrain className=' mx-1'/>
+                    ?< FaTrainTram className=' mx-1'/>
                     :returnTrip.icon === 3
                     ? <FaBus className=' mx-1'/>
                     :returnTrip.icon === 4
@@ -326,15 +326,15 @@ const TripContent = () => {
         <div className={type}>
             
             <div className={icons}>
-                <MdFlightTakeoff className={returnTrip.iconBack == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIconBack(1)}}/>
-                <FaTrain className={returnTrip.iconBack == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(2)}}/>
-                <FaBus className={returnTrip.iconBack == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(3)}}/>
-                <FaSailboat className={returnTrip.iconBack == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(4)}}/>
-                <MdLocalHotel className={returnTrip.iconBack == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIconBack(5)}}/>
+                <MdFlightTakeoff className={returnTrip.icon2 == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon2(1)}}/>
+                <FaTrainTram className={returnTrip.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
+                <FaBus className={returnTrip.icon2 == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(3)}}/>
+                <FaSailboat className={returnTrip.icon2 == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(4)}}/>
+                <MdLocalHotel className={returnTrip.icon2 == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(5)}}/>
             </div>
 
             <div className={flightCard }>
-                {returnTrip.iconBack === 1 && <Select 
+                {returnTrip.icon2 === 1 && <Select 
                     className='favorite w-1/2 max-h-[30px]'
                     style={{width: '100px'}} 
                     options={mainUser.flights.map(item=>(
@@ -344,19 +344,19 @@ const TripContent = () => {
                     placeholder='Airlines' 
                 />}
                 
-                {returnTrip.iconBack === 1
+                {returnTrip.icon2 === 1
                     ?<MdFlightTakeoff className='text-xl mx-1'/>
-                    :returnTrip.iconBack === 2
-                    ?< FaTrain className=' mx-1'/>
-                    :returnTrip.iconBack === 3
+                    :returnTrip.icon2 === 2
+                    ?< FaTrainTram className=' mx-1'/>
+                    :returnTrip.icon2 === 3
                     ? <FaBus className=' mx-1'/>
-                    :returnTrip.iconBack === 4
+                    :returnTrip.icon2 === 4
                     ? <FaSailboat className=' mx-1'/>
-                    :returnTrip.iconBack === 5 
+                    :returnTrip.icon2 === 5 
                     ?<MdLocalHotel className='mx-1'/>
                     :<MdFlightLand className='text-xl mx-1'/>
                 }   
-                {returnTrip.iconBack === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                {returnTrip.icon2 === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
                     {returnTrip.airlineBack.toLowerCase().includes('canada') 
                         ? 'AC'
                         : returnTrip.airlineBack.toLowerCase().includes('transat') 
@@ -367,9 +367,9 @@ const TripContent = () => {
                     }
                 </div>}
                 <Input 
-                    placeholder={returnTrip.iconBack === 1 ?'####': returnTrip.iconBack === 2 ? 'Train#' : returnTrip.iconBack === 3 ? "Bus#" : returnTrip.iconBack === 4 ? 'Boat#': 'Room#'} 
-                    style={{width:`${returnTrip.iconBack === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}/>
+                    placeholder={returnTrip.icon2 === 1 ?'####': returnTrip.icon2 === 2 ? 'Train#' : returnTrip.icon2 === 3 ? "Bus#" : returnTrip.icon2 === 4 ? 'Boat#': 'Room#'} 
+                    style={{width:`${returnTrip.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value)}/>
             </div>
         </div>
 

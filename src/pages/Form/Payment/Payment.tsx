@@ -4,6 +4,7 @@ import { useInfo } from "../../../Store/useInfo";
 import { useLocation } from "../../../Store/useLocation";
 import { Input } from 'antd';
 import { useValidation } from "../../../Store/useValidation";
+import Submit from "../Submit/Submit";
 const { TextArea } = Input;
 
 interface ISendOrder {
@@ -18,21 +19,24 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
 
     return (
         <section className={section}>
-
-            <div className={content}>
-                <span className={box}>
-                    <Select  placeholder='Trip type' style={{ width:200 , height: 30}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
-                <span className={validation.isPayment ? box: box +' border-red-500'}>
-                    <Select placeholder='Payment method' style={{ width:200 , height: 30}}onChange={setPaymentMethod}options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
-                    <button className={btn} onClick={sendOrder}>Order</button>
-            </div>
+            <div className="flex w-full">
+                <div className={content}>
+                    <span className={box}>
+                        <Select  placeholder='Trip type' style={{ width:200 , height: 30}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
+                    <span className={validation.isPayment ? box: box +' border-red-500'}>
+                        <Select placeholder='Payment method' style={{ width:200 , height: 30}}onChange={setPaymentMethod}options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
+                        <button className={btn} onClick={sendOrder}>Order</button>
+                </div>
+                
+                <div className={additional}>
+                    <span className={textArea}>
+                            <TextArea style={{borderRadius: '50px'}} rows={2} placeholder='Additional information' onChange={(e)=>{
+                                setAdditionalText(e.target.value)
+                            }}/></span>
+                </div>
             
-            <div className={additional}>
-                <span className={textArea}>
-                        <TextArea rows={2} placeholder='Additional information' onChange={(e)=>{
-                            setAdditionalText(e.target.value)
-                        }}/></span>
             </div>
+            <Submit />
         </section>
     );
 };
@@ -46,4 +50,4 @@ const content ='flex w-1/3 px-2 lg:mb-4 lg:space-x-4 sm:w-full sm:mb-10'
 
 const box ='flex border h-min pl-3 w-[100px]'
 const textArea ='flex border h-min w-full rounded-xl'
-const section = 'flex w-full px-8 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col sm:flex-col'
+const section = 'flex flex-col w-full px-8 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col sm:flex-col'

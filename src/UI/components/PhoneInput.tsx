@@ -253,6 +253,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
 
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+    
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)}>
@@ -265,7 +266,8 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
             </div>
             <Select
                 showSearch
-                value={country || null}
+                defaultValue={'Canada'}
+                value={country || 'Canada'}
                 placeholder={country || "Canada"}
                 style={{width:118, height: 30}}
                 onChange={setCountry}
@@ -277,6 +279,23 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                     }
                 ))}
             />
+            {(country==='USA' || country.toLowerCase() ==="united states") && <PhoneInput
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                isValid={(value, country:any,) => {
+                    const res = country.format.split(".").length-1;
+                    setVal(value.length)
+                    setRes(res)
+                    return true
+                }}
+                priority={{ca: 1, us: 0,kz: 0, ru: 1}  }
+                country={'us'}
+                value={countryCode}
+                onChange={(e, countryName:ICountry)=>{
+                    setCountry(countryName.name)
+                    onChange(e)
+                }}
+            />}
+            {(country !=='USA' && country.toLowerCase() !== "united states") &&
             <PhoneInput
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 isValid={(value, country:any,) => {
@@ -285,8 +304,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                     setRes(res)
                     return true
                 }}
-                preferredCountries={['ca']}
-                priority={(country==='USA' || country.toLowerCase() ==="united states") ? {ca: 1, us: 0,kz: 0, ru: 1} : {ca: 0, us: 1,kz: 0, ru: 1} }
+                priority={{ca: 0, us: 1,kz: 0, ru: 1} }
                 country={'ca'}
                 value={countryCode}
                 onChange={(e, countryName:ICountry)=>{
@@ -294,6 +312,8 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
                     onChange(e)
                 }}
             />
+            }
+            
         </section>
     )
 }

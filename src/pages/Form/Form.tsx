@@ -10,6 +10,7 @@ import { useOptions } from '../../Store/useOptions';
 import PaymentSection from './Payment/Payment';
 import { useValidation } from '../../Store/useValidation';
 import { useEffect } from 'react';
+import Submit from './Submit/Submit';
 
 const Form = () => {
     const { store } = useSteps()
@@ -67,10 +68,10 @@ const Form = () => {
         if(trip.dropOffLocation) setIsTo(true)
         if(trip.date) setIsDate(true)
         if(trip.time.length === 5 ) setIsTime(true)
-        if(validation.isReturn && ( returnTrip.from || trip.dropOffLocation )) setIsBackFrom(true)
-        if(validation.isReturn && ( returnTrip.to || trip.pickUpLocation )) setIsBackTo(true)
-        if(validation.isReturn && returnTrip.date) setIsDateBack(true)
-        if(validation.isReturn && returnTrip.time.length === 5) setIsTimeBack(true)
+        if(returnTrip.isReturnTrip && ( returnTrip.from || trip.dropOffLocation )) setIsBackFrom(true)
+        if(returnTrip.isReturnTrip && ( returnTrip.to || trip.pickUpLocation )) setIsBackTo(true)
+        if(returnTrip.isReturnTrip && returnTrip.date) setIsDateBack(true)
+        if(returnTrip.isReturnTrip && returnTrip.time.length === 5) setIsTimeBack(true)
     },[trip,returnTrip])
 
     const sendOrder = () => {
@@ -249,9 +250,7 @@ const Form = () => {
                 {store.steps === 2 && <AddressSection />}
                 {store.steps === 3 && <OptionsSection />}
                 {store.steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
-                {store.steps === 5 &&<div className='flex w-full h-5/6 justify-center items-center'>
-                        <div>Order sent</div>
-                    </div>}
+                
                 <Steps/>
             </div>
             
