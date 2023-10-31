@@ -295,7 +295,7 @@ const locationData = 'flex'
 const contentItem = 'flex '
 const locations = 'flex flex-col space-y-2'
 const label = 'text-sm text-gray-600 italic pr-2'
-const content = 'space-y-3 font-light '
+const content = ' flex space-y-3 font-light xl:flex 2xl:flex'
 const header = 'px-4 mb-2 text-xl'
 const block = 'border p-2 px-6 rounded relative'
 
