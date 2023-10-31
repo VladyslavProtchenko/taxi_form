@@ -10,7 +10,6 @@ import { useOptions } from '../../Store/useOptions';
 import PaymentSection from './Payment/Payment';
 import { useValidation } from '../../Store/useValidation';
 import { useEffect } from 'react';
-import Submit from './Submit/Submit';
 
 const Form = () => {
     const { store } = useSteps()

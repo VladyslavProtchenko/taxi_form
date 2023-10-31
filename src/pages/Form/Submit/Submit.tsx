@@ -10,7 +10,7 @@ import { FiEdit } from "react-icons/fi";
 const Submit = () => {
     const { user  } = useInfo()
     const { user:location } = useLocation()
-    const { returnTrip } = useReturnLocation()
+    const {  } = useReturnLocation()
     const { options } = useOptions()
 
     return (
@@ -294,12 +294,12 @@ const locationIcon = 'min-w-[22px]'
 const locationData = 'flex'
 const contentItem = 'flex '
 const locations = 'flex flex-col space-y-2'
-const label = 'text-sm text-gray-600 italic pr-2'
+// const label = 'text-sm text-gray-600 italic pr-2'
 const content = ' flex space-y-3 font-light xl:flex 2xl:flex'
 const header = 'px-4 mb-2 text-xl'
 const block = 'border p-2 px-6 rounded relative'
 
-const nameSection = 'flex space-x-4 '
+// const nameSection = 'flex space-x-4 '
 const nameBox = ' flex '
 const edit = 'absolute right-3 top-3'
 const section = 'flex flex-col w-full py-8 space-y-3   sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:items-start mb-20'
