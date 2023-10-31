@@ -107,7 +107,7 @@ export const useReturnLocation = create<Store>()(
         setFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, flight: data } })),
         setFlight2: (data) => set((state) => ({ returnTrip: {...state.returnTrip, flight2: data } })),
         setTripType: (data) => set((state) => ({ returnTrip: {...state.returnTrip, tripType: data } })),
-        setAirlines: (data) => set((state) => ({ returnTrip: {...state.returnTrip, airlines: data } })),
+        setAirlines: (data) => set((state) => ({ returnTrip: {...state.returnTrip, airline: data } })),
         setAirlinesBack: (data) => set((state) => ({ returnTrip: {...state.returnTrip, airlineBack: data } })),
         setArrivalTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, arrivalTime: data } })),
 

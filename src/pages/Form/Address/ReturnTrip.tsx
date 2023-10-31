@@ -201,7 +201,7 @@ const TripContent = () => {
                 />
             </div>
             <div className="border flex items-center w-1/3 ">
-                <Select placeholder='Departure' className='favorite' style={{ height: 30}}onChange={setDeparture}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
+                <Select placeholder='Departure' className='favorite' style={{ height: 30}}onChange={setDeparture}options={mainUser.departureSections.map(item=>({value: item, label: item}))}/>
             </div>
         </div>
 
@@ -319,7 +319,7 @@ const TripContent = () => {
                 />
             </div>
             <div className="border flex items-center w-1/3 ">
-                <Select placeholder='Departure' className='favorite ' style={{ height: 30}}onChange={setDeparture2}options={mainUser.flights.map(item=>({value: item, label: item}))}/>
+                <Select placeholder='Departure' className='favorite ' style={{ height: 30}}onChange={setDeparture2}options={mainUser.departureSections.map(item=>({value: item, label: item}))}/>
             </div>
         </div>
 

@@ -265,4 +265,4 @@ const Form = () => {
 };
 
 export default Form;
-const container = 'flex  flex-col w-full h-[100&]] bg-white sm:max-width-[767px] sm:border-none sm:px-2'
+const container = 'flex  flex-col w-full bg-white sm:max-width-[767px] sm:border-none sm:px-2 sm:items-center '
