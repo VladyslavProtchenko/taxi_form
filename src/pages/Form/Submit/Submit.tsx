@@ -3,8 +3,14 @@ import { useLocation } from "../../../Store/useLocation";
 import { useOptions } from "../../../Store/useOptions";
 import { useReturnLocation } from "../../../Store/useReturnLocation";
 import { SlLocationPin } from "react-icons/sl";
-import { IoCarSportOutline, IoTimeOutline } from "react-icons/io5";
+import { IoCarSportOutline, IoPhonePortraitOutline, IoTimeOutline } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
+import { BsChatSquareText, BsPeople } from "react-icons/bs";
+import { TfiEmail } from "react-icons/tfi";
+import { LiaBabyCarriageSolid, LiaSkiingSolid } from "react-icons/lia";
+import { PiCreditCard, PiSuitcaseRolling } from "react-icons/pi";
+import { MdOutlineStroller, MdPets } from "react-icons/md";
+import { GiPalmTree } from "react-icons/gi";
 
 const Submit = () => {
     const { user  } = useInfo()
@@ -14,58 +20,62 @@ const Submit = () => {
 
     return (
         <section className={section}>
-            <div className={personalInfo}>
-                <FiEdit className={edit}/>
-                <div className={header}>
-                    Personal info
-                </div>
-                <div className={infoContent}>
 
-                    {(user.gender || user.name)  && 
-                    <div className={nameBox}>
-                        <span className={label}>name:</span>
-                        {user.gender} {user.name}
-                    </div>}
-                    
-                    {user.email.length>4 && 
-                    <div className={nameBox}>
-                        <span className={label}>email:</span> 
-                        {user.email} 
-                    </div>}
-                    {user.phone && 
-                    <div className={nameBox}>
-                        <span className={label}>phone:</span> 
-                        {user.phone} 
-                    </div>}
-                </div>
-            </div>
-
-            <div className={tripInfo}>
-                <FiEdit className={edit}/>
-                <div className={header}>Trip info</div>
-
-                <div className={infoContent}>
-
-                    <div className={contentItem+' pb-3'}>
-                        <IoTimeOutline  className={locationIcon}/>
-                        {location.time.length>2  && 
-                        <div className={timeItem}>
-                            {location.time}
-                        </div>}
-
-                        {location.date && <div className={timeItem}>
-                            {location.date}
-                        </div>}
+            <div className='flex w-full sm:flex-col sm:space-y-2'>
+                <div className={InfoCard}>
+                    <FiEdit className={edit}/>
+                    <div className={header}>
+                        Personal info
                     </div>
-
-                    <div className={locations + ' pb-5'}>
-                        {location.pickUpLocation &&
-                        <div className={locationData}>
-                            <SlLocationPin className={locationIcon}/>
-                            {location.pickUpLocation}
+                    <div className={infoContent}>
+                        {(user.gender || user.name)  && 
+                        <div className={card}>
+                            <BsPeople className={locationIcon}/>
+                            <span className={label}>name:</span>
+                            {user.gender} {user.name}
                         </div>}
                         
-                        <div className={airports}>
+                        {user.email.length>4 && 
+                        <div className={card}>
+                            <TfiEmail className={locationIcon}/>
+                            <span className={label}>email:</span> 
+                            {user.email} 
+                        </div>}
+                        {user.phone && 
+                        <div className={card}>
+                            <IoPhonePortraitOutline className={locationIcon}/>
+                            <span className={label}>phone:</span> 
+                            {user.phone} 
+                        </div>}
+                    </div>
+                </div>
+
+                <div className={InfoCard}>
+                    <FiEdit className={edit}/>
+                    <div className={header}>Trip info</div>
+                    <div className={infoContent}>
+                        <div className={contentItem}>
+                            <IoTimeOutline  className={locationIcon}/>
+                            {location.time.length>2  && 
+                            <div className={timeItem}>
+                                {location.time}
+                            </div>}
+
+                            {location.date && <div className={timeItem}>
+                                {location.date}
+                            </div>}
+                        </div>
+
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            {location.pickUpLocation &&
+                            <div className={locationData}>
+                                {location.pickUpLocation}
+                            </div>}
+                        </div>
+
+                        {location.icon && location.flight &&
+                        <div className={contentItem}>
                             {location.departure && <div className={airportsItem}>
                                 {location.departure}
                             </div>}
@@ -87,23 +97,24 @@ const Submit = () => {
                                     : ''
                                 }   
                             </div>}
-                        </div>
-                        
-                    </div>
-
-                    {(location.stopFirst || location.stopSecond || location.stopLast) &&
-                    <div className={contentItem + ' pb-3'}>
-                        <div className={nameBox}>
-                            stops: {location.stopFirst}, {location.stopSecond}, {location.stopLast}, 
-                        </div>
-                    </div>}
-
-                    <div className={locations}>
-                        {location.dropOffLocation && <div className={locationData}>
-                            <SlLocationPin className={locationIcon}/>
-                            {location.dropOffLocation}
                         </div>}
-                        <div className={airports}>
+
+                        {(location.stopFirst || location.stopSecond || location.stopLast) &&
+                        <div className={contentItem}>
+                            <div className={nameBox}>
+                                stops: {location.stopFirst}, {location.stopSecond}, {location.stopLast}, 
+                            </div>
+                        </div>}
+
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            {location.dropOffLocation && <div className={locationData}>
+                                {location.dropOffLocation}
+                            </div>}
+                        </div>
+
+                        {location.icon2 && location.flight2 && 
+                        <div className={contentItem}>
                             {location.departure2 && <div className={airportsItem}>
                                 {location.departure2}
                             </div>}
@@ -112,7 +123,7 @@ const Submit = () => {
                                 {location.airlineBack}
                             </div>}
 
-                            {location.icon2 && location.flight && 
+                            {location.icon2 && location.flight2 && 
                             <div className={airportsItem}>
                                 {location.icon2 == 1 
                                     ? 'Flight#'+ location.flight2
@@ -127,33 +138,34 @@ const Submit = () => {
                                     : ''
                                 }   
                             </div>}
+                        </div>}
+                    </div>             
+                </div>
+
+                <div className={InfoCard}>
+                    {returnTrip.isReturnTrip &&<FiEdit className={edit}/>}
+                    {returnTrip.isReturnTrip &&<>
+                    <div className={header}> RETURN TRIP </div>
+                    <div className={infoContent}>
+                        <div className={contentItem}>
+                            <IoTimeOutline className={locationIcon}/> 
+                            {returnTrip.time.length>2 && <div className={timeItem}>
+                                {returnTrip.time}
+                            </div>}
+
+                            {returnTrip.date && <div className={timeItem}>
+                                {returnTrip.date}
+                            </div>}
                         </div>
-                    </div>
-                </div>             
-            </div>
 
-            <div className={tripInfo}>
-                {returnTrip.isReturnTrip &&<FiEdit className={edit}/>}
-                {returnTrip.isReturnTrip &&<>
-                <div className={header}> RETURN TRIP </div>
-                <div className={infoContent}>
-                    <div className={contentItem+' pb-3'}>
-                        <IoTimeOutline className={locationIcon}/> 
-                        {returnTrip.time.length>2 && <div className={timeItem}>
-                            {returnTrip.time}
-                        </div>}
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            {(returnTrip.from || location.dropOffLocation) &&<div className={locationData}>
+                                {returnTrip.from ? returnTrip.from: location.dropOffLocation}
+                            </div>}
+                        </div>
 
-                        {returnTrip.date && <div className={timeItem}>
-                            {returnTrip.date}
-                        </div>}
-                    </div>
-
-                    <div className={locations+' pb-5'}>
-                        {(returnTrip.from || location.dropOffLocation) &&<div className={locationData}>
-                            <SlLocationPin className={locationIcon}/>{returnTrip.from ? returnTrip.from: location.dropOffLocation}
-                        </div>}
-
-                        <div className={airports+ ' mb-3'}>
+                        {returnTrip.icon && returnTrip.flight && <div className={contentItem}>
                             {returnTrip.departure && <div className={airportsItem}>
                                 {returnTrip.departure}
                             </div>}
@@ -178,23 +190,22 @@ const Submit = () => {
                                     : ''
                             }   
                             </div>}
-                        </div>
-                        
-                    </div>
-                
-                    {(returnTrip.stop1 || returnTrip.stop2 || returnTrip.stop3) &&
-                    <div className={contentItem + ' pb-3'}>
-                        <div className={nameBox}>
-                            stops: {returnTrip.stop1}, {returnTrip.stop2}, {returnTrip.stop3}, 
-                        </div>
-                    </div>}
-
-                    <div className={locations}>
-                        
-                        {(returnTrip.to || location.pickUpLocation) && <div className={nameBox}>
-                            <SlLocationPin className={locationIcon}/>{returnTrip.to ? returnTrip.to : location.pickUpLocation}
                         </div>}
-                        <div className={airports}>
+                    
+                        {(returnTrip.stop1 || returnTrip.stop2 || returnTrip.stop3) &&
+                        <div className={contentItem}>
+                            <div className={nameBox}>
+                                stops: {returnTrip.stop1}, {returnTrip.stop2}, {returnTrip.stop3}, 
+                            </div>
+                        </div>}
+
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            {(returnTrip.to || location.pickUpLocation) && <div className={nameBox}>
+                                {returnTrip.to ? returnTrip.to : location.pickUpLocation}
+                            </div>}
+                        </div>    
+                        {returnTrip.icon2 && returnTrip.flight2 && <div className={contentItem}>
                             {returnTrip.departure2 && <div className={airportsItem}>
                                 {returnTrip.departure2}
                             </div>}
@@ -219,74 +230,88 @@ const Submit = () => {
                                     : ''
                                 }   
                             </div>}
-                        </div>
-                    </div>    
-                </div>
-                </>}
+                        </div>}
+                    </div>
+                    </>}
+                </div> 
             </div>
+            
+            <div className="flex w-full sm:flex-col">
+                <div className={InfoCard}>
+                    <FiEdit className={edit}/>
+                    <div className={header}> Options </div>
 
-            <div className={optionsInfo}>
-                <FiEdit className={edit}/>
-                <div className={header}> Options </div>
+                    <div className={infoContent}>
+                        
+                        {options.carType && <div className={contentItem}>
+                            <IoCarSportOutline className={locationIcon}/> <span className='text-sm text-gray-600 italic pr-2'>car type: </span>{options.carType}
+                        </div>}
+                        {options.passengers && <div className={contentItem}>
+                        <BsPeople className={locationIcon}/>
+                        <span className='text-sm text-gray-600 italic pr-2'>adults: </span>
+                            {options.passengers.adults},
+                        </div>}
+                        {(options.passengers.kids.length> 0) && <div className={contentItem}>
+                        <span className={kidsIcon}></span>
+                        <span className='text-sm text-gray-600 italic pr-2'>Kids: </span>
+                            {options.passengers.kids.map(child => (<span className='px-1 rounded border mx-1'>{child.age} years</span>))}
+                        </div>}
+                        {options.passengers.babies>0   && <div className={contentItem}>
+                        <LiaBabyCarriageSolid className={locationIcon}/>
+                        <span className='text-sm text-gray-600 italic pr-2'>Babies: </span>
+                            {options.passengers.babies}
+                        </div>}
+                        {options.baggage.filter(item=>item.quantity > 0).length > 0 && <div className={contentItem}>
+                        <PiSuitcaseRolling className={locationIcon}/>
+                        <span className='text-sm text-gray-600 italic pr-2'>Baggage: </span>
+                            {options.baggage.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))} 
+                        </div>}
+                        {options.carSeats.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
+                        <MdOutlineStroller className={locationIcon}/>
+                        <span className='text-sm text-gray-600 italic pr-2'>Car seats: </span>
+                            {options.carSeats.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
+                        </div>} 
+                        {options.sport.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
+                        <LiaSkiingSolid className={locationIcon}/>
+                        <span className='text-sm text-gray-600 italic pr-2'>Sport attributes: </span>
+                            {options.sport.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
+                        </div>}
+                        {options.pets.filter(item=>item.isActive).length>0  && <div className={contentItem}>
+                        <MdPets className={locationIcon}/>
+                        <span className='text-sm text-gray-600 italic pr-2'>Pets: </span>
+                            {options.pets.map(item=> item.isActive && (<span className='px-1 rounded border mx-1'>{`${item.title} ${item.cage ? "(cage)":''}`}</span>) )}
+                        </div>}
+                    </div>
+                </div>
 
-                <div className={optionsContent}>
-                    
-                    {options.carType && <div className={nameBox}>
-                        <IoCarSportOutline className={locationIcon}/>{options.carType}
-                    </div>}
-                    {options.passengers && <div className={nameBox}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Adults: </span>
-                        {options.passengers.adults},
-                    </div>}
-                    {options.passengers.kids.length>0 && <div className={nameBox}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Kids: </span>
-                        {options.passengers.kids.map(child => `${child.age} years, `)}
-                    </div>}
-                    {options.passengers.babies && <div className={nameBox}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Babies: </span>
-                        {options.passengers.babies}
-                    </div>}
-                    {options.baggage.filter(item=>item.quantity > 0).length > 0 && <div className={nameBox}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Baggage: </span>
-                        {options.baggage.map(item=> item.isActive && item.quantity>0 && item.title + ' - ' + item.quantity)}, 
-                    </div>}
-                    {options.carSeats.filter(item=>item.quantity>0).length>0  && <div className={nameBox}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Car seats: </span>
-                        {options.carSeats.map(item=> item.isActive && item.quantity>0 && item.title + ' - ' + item.quantity+', ')}
-                    </div>} 
-                    {options.sport.filter(item=>item.quantity>0).length>0  && <div className={nameBox}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Sport attributes: </span>
-                        {options.sport.map(item=> item.isActive && item.quantity>0 && item.title + ' - ' + item.quantity)}, 
-                    </div>}
-                    {options.pets.filter(item=>item.isActive).length>0  && <div className={nameBox}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Pets: </span>
-                        {options.pets.map(item=> item.isActive &&  `${item.title} ${item.cage ? "(cage)":''}`)}
-                    </div>}
+                <div className={InfoCard}>
+                    <FiEdit className={edit}/>
+                    <div className={header}> Payments </div>
+
+                    <div className={infoContent}>
+                        
+                        {user.paymentMethod && 
+                        <div className={contentItem}>
+                            <PiCreditCard className={locationIcon}/>
+                            <span className='text-sm text-gray-600 italic pr-2'>Payment method: </span>
+                            {user.paymentMethod}
+                        </div>}
+                        {location.tripType && <div className={contentItem}>
+                        <GiPalmTree className={locationIcon}/>
+                        <span className='text-sm text-gray-600 italic pr-2'>Trip type: </span>
+                            {location.tripType}
+                        </div>}
+                        {user.additionalText && <div className={contentItem}>
+                        <BsChatSquareText className={locationIcon}/>
+
+                        <span className='text-sm text-gray-600 italic pr-2'>Additional text: </span>
+                            {user.additionalText} 
+                        </div>}
+                        
+                    </div>
                 </div>
             </div>
-
-            <div className={paymentInfo}>
-                <FiEdit className={edit}/>
-                <div className={header}> Payments </div>
-
-                <div className={optionsContent}>
-                    
-                    {user.paymentMethod && 
-                    <div className={nameBox}>
-                        <span className='text-sm text-gray-600 italic pr-2'>Payment method: </span>
-                        {user.paymentMethod}
-                    </div>}
-                    {location.tripType && <div className={contentItem}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Trip type: </span>
-                        {location.tripType}
-                    </div>}
-                    {user.additionalText && <div className={contentItem}>
-                    <span className='text-sm text-gray-600 italic pr-2'>Additional text: </span>
-                        {user.additionalText} 
-                    </div>}
-                    
-                </div>
-            </div>
+            
         </section>
     );
 };
@@ -295,24 +320,21 @@ export default Submit;
 
 const timeItem = ' mr-4'
 
-const optionsContent = 'flex flex-col w-full'
 const airportsItem = 'shadow px-2 py-1 flex '
-const airports = 'flex'
 const locationIcon = 'min-w-[22px] '
 const locationData = 'flex'
-const contentItem = 'flex w-full'
-const locations = 'flex flex-col space-y-2'
+const contentItem = 'flex w-full border p-2 items-center flex-wrap'
 const label = 'text-sm text-gray-600 italic pr-2'
 const header = ' mb-2 bg-white px-1 absolute -top-2 left-3'
 
-// const nameSection = 'flex space-x-4 '
-const nameBox = ' flex w-full justify-between'
+const card = 'flex items-center p-2 border '
+const nameBox = ' flex w-full justify-between '
 const edit = 'absolute right-2 top-2 text-xm text-gray-400 cursor-pointer'
 
 const infoContent = ' flex flex-col w-full space-y-2 text-sm'
 
-const personalInfo = 'flex w-full 2xl:w-1/3 py-4 pt-8 border px-6 rounded relative text-sm'
-const tripInfo = 'flex w-full 2xl:w-1/3 xl:w-1/2 py-4 flex-shrink pt-8 border px-6 rounded relative text-sm'
-const optionsInfo = 'flex w-full 2xl:w-1/2 lg:w-1/2 py-4 pt-8 border px-6 rounded relative text-sm'
-const paymentInfo = 'flex w-full 2xl:w-1/2 lg:w-1/2 py-4 pt-8 border px-6 rounded relative text-sm'
-const section = 'flex w-full py-8   sm:max-w-[576px] sm:border-none max-w-[1240px] flex-wrap sm:py-8 sm:px-1 lg:items-start mb-20'
+const InfoCard = 'flex w-full 2xl:w-1/3 xl:w-1/3 lg:w-1/3 py-4 pt-8 px-2  relative text-sm'
+const section = 'flex w-full space-y-4 py-8 flex-col sm:max-w-[576px] sm:border-none max-w-[1240px] flex-wrap sm:py-8 sm:px-1 lg:items-start mb-20'
+
+const kidsIcon ='w-4 mr-2 h-[16px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[140%]'
+

@@ -28,6 +28,7 @@ const OptionsSection = () => {
                     style={{width:"100%",  height: 30}}
                     placeholder='Select car'
                     onChange={setCarType}
+                    defaultValue={options.carType || 'sedan (max 4)'}
                     value={options.carType || 'sedan (max 4)'}
                     options={user.carList.map(item=>(
                         {

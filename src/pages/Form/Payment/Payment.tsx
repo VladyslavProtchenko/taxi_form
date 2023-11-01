@@ -19,7 +19,7 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
 
     return (
         <section className={section}>
-            <div className="flex w-full">
+            <div className="flex w-full sm:flex-col">
                 <div className={content}>
                     <span className={box}>
                         <Select  placeholder='Trip type' style={{ width:200 , height: 30}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
@@ -36,7 +36,7 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
                 </div>
             
             </div>
-            {validation.isSubmit && <Submit />}
+            <Submit />
         </section>
     );
 };
