@@ -119,12 +119,12 @@ const InfoSection = () => {
 
             <div className={extraContainer}>
                 <div className={validation.isPhone ? extraCard +' border': extraCard+ ' border border-red-500' } >
-                    <PhoneNumberInput value={user.phone} onChange={setPhone}/>
+                    <PhoneNumberInput type={1} value={user.phone} onChange={setPhone}/>
                 </div>
 
                 {isExtraPhoneOpen[1] && 
                 <div className={extraCard+' border'}>    
-                    <PhoneNumberInput value={user.extraPhone1} onChange={setExtraPhone1}/>
+                    <PhoneNumberInput type={2}  value={user.extraPhone1} onChange={setExtraPhone1}/>
                     <div 
                         className={extraPhoneClose}
                         onClick={()=>{ setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: false }) }}
@@ -133,7 +133,7 @@ const InfoSection = () => {
 
                 {isExtraPhoneOpen[2] &&  
                 <div className={extraCard+' border'}>
-                    <PhoneNumberInput value={user.extraPhone2} onChange={setExtraPhone2}/>
+                    <PhoneNumberInput type={3}  value={user.extraPhone2} onChange={setExtraPhone2}/>
                     <div 
                         className={extraPhoneClose}
                         onClick={()=>{ setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: false }) }}

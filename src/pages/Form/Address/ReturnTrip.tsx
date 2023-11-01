@@ -302,7 +302,7 @@ const TripContent = () => {
             if(!stop.second) return setStop({ ...stop, second: true })
             if(!stop.last) return setStop({ ...stop, last: true })
         }}>
-            <span className={addCircle}>+</span>add stop
+            <span className={addCircle}>+</span>
         </div>}
 
         <div className={locationCard}>
@@ -401,13 +401,13 @@ const icons = 'flex w-1/3 justify-around pt-1'
 const type = 'flex items-center justify-between w-full 2xl:w-3/4 space-x-4'
 const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5 2xl:w-3/4 '
 
-const addCircle = ' w-4 h-4 flex items-center justify-center bg-green-300 rounded-full border text-black border-black mr-1'
+const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full border border-black cursor-pointer font-bold text-black opacity-20 hover:opacity-100 duration-300 "
+const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded-full flex  justify-center cursor-pointer text-bold  items-center"
 const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
 
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
-const closeStop ="absolute w-4 h-4 -right-6 bg-red-500 ml-1 border border-black rounded-full flex justify-center cursor-pointer text-bold  items-center"
 
 const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full '
 
@@ -419,4 +419,4 @@ const locationCard = 'flex relative items-center w-full 2xl:w-3/4 space-x-2'
 const extraCard = 'flex relative items-center border w-full 2xl:w-3/4'
 const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[88px] sm:ml-[5%] lg:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 
-const container = 'flex flex-col border p-10  border-gray-400 space-y-3 relative w-[48%] sm:w-full 2xl:items-center'
+const container = 'flex flex-col border p-10 space-y-3 relative w-[48%] sm:w-full rounded shadow-xl'

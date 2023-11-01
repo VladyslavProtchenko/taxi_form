@@ -228,14 +228,14 @@ name:string;
 }
 interface IPhone {
     value: string;
+    type?: number;
     onChange: (value: string) => void;
 }
 
-function PhoneNumberInput({ value, onChange }: IPhone) {
+function PhoneNumberInput({ value, onChange, type }: IPhone) {
     const {setIsPhone } = useValidation()
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
-    const [phoneType, setPhoneType] = useState(1)
     const [isOpen, setIsOpen] = useState(false)
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
@@ -257,12 +257,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)}>
-                {phoneType === 1 ? <IoPhonePortraitOutline /> : phoneType === 2 ? <BsTelephone /> : <SlEarphonesAlt />}
-                {isOpen && <div className={subLabel}>
-                    {phoneType !== 1 && <div className={subItem} onClick={()=>setPhoneType(1)}><IoPhonePortraitOutline /><span className='text-xs text-gray-400 ml-1'> (mobile)</span></div>}
-                    {phoneType !== 2 && <div className={subItem} onClick={()=>setPhoneType(2)}><BsTelephone /><span className='text-xs text-gray-400 ml-1'> (home)</span></div>}
-                    {phoneType !== 3 && <div className={subItem} onClick={()=>setPhoneType(3)}><SlEarphonesAlt /><span className='text-xs text-gray-400 ml-1'> (work)</span></div>}
-                </div>}
+                {type === 1 ? <IoPhonePortraitOutline /> : type === 2 ? <BsTelephone /> : <SlEarphonesAlt />}
             </div>
             <Select
                 showSearch
@@ -320,9 +315,7 @@ function PhoneNumberInput({ value, onChange }: IPhone) {
 
 export default PhoneNumberInput
 
-const subItem = 'px-2 text-black hover:bg-yellow-200 px-2 py-1 flex items-center'
 const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer'
-const subLabel = ' left-0 pb-1 z-50  bg-white border-black border-[1px] flex flex-col absolute top-[115%] items-center cursor-pointer '
 const container = 'flex'
 
 

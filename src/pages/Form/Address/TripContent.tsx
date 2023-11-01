@@ -356,4 +356,4 @@ const locationCard = 'flex relative items-center w-full 2xl:w-3/4 space-x-2'
 const extraCardStop = 'flex relative items-center border w-full max-w-[250px] sm:max-w-[310px] ml-[88px] sm:ml-[5%]  lg:ml-[5%]  max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full 2xl:w-3/4'
 
-const container = 'flex border p-10 border-gray-400 flex-col w-[48%] sm:w-full relative space-y-3 '
+const container = 'flex border p-10  flex-col w-[48%] sm:w-full relative space-y-3 rounded shadow-xl'
