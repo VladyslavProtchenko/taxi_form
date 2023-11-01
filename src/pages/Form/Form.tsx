@@ -36,7 +36,6 @@ const Form = () => {
         setIsFlightBack,
         setIsDepartureBack,
         setIsPayment,
-        setIsCarType
     } = useValidation()
     useEffect(()=>{
         setIsTitle(false)
@@ -50,7 +49,6 @@ const Form = () => {
         if(pattern.test(user.email)) setIsEmail(true)
         if(user.paymentMethod) setIsPayment(true)
 
-        if(options.carType) setIsCarType(true)
     },[user,options])
 
     useEffect(()=>{

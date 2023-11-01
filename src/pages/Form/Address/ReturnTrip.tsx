@@ -16,9 +16,10 @@ import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { GiControlTower } from "react-icons/gi";
 import { FaBus } from "react-icons/fa";
-import { FaSailboat, FaTrainTram } from "react-icons/fa6";
+import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
+import { BsTrainFrontFill } from "react-icons/bs";
 
 
 const TripContent = () => {
@@ -29,6 +30,11 @@ const TripContent = () => {
     const [trigger, setTrigger] = useState({ 1: 1, 2:1 })
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
+
+    useEffect(()=>{
+        if(trigger[1]) setFrom(mainUser.dropOffLocation)
+        if(trigger[2]) setTo(mainUser.pickUpLocation)
+    },[trigger])
 
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
@@ -134,7 +140,7 @@ const TripContent = () => {
         <div className={type}>
             <div className={icons}>
                 <MdFlightLand className={returnTrip.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
-                <FaTrainTram className={returnTrip.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
+                <BsTrainFrontFill className={returnTrip.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
                 <FaBus className={returnTrip.icon == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(3)}}/>
                 <FaSailboat className={returnTrip.icon == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(4)}}/>
                 <MdLocalHotel className={returnTrip.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
@@ -154,7 +160,7 @@ const TripContent = () => {
                 {returnTrip.icon === 1
                     ?<MdFlightLand className='text-xl mx-1'/>
                     :returnTrip.icon === 2
-                    ?< FaTrainTram className=' mx-1'/>
+                    ?<BsTrainFrontFill className=' mx-1'/>
                     :returnTrip.icon === 3
                     ? <FaBus className=' mx-1'/>
                     :returnTrip.icon === 4
@@ -327,7 +333,7 @@ const TripContent = () => {
             
             <div className={icons}>
                 <MdFlightTakeoff className={returnTrip.icon2 == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon2(1)}}/>
-                <FaTrainTram className={returnTrip.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
+                <BsTrainFrontFill className={returnTrip.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
                 <FaBus className={returnTrip.icon2 == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(3)}}/>
                 <FaSailboat className={returnTrip.icon2 == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(4)}}/>
                 <MdLocalHotel className={returnTrip.icon2 == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(5)}}/>
@@ -347,7 +353,7 @@ const TripContent = () => {
                 {returnTrip.icon2 === 1
                     ?<MdFlightTakeoff className='text-xl mx-1'/>
                     :returnTrip.icon2 === 2
-                    ?< FaTrainTram className=' mx-1'/>
+                    ?< BsTrainFrontFill className=' mx-1'/>
                     :returnTrip.icon2 === 3
                     ? <FaBus className=' mx-1'/>
                     :returnTrip.icon2 === 4
@@ -411,6 +417,6 @@ const date = 'flex space-x-2 sm:items-start items-start w-full 2xl:w-3/4  justif
 
 const locationCard = 'flex relative items-center w-full 2xl:w-3/4 space-x-2'
 const extraCard = 'flex relative items-center border w-full 2xl:w-3/4'
-const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[100px] sm:ml-[5%] lg:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[88px] sm:ml-[5%] lg:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
 
-const container = 'flex flex-col border p-10  border-gray-600 space-y-3 relative w-[48%] sm:w-full'
+const container = 'flex flex-col border p-10  border-gray-400 space-y-3 relative w-[48%] sm:w-full 2xl:items-center'

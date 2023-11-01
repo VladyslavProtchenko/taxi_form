@@ -109,7 +109,7 @@ export const useValidation = create<Store>((set) => ({
         isFlightBack: true,
         isDepartureBack: true,
         
-        isCarType: false,
+        isCarType: true,
         isPayment: false,
 
     },
