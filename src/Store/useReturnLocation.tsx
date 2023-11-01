@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware';
 
 interface IUser {
     isReturnTrip: boolean;
@@ -58,7 +57,7 @@ interface Store {
     setIsFlight: (trip:boolean) => void;
 }
 export const useReturnLocation = create<Store>()(
-    persist((set) => ({
+    (set) => ({
         returnTrip: {
             isReturnTrip: false,
             isFlight: false,
@@ -112,8 +111,5 @@ export const useReturnLocation = create<Store>()(
         setArrivalTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, arrivalTime: data } })),
 
         setIsFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, isFlight: data } })),
-    }),
-    {
-        name: 'return trip'
     }
 ))

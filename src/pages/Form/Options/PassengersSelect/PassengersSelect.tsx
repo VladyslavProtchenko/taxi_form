@@ -126,7 +126,7 @@ const PassengersSelect = () => {
                 <div className={subItem}>
                     <span className={label}>
                         <LiaBabyCarriageSolid className='w-7 h-7'/>
-                        <span className='ml-2 text-gray-400 mr-auto pt-1'>Kids</span>
+                        <span className='ml-2 text-gray-400 mr-auto pt-1'>Babies</span>
                     </span>
                     <div className={bagCount}>
                         <div 
@@ -167,15 +167,16 @@ const childrenCard = 'flex border px-3  py-3 border-gray-400 shadow rounded mb-1
 const kidsContainer = 'flex flex-col py-2'
 
 const label = 'flex items-center'
-const bagCount ='flex space-x-2 items-center'
 
 const count = ' text-xl px-2'
-const qntPlus = 'flex h-6 w-6 items-center justify-center cursor-pointer  font-bold bg-green-400 active:bg-green-500 border border-black rounded-full' 
-const qntMinus = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  bg-red-500 active:bg-red-600 border border-black rounded-full' 
-const qntKids = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  border border-black rounded-full' 
+const qntPlus = " w-5 h-5 flex justify-center items-center bg-green-400 active:bg-green-500 rounded-full border border-black cursor-pointer font-bold text-black duration-300 "
+const qntMinus = " w-5 h-5 flex justify-center items-center bg-red-500 active:bg-red-600  rounded-full border border-black cursor-pointer font-bold text-black duration-300 "
+
+const bagCount ='flex space-x-2 ml-auto items-center'
+const qntKids = 'flex h-5 w-5 items-center justify-center cursor-pointer font-bold  border border-black rounded-full' 
 
 const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[130%]'
-const subItem = 'relative flex px-4 py-2 justify-between cursor-pointer'
-const content = 'flex flex-col pb-2 bg-white px-4'
+const subItem = 'relative flex px-4 py-2 justify-between cursor-pointer border'
+const content = 'flex flex-col pb-2 bg-white p-2'
 
 const container = 'relative text-sm w-full'

@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware';
 
 import dayjs from "dayjs";
 
@@ -73,7 +72,6 @@ interface Store {
     setIsFlight: (value: boolean) => void;
 }
 export const useLocation = create<Store>()(
-        persist(
             (set) => ({
             user: {
                 tripList:['Business (need receipt)', 'Vacation', 'Else'],
@@ -141,8 +139,5 @@ export const useLocation = create<Store>()(
             }),
             setTripType: (data) => set((state) => ({ user: {...state.user, tripType: data } })),
             setIsFlight: (data) => set((state) => ({ user: {...state.user, isFlight: data } })),
-        }),
-        {
-            name: 'location'
         }
 ))

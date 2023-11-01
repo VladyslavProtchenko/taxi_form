@@ -24,7 +24,7 @@ const BagsSelect = () => {
                         :(item.title =='middle' || item.title == '10 kg')
                         ?<PiBackpackLight className='w-6 h-6'/>
                         :<PiHandbag className='w-6 h-6'/>}
-                        <span className=' text-gray-400' > {item.title}</span>
+                        <span className=' text-gray-400'>{item.title}</span>
                     </div>
                     <div className={bagCount}>
                         <div 
@@ -44,15 +44,11 @@ const BagsSelect = () => {
                             }}
                         >+</div>
                     </div>
-                    {item.title != options.baggage[1].title  
-                        ? <div className={qntMinus+ ' absolute -right-4'} onClick={()=>{setBaggage(options.baggage.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))}}>-</div>
-                        : <div className=''></div>
-                    }
                 </div>
             ))}
             
             {options.baggage.filter(item=>item.isActive !== true).length > 0 && <Dropdown menu={{ items }} placement="bottomLeft" className='self-start'>
-                <div className={qntPlus+ ' w-4 h-4'}>+</div>
+                <div className={qntPlus+ ' mt-2 ml-4 w-4 h-4'}>+</div>
             </Dropdown>}
         </div>
     );
@@ -61,10 +57,10 @@ const BagsSelect = () => {
 export default BagsSelect;
 
 
-const qntPlus = 'flex h-6 w-6 items-center justify-center cursor-pointer  font-bold bg-green-400 active:bg-green-500 border border-black rounded-full' 
-const qntMinus = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  bg-red-500 active:bg-red-600 border border-black rounded-full' 
+const qntPlus = " w-5 h-5 flex justify-center items-center bg-green-400 active:bg-green-500 rounded-full border border-black cursor-pointer font-bold text-black  duration-300 "
+const qntMinus = " w-5 h-5 flex justify-center items-center bg-red-500 active:bg-red-600  rounded-full border border-black cursor-pointer font-bold text-black  duration-300 "
 
-const bagCount ='flex space-x-2 ml-auto'
+const bagCount ='flex space-x-2 ml-auto items-center'
 
-const card = 'relative flex px-4 py-2 cursor-pointer w-full'
-const container = 'flex w-full flex-col items-center px-4 pb-2 '
+const card = 'relative flex px-4 py-2 cursor-pointer w-full border'
+const container = 'flex w-full flex-col items-center p-2 pb-2 '

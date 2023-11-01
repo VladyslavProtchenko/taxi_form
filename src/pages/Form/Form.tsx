@@ -36,6 +36,7 @@ const Form = () => {
         setIsFlightBack,
         setIsDepartureBack,
         setIsPayment,
+        setIsSubmit,
     } = useValidation()
     useEffect(()=>{
         setIsTitle(false)
@@ -238,6 +239,7 @@ const Form = () => {
             alert('choice payment method')
             return setIsPayment(false)
         }
+        setIsSubmit(true)
         alert('order created')
     }
     return (

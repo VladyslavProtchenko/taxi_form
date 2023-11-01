@@ -46,14 +46,11 @@ const CarSeatsSelect = () => {
                             }}
                         >+</div>
                     </div>
-                    {item.title != options.carSeats[0].title  
-                        ? <div className={qntMinus+ ' absolute -right-4'} onClick={()=>{setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))}}>-</div>
-                        : <div className=''></div>
-                    }
+
                 </div>
             ))}
             {options.carSeats.filter(item=>item.isActive !== true).length > 0 && <Dropdown menu={{ items }} placement="bottomLeft" className='self-start'>
-                <div className={qntPlus+ ' w-4 h-4'}>+</div>
+                <div className={qntPlus+ ' mt-2 ml-4 w-4 h-4'}>+</div>
             </Dropdown>}
         </div>
     );
@@ -61,13 +58,13 @@ const CarSeatsSelect = () => {
 
 export default CarSeatsSelect;
 
-const qntPlus = 'flex h-6 w-6 items-center justify-center cursor-pointer  font-bold bg-green-400 active:bg-green-500 border border-black rounded-full' 
-const qntMinus = 'flex h-6 w-6 items-center justify-center cursor-pointer font-bold  bg-red-500 active:bg-red-600 border border-black rounded-full' 
+const qntPlus = " w-5 h-5 flex justify-center items-center bg-green-400 active:bg-green-500 rounded-full border border-black cursor-pointer font-bold text-black  duration-300 "
+const qntMinus = " w-5 h-5 flex justify-center items-center bg-red-500 active:bg-red-600  rounded-full border border-black cursor-pointer font-bold text-black duration-300 "
 
-const bagCount ='flex space-x-2 ml-auto'
+const bagCount ='flex space-x-2 ml-auto items-center'
 
 const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
 
-const card = 'relative flex px-4 py-2 cursor-pointer w-full'
-const container = 'flex w-full flex-col items-center px-4 pb-2'
+const card = 'relative flex px-4 py-2 cursor-pointer w-full border'
+const container = 'flex w-full flex-col items-center p-2 pb-2'
 

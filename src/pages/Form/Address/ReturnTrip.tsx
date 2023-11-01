@@ -398,8 +398,8 @@ export default TripContent;
 
 const iconItem = 'text-gray-300 active:text-gray-400 hover:text-gray-500 cursor-pointer'
 const icons = 'flex w-1/3 justify-around pt-1'
-const type = 'flex items-center justify-between w-full 2xl:w-3/4 space-x-4'
-const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5 2xl:w-3/4 '
+const type = 'flex items-center justify-between w-full  space-x-4'
+const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5  '
 
 const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full border border-black cursor-pointer font-bold text-black opacity-20 hover:opacity-100 duration-300 "
 const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded-full flex  justify-center cursor-pointer text-bold  items-center"
@@ -413,10 +413,10 @@ const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max
 
 const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
 const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
-const date = 'flex space-x-2 sm:items-start items-start w-full 2xl:w-3/4  justify-between'
+const date = 'flex space-x-2 sm:items-start items-start w-full   justify-between'
 
-const locationCard = 'flex relative items-center w-full 2xl:w-3/4 space-x-2'
-const extraCard = 'flex relative items-center border w-full 2xl:w-3/4'
-const extraCardStop = 'flex relative items-center border w-full mr-12 max-w-[250px] sm:max-w-[310px] ml-[88px] sm:ml-[5%] lg:ml-[5%] max-w-[240px] sm:w-[240px] sm:max-w-[240px] sm:mr-[20%]'
+const locationCard = 'flex relative items-center w-full  space-x-2'
+const extraCard = 'flex relative items-center border w-full '
+const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end'
 
 const container = 'flex flex-col border p-10 space-y-3 relative w-[48%] sm:w-full rounded shadow-xl'

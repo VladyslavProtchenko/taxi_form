@@ -28,5 +28,5 @@ const AddressSection = () => {
 };
 export default AddressSection;
 
-const button = ' bg-white flex items-center  text-sm font-bold cursor-pointer sm:w-min sm:ml-auto sm:mr-auto sm:justify-center sm:rotate-90'
+const button = ' bg-white flex items-center  text-sm font-bold cursor-pointer sm:w-min sm:ml-auto sm:mr-auto sm:justify-center sm:rotate-90 rounded-full'
 const section = 'flex w-full p-8 justify-between max-w-[1240px] sm:py-8 sm:px-1 sm:max-w-[576px] sm:flex-col '

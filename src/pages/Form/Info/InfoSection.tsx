@@ -155,7 +155,7 @@ export default InfoSection;
 
 
 
-const addExtraBtn = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full text-md border border-black cursor-pointer font-bold text-black opacity-20 hover:opacity-100 duration-300 "
+const addExtraBtn = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full text-md border border-black cursor-pointer font-bold text-black opacity-20 hover:opacity-100 duration-300 sm:-translate-x-[150px]"
 
 
 const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black cursor-pointer font-bold text-black  left-[352px] opacity-20 hover:opacity-100 duration-300 "

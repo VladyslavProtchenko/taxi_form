@@ -36,6 +36,7 @@ interface IUser {
     
     isCarType: boolean;
     isPayment: boolean;
+    isSubmit: boolean;
 }
 interface Store {
     validation: IUser;
@@ -72,6 +73,8 @@ interface Store {
     
     setIsCarType:(value: boolean) => void;
     setIsPayment:(value: boolean) => void;
+
+    setIsSubmit:(value: boolean) => void;
 
 }
 export const useValidation = create<Store>((set) => ({
@@ -112,6 +115,7 @@ export const useValidation = create<Store>((set) => ({
         isCarType: true,
         isPayment: false,
 
+        isSubmit: false,
     },
 
     setIsTitle: (name) => set(state => ({ validation: {...state.validation, isTitle: name }})),
@@ -147,4 +151,5 @@ export const useValidation = create<Store>((set) => ({
 
     setIsDateBack: (name) => set(state => ({ validation: {...state.validation, isDateBack: name }})),
     setIsTimeBack: (name) => set(state => ({ validation: {...state.validation, isTimeBack: name }})),
+    setIsSubmit: (name) => set(state => ({ validation: {...state.validation, isSubmit: name }})),
 }))

@@ -36,7 +36,7 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
                 </div>
             
             </div>
-            <Submit />
+            {validation.isSubmit && <Submit />}
         </section>
     );
 };
