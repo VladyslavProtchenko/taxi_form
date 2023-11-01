@@ -49,7 +49,7 @@ export const useOptions = create<Store>((set) => ({
         baggage: [
             {
                 title: '32 kg',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
             {
@@ -59,17 +59,17 @@ export const useOptions = create<Store>((set) => ({
             },
             {
                 title: 'middle',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
             {
                 title: '10 kg',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
             {
                 title: '8.5 kg',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             }
         ],
@@ -81,17 +81,17 @@ export const useOptions = create<Store>((set) => ({
             },
             {
                 title: 'Skis',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
             {
                 title: 'Golf',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
             {
                 title: 'Surf',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
         ],
@@ -103,17 +103,17 @@ export const useOptions = create<Store>((set) => ({
             },
             {
                 title: 'Umbrella stroller',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
             {
                 title: 'Regular stroller',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
             {
                 title: 'Booster seat',
-                quantity: 0,
+                quantity: 1,
                 isActive: false,
             },
         ],
