@@ -60,14 +60,14 @@ const InfoSection = () => {
                 <div className='nameCard'>
                     <span className='icon'><BsPeople/></span>
                     <Select
-                        value={user.extraName1 || null}
+                        value={user.extraGender2 || null}
                         placeholder='title'
                         style={{width: 118, height: 30}}
                         onChange={setExtraGender2}
                         options={user.genderList.map(item=>({value: item, label: item }))}
                     /> 
                     <Input 
-                        value={user.extraName1 || ''}
+                        value={user.extraName2 || ''}
                         allowClear
                         placeholder='Third name'
                         onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName2(e.target.value)}
@@ -88,12 +88,12 @@ const InfoSection = () => {
 
             <div className={extraContainer}>
                 <div className={extraCard}>
-                    <MailInput value={user.email} mainMail={true} onChange={setEmail} placeholder='Set second email'/>
+                    <MailInput value={user.email} mainMail={true} onChange={setEmail} placeholder='Set your email'/>
                 </div>
 
                 {isExtraEmailOpen[1] && 
                 <div className={extraCard}>    
-                    <MailInput value={user.extraEmail1} onChange={setExtraEmail1} placeholder='Set third email'/>
+                    <MailInput value={user.extraEmail1} onChange={setExtraEmail1} placeholder='Set second email'/>
                     <div 
                         className={extraEmailClose}
                         onClick={()=>{ setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: false }) }}
@@ -102,7 +102,7 @@ const InfoSection = () => {
 
                 {isExtraEmailOpen[2] &&  
                 <div className={extraCard}>
-                    <MailInput value={user.extraEmail2} onChange={setExtraEmail2} placeholder='Set your email'/>
+                    <MailInput value={user.extraEmail2} onChange={setExtraEmail2} placeholder='Set third email'/>
                     <div 
                         className={extraEmailClose}
                         onClick={()=>{ setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: false }) }}
@@ -165,4 +165,4 @@ const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounde
 const extraCard = ' flex relative items-center '
 const extraContainer = 'flex flex-col sm:w-full items-start space-y-2 sm:items-center'
 
-const section = 'flex xl:flex-wrap lg:flex-wrap sm:flex-col sm:space-y-2 justify-between w-full px-8  pt-16 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1'
+const section = 'flex xl:flex-wrap lg:flex-wrap sm:flex-col sm:pt-40 sm:space-y-2 justify-between w-full px-8  pt-16 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1'

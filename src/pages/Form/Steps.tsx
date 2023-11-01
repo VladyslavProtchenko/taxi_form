@@ -1,4 +1,3 @@
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { useSteps } from '../../Store/useSteps';
 import { useValidation } from '../../Store/useValidation';
 import { useEffect, useState } from 'react';
@@ -38,7 +37,7 @@ const Steps = () => {
                 if(store.steps <=1 ) return setSteps(1)
                 setSteps(store.steps - 1)
             }}
-        ><AiOutlineLeft/>back</div>}
+        >back</div>}
 
         {store.steps != 4 && <div 
             className={!disabled 
@@ -61,12 +60,12 @@ const Steps = () => {
 
                 setSteps(store.steps + 1)
             }}
-        >next<AiOutlineRight/></div>}
+        >next</div>}
     </div>
     );
 };
 
 export default Steps;
 
-const navBtn = ' flex items-center text-2xl active:text-gray-500'
+const navBtn = ' flex items-center text-2xl text-white active:text-gray-500 px-5 py-2 bg-red-500 active:bg-red-400 rounded-full'
 const buttons = 'flex max-w-[320px] w-full justify-between px-3 mt-auto mb-10'

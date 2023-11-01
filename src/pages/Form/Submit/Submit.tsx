@@ -18,11 +18,12 @@ const Submit = () => {
     const { returnTrip } = useReturnLocation()
     const { options } = useOptions()
 
+    console.log(returnTrip.isReturnTrip)
     return (
         <section className={section}>
 
             <div className='flex w-full sm:flex-col sm:space-y-2'>
-                <div className={InfoCard}>
+                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2  2xl:w-1/2 lg:w-1/2 ' }>
                     <FiEdit className={edit}/>
                     <div className={header}>
                         Personal info
@@ -50,7 +51,7 @@ const Submit = () => {
                     </div>
                 </div>
 
-                <div className={InfoCard}>
+                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2 2xl:w-1/2 lg:w-1/2 ' }>
                     <FiEdit className={edit}/>
                     <div className={header}>Trip info</div>
                     <div className={infoContent}>
@@ -99,10 +100,25 @@ const Submit = () => {
                             </div>}
                         </div>}
 
-                        {(location.stopFirst || location.stopSecond || location.stopLast) &&
+                        {(location.stopFirst ) &&
                         <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
                             <div className={nameBox}>
-                                stops: {location.stopFirst}, {location.stopSecond}, {location.stopLast}, 
+                                stop: {location.stopFirst}
+                            </div>
+                        </div>}
+                        {(location.stopSecond) &&
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            <div className={nameBox}>
+                                stop:{location.stopSecond}
+                            </div>
+                        </div>}
+                        {(location.stopLast) &&
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            <div className={nameBox}>
+                                stop: {location.stopLast}, 
                             </div>
                         </div>}
 
@@ -142,7 +158,7 @@ const Submit = () => {
                     </div>             
                 </div>
 
-                <div className={InfoCard}>
+                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': ' hidden'}>
                     {returnTrip.isReturnTrip &&<FiEdit className={edit}/>}
                     {returnTrip.isReturnTrip &&<>
                     <div className={header}> RETURN TRIP </div>
@@ -164,6 +180,7 @@ const Submit = () => {
                                 {returnTrip.from ? returnTrip.from: location.dropOffLocation}
                             </div>}
                         </div>
+                        
 
                         {returnTrip.icon && returnTrip.flight && <div className={contentItem}>
                             {returnTrip.departure && <div className={airportsItem}>
@@ -192,10 +209,26 @@ const Submit = () => {
                             </div>}
                         </div>}
                     
-                        {(returnTrip.stop1 || returnTrip.stop2 || returnTrip.stop3) &&
+                        
+                        {(returnTrip.stop1) &&
                         <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
                             <div className={nameBox}>
-                                stops: {returnTrip.stop1}, {returnTrip.stop2}, {returnTrip.stop3}, 
+                                stop: {returnTrip.stop1}
+                            </div>
+                        </div>}
+                        {(returnTrip.stop2) &&
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            <div className={nameBox}>
+                                stop:{returnTrip.stop2}
+                            </div>
+                        </div>}
+                        {(returnTrip.stop3) &&
+                        <div className={contentItem}>
+                            <SlLocationPin className={locationIcon}/>
+                            <div className={nameBox}>
+                                stop: {returnTrip.stop3}, 
                             </div>
                         </div>}
 
@@ -237,7 +270,7 @@ const Submit = () => {
             </div>
             
             <div className="flex w-full sm:flex-col">
-                <div className={InfoCard}>
+                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2 2xl:w-1/2 lg:w-1/2 ' }>
                     <FiEdit className={edit}/>
                     <div className={header}> Options </div>
 
@@ -284,7 +317,7 @@ const Submit = () => {
                     </div>
                 </div>
 
-                <div className={InfoCard}>
+                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2 2xl:w-1/2 lg:w-1/2 ' }>
                     <FiEdit className={edit}/>
                     <div className={header}> Payments </div>
 
@@ -323,17 +356,17 @@ const timeItem = ' mr-4'
 const airportsItem = 'shadow px-2 py-1 flex '
 const locationIcon = 'min-w-[22px] '
 const locationData = 'flex'
-const contentItem = 'flex w-full border p-2 items-center flex-wrap'
+const contentItem = 'flex w-full border p-2 items-center'
 const label = 'text-sm text-gray-600 italic pr-2'
 const header = ' mb-2 bg-white px-1 absolute -top-2 left-3'
 
 const card = 'flex items-center p-2 border '
 const nameBox = ' flex w-full justify-between '
-const edit = 'absolute right-2 top-2 text-xm text-gray-400 cursor-pointer'
+const edit = 'absolute right-2 -top-2 text-xm text-gray-400 cursor-pointer'
 
 const infoContent = ' flex flex-col w-full space-y-2 text-sm'
 
-const InfoCard = 'flex w-full 2xl:w-1/3 xl:w-1/3 lg:w-1/3 py-4 pt-8 px-2  relative text-sm'
+const InfoCard = 'flex w-full  py-4 pt-8 px-2  relative text-sm'
 const section = 'flex w-full space-y-4 py-8 flex-col sm:max-w-[576px] sm:border-none max-w-[1240px] flex-wrap sm:py-8 sm:px-1 lg:items-start mb-20'
 
 const kidsIcon ='w-4 mr-2 h-[16px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[140%]'

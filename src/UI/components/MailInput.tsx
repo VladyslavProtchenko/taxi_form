@@ -39,6 +39,7 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
     const { validation } = useValidation()
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+    
     return (
         <div className={(!validation.isEmail && mainMail) ? container  +' border-red-500': container}>
             <span className='icon'><TfiEmail/></span>

@@ -27,14 +27,14 @@ const TripContent = () => {
     const { user: mainUser } = useLocation()
     const { user: userStore } = useStore()
     const { validation, setIsMontrealBack, setIsMontrealPickBack } =useValidation()
-    const [trigger, setTrigger] = useState({ 1: 1, 2:1 })
+    const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
 
     useEffect(()=>{
         if(trigger[1]) setFrom(mainUser.dropOffLocation)
         if(trigger[2]) setTo(mainUser.pickUpLocation)
-    },[trigger])
+    },[trigger,mainUser.dropOffLocation, mainUser.pickUpLocation])
 
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
@@ -123,7 +123,7 @@ const TripContent = () => {
                             ? 'rd'
                             : 'th'
                         }
-                    {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choice return data</div> }
+                    {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choice return date</div> }
                 {isDateOpen && <div className={dateTimeSubmenu}>
                     <DatePicker time={returnTrip.time} onChange={setDate} getFullDate={setFullDate}/>
                     <div className="flex justify-between pl-8">

@@ -67,5 +67,5 @@ const bagCount ='flex space-x-2 ml-auto items-center'
 
 const card = 'relative flex px-4 py-2 cursor-pointer w-full border'
 
-const container = 'flex w-full flex-col items-center p-2 pb-2 '
+const container = 'flex w-full flex-col items-center p-2 pb-2 xl:pl-0'
 

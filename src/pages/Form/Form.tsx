@@ -66,9 +66,11 @@ const Form = () => {
         if(trip.dropOffLocation) setIsTo(true)
         if(trip.date) setIsDate(true)
         if(trip.time.length === 5 ) setIsTime(true)
+
         if(returnTrip.isReturnTrip && ( returnTrip.from || trip.dropOffLocation )) setIsBackFrom(true)
         if(returnTrip.isReturnTrip && ( returnTrip.to || trip.pickUpLocation )) setIsBackTo(true)
         if(returnTrip.isReturnTrip && returnTrip.date) setIsDateBack(true)
+        
         if(returnTrip.isReturnTrip && returnTrip.time.length === 5) setIsTimeBack(true)
     },[trip,returnTrip])
 
@@ -220,7 +222,7 @@ const Form = () => {
             alert('date is required')
             return setIsDateBack(false)
         }
-        if(validation.isReturn && !returnTrip.time) {
+        if(validation.isReturn && returnTrip.time.length !== 5) {
             alert('time is required')
             return  setIsTimeBack(false)
         }
