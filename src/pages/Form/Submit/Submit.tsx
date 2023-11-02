@@ -35,18 +35,54 @@ const Submit = () => {
                             <span className={label}>name:</span>
                             {user.gender} {user.name}
                         </div>}
-                        
+                        {(user.extraGender1|| user.extraName1)  && 
+                        <div className={card}>
+                            <BsPeople className={locationIcon}/>
+                            <span className={label}>extra name:</span>
+                            {user.extraGender1} {user.extraName1}
+                        </div>}
+                        {(user.extraGender2 || user.extraName2)  && 
+                        <div className={card}>
+                            <BsPeople className={locationIcon}/>
+                            <span className={label}>extra name:</span>
+                            {user.extraGender2} {user.extraName2}
+                        </div>}
+
                         {user.email.length>4 && 
                         <div className={card}>
                             <TfiEmail className={locationIcon}/>
                             <span className={label}>email:</span> 
                             {user.email} 
                         </div>}
+                        {user.extraEmail1.length>4 && 
+                        <div className={card}>
+                            <TfiEmail className={locationIcon}/>
+                            <span className={label}>extra email:</span> 
+                            {user.extraEmail1} 
+                        </div>}
+                        {user.extraEmail2.length>4 && 
+                        <div className={card}>
+                            <TfiEmail className={locationIcon}/>
+                            <span className={label}>extra email:</span> 
+                            {user.extraEmail2} 
+                        </div>}
                         {user.phone && 
                         <div className={card}>
                             <IoPhonePortraitOutline className={locationIcon}/>
                             <span className={label}>phone:</span> 
                             {user.phone} 
+                        </div>}
+                        {user.extraPhone1 && 
+                        <div className={card}>
+                            <IoPhonePortraitOutline className={locationIcon}/>
+                            <span className={label}>extra phone:</span> 
+                            {user.extraPhone1} 
+                        </div>}
+                        {user.extraPhone2 && 
+                        <div className={card}>
+                            <IoPhonePortraitOutline className={locationIcon}/>
+                            <span className={label}>extra phone:</span> 
+                            {user.extraPhone2} 
                         </div>}
                     </div>
                 </div>
@@ -368,7 +404,7 @@ const edit = 'absolute right-2 -top-2 text-xm text-gray-400 cursor-pointer'
 const infoContent = ' flex flex-col w-full space-y-2 text-sm'
 
 const InfoCard = 'flex w-full  py-4 pt-8 px-2  relative text-sm'
-const section = 'flex w-full space-y-4 py-8 flex-col sm:max-w-[576px] sm:border-none max-w-[1240px] flex-wrap sm:py-8 sm:px-1 lg:items-start mb-20'
 
 const kidsIcon ='w-4 mr-2 h-[16px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[140%]'
+const section = 'flex w-full space-y-4 py-8 flex-col sm:max-w-[576px] sm:border-none max-w-[1240px] flex-wrap sm:py-8 sm:px-1 lg:items-start mb-20'
 
