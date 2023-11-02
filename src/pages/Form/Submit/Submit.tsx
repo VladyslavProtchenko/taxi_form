@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useInfo } from "../../../Store/useInfo";
 import { useLocation } from "../../../Store/useLocation";
 import { useOptions } from "../../../Store/useOptions";
@@ -18,7 +19,6 @@ const Submit = () => {
     const { returnTrip } = useReturnLocation()
     const { options } = useOptions()
 
-    console.log(returnTrip.isReturnTrip)
     return (
         <section className={section}>
 
@@ -63,7 +63,7 @@ const Submit = () => {
                             </div>}
 
                             {location.date && <div className={timeItem}>
-                                {location.date}
+                                {dayjs(location.date).format('dddd')}, {location.date}
                             </div>}
                         </div>
 
@@ -100,25 +100,25 @@ const Submit = () => {
                             </div>}
                         </div>}
 
-                        {(location.stopFirst ) &&
+                        {location.stopFirst &&
                         <div className={contentItem}>
-                            <SlLocationPin className={locationIcon}/>
+                            <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                stop: {location.stopFirst}
+                                {location.stopFirst}
                             </div>
                         </div>}
                         {(location.stopSecond) &&
                         <div className={contentItem}>
-                            <SlLocationPin className={locationIcon}/>
+                            <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                stop:{location.stopSecond}
+                                {location.stopSecond}
                             </div>
                         </div>}
                         {(location.stopLast) &&
                         <div className={contentItem}>
-                            <SlLocationPin className={locationIcon}/>
+                            <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                stop: {location.stopLast}, 
+                                {location.stopLast}, 
                             </div>
                         </div>}
 
@@ -212,23 +212,23 @@ const Submit = () => {
                         
                         {(returnTrip.stop1) &&
                         <div className={contentItem}>
-                            <SlLocationPin className={locationIcon}/>
+                            <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                stop: {returnTrip.stop1}
+                                {returnTrip.stop1}
                             </div>
                         </div>}
                         {(returnTrip.stop2) &&
                         <div className={contentItem}>
-                            <SlLocationPin className={locationIcon}/>
+                            <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                stop:{returnTrip.stop2}
+                                {returnTrip.stop2}
                             </div>
                         </div>}
                         {(returnTrip.stop3) &&
                         <div className={contentItem}>
-                            <SlLocationPin className={locationIcon}/>
+                            <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                stop: {returnTrip.stop3}, 
+                                {returnTrip.stop3}, 
                             </div>
                         </div>}
 
@@ -355,6 +355,7 @@ const timeItem = ' mr-4'
 
 const airportsItem = 'shadow px-2 py-1 flex '
 const locationIcon = 'min-w-[22px] '
+const stopIcon = 'min-w-[22px] text-yellow-400'
 const locationData = 'flex'
 const contentItem = 'flex w-full border p-2 items-center'
 const label = 'text-sm text-gray-600 italic pr-2'

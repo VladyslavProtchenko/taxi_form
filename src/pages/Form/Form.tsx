@@ -1,5 +1,5 @@
 import InfoSection from './Info/InfoSection';
-import AddressSection from './Address/AddressSection';
+import AddressSection from './Location/LocationSection';
 import OptionsSection from './Options/OptionsSection';
 import { useSteps } from '../../Store/useSteps';
 import Steps from './Steps';

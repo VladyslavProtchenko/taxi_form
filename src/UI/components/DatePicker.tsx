@@ -16,7 +16,7 @@ export default function DatePicker({onChange, getFullDate}:IDate) {
             const parsedDate = dayjs(date);
             setDate(parsedDate);
             if(getFullDate) getFullDate(parsedDate)
-            onChange(parsedDate.format('DD/MM/YYYY'))
+            onChange(parsedDate.format('DD.MM.YYYY'))
         }
 
     return (

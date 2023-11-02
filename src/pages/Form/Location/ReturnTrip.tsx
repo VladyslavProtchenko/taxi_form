@@ -28,46 +28,71 @@ const TripContent = () => {
     const { user: userStore } = useStore()
     const { validation, setIsMontrealBack, setIsMontrealPickBack } =useValidation()
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
+    const [stopTrigger, setStopTrigger] = useState(true)
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
+    const [stop, setStop] = useState({
+        1:true,
+        2:true,
+        3:true,
+    })
 
     useEffect(()=>{
         if(trigger[1]) setFrom(mainUser.dropOffLocation)
         if(trigger[2]) setTo(mainUser.pickUpLocation)
     },[trigger,mainUser.dropOffLocation, mainUser.pickUpLocation])
 
+    useEffect(()=>{
+        if(stopTrigger) {
+            (mainUser.stopFirst && mainUser.stopSecond && mainUser.stopLast) 
+            ? setStop1(mainUser.stopLast)
+            : (mainUser.stopFirst && !mainUser.stopSecond && mainUser.stopLast) 
+            ? setStop1(mainUser.stopLast)
+            : (!mainUser.stopFirst && mainUser.stopSecond && mainUser.stopLast) 
+            ? setStop1(mainUser.stopLast)
+            : (!mainUser.stopFirst && !mainUser.stopSecond && mainUser.stopLast) 
+            ? setStop1(mainUser.stopLast)
+            : (mainUser.stopFirst && mainUser.stopSecond)
+            ? setStop1(mainUser.stopSecond)
+            : mainUser.stopFirst
+            ? setStop1(mainUser.stopFirst)
+            : (mainUser.stopFirst && !mainUser.stopSecond && !mainUser.stopLast) 
+            ? setStop1(mainUser.stopFirst)
+            : (!mainUser.stopFirst && mainUser.stopSecond && !mainUser.stopLast) 
+            ? setStop1(mainUser.stopSecond)
+            : setStop1('');
+            
+            (mainUser.stopFirst && mainUser.stopSecond && mainUser.stopLast)
+            ? setStop2(mainUser.stopSecond)
+            : (mainUser.stopFirst && !mainUser.stopSecond && mainUser.stopLast) 
+            ? setStop2(mainUser.stopFirst)
+            : (!mainUser.stopFirst && mainUser.stopSecond && mainUser.stopLast) 
+            ? setStop2(mainUser.stopSecond)
+            : (mainUser.stopFirst && mainUser.stopSecond && !mainUser.stopLast) 
+            ? setStop2(mainUser.stopFirst)
+            : setStop2('');
+
+            (mainUser.stopFirst && mainUser.stopSecond && mainUser.stopLast) 
+            ? setStop3(mainUser.stopFirst) 
+            : setStop3('');
+
+            
+            (returnTrip.stop1 && returnTrip.stop2 && returnTrip.stop3)
+            ? setStop({ 1:true, 2:true, 3:true}) 
+            : ((!returnTrip.stop1 && returnTrip.stop2 && returnTrip.stop3) || (returnTrip.stop1 && !returnTrip.stop2 && returnTrip.stop3) || (returnTrip.stop1 && returnTrip.stop2 && !returnTrip.stop3))
+            ? setStop({ 1:true, 2:true, 3:false}) 
+            : ((!returnTrip.stop1 && !returnTrip.stop2 && returnTrip.stop3) || (returnTrip.stop1 && !returnTrip.stop2 && !returnTrip.stop3) || (!returnTrip.stop1 && returnTrip.stop2 && !returnTrip.stop3))
+            ? setStop({ 1:true, 2:false, 3:false})
+            : setStop({ 1:false, 2:false, 3:false});
+        }
+
+    },[stopTrigger, mainUser.stopLast,mainUser.stopSecond,mainUser.stopFirst, returnTrip.stop1,returnTrip.stop2,returnTrip.stop3])
+
+
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
 
-    const [stop, setStop] = useState({
-        first:false,
-        second:false,
-        last: false,
-    })
-    //Here i do check if we have stops, we need ser revert stops! 
-    //If we remove stops, we need remove return stops, if the empty! if now we cant remove them!
 
-    useEffect(() =>{
-        if(!returnTrip.stop1 ) setStop({...stop, first: false})
-        if(!returnTrip.stop2 ) setStop({...stop, second: false})
-        if(!returnTrip.stop3 ) setStop({...stop, last: false})
-        if(!returnTrip.stop1 && !returnTrip.stop2 && !returnTrip.stop3) setStop({first:false, second:false, last: false,})
-
-        if(mainUser.stopFirst || mainUser.stopSecond || mainUser.stopLast) {
-            if(returnTrip.stop2) return setStop({...stop,first: true})
-            setStop({...stop, first: true, second: false})
-        }
-
-        if((mainUser.stopFirst && mainUser.stopSecond) || (mainUser.stopLast && mainUser.stopSecond) || (mainUser.stopFirst && mainUser.stopLast)) {
-            if(returnTrip.stop3) return setStop({...stop, second: true})
-            setStop({...stop, second: true, last: false})
-        }
-        
-        if(mainUser.stopFirst && mainUser.stopSecond && mainUser.stopLast) {
-            setStop({first: true, second:true, last: true})
-        }
-
-    },[mainUser.stopFirst, mainUser.stopSecond, mainUser.stopLast])
 
     useEffect(()=>{
         //if montreal airport is pick up location  we need require departure and flight.
@@ -103,6 +128,7 @@ const TripContent = () => {
         }
 
     },[returnTrip.from, returnTrip.to])
+
 
     return (
     <div className={container}>
@@ -211,96 +237,73 @@ const TripContent = () => {
             </div>
         </div>
 
-        {stop.first  &&
+        {stop[1]  &&
         <div className={extraCardStop}> 
                 <span className='icon text-orange-400'><SlLocationPin/></span> 
                 <GoogleAddressInput
                     style='w-[200px]'
-                    defaultLocation={
-                            returnTrip.stop1
-                            ? returnTrip.stop1
-                            :(returnTrip.stop2 && mainUser.stopFirst && !mainUser.stopLast) 
-                            ? ''
-                            : mainUser.stopLast
-                            ? mainUser.stopLast
-                            : mainUser.stopSecond
-                            ? mainUser.stopSecond
-                            : mainUser.stopFirst
-                            ? mainUser.stopFirst 
-                            : ''
-                        } 
-                    onChange={setStop1}
+                    defaultLocation={returnTrip.stop1} 
+                    onChange={(e)=>{
+                        setStopTrigger(false)
+                        setStop1(e)
+                    }}
                     placeholder='Stop'
                 />
             <div 
                 className={closeStop} 
                 onClick={()=>{ 
                     setStop1('')
-                    setStop({ ...stop, first: false }) 
+                    setStop({ ...stop, 1: false }) 
                 }}
             >-</div>
         </div>}
 
-        {stop.second  && 
+        { stop[2]  && 
         <div className={extraCardStop}>
             <span className='icon text-orange-400'><SlLocationPin/></span>
             <GoogleAddressInput 
                 style='w-[200px]'
-                defaultLocation={
-                    returnTrip.stop2
-                    ? returnTrip.stop2
-                    : (mainUser.stopLast && mainUser.stopSecond && mainUser.stopFirst) 
-                    ? mainUser.stopSecond
-                    : (mainUser.stopLast && mainUser.stopSecond) 
-                    ?  mainUser.stopSecond
-                    : (mainUser.stopFirst && mainUser.stopLast)
-                    ? mainUser.stopFirst
-                    : (mainUser.stopFirst && mainUser.stopSecond)
-                    ? mainUser.stopFirst 
-                    : ''
-                } 
-                onChange={setStop2}
+                defaultLocation={returnTrip.stop2} 
+                    onChange={(e)=>{
+                        setStopTrigger(false)
+                        setStop2(e)
+                    }}
                 placeholder='Second stop'
             />
             <div 
                 className={closeStop} 
                 onClick={()=>{ 
                     setStop2('')
-                    setStop({ ...stop, second: false }) 
+                    setStop({ ...stop, 2: false }) 
                 }}
             >-</div> 
         </div>}
 
-        {stop.last  &&
+        {stop[3]  &&
         <div className={extraCardStop}>
             <span className='icon text-orange-400'><SlLocationPin/></span>
             <GoogleAddressInput 
                 style='w-[200px]'
-                defaultLocation={
-                    returnTrip.stop3 
-                    ? returnTrip.stop3 
-                    : (returnTrip.stop2 && returnTrip.stop1 || returnTrip.stop2 && mainUser.stopFirst ) 
-                    ? mainUser.stopFirst 
-                    : (mainUser.stopLast && mainUser.stopSecond && mainUser.stopFirst)
-                    ? mainUser.stopFirst 
-                    : ''
-                } 
-                onChange={setStop3}
+                defaultLocation={returnTrip.stop3} 
+                onChange={(e)=>{
+                    setStopTrigger(false)
+                    setStop3(e)
+                }}
                 placeholder='Last stop'
             />
             <div 
                 className={closeStop} 
                 onClick={()=>{
                     setStop3('')
-                    setStop({ ...stop, last: false }) 
+                    setStop({ ...stop, 3: false }) 
                 }}
             >-</div> 
         </div>}
 
-        {(!stop.first || !stop.second || !stop.last) && <div className={addExtraBtn} onClick={()=>{
-            if(!stop.first) return setStop({ ...stop, first: true })
-            if(!stop.second) return setStop({ ...stop, second: true })
-            if(!stop.last) return setStop({ ...stop, last: true })
+        {(!stop[1] || !stop[2] || !stop[3]) && <div className={addExtraBtn} onClick={()=>{
+            if(!stop[1]) return setStop({ ...stop, 1: true })
+            if(!stop[2]) return setStop({ ...stop, 2: true })
+            if(!stop[3]) return setStop({ ...stop, 3: true })
         }}>
             <span className={addCircle}>+</span>
         </div>}

@@ -67,7 +67,7 @@ export const useInfo = create<IStore>()(
                 extraPhone1: '',
                 extraPhone2: '',
 
-                paymentMethod: '',
+                paymentMethod: 'Cash',
                 additionalText: '',
             },
 

@@ -237,11 +237,16 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
     const [isOpen, setIsOpen] = useState(false)
+    const [icon, setIcon] = useState(1)
+
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
     useEffect(()=>{
-        if(val >=12) return setIsPhone(true)
-        setIsPhone(val === res)
+        if(type===1) {
+            if(val >=12) return setIsPhone(true)
+            setIsPhone(val === res)
+        }
+        
     },[val, res])
     
     useEffect(()=>{
@@ -257,7 +262,12 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)}>
-                {type === 1 ? <IoPhonePortraitOutline /> : type === 2 ? <BsTelephone /> : <SlEarphonesAlt />}
+                {icon === 1 ? <IoPhonePortraitOutline /> : icon === 2 ? <BsTelephone /> : <SlEarphonesAlt />}
+                <ul className={isOpen ?subMenu: 'hidden'}>
+                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className='text-gray-400 text-xs ml-2'>(mobile)</span></li>
+                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className='text-gray-400 text-xs ml-2'>(home)</span> </li>
+                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className='text-gray-400 text-xs ml-2'>(work)</span></li>
+                </ul>
             </div>
             <Select
                 showSearch
@@ -315,7 +325,9 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
 
 export default PhoneNumberInput
 
-const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer'
+const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow'
+const subItem ='flex text-sm px-3 py-2 items-end hover:bg-gray-200'
+const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer hover:bg-gray-100'
 const container = 'flex'
 
 

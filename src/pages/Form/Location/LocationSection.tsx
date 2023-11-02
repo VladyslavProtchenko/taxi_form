@@ -4,7 +4,7 @@ import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 import { CgArrowsExchangeAlt,CgClose } from "react-icons/cg";
 
-const AddressSection = () => {
+const LocationSection = () => {
     const {  returnTrip, setIsReturnTrip } = useReturnLocation()
     const { validation, setIsReturn } = useValidation()
     
@@ -26,7 +26,7 @@ const AddressSection = () => {
         </section>
     );
 };
-export default AddressSection;
+export default LocationSection;
 
 const button = ' bg-white flex items-center  text-sm font-bold cursor-pointer sm:w-min sm:ml-auto sm:mr-auto sm:justify-center sm:rotate-90 rounded-full'
 const section = 'flex w-full p-8 justify-between max-w-[1240px] sm:py-8 sm:px-1 sm:max-w-[576px] sm:flex-col '
