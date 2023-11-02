@@ -1,5 +1,6 @@
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'
+import useOnclickOutside from "react-cool-onclickoutside";
 import { useEffect, useState } from 'react';
 import { IoPhonePortraitOutline } from "react-icons/io5";
 import { BsTelephone } from "react-icons/bs";
@@ -233,6 +234,7 @@ interface IPhone {
 }
 
 function PhoneNumberInput({ value, onChange, type }: IPhone) {
+    const ref = useOnclickOutside(() => setIsOpen(false));
     const {setIsPhone } = useValidation()
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
@@ -261,9 +263,9 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
     
     return (
         <section className={container}>
-            <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)}>
-                {icon === 1 ? <IoPhonePortraitOutline /> : icon === 2 ? <BsTelephone /> : <SlEarphonesAlt />}
-                <ul className={isOpen ?subMenu: 'hidden'}>
+            <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >
+                {icon === 1 ? <><IoPhonePortraitOutline /><span className='text-gray-400 text-xs ml-1'>(mobile)</span></>: icon === 2 ? <><BsTelephone /><span className='text-gray-400 text-xs ml-1'>(mobile)</span></> : <><SlEarphonesAlt /><span className='text-gray-400 text-xs ml-1'>(mobile)</span></>}
+                <ul className={isOpen ?subMenu: 'hidden'} ref={ref}>
                     <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className='text-gray-400 text-xs ml-2'>(mobile)</span></li>
                     <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className='text-gray-400 text-xs ml-2'>(home)</span> </li>
                     <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className='text-gray-400 text-xs ml-2'>(work)</span></li>
@@ -274,7 +276,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 defaultValue={'Canada'}
                 value={country || 'Canada'}
                 placeholder={country || "Canada"}
-                style={{width:118, height: 30}}
+                style={{width:118, height: 30, paddingLeft: 4}}
                 onChange={setCountry}
                 filterOption={filterOption}
                 options={countries.map((item)=>(
@@ -325,9 +327,9 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
 
 export default PhoneNumberInput
 
-const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow'
+const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow rounded'
 const subItem ='flex text-sm px-3 py-2 items-end hover:bg-gray-200'
-const phoneLabel = ' flex relative items-center w-[32px] px-2 cursor-pointer hover:bg-gray-100'
+const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r'
 const container = 'flex'
 
 

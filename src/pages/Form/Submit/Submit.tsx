@@ -19,9 +19,9 @@ const Submit = () => {
     const { returnTrip } = useReturnLocation()
     const { options } = useOptions()
 
+
     return (
         <section className={section}>
-
             <div className='flex w-full sm:flex-col sm:space-y-2'>
                 <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2  2xl:w-1/2 lg:w-1/2 ' }>
                     <FiEdit className={edit}/>
@@ -379,8 +379,7 @@ const Submit = () => {
                         
                     </div>
                 </div>
-            </div>
-            
+            </div>    
         </section>
     );
 };
@@ -402,7 +401,6 @@ const nameBox = ' flex w-full justify-between '
 const edit = 'absolute right-2 -top-2 text-xm text-gray-400 cursor-pointer'
 
 const infoContent = ' flex flex-col w-full space-y-2 text-sm'
-
 const InfoCard = 'flex w-full  py-4 pt-8 px-2  relative text-sm'
 
 const kidsIcon ='w-4 mr-2 h-[16px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[140%]'
