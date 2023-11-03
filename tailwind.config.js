@@ -10,6 +10,9 @@ export default {
         '2xl': {'min': '1241px'},
       }
     },
+    fontFamily: {
+      'roboto': ["Roboto"],
+    }
   },
   
   plugins: [],

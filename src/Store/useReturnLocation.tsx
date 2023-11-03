@@ -55,6 +55,7 @@ interface Store {
     setArrivalTime: (trip:string) => void;
 
     setIsFlight: (trip:boolean) => void;
+    resetReturn: () => void;
 }
 export const useReturnLocation = create<Store>()(
     (set) => ({
@@ -111,5 +112,32 @@ export const useReturnLocation = create<Store>()(
         setArrivalTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, arrivalTime: data } })),
 
         setIsFlight: (data) => set((state) => ({ returnTrip: {...state.returnTrip, isFlight: data } })),
+        resetReturn: () => set((state) => ({ returnTrip: {
+            isReturnTrip: state.returnTrip.isReturnTrip,
+            isFlight: false,
+
+            from: '',
+            to: '',
+
+            stop1: '',
+            stop2: '',
+            stop3: '',
+
+            date:'',
+            time: '',
+
+            icon: 1,
+            icon2: 2,
+            flight:'',
+            flight2:'',
+            bus:'',
+            train:'',
+            departure:'',
+            departure2:'',
+            tripType: '',
+            arrivalTime: '',
+            airline:'',
+            airlineBack:'',
+        }})),
     }
 ))

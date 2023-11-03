@@ -47,4 +47,4 @@ const content ='flex w-1/3 px-2 lg:mb-4 lg:space-x-4 sm:w-full sm:mb-10 lg:w-1/2
 
 const box ='flex border h-min pl-3 w-[100px]'
 const textArea ='flex border h-min w-full rounded-xl'
-const section = 'flex flex-col w-full px-8 sm:max-w-[576px] lg:w-full xl:w-full sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col sm:flex-col'
+const section = 'flex flex-col w-full px-8 sm:max-w-[576px] lg:w-full xl:w-full sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col sm:flex-col pb-20'

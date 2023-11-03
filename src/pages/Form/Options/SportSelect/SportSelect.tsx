@@ -53,7 +53,7 @@ const SportsSelect = () => {
 
                 </div>
             ))}
-            {options.sport.filter(item=>item.isActive !== true).length > 0 && <Dropdown menu={{ items }} placement="bottomLeft" className='self-start'>
+            {options.sport.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
                 <div className={qntPlus+  'mt-2 ml-4 w-4 h-4'}>+</div>
             </Dropdown>}
         </div>

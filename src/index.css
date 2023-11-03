@@ -4,7 +4,10 @@
 * {
     font-family: 'Nunito', sans-serif;
 }
+.roboto {
+    font-family: 'Roboto', sans-serif;
 
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,7 +17,7 @@
 }
 /* `${isFlight === 1 ? '#ff0548':isFlight === 2 ? '#04d416': '#ededed'}`} */
 .react-tel-input {
-    width: 200px !important;
+    max-width: 200px !important;
     border: none;
     border-left: none;
     text-decoration: underline;
@@ -122,13 +125,7 @@ select option {
     align-items: center;
     border: 1px solid #dedede;
 }
-.nameCard2 {
-    display: flex;
-    width:350px;
-    position: relative;
-    align-items: center;
-    overflow: hidden;
-}
+
 .short {
     display: flex;
     align-items: center;
@@ -188,4 +185,9 @@ select option {
 }
 .ant-select-dropdown {
     min-width: 150px !important;
+}
+
+.phoneArrow .ant-select-arrow {
+    /* transform: ; */
+    right: 2px !important;
 }

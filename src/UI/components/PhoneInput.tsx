@@ -7,6 +7,7 @@ import { BsTelephone } from "react-icons/bs";
 import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 import { useValidation } from '../../Store/useValidation';
+import { useInfo } from '../../Store/useInfo';
 
 const countries = [
     ["Afghanistan", "93"],
@@ -235,6 +236,7 @@ interface IPhone {
 
 function PhoneNumberInput({ value, onChange, type }: IPhone) {
     const ref = useOnclickOutside(() => setIsOpen(false));
+    const { user, setResetPhone} = useInfo()
     const {setIsPhone } = useValidation()
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
@@ -244,11 +246,18 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
     useEffect(()=>{
+        if(user.resetPhone){
+            console.log('work')
+            setCountryCode('')
+        }
+        setResetPhone(false)
+    },[user.resetPhone])
+
+    useEffect(()=>{
         if(type===1) {
             if(val >=12) return setIsPhone(true)
             setIsPhone(val === res)
         }
-        
     },[val, res])
     
     useEffect(()=>{
@@ -264,11 +273,11 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >
-                {icon === 1 ? <><IoPhonePortraitOutline /><span className='text-gray-400 text-xs ml-1'>(mobile)</span></>: icon === 2 ? <><BsTelephone /><span className='text-gray-400 text-xs ml-1'>(mobile)</span></> : <><SlEarphonesAlt /><span className='text-gray-400 text-xs ml-1'>(mobile)</span></>}
+                {icon === 1 ? <><IoPhonePortraitOutline /><span className=' text-xs ml-1'>(mobile)</span></>: icon === 2 ? <><BsTelephone /><span className=' text-xs ml-1'>(home)</span></> : <><SlEarphonesAlt /><span className=' text-xs ml-1'>(work)</span></>}
                 <ul className={isOpen ?subMenu: 'hidden'} ref={ref}>
-                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className='text-gray-400 text-xs ml-2'>(mobile)</span></li>
-                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className='text-gray-400 text-xs ml-2'>(home)</span> </li>
-                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className='text-gray-400 text-xs ml-2'>(work)</span></li>
+                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className=' text-xs ml-2'>(mobile)</span></li>
+                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className=' text-xs ml-2'>(home)</span> </li>
+                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className=' text-xs ml-2'>(work)</span></li>
                 </ul>
             </div>
             <Select
@@ -276,7 +285,8 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 defaultValue={'Canada'}
                 value={country || 'Canada'}
                 placeholder={country || "Canada"}
-                style={{width:118, height: 30, paddingLeft: 4}}
+                className=" sm:max-w-[55px] phoneArrow max-w-[100px]"
+                style={{ width:'100%', height: 30, }}
                 onChange={setCountry}
                 filterOption={filterOption}
                 options={countries.map((item)=>(
@@ -311,6 +321,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                     setRes(res)
                     return true
                 }}
+                dropdownClass='max-w-[200px]  '
                 priority={{ca: 0, us: 1,kz: 0, ru: 1} }
                 country={'ca'}
                 value={countryCode}
@@ -320,15 +331,14 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 }}
             />
             }
-            
         </section>
     )
 }
 
 export default PhoneNumberInput
 
-const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow rounded'
-const subItem ='flex text-sm px-3 py-2 items-end hover:bg-gray-200'
+const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
+const subItem ='flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
 const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r'
 const container = 'flex'
 

@@ -24,7 +24,7 @@ const InfoSection = () => {
     return (
         <section className={section}>
             <div className={extraContainer + ' xl:mb-3 lg:mb-3'}>
-                <div className={ (validation.isName && validation.isTitle ) ? 'nameCard2 border': 'nameCard2 border border-red-500' }>
+                <div className={ (validation.isName && validation.isTitle ) ? nameCard + ' ': nameCard + '  border-red-500' }>
                     <span className='icon'><BsPeople/></span>
                     <Select
                         allowClear 
@@ -43,7 +43,7 @@ const InfoSection = () => {
                 </div>
 
                 {isExtraNameOpen[1] && 
-                <div className='nameCard'>
+                <div className={nameCard}>
                     <span className='icon'><BsPeople/></span>
                     <Select
                         value={user.extraGender1 || null}
@@ -57,7 +57,7 @@ const InfoSection = () => {
                 </div>}
 
                 {isExtraNameOpen[2] &&  
-                <div className='nameCard'>
+                <div className={nameCard}>
                     <span className='icon'><BsPeople/></span>
                     <Select
                         value={user.extraGender2 || null}
@@ -86,7 +86,7 @@ const InfoSection = () => {
                 }}>+</div>}
             </div>
 
-            <div className={extraContainer}>
+            <div className={extraContainer  + ' xl:mb-3 lg:mb-3'}>
                 <div className={extraCard}>
                     <MailInput value={user.email} mainMail={true} onChange={setEmail} placeholder='Set your email'/>
                 </div>
@@ -154,15 +154,16 @@ const InfoSection = () => {
 export default InfoSection;
 
 
+const nameCard = 'flex max-w-[400px] w-full relative items-center border'
 
 const addExtraBtn = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full text-md border border-black cursor-pointer font-bold text-black opacity-20 hover:opacity-100 duration-300 sm:-translate-x-[150px]"
 
 
-const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black cursor-pointer font-bold text-black  left-[352px] opacity-20 hover:opacity-100 duration-300 "
-const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black  left-[355px] opacity-25 hover:opacity-100 duration-300 "
-const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black left-[355px] opacity-25 hover:opacity-100 duration-300 "
+const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black cursor-pointer font-bold text-black  left-[352px] opacity-20 hover:opacity-100 duration-300 xl:left-[402px] lg:left-[402px] "
+const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black  left-[355px] opacity-25 hover:opacity-100 duration-300 xl:left-[402px] lg:left-[402px] "
+const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black left-[378px] opacity-25 hover:opacity-100 duration-300 xl:left-[402px] lg:left-[402px] "
 
-const extraCard = ' flex relative items-center '
-const extraContainer = 'flex flex-col sm:w-full items-start space-y-2 sm:items-center'
+const extraCard = ' flex relative items-center max-w-[400px] w-full'
+const extraContainer = 'flex flex-col sm:w-full items-start space-y-2 sm:items-center xl:max-w-[400px] xl:w-full lg:max-w-[400px] lg:w-full'
 
 const section = 'flex xl:flex-wrap lg:flex-wrap sm:flex-col sm:pt-40 sm:space-y-2 justify-between w-full px-8  pt-16 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1'

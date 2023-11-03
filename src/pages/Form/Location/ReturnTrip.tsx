@@ -132,6 +132,7 @@ const TripContent = () => {
 
     return (
     <div className={container}>
+        <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1>
 
         <div className={date}>
             <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
@@ -165,11 +166,22 @@ const TripContent = () => {
 
         <div className={type}>
             <div className={icons}>
-                <MdFlightLand className={returnTrip.icon == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon(1)}}/>
-                <BsTrainFrontFill className={returnTrip.icon == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(2)}}/>
-                <FaBus className={returnTrip.icon == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(3)}}/>
-                <FaSailboat className={returnTrip.icon == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(4)}}/>
-                <MdLocalHotel className={returnTrip.icon == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon(5)}}/>
+                
+                <span className={returnTrip.icon == 1 ? iconCard+ ' border-black ':iconCard+  ' border border-white '}>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl -translate-y-[2px]' } onClick={()=>{setIcon(1)}}/>
+                </span>
+                <span className={returnTrip.icon == 2 ? iconCard+ ' border-black ':iconCard+  '  border-white '}>
+                    <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon(2)}}/>
+                </span>
+                <span className={returnTrip.icon == 3 ?iconCard+  ' border-black':iconCard+  ' border-white'}>
+                    <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon(3)}}/>
+                </span>
+                <span className={returnTrip.icon == 4 ?iconCard+  '  border-black':iconCard+  ' border-white '}>
+                    <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon(4)}}/>
+                </span>
+                <span className={returnTrip.icon == 5 ?iconCard+  '  border-black':iconCard+  '  border-white'}>
+                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon(5)}}/>
+                </span>
             </div>
 
             <div className={flightCard }>
@@ -335,11 +347,21 @@ const TripContent = () => {
         <div className={type}>
             
             <div className={icons}>
-                <MdFlightTakeoff className={returnTrip.icon2 == 1 ? iconItem+' text-gray-900 text-xl': iconItem+ ' text-xl '} onClick={()=>{setIcon2(1)}}/>
-                <BsTrainFrontFill className={returnTrip.icon2 == 2 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(2)}}/>
-                <FaBus className={returnTrip.icon2 == 3 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(3)}}/>
-                <FaSailboat className={returnTrip.icon2 == 4 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(4)}}/>
-                <MdLocalHotel className={returnTrip.icon2 == 5 ? iconItem+' text-gray-900': iconItem} onClick={()=>{setIcon2(5)}}/>
+                <span className={returnTrip.icon2 == 1 ? iconCard+ ' border-black ':iconCard+  ' border border-white '}>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl -translate-y-[2px]' } onClick={()=>{setIcon2(1)}}/>
+                </span>
+                <span className={returnTrip.icon2 == 2 ? iconCard+ ' border-black ':iconCard+  '  border-white '}>
+                    <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon2(2)}}/>
+                </span>
+                <span className={returnTrip.icon2 == 3 ?iconCard+  ' border-black':iconCard+  ' border-white'}>
+                    <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon2(3)}}/>
+                </span>
+                <span className={returnTrip.icon2 == 4 ?iconCard+  '  border-black':iconCard+  ' border-white '}>
+                    <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon2(4)}}/>
+                </span>
+                <span className={returnTrip.icon2 == 5 ?iconCard+  '  border-black':iconCard+  '  border-white'}>
+                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon2(5)}}/>
+                </span>
             </div>
 
             <div className={flightCard }>
@@ -390,7 +412,7 @@ const TripContent = () => {
             </span >
         </div>}
 
-        {!returnTrip.isReturnTrip && <div className='absolute top-0 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
+        {!returnTrip.isReturnTrip && <div className='absolute -top-2 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
     </div>
     );
 };
@@ -398,9 +420,10 @@ const TripContent = () => {
 
 export default TripContent;
 
+const iconCard = ' border px-2 pt-[2px] rounded'
 
 const iconItem = 'text-gray-300 active:text-gray-400 hover:text-gray-500 cursor-pointer'
-const icons = 'flex w-1/3 justify-around pt-1'
+const icons = 'flex w-1/3 justify-around pt-1 pl-3'
 const type = 'flex items-center justify-between w-full  space-x-4'
 const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5  '
 
@@ -416,10 +439,11 @@ const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max
 
 const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
 const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
-const date = 'flex space-x-2 sm:items-start items-start w-full   justify-between'
+const date = 'flex space-x-2 sm:items-start items-start w-full   justify-between border-b-2 pb-6'
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full '
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end'
 
-const container = 'flex flex-col border p-10 space-y-3 relative w-[48%] sm:w-full rounded shadow-xl'
+const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400'
+const container = 'flex relative flex-col border p-10 space-y-3 relative w-[48%] sm:w-full rounded shadow-xl'

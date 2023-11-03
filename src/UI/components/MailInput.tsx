@@ -74,5 +74,5 @@ export default MailInput;
 
 const domainBox = 'relative flex items-center font-bold text-[#0066ff]'
 const label = 'absolute right-[125px] font-bold text-[#0066ff] text-xl'
-const container = ' flex text-sm border items-center'
+const container = ' flex text-sm border items-center w-full'
 

@@ -70,6 +70,7 @@ interface Store {
     setArrivalTime: (value: string) => void;
 
     setIsFlight: (value: boolean) => void;
+    resetLocation: () => void;
 }
 export const useLocation = create<Store>()(
             (set) => ({
@@ -139,5 +140,38 @@ export const useLocation = create<Store>()(
             }),
             setTripType: (data) => set((state) => ({ user: {...state.user, tripType: data } })),
             setIsFlight: (data) => set((state) => ({ user: {...state.user, isFlight: data } })),
+            resetLocation: () => set(() => ({ user: {
+                tripList:['Business (need receipt)', 'Vacation', 'Else'],
+                departureSections: ['Domestic', 'International', 'USA', 'Arrival'],
+                flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
+
+                isFlight: false,
+                taxiNow: false,
+
+                pickUpLocation: '',
+                dropOffLocation: '',
+
+                stopFirst: '',
+                stopSecond: '',
+                stopLast: '',
+
+                icon:1,
+                icon2:1,
+                flight: '',
+                flight2: '',
+                bus: '',
+                train:'',
+
+                airline:'',
+                airlineBack:'',
+                departure: '',
+                departure2:'',
+                arrivalTime: '',
+
+                date: today,
+                time: '',
+                tripType:'',
+
+            }})),
         }
 ))
