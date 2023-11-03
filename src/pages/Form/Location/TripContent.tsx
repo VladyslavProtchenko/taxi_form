@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { Input, Select } from "antd";
+import { Input, Radio, RadioChangeEvent, Select } from "antd";
 
 import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
@@ -45,6 +45,7 @@ const TripContent = () => {
         setIcon2,
         setAirlineBack,
         resetLocation,
+        setDateNow,
     } = useLocation()
 
     const [fullDate, setFullDate] = useState(dayjs())
@@ -124,50 +125,60 @@ const TripContent = () => {
     return (
     <div className={container}>
         <h1 className={label}>One-Way</h1>
+
         <div className={date}>
-            <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
-                <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                <div className='flex items-center'>
-                {fullDate.format('dddd')},  
-                {'  '+fullDate.format('MMM')}
-                {'.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
-                                            ? 'st'
-                                            :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
-                                            ?  'nd'
-                                            :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
-                                            ? 'rd'
-                                            : 'th'
-                                        }
-                {' '+fullDate.format('YYYY')}</div>
-                {isDateOpen && <div className={dateTimeSubmenu}>
-                    <DatePicker time={user.time} onChange={setDate} getFullDate={setFullDate}/>
-                    <div className="flex justify-between pl-8">
-                        <div className={setDateBtn} onClick={(e)=> {
-                                e.stopPropagation();
-                                setIsDateOpen(false)
-                            }}>accept</div>
-                    </div>
-                </div>}
+            <div className='flex pb-2'>
+            <Radio.Group onChange={(e: RadioChangeEvent)=> setDateNow(e.target.value)} value={user.dateNow}>
+                <Radio value={true}>Now: ( {dayjs().format('HH:mm /  dddd MMM.YYYY')} )</Radio>
+                <Radio value={false}>Later </Radio>
+            </Radio.Group>
             </div>
-            <TimePicker time={user.time}  onChange={setTime} date={user.date}/> 
+            <div className={dateRow}>
+                {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-50 cursor-not-allowed"></div>}
+                <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                    <span className='icon text-xl'><PiCalendarCheckLight/></span>
+                    <div className='flex items-center'>
+                    {fullDate.format('dddd')},  
+                    {'  '+fullDate.format('MMM')}
+                    {'.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
+                                                ? 'st'
+                                                :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
+                                                ?  'nd'
+                                                :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
+                                                ? 'rd'
+                                                : 'th'
+                                            }
+                    {' '+fullDate.format('YYYY')}</div>
+                    {isDateOpen && <div className={dateTimeSubmenu}>
+                        <DatePicker time={user.time} onChange={setDate} getFullDate={setFullDate}/>
+                        <div className="flex justify-between pl-8">
+                            <div className={setDateBtn} onClick={(e)=> {
+                                    e.stopPropagation();
+                                    setIsDateOpen(false)
+                                }}>accept</div>
+                        </div>
+                    </div>}
+                </div>
+                <TimePicker time={user.dateNow ? dayjs().add(30,'minutes').format('HH:mm'): user.time}  onChange={setTime} date={user.date}/> 
+            </div>
         </div>
 
         <div className={type}>
             
             <div className={icons}>
-                <span className={user.icon == 1 ? iconCard+ ' border-black ':iconCard+  ' border border-white '}>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl -translate-y-[2px]' } onClick={()=>{setIcon(1)}}/>
+                <span className={user.icon == 1 ? iconCard : iconCardActive}>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } onClick={()=>{setIcon(1)}}/>
                 </span>
-                <span className={user.icon == 2 ? iconCard+ ' border-black ':iconCard+  '  border-white '}>
+                <span className={user.icon == 2 ? iconCard : iconCardActive}>
                     <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon(2)}}/>
                 </span>
-                <span className={user.icon == 3 ?iconCard+  ' border-black':iconCard+  ' border-white'}>
+                <span className={user.icon == 3 ? iconCard: iconCardActive}>
                     <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon(3)}}/>
                 </span>
-                <span className={user.icon == 4 ?iconCard+  '  border-black':iconCard+  ' border-white '}>
+                <span className={user.icon == 4 ? iconCard : iconCardActive}>
                     <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon(4)}}/>
                 </span>
-                <span className={user.icon == 5 ?iconCard+  '  border-black':iconCard+  '  border-white'}>
+                <span className={user.icon == 5 ?iconCard : iconCardActive}>
                     <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon(5)}}/>
                 </span>
             </div>
@@ -185,7 +196,7 @@ const TripContent = () => {
                 />}
                 
                 {user.icon === 1
-                    ?<MdFlightLand className='text-blue-500 text-xl mx-1'/>
+                    ?<MdFlightLand className='text-xl mx-1'/>
                     :user.icon === 2
                     ?< BsTrainFrontFill className=' mx-1'/>
                     :user.icon === 3
@@ -206,11 +217,13 @@ const TripContent = () => {
                         : ''
                     }
                 </div>}
-                <Input 
+                <Input
+                    value={user.flight}
+                    maxLength={4}
                     placeholder={user.icon === 1 ?'####': user.icon === 2 ? 'Train#' : user.icon === 3 ? "Bus#" : user.icon === 4 ? 'Boat#': 'Room#'} 
                     className={user.icon === 1 ? ' max-w-[80px]': '' } 
                     style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
                 />
             </div>}
         </div>
@@ -326,19 +339,19 @@ const TripContent = () => {
         <div className={type}>
             
             <div className={icons}>           
-                <span className={user.icon2 == 1 ? iconCard+ ' border-black ':iconCard+  ' border border-white '}>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl -translate-y-[2px]' } onClick={()=>{setIcon2(1)}}/>
+                <span className={user.icon2 == 1 ? iconCard : iconCardActive}>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } onClick={()=>{setIcon2(1)}}/>
                 </span>
-                <span className={user.icon2 == 2 ? iconCard+ ' border-black ':iconCard+  '  border-white '}>
+                <span className={user.icon2 == 2 ? iconCard : iconCardActive}>
                     <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon2(2)}}/>
                 </span>
-                <span className={user.icon2 == 3 ?iconCard+  ' border-black':iconCard+  ' border-white'}>
+                <span className={user.icon2 == 3 ?iconCard : iconCardActive}>
                     <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon2(3)}}/>
                 </span>
-                <span className={user.icon2 == 4 ?iconCard+  '  border-black':iconCard+  ' border-white '}>
+                <span className={user.icon2 == 4 ?iconCard : iconCardActive}>
                     <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon2(4)}}/>
                 </span>
-                <span className={user.icon2 == 5 ?iconCard+  '  border-black':iconCard+  '  border-white'}>
+                <span className={user.icon2 == 5 ?iconCard : iconCardActive }>
                     <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon2(5)}}/>
                 </span>
             </div>
@@ -378,10 +391,12 @@ const TripContent = () => {
                     }
                 </div>}
                 <Input 
+                    value={user.flight2}
+                    maxLength={4}
                     placeholder={user.icon2 === 1 ?'####': user.icon2 === 2 ? 'Train#' : user.icon2 === 3 ? "Bus#" : user.icon2 === 4 ? 'Boat#': 'Room#'} 
                     className={user.icon === 1 ? ' max-w-[80px]': '' } 
                     style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value)}
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}
                 />
             </div>}
         </div>
@@ -398,9 +413,10 @@ export default TripContent;
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 ml-auto'
 
-const iconCard = ' border px-2 pt-[2px] rounded'
+const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded bg-gradient-to-b from-green-200 to-green-400 border-green-400'
+const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px] rounded   border-white '
 const iconItem = 'cursor-pointer '
-const icons = 'flex w-1/3 justify-around pt-1 pl-3'
+const icons = 'flex w-1/3 justify-around pt-1'
 const type = 'flex items-center justify-between w-full space-x-4 '
 const flightCard = 'flex relative items-center border lg:w-3/5 w-1/2'
 
@@ -411,11 +427,12 @@ const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text
 
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
+const dateRow = 'flex relative sm:items-start items-start w-full   justify-between border-b-2 pb-6'
 
 
 const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full'
 
-const date = 'flex sm:mb-2 w-full  space-x-2 items-start  justify-between border-b-2 pb-6'
+const date = 'flex flex-col sm:mb-2 w-full items-start  justify-between border-b-2 pb-6'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end'

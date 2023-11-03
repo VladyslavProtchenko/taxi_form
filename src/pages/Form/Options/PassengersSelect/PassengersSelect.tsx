@@ -26,7 +26,6 @@ const PassengersSelect = () => {
 
     useEffect(()=>{ 
         if(adults < babies) setBabies(adults) 
-        if(adults > 5) setBabies(1)
         if(!adults) setChildren([])
     },[adults])
 
@@ -50,7 +49,6 @@ const PassengersSelect = () => {
                             className={qntPlus} 
                             onClick={()=>{
                                 if((children.length + adults) >=4) setCarType('VAN (5-7)')
-                                if((children.length + adults) >=4  && options.carType !== 'VAN (5-7)') return;
                                 if((children.length + adults)  >= 7) return;
                                 setAdults(adults + 1)
                             }}
@@ -75,8 +73,9 @@ const PassengersSelect = () => {
                             className={qntPlus} 
                             onClick={()=>{
                                 if(!adults) return;
+                                if((children.length + adults) >=4) setCarType('VAN (5-7)')
+
                                 if((children.length + adults) >= 7 ) return;
-                                if((children.length + adults) >= 4 && options.carType !== 'VAN (5-7)') return;
                                 const newKid = {
                                     id: children.length +1,
                                     age: 0
@@ -142,6 +141,7 @@ const PassengersSelect = () => {
                                 if(babies >= 1  && options.carType !== 'VAN (5-7)') return;
                                 if(babies >= 2) return;
                                 if(babies >= 1 && adults >5) return;
+
                                 setBabies(babies + 1)
                             }}
                         >+</div>

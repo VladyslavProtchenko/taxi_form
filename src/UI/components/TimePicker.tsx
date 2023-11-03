@@ -12,32 +12,7 @@ interface InputProps {
     style?:string;
 }
 
-const TimePicker: React.FC<InputProps> = ({ style, onChange, date,time }) => {
-    const ref = useOnclickOutside(() => setIsOpen(false));
-    const { setTaxiNow} = useLocation()
-    const [hour, setHour] = useState(time.replace(/:/g, '') ? time.slice(0,2) : '')
-    const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3) :  '')
-    const [isOpen, setIsOpen] = useState(false)
-    const [isTime, setIsTime] = useState(0)
-
-    useEffect(() => {
-        
-        onChange((hour) + ':' + (minute))
-        if(minute && hour) {
-            setIsTime(2)
-        } else setIsTime(1)
-    }, [hour, minute])
-
-    
-    const now = dayjs().format('DD/MM/YYYY')
-    let hoursNow = '0'
-    let minutesNow = '0'
-
-    if (now === date) {
-        hoursNow = dayjs().format('HH')
-        minutesNow = dayjs().format('mm')
-    }
-
+const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
     const minutes = [
         "00","05","10", "15", "20", "25", "30",
         "35", "40", "45",  "50","55","00"
@@ -47,8 +22,54 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date,time }) => {
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
         "20", "21", "22", "23", "00",
     ]
-    const filteredMinutes = minutes.filter(item => item > minutesNow);
-    const filteredHours = hours.filter(item => item >= hoursNow);
+    const { user } = useLocation()
+    
+    let hoursNow = dayjs().format('HH')
+    let minutesNow = dayjs().format('mm')
+
+    const ref = useOnclickOutside(() => setIsOpen(false));
+
+    const [hour, setHour] = useState(time.replace(/:/g, '') ? time.slice(0,2) : '')
+    const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3) :  '')
+    const [isOpen, setIsOpen] = useState(false)
+    const [isTime, setIsTime] = useState(0)
+    const [filteredMinutes, setFilteredMinutes] = useState(minutes.filter(item => item > minutesNow))
+    const [filteredHours, setFilteredHours] = useState(hours.filter(item => item >= hoursNow))
+
+    useEffect(()=>{
+        if (dayjs().format('DD/MM/YYYY') === date){
+
+            setFilteredMinutes(minutes.filter(item => item > dayjs().format('mm')))
+            setFilteredHours(hours.filter(item => item >= dayjs().format('HH')))
+        }
+        if(!user.dateNow && JSON.stringify(dayjs().format('DD/MM/YYYY')) === JSON.stringify(date)) {
+            if(user.time < dayjs().format('HH:mm')) {
+                setMinute(dayjs().add(30, 'minutes').format('mm'))
+                setHour(dayjs().add(1, 'hours').format('HH'))
+                onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
+            }
+
+            if(dayjs().format('mm') > '30') setFilteredHours(hours.filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
+            setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
+            
+        }
+        if(dayjs().format('DD/MM/YYYY') !== date) {
+            setFilteredMinutes(minutes)
+            setFilteredHours(hours)
+        }
+    },[date, user.dateNow, user.date, user.time])
+
+
+    useEffect(() => {
+        onChange((hour) + ':' + (minute))
+        if(minute && hour) {
+            setIsTime(2)
+        } else setIsTime(1)
+    }, [hour, minute])
+
+    
+
+
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
             <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>
@@ -59,20 +80,10 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date,time }) => {
                 placeholder='hh'
                 maxLength={2}
                 autoFocus={false}
-                onBlur={()=>{
-                    setTaxiNow(false)
-                    if(minute && hour) {
-                        setIsTime(2)
-                    } else {
-                        setIsTime(1)
-                    }
-                }}
+                onBlur={()=>{ (minute && hour) ?setIsTime(2):setIsTime(1) }}
                 onChange={(e) => {
-                    if(minute && hour) {
-                        setIsTime(2)
-                    } else {
-                        setIsTime(1)
-                    }
+                    (minute && hour) ? setIsTime(2): setIsTime(1)
+
                     const newValue = e.target.value.replace(/[^0-9]/g, '')
                     if (+newValue > 23) return setHour('00')
                     setHour(newValue)
@@ -85,19 +96,10 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date,time }) => {
                 value={minute}
                 autoFocus={false}
                 maxLength={2}
-                onBlur={()=>{
-                    setTaxiNow(false)
-                    if(minute && hour) {
-                        setIsTime(2)
-                    } else {
-                        setIsTime(1)
-                    }
-                }}
+                onBlur={()=>{ (minute && hour) ? setIsTime(2): setIsTime(1) }}
                 onChange={(e) => {
-                    
-                    if(minute && hour) {
-                        setIsTime(2)
-                    } else { setIsTime(1) }
+                    (minute && hour)?setIsTime(2) : setIsTime(1) 
+
                     const newValue = e.target.value.replace(/[^0-9]/g, '')
                     if (+newValue > 59) return setMinute('59')
                     setMinute(newValue)

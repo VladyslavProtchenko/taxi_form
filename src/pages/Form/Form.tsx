@@ -11,6 +11,7 @@ import PaymentSection from './Payment/Payment';
 import { useValidation } from '../../Store/useValidation';
 import { useEffect } from 'react';
 import Submit from './Submit/Submit';
+import dayjs from 'dayjs';
 
 const Form = () => {
     const { store } = useSteps()
@@ -77,71 +78,70 @@ const Form = () => {
 
     const sendOrder = () => {
 
-        // const newOrder = {
-        //     gender: user.gender,
-        //     gender2: user.extraGender1,
-        //     gender3: user.extraGender2,
+        const newOrder = {
+            gender: user.gender,
+            gender2: user.extraGender1,
+            gender3: user.extraGender2,
 
-        //     name: user.name,
-        //     name2: user.extraName1,
-        //     name3: user.extraName2,
+            name: user.name,
+            name2: user.extraName1,
+            name3: user.extraName2,
 
 
-        //     email: user.email,
-        //     email2: user.extraEmail1,
-        //     email3: user.extraEmail2,
+            email: user.email,
+            email2: user.extraEmail1,
+            email3: user.extraEmail2,
 
-        //     phone: user.phone,
-        //     phone2: user.extraPhone1,
-        //     phone3: user.extraPhone2,
+            phone: user.phone,
+            phone2: user.extraPhone1,
+            phone3: user.extraPhone2,
 
-        //     fromLocation: trip.pickUpLocation,
-        //     to: trip.dropOffLocation,
-        //     stop1: trip.stopFirst,
-        //     stop2: trip.stopSecond,
-        //     stop3: trip.stopLast,
+            fromLocation: trip.pickUpLocation,
+            to: trip.dropOffLocation,
+            stop1: trip.stopFirst,
+            stop2: trip.stopSecond,
+            stop3: trip.stopLast,
             
-        //     date: trip.date,
-        //     time: trip.time,
+            date: trip.date,
+            time:trip.dateNow ? dayjs().format('HH:mm') : trip.time,
 
-        //     flight: trip.flight,
-        //     bus: trip.bus,
-        //     train: trip.train,
+            flight: trip.flight,
+            bus: trip.bus,
+            train: trip.train,
 
-        //     departure: trip.departure,
-        //     airline: trip.airline,
+            departure: trip.departure,
+            airline: trip.airline,
+
+            isReturnTrip: returnTrip.isReturnTrip,
 
 
-        //     isReturnTrip: returnTrip.isReturnTrip,
-
-
-        //     returnFrom: returnTrip.from,
-        //     returnTo: returnTrip.to,
-        //     returnStop1: returnTrip.stop1,
-        //     returnStop2: returnTrip.stop2,
-        //     returnStop3: returnTrip.stop3,
+            returnFrom: returnTrip.from,
+            returnTo: returnTrip.to,
+            returnStop1: returnTrip.stop1,
+            returnStop2: returnTrip.stop2,
+            returnStop3: returnTrip.stop3,
             
-        //     returnDate: returnTrip.date,
-        //     returnTime: returnTrip.time,
+            returnDate: returnTrip.date,
+            returnTime: returnTrip.time,
 
-        //     returnFlight: returnTrip.flight,
-        //     returnBus: returnTrip.bus,
-        //     returnTrain: returnTrip.train,
+            returnFlight: returnTrip.flight,
+            returnBus: returnTrip.bus,
+            returnTrain: returnTrip.train,
 
-        //     returnDeparture: returnTrip.departure,
-        //     returnAirline: returnTrip.airline,
+            returnDeparture: returnTrip.departure,
+            returnAirline: returnTrip.airline,
 
-        //     carType: options.carType,
-        //     passengers: options.passengers,
-        //     baggage: options.baggage,
-        //     carSeats: options.carSeats,
-        //     sport: options.sport,
-        //     pets: options.pets,
+            carType: options.carType,
+            passengers: options.passengers,
+            baggage: options.baggage,
+            carSeats: options.carSeats,
+            sport: options.sport,
+            pets: options.pets,
 
-        //     tripType: trip.date,
-        //     paymentMethod: user.paymentMethod,
-        //     notes: user.additionalText,
-        // }
+            tripType: trip.tripType,
+            paymentMethod: user.paymentMethod,
+            notes: user.additionalText,
+        }
 
         setIsTitle(true)
         setIsName(true)
@@ -243,7 +243,9 @@ const Form = () => {
             return setIsPayment(false)
         }
         setIsSubmit(true)
+        console.log(newOrder, 'order')
         alert('order created')
+        
     }
     return (
         <div  className={container}>

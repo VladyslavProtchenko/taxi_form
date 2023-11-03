@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Input, Select } from "antd";
+import { Input,  Select } from "antd";
 import dayjs from "dayjs";
 import useOnclickOutside from "react-cool-onclickoutside";
 
@@ -36,7 +36,6 @@ const TripContent = () => {
         2:true,
         3:true,
     })
-
     useEffect(()=>{
         if(trigger[1]) setFrom(mainUser.dropOffLocation)
         if(trigger[2]) setTo(mainUser.pickUpLocation)
@@ -134,7 +133,7 @@ const TripContent = () => {
     <div className={container}>
         <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1>
 
-        <div className={date}>
+        <div className={date + ' pt-[34.5px]'}>
             <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                 <span className='icon text-xl'><PiCalendarCheckLight/></span>
                     {returnTrip.date ? 
@@ -161,25 +160,25 @@ const TripContent = () => {
                     </div>
                 </div>}
             </div>
-            <TimePicker time={returnTrip.time} onChange={setTime} date={returnTrip.time}/>
+            <TimePicker time={returnTrip.time} onChange={setTime} date={returnTrip.date}/>
         </div>
 
         <div className={type}>
             <div className={icons}>
                 
-                <span className={returnTrip.icon == 1 ? iconCard+ ' border-black ':iconCard+  ' border border-white '}>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl -translate-y-[2px]' } onClick={()=>{setIcon(1)}}/>
+                <span className={returnTrip.icon == 1 ? iconCard : iconCardActive  }>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } onClick={()=>{setIcon(1)}}/>
                 </span>
-                <span className={returnTrip.icon == 2 ? iconCard+ ' border-black ':iconCard+  '  border-white '}>
+                <span className={returnTrip.icon == 2 ? iconCard : iconCardActive  }>
                     <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon(2)}}/>
                 </span>
-                <span className={returnTrip.icon == 3 ?iconCard+  ' border-black':iconCard+  ' border-white'}>
+                <span className={returnTrip.icon == 3 ? iconCard : iconCardActive }>
                     <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon(3)}}/>
                 </span>
-                <span className={returnTrip.icon == 4 ?iconCard+  '  border-black':iconCard+  ' border-white '}>
+                <span className={returnTrip.icon == 4 ? iconCard : iconCardActive  }>
                     <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon(4)}}/>
                 </span>
-                <span className={returnTrip.icon == 5 ?iconCard+  '  border-black':iconCard+  '  border-white'}>
+                <span className={returnTrip.icon == 5 ? iconCard : iconCardActive  }>
                     <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon(5)}}/>
                 </span>
             </div>
@@ -218,9 +217,11 @@ const TripContent = () => {
                     }
                 </div>}
                 <Input 
+                    value={returnTrip.flight}
+                    maxLength={4}
                     placeholder={returnTrip.icon === 1 ?'####': returnTrip.icon === 2 ? 'Train#' : returnTrip.icon === 3 ? "Bus#" : returnTrip.icon === 4 ? 'Boat#': 'Room#'} 
                     style={{width:`${returnTrip.icon === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value)}
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
                 />
             </div>
         </div>
@@ -347,19 +348,19 @@ const TripContent = () => {
         <div className={type}>
             
             <div className={icons}>
-                <span className={returnTrip.icon2 == 1 ? iconCard+ ' border-black ':iconCard+  ' border border-white '}>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl -translate-y-[2px]' } onClick={()=>{setIcon2(1)}}/>
+                <span className={returnTrip.icon2 == 1 ? iconCard : iconCardActive  }>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl' } onClick={()=>{setIcon2(1)}}/>
                 </span>
-                <span className={returnTrip.icon2 == 2 ? iconCard+ ' border-black ':iconCard+  '  border-white '}>
+                <span className={returnTrip.icon2 == 2 ? iconCard : iconCardActive  }>
                     <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon2(2)}}/>
                 </span>
-                <span className={returnTrip.icon2 == 3 ?iconCard+  ' border-black':iconCard+  ' border-white'}>
+                <span className={returnTrip.icon2 == 3 ? iconCard : iconCardActive  }>
                     <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon2(3)}}/>
                 </span>
-                <span className={returnTrip.icon2 == 4 ?iconCard+  '  border-black':iconCard+  ' border-white '}>
+                <span className={returnTrip.icon2 == 4 ? iconCard : iconCardActive  }>
                     <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon2(4)}}/>
                 </span>
-                <span className={returnTrip.icon2 == 5 ?iconCard+  '  border-black':iconCard+  '  border-white'}>
+                <span className={returnTrip.icon2 == 5 ? iconCard : iconCardActive  }>
                     <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon2(5)}}/>
                 </span>
             </div>
@@ -398,9 +399,11 @@ const TripContent = () => {
                     }
                 </div>}
                 <Input 
+                    value={returnTrip.flight2}
+                    maxLength={4}
                     placeholder={returnTrip.icon2 === 1 ?'####': returnTrip.icon2 === 2 ? 'Train#' : returnTrip.icon2 === 3 ? "Bus#" : returnTrip.icon2 === 4 ? 'Boat#': 'Room#'} 
                     style={{width:`${returnTrip.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value)}/>
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}/>
             </div>
         </div>
 
@@ -420,10 +423,11 @@ const TripContent = () => {
 
 export default TripContent;
 
-const iconCard = ' border px-2 pt-[2px] rounded'
+const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded border-gray-500  bg-green-200'
+const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px] rounded   border-white'
 
-const iconItem = 'text-gray-300 active:text-gray-400 hover:text-gray-500 cursor-pointer'
-const icons = 'flex w-1/3 justify-around pt-1 pl-3'
+const iconItem = ' cursor-pointer'
+const icons = 'flex w-1/3 justify-around pt-1 '
 const type = 'flex items-center justify-between w-full  space-x-4'
 const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5  '
 
@@ -439,7 +443,8 @@ const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max
 
 const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
 const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
-const date = 'flex space-x-2 sm:items-start items-start w-full   justify-between border-b-2 pb-6'
+
+const date = 'flex sm:items-start items-start w-full   justify-between border-b-2 pb-6'
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full '

@@ -16,7 +16,7 @@ export default function DatePicker({onChange, getFullDate}:IDate) {
             const parsedDate = dayjs(date);
             setDate(parsedDate);
             if(getFullDate) getFullDate(parsedDate)
-            onChange(parsedDate.format('DD.MM.YYYY'))
+            onChange(parsedDate.format('DD/MM/YYYY'))
         }
 
     return (
@@ -38,7 +38,7 @@ export default function DatePicker({onChange, getFullDate}:IDate) {
                 <StaticDatePicker
                     className='sm:w-[280px] mt-8'
                     minDate={dayjs()}
-                    defaultValue={dayjs()}
+                    
                     onChange={handleDate}
                 />
             </LocalizationProvider>

@@ -8,7 +8,7 @@ const timeNow = dayjs().format('HH:mm');
 interface IUser {
     date:string;
     time:string;
-    taxiNow:boolean;
+    dateNow:boolean;
 
     tripList:string[];
     departureSections: string[];
@@ -43,7 +43,7 @@ interface Store {
     
     setDate:(value: string) => void;
     setTime:(value: string) => void;
-    setTaxiNow: (value: boolean) => void;
+    setDateNow: (value: boolean) => void;
 
     setPickUpLocation: (address: string) => void;
     setDropOffLocation: (address: string) => void;
@@ -53,7 +53,6 @@ interface Store {
     setStopLast: (value: string) => void;
     setDeparture: (section: string) => void;
     setDeparture2: (section: string) => void;
-
 
     setIcon: (value: number) => void;
     setIcon2: (value: number) => void;
@@ -80,7 +79,7 @@ export const useLocation = create<Store>()(
                 flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
 
                 isFlight: false,
-                taxiNow: false,
+                dateNow: true,
 
                 pickUpLocation: '',
                 dropOffLocation: '',
@@ -103,7 +102,7 @@ export const useLocation = create<Store>()(
                 arrivalTime: '',
 
                 date: today,
-                time: '',
+                time: timeNow,
                 tripType:'',
 
             },
@@ -133,10 +132,10 @@ export const useLocation = create<Store>()(
             setTime: (data) => set((state) => ({ user: {...state.user, time: data } })),
 
 
-            setTaxiNow: (data) => set((state) => {
+            setDateNow: (data) => set((state) => {
                 if(data) {
-                    return ({user: {...state.user, date: today, time: timeNow, taxiNow: data}})
-                } else return ( {user: {...state.user, taxiNow: data}}) 
+                    return ({user: {...state.user, date: today, time: timeNow, dateNow: data}})
+                } else return ( {user: {...state.user, dateNow: data}}) 
             }),
             setTripType: (data) => set((state) => ({ user: {...state.user, tripType: data } })),
             setIsFlight: (data) => set((state) => ({ user: {...state.user, isFlight: data } })),
@@ -146,7 +145,7 @@ export const useLocation = create<Store>()(
                 flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
 
                 isFlight: false,
-                taxiNow: false,
+                dateNow: true,
 
                 pickUpLocation: '',
                 dropOffLocation: '',
@@ -169,7 +168,7 @@ export const useLocation = create<Store>()(
                 arrivalTime: '',
 
                 date: today,
-                time: '',
+                time: timeNow,
                 tripType:'',
 
             }})),
