@@ -54,7 +54,8 @@ export const useInfo = create<IStore>()(
     persist(
         (set) => ({
             user: {
-                genderList: ['Mr.', 'Msr.', 'null', 'undefined', 'object', 'infinity'],
+                // genderList: ['Monsieur', 'Madame','Mademoiselle' ,'Non défini',]
+                genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
                 gender: '',
                 extraGender1: '',
                 extraGender2: '',

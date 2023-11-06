@@ -173,11 +173,9 @@ const TripContent = () => {
             <div className={!user.dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
                         setDateNow(!user.dateNow)
                     }}>
-                {/* <div className={user.dateNow ? toggleBtn : toggleBtn +  ' translate-x-9 '}></div> */}
                 <span className={!user.dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
-                {/* {dayjs().format('HH:mm / dddd MMMM YYYY')} */}
                 </span>
-                <span className={user.dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r'}>Later</span>
+                <span className={user.dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>Later</span>
                 
             </div>
             <div className={dateRow}>
@@ -306,7 +304,7 @@ const TripContent = () => {
         <div className={extraCardStop}>
             <span className='icon text-orange-400'><SlLocationPin/></span>  
             <GoogleAddressInput
-                style='w-[200px]'
+                style='w-full'
                 defaultLocation={user.stopFirst || ''} 
                 onChange={setStopFirst}
                 placeholder='Stop'
@@ -325,7 +323,7 @@ const TripContent = () => {
             <span className='icon  text-orange-400'><SlLocationPin/></span>
             <GoogleAddressInput 
                 defaultLocation={user.stopSecond || ''} 
-                style='w-[200px]'
+                style='w-full'
                 onChange={setStopSecond}
                 placeholder='Second stop'
             />
@@ -342,7 +340,7 @@ const TripContent = () => {
         <div className={extraCardStop}>
             <span className='icon  text-orange-400'><SlLocationPin/></span>
             <GoogleAddressInput
-                style='w-[200px]'
+                style='w-full'
                 defaultLocation={user.stopLast || ''} 
                 onChange={setStopLast}
                 placeholder='Last stop'
@@ -454,7 +452,7 @@ const TripContent = () => {
         </div>
 
         <div className={type+ 'pt-4'}>
-        <button className={reset} onClick={resetForm}>Reset</button>
+            <button className={reset} onClick={resetForm}>Reset</button>
         </div>
     </div>
     );
@@ -463,10 +461,9 @@ const TripContent = () => {
 export default TripContent;
 
 
-const toggle ='flex mb-3 relative items-center rounded border border-black duration-500 transition cursor-pointer' 
-// const toggleBtn = 'w-5 h-5 rounded-full shadow bg-white transition scale-[105%] -translate-y-[1px] duration-500 z-20'
-const toggleLabel ='flex px-1 items-center py-1 text-xs  duration-500 transition px-2 bg-green-400  text-black '
-const toggleLabelActive ='flex px-1 items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-700'
+const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer xl:mb-2 lg:mb-2 sm:mb-2' 
+const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold w-[42px] py-1'
+const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-700'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 ml-auto'
 
@@ -489,7 +486,7 @@ const dateRow = 'flex relative sm:items-start items-start w-full   justify-betwe
 
 const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full'
 
-const date = 'flex flex-col sm:mb-2 w-full items-start  justify-between border-b-2 border-black pb-6'
+const date = 'flex sm:mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap sm:flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end'

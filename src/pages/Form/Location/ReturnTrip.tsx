@@ -14,7 +14,6 @@ import { useLocation } from "../../../Store/useLocation";
 
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
-import { GiControlTower } from "react-icons/gi";
 import { FaBus } from "react-icons/fa";
 import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
@@ -23,19 +22,17 @@ import { BsTrainFrontFill } from "react-icons/bs";
 
 
 const TripContent = () => {
-    const { returnTrip, setFrom, setTo,setIcon, setIcon2, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setDeparture2,setFlight,setFlight2,setAirlines,setAirlinesBack,setIsFlight } = useReturnLocation()
+    const { returnTrip, setFrom, setTo,setIcon, setIcon2, setStop1, setStop2, setStop3, setDate,setTime,setDeparture,setDeparture2,setFlight,setFlight2,setAirlines,setAirlinesBack,resetReturn } = useReturnLocation()
     const { user: mainUser } = useLocation()
     const { user: userStore } = useStore()
-    const { validation, setIsMontrealBack, setIsMontrealPickBack } =useValidation()
+    const { validation } =useValidation()
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
     const [stopTrigger, setStopTrigger] = useState(true)
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
-    const [stop, setStop] = useState({
-        1:true,
-        2:true,
-        3:true,
-    })
+    const ref = useOnclickOutside(() => setIsDateOpen(false));
+    const [stop, setStop] = useState({ 1:true, 2:true, 3:true, })
+
     useEffect(()=>{
         if(trigger[1]) setFrom(mainUser.dropOffLocation)
         if(trigger[2]) setTo(mainUser.pickUpLocation)
@@ -87,44 +84,7 @@ const TripContent = () => {
 
     },[stopTrigger, mainUser.stopLast,mainUser.stopSecond,mainUser.stopFirst, returnTrip.stop1,returnTrip.stop2,returnTrip.stop3])
 
-
-    const ref = useOnclickOutside(() => setIsDateOpen(false));
-    const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
-
-
-
     useEffect(()=>{
-        //if montreal airport is pick up location  we need require departure and flight.
-        //if if montreal airport is pick up location we need just show departure and flight.
-        //if just airport we need show flight number
-        if(returnTrip.from.toLowerCase().includes('yul')
-            || returnTrip.from.toLowerCase().includes('montréal airport') 
-            || returnTrip.from.toLowerCase().includes(isAirport[0].toLowerCase())
-            || returnTrip.from.toLowerCase().includes(isAirport[1].toLowerCase())
-            || returnTrip.from.toLowerCase().includes(isAirport[2].toLowerCase())
-            || returnTrip.to.toLowerCase().includes('montréal airport') 
-            || returnTrip.to.toLowerCase().includes('yul') 
-            || returnTrip.to.toLowerCase().includes(isAirport[0].toLowerCase())
-            || returnTrip.to.toLowerCase().includes(isAirport[1].toLowerCase())
-            || returnTrip.to.toLowerCase().includes(isAirport[2].toLowerCase())
-        ){ 
-            setIsMontrealBack(true)
-        } else { 
-            setIsMontrealBack(false) 
-        }
-
-        if(returnTrip.from.toLowerCase().includes('yul')
-            || returnTrip.from.toLowerCase().includes('montréal airport') 
-            || returnTrip.from.toLowerCase().includes(isAirport[0].toLowerCase())
-            || returnTrip.from.toLowerCase().includes(isAirport[1].toLowerCase())
-            || returnTrip.from.toLowerCase().includes(isAirport[2].toLowerCase())
-        ) {
-            setIsMontrealPickBack(true)
-            setIsFlight(true)
-        }else{
-            setIsFlight(false)
-            setIsMontrealPickBack(false)
-        }
         setIcon(0)
         setIcon2(0)
         userStore.airportArray.map(item =>{
@@ -162,12 +122,22 @@ const TripContent = () => {
 
     },[returnTrip.from, returnTrip.to])
 
+    function setBackSection(){
+        setTrigger({ 1: 1, 2: 1 })
+        setStopTrigger(true)
+    }
+    function resetCard(){
+        setTrigger({ 1: 0, 2: 0 })
+        setStopTrigger(false)
+        resetReturn();
+
+    }
 
     return (
     <div className={container}>
         <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1>
 
-        <div className={date + ' pt-[36px]'}>
+        <div className={date+ ' xl:pt-8 lg:pt-8 sm:pt-8'}>
             <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                 <span className='icon text-xl'><PiCalendarCheckLight/></span>
                     {returnTrip.date ? 
@@ -289,7 +259,7 @@ const TripContent = () => {
         <div className={extraCardStop}> 
                 <span className='icon text-orange-400'><SlLocationPin/></span> 
                 <GoogleAddressInput
-                    style='w-[200px]'
+                    style='w-full'
                     defaultLocation={returnTrip.stop1} 
                     onChange={(e)=>{
                         setStopTrigger(false)
@@ -310,7 +280,7 @@ const TripContent = () => {
         <div className={extraCardStop}>
             <span className='icon text-orange-400'><SlLocationPin/></span>
             <GoogleAddressInput 
-                style='w-[200px]'
+                style='w-full'
                 defaultLocation={returnTrip.stop2} 
                     onChange={(e)=>{
                         setStopTrigger(false)
@@ -331,7 +301,7 @@ const TripContent = () => {
         <div className={extraCardStop}>
             <span className='icon text-orange-400'><SlLocationPin/></span>
             <GoogleAddressInput 
-                style='w-[200px]'
+                style='w-full'
                 defaultLocation={returnTrip.stop3} 
                 onChange={(e)=>{
                     setStopTrigger(false)
@@ -444,13 +414,19 @@ const TripContent = () => {
             :<div className={flightCard + ' h-full'}></div> }
         </div>
 
-        {(validation.isMontrealPickBack || (validation.isFlight && validation.isMontrealBack)) &&   
+
+        <div className={btns}>
+            <button className={reset} onClick={resetCard}>Reset</button>
+            <button className={revert} onClick={setBackSection}>Return</button>
+        </div>
+
+        {/* {(validation.isMontrealPickBack || (validation.isFlight && validation.isMontrealBack)) &&   
         <div className={airportSection}>
             <span className={airportContainer}>
                 <span className='icon'><GiControlTower /></span>
                 <Select placeholder='Airlines' style={{ width:'50%' , height: 30}}onChange={setAirlines}options={userStore.flights.map(item=>({value: item, label: item}))}/>
             </span >
-        </div>}
+        </div>} */}
 
         {!returnTrip.isReturnTrip && <div className='absolute -top-2 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
     </div>
@@ -463,9 +439,14 @@ export default TripContent;
 const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded bg-green-400 border-gray-500'
 const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px] rounded border-white '
 
+
+const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
+const revert = 'px-4 py-1 bg-orange-400 text-white rounded hover:bg-orange-300 active:bg-orange-500 '
+
 const iconItem = ''
 const icons = 'flex w-1/3 justify-around pt-1 '
 const type = 'flex items-center justify-between w-full  space-x-4'
+const btns = 'flex items-center  w-full  space-x-4 pt-4'
 const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5  '
 
 const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full border border-black cursor-pointer font-bold text-black opacity-20 hover:opacity-100 duration-300 "
@@ -477,9 +458,6 @@ const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 
 
 
 const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full '
-
-const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
-const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
 
 const date = 'flex sm:items-start items-start w-full   justify-between border-b-2 border-black pb-6'
 

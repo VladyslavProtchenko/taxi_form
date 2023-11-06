@@ -40,7 +40,7 @@ export const useStore = create<Store>(() => ({
         petList: ['Dogs->(Mira, small,big)->Ch.box(in a cage)','Cat->Ch.kbox(in a cage)','Rabbit' ],
         options: ['Small stroller','Big stroller','WheelChair'],
 
-        genderList:['Mr.', 'Msr.', 'null', 'undefined', 'object', 'infinity'],
+        genderList:['Mr.', 'Msr.', 'Miss.', 'undefined'],
         tripList:['Business (need receipt)', 'Vacation', 'Else'],
         departureSections: ['Departure (Domestic)', 'Departure (International)', 'Departure (USA)', 'Arrival'],
         paymentList: ['Cash', 'Debit', 'Credit Card(need receipt),', 'Voucher','Office Charges'],
