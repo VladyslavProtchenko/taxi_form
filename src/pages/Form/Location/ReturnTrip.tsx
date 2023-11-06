@@ -125,6 +125,40 @@ const TripContent = () => {
             setIsFlight(false)
             setIsMontrealPickBack(false)
         }
+        setIcon(0)
+        setIcon2(0)
+        userStore.airportArray.map(item =>{
+            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
+        })
+        userStore.busArray.map(item =>{
+            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
+
+        })
+        userStore.trainArray.map(item =>{
+            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
+        })
+        userStore.boatArray.map(item =>{
+            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
+        })
+        userStore.hotelArray.map(item =>{
+            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
+        })
+        userStore.airportArray.map(item =>{
+            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
+        })
+        userStore.busArray.map(item =>{
+            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
+
+        })
+        userStore.trainArray.map(item =>{
+            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
+        })
+        userStore.boatArray.map(item =>{
+            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
+        })
+        userStore.hotelArray.map(item =>{
+            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
+        })
 
     },[returnTrip.from, returnTrip.to])
 
@@ -133,7 +167,7 @@ const TripContent = () => {
     <div className={container}>
         <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1>
 
-        <div className={date + ' pt-[34.5px]'}>
+        <div className={date + ' pt-[36px]'}>
             <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                 <span className='icon text-xl'><PiCalendarCheckLight/></span>
                     {returnTrip.date ? 
@@ -167,23 +201,23 @@ const TripContent = () => {
             <div className={icons}>
                 
                 <span className={returnTrip.icon == 1 ? iconCard : iconCardActive  }>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } onClick={()=>{setIcon(1)}}/>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } />
                 </span>
                 <span className={returnTrip.icon == 2 ? iconCard : iconCardActive  }>
-                    <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon(2)}}/>
+                    <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
                 </span>
                 <span className={returnTrip.icon == 3 ? iconCard : iconCardActive }>
-                    <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon(3)}}/>
+                    <FaBus className={ iconItem+ ' text-yellow-200 '} />
                 </span>
                 <span className={returnTrip.icon == 4 ? iconCard : iconCardActive  }>
-                    <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon(4)}}/>
+                    <FaSailboat className={ iconItem+ ' text-orange-300 '} />
                 </span>
                 <span className={returnTrip.icon == 5 ? iconCard : iconCardActive  }>
-                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon(5)}}/>
+                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                 </span>
             </div>
 
-            <div className={flightCard }>
+            {returnTrip.icon ? <div className={flightCard }>
                 {returnTrip.icon === 1 && <Select 
                     className='favorite w-1/2 max-h-[30px]'
                     style={{width: '100px'}} 
@@ -204,13 +238,13 @@ const TripContent = () => {
                     ? <FaSailboat className=' mx-1'/>
                     :returnTrip.icon === 5 
                     ?<MdLocalHotel className='mx-1'/>
-                    :<MdFlightTakeoff className='text-xl mx-1'/>
+                    :<MdFlightLand className='text-xl mx-1'/>
                 }   
                 {returnTrip.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
                     {returnTrip.airline.toLowerCase().includes('canada') 
                         ? 'AC'
                         : returnTrip.airline.toLowerCase().includes('transat') 
-                        ? 'TC'
+                        ? 'TS'
                         : returnTrip.airline.toLowerCase().includes('quatar') 
                         ? 'QR'
                         : ''
@@ -224,6 +258,7 @@ const TripContent = () => {
                     onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
                 />
             </div>
+            :<div className={flightCard + ' h-full'}></div> } 
         </div>
 
         <div className={locationCard}>
@@ -245,9 +280,9 @@ const TripContent = () => {
                     placeholder='Pick up location'
                 />
             </div>
-            <div className="border flex items-center w-1/3 ">
+            {returnTrip.icon === 1 && <div className="border flex items-center w-1/3 ">
                 <Select placeholder='Departure' className='favorite' style={{ height: 30}}onChange={setDeparture}options={mainUser.departureSections.map(item=>({value: item, label: item}))}/>
-            </div>
+            </div>}
         </div>
 
         {stop[1]  &&
@@ -340,32 +375,33 @@ const TripContent = () => {
                     placeholder='Drop off location'
                 />
             </div>
+            {returnTrip.icon2 === 1 && 
             <div className="border flex items-center w-1/3 ">
                 <Select placeholder='Departure' className='favorite ' style={{ height: 30}}onChange={setDeparture2}options={mainUser.departureSections.map(item=>({value: item, label: item}))}/>
-            </div>
+            </div>}
         </div>
 
         <div className={type}>
             
             <div className={icons}>
                 <span className={returnTrip.icon2 == 1 ? iconCard : iconCardActive  }>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl' } onClick={()=>{setIcon2(1)}}/>
+                    <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl' } />
                 </span>
                 <span className={returnTrip.icon2 == 2 ? iconCard : iconCardActive  }>
-                    <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon2(2)}}/>
+                    <BsTrainFrontFill className={iconItem + ' text-amber-600 '} />
                 </span>
                 <span className={returnTrip.icon2 == 3 ? iconCard : iconCardActive  }>
-                    <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon2(3)}}/>
+                    <FaBus className={ iconItem+ ' text-yellow-200 '} />
                 </span>
                 <span className={returnTrip.icon2 == 4 ? iconCard : iconCardActive  }>
-                    <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon2(4)}}/>
+                    <FaSailboat className={ iconItem+ ' text-orange-300 '} />
                 </span>
                 <span className={returnTrip.icon2 == 5 ? iconCard : iconCardActive  }>
-                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon2(5)}}/>
+                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                 </span>
             </div>
 
-            <div className={flightCard }>
+            {returnTrip.icon2 ? <div className={flightCard }>
                 {returnTrip.icon2 === 1 && <Select 
                     className='favorite w-1/2 max-h-[30px]'
                     style={{width: '100px'}} 
@@ -377,7 +413,7 @@ const TripContent = () => {
                 />}
                 
                 {returnTrip.icon2 === 1
-                    ?<MdFlightTakeoff className='text-xl mx-1'/>
+                    ?< MdFlightLand className='text-xl mx-1'/>
                     :returnTrip.icon2 === 2
                     ?< BsTrainFrontFill className=' mx-1'/>
                     :returnTrip.icon2 === 3
@@ -386,13 +422,13 @@ const TripContent = () => {
                     ? <FaSailboat className=' mx-1'/>
                     :returnTrip.icon2 === 5 
                     ?<MdLocalHotel className='mx-1'/>
-                    :<MdFlightLand className='text-xl mx-1'/>
+                    :<MdFlightTakeoff className='text-xl mx-1'/>
                 }   
                 {returnTrip.icon2 === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
                     {returnTrip.airlineBack.toLowerCase().includes('canada') 
                         ? 'AC'
                         : returnTrip.airlineBack.toLowerCase().includes('transat') 
-                        ? 'TC'
+                        ? 'TS'
                         : returnTrip.airlineBack.toLowerCase().includes('quatar') 
                         ? 'QR'
                         : ''
@@ -405,6 +441,7 @@ const TripContent = () => {
                     style={{width:`${returnTrip.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
                     onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}/>
             </div>
+            :<div className={flightCard + ' h-full'}></div> }
         </div>
 
         {(validation.isMontrealPickBack || (validation.isFlight && validation.isMontrealBack)) &&   
@@ -423,10 +460,10 @@ const TripContent = () => {
 
 export default TripContent;
 
-const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded border-gray-500  bg-green-200'
-const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px] rounded   border-white'
+const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded bg-green-400 border-gray-500'
+const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px] rounded border-white '
 
-const iconItem = ' cursor-pointer'
+const iconItem = ''
 const icons = 'flex w-1/3 justify-around pt-1 '
 const type = 'flex items-center justify-between w-full  space-x-4'
 const flightCard = 'flex relative items-center border w-1/2 lg:w-3/5  '

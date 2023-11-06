@@ -88,8 +88,8 @@ export const useLocation = create<Store>()(
                 stopSecond: '',
                 stopLast: '',
 
-                icon:1,
-                icon2:1,
+                icon:0,
+                icon2:0,
                 flight: '',
                 flight2: '',
                 bus: '',
@@ -154,8 +154,8 @@ export const useLocation = create<Store>()(
                 stopSecond: '',
                 stopLast: '',
 
-                icon:1,
-                icon2:1,
+                icon:0,
+                icon2:0,
                 flight: '',
                 flight2: '',
                 bus: '',

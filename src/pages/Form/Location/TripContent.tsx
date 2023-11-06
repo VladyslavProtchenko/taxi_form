@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { Input, Radio, RadioChangeEvent, Select } from "antd";
+import { Input, Select } from "antd";
 
 import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
@@ -19,9 +19,11 @@ import { BsTrainFrontFill } from "react-icons/bs";
 import { useInfo } from "../../../Store/useInfo";
 import { useReturnLocation } from "../../../Store/useReturnLocation";
 import { useOptions } from "../../../Store/useOptions";
+import { useStore } from '../../../Store/index';
 
 
 const TripContent = () => {
+    const { user: store} = useStore()
     const {resetData, setResetPhone} = useInfo()
     const { resetReturn } = useReturnLocation()
     const { resetOptions } = useOptions()
@@ -53,6 +55,8 @@ const TripContent = () => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState({first:false,second:false,last: false,})
     const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
+
+
 
     function resetForm() {
         resetData();
@@ -120,21 +124,65 @@ const TripContent = () => {
         } else {
             setIsAirport(false)        
         }
+
+        setIcon(0)
+        setIcon2(0)
+        //we try to find word airport|bus|room|train and set Icon
+        store.airportArray.map(item =>{
+            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
+        })
+        store.busArray.map(item =>{
+            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
+
+        })
+        store.trainArray.map(item =>{
+            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
+        })
+        store.boatArray.map(item =>{
+            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
+        })
+        store.hotelArray.map(item =>{
+            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
+        })
+        store.airportArray.map(item =>{
+            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
+        })
+        store.busArray.map(item =>{
+            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
+
+        })
+        store.trainArray.map(item =>{
+            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
+        })
+        store.boatArray.map(item =>{
+            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
+        })
+        store.hotelArray.map(item =>{
+            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
+        })
+
     },[user.pickUpLocation, user.dropOffLocation])
+
+
 
     return (
     <div className={container}>
         <h1 className={label}>One-Way</h1>
 
         <div className={date}>
-            <div className='flex pb-2'>
-            <Radio.Group onChange={(e: RadioChangeEvent)=> setDateNow(e.target.value)} value={user.dateNow}>
-                <Radio value={true}>Now: ( {dayjs().format('HH:mm /  dddd MMM.YYYY')} )</Radio>
-                <Radio value={false}>Later </Radio>
-            </Radio.Group>
+            <div className={!user.dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
+                        setDateNow(!user.dateNow)
+                    }}>
+                {/* <div className={user.dateNow ? toggleBtn : toggleBtn +  ' translate-x-9 '}></div> */}
+                <span className={!user.dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
+                {/* {dayjs().format('HH:mm / dddd MMMM YYYY')} */}
+                </span>
+                <span className={user.dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r'}>Later</span>
+                
             </div>
             <div className={dateRow}>
-                {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-50 cursor-not-allowed"></div>}
+                
+                {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000"></div>}
                 <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
                     <div className='flex items-center'>
@@ -167,23 +215,24 @@ const TripContent = () => {
             
             <div className={icons}>
                 <span className={user.icon == 1 ? iconCard : iconCardActive}>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } onClick={()=>{setIcon(1)}}/>
+                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' }/>
                 </span>
                 <span className={user.icon == 2 ? iconCard : iconCardActive}>
-                    <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon(2)}}/>
+                    <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
                 </span>
                 <span className={user.icon == 3 ? iconCard: iconCardActive}>
-                    <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon(3)}}/>
+                    <FaBus className={ iconItem+ ' text-yellow-300 '}/>
                 </span>
                 <span className={user.icon == 4 ? iconCard : iconCardActive}>
-                    <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon(4)}}/>
+                    <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
                 </span>
                 <span className={user.icon == 5 ?iconCard : iconCardActive}>
-                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon(5)}}/>
+                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                 </span>
             </div>
 
-            {user.icon && <div className={flightCard }>
+            {user.icon ? <div className={flightCard }>
+                
                 {user.icon === 1 && 
                 <Select 
                     className='favorite w-1/2 max-h-[30px]'
@@ -211,7 +260,7 @@ const TripContent = () => {
                     {user.airline.toLowerCase().includes('canada') 
                         ? 'AC'
                         : user.airline.toLowerCase().includes('transat') 
-                        ? 'TC'
+                        ? 'TS'
                         : user.airline.toLowerCase().includes('quatar') 
                         ? 'QR'
                         : ''
@@ -225,7 +274,8 @@ const TripContent = () => {
                     style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
                     onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
                 />
-            </div>}
+            </div>
+            :<div className={flightCard + ' h-full'}></div>}
         </div>
 
         <div className={locationCard}>
@@ -238,6 +288,7 @@ const TripContent = () => {
                     placeholder='Pick up location'
                 />
             </div>
+            {user.icon === 1 && 
             <div className="border flex items-center w-1/3 ">
                 <Select 
                     className='favorite truncate'
@@ -248,7 +299,7 @@ const TripContent = () => {
                     onChange={setDeparture} 
                     placeholder='Departure' 
                 />
-            </div>
+            </div>}
         </div>
             
         {stop.first && 
@@ -324,6 +375,7 @@ const TripContent = () => {
                     placeholder='Drop off location'
                 />
             </div>
+            {user.icon2 ===1 && 
             <div className="border flex items-center w-1/3 ">
             <Select 
                 className='favorite truncate'
@@ -333,30 +385,30 @@ const TripContent = () => {
                 onChange={setDeparture2} 
                 placeholder='Departure' 
             />
-            </div>
+            </div>}
         </div>
 
         <div className={type}>
             
             <div className={icons}>           
                 <span className={user.icon2 == 1 ? iconCard : iconCardActive}>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } onClick={()=>{setIcon2(1)}}/>
+                    <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl ' } />
                 </span>
                 <span className={user.icon2 == 2 ? iconCard : iconCardActive}>
-                    <BsTrainFrontFill className={iconItem + ' text-amber-700 '} onClick={()=>{setIcon2(2)}}/>
+                    <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
                 </span>
                 <span className={user.icon2 == 3 ?iconCard : iconCardActive}>
-                    <FaBus className={ iconItem+ ' text-yellow-400 '} onClick={()=>{setIcon2(3)}}/>
+                    <FaBus className={ iconItem+ ' text-yellow-200 '}/>
                 </span>
                 <span className={user.icon2 == 4 ?iconCard : iconCardActive}>
-                    <FaSailboat className={ iconItem+ ' text-orange-400 '} onClick={()=>{setIcon2(4)}}/>
+                    <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
                 </span>
                 <span className={user.icon2 == 5 ?iconCard : iconCardActive }>
-                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '} onClick={()=>{setIcon2(5)}}/>
+                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                 </span>
             </div>
 
-            {user.icon2 && <div className={flightCard }>
+            {user.icon2 ? <div className={flightCard }>
                 {user.icon2 === 1 && 
                 <Select 
                     className='favorite w-1/2 max-h-[30px]'
@@ -384,7 +436,7 @@ const TripContent = () => {
                     {user.airlineBack.toLowerCase().includes('canada') 
                         ? 'AC'
                         : user.airlineBack.toLowerCase().includes('transat') 
-                        ? 'TC'
+                        ? 'TS'
                         : user.airlineBack.toLowerCase().includes('quatar') 
                         ? 'QR'
                         : ''
@@ -398,9 +450,8 @@ const TripContent = () => {
                     style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
                     onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}
                 />
-            </div>}
+            </div>:<div className={flightCard+ ' h-full' }></div>}
         </div>
-
 
         <div className={type+ 'pt-4'}>
         <button className={reset} onClick={resetForm}>Reset</button>
@@ -411,11 +462,17 @@ const TripContent = () => {
 
 export default TripContent;
 
+
+const toggle ='flex mb-3 relative items-center rounded border border-black duration-500 transition cursor-pointer' 
+// const toggleBtn = 'w-5 h-5 rounded-full shadow bg-white transition scale-[105%] -translate-y-[1px] duration-500 z-20'
+const toggleLabel ='flex px-1 items-center py-1 text-xs  duration-500 transition px-2 bg-green-400  text-black '
+const toggleLabelActive ='flex px-1 items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-700'
+
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 ml-auto'
 
-const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded bg-gradient-to-b from-green-200 to-green-400 border-green-400'
+const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded bg-green-400 border-gray-500'
 const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px] rounded   border-white '
-const iconItem = 'cursor-pointer '
+const iconItem = ' '
 const icons = 'flex w-1/3 justify-around pt-1'
 const type = 'flex items-center justify-between w-full space-x-4 '
 const flightCard = 'flex relative items-center border lg:w-3/5 w-1/2'

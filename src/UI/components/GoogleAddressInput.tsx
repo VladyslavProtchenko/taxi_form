@@ -42,9 +42,10 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
     const ref = useOnclickOutside(() => clearSuggestions());
 
     const handleSelect = ({ description }:{description: string}) => () => {
+        onChange(description)
         setValue(description, false);
         clearSuggestions();
-        getGeocode({ address: description }).then((results) => onChange(results[0].formatted_address));
+        getGeocode({ address: description });
     };
 
     const renderSuggestions = () =>
@@ -68,7 +69,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
                 className={input}
                 value={value}
                 onChange={(e)=>{
-                    onChange(e.target.value)
+                    if(!e.target.value) onChange('')
                     setValue(e.target.value)
                 }}
                 disabled={!ready}

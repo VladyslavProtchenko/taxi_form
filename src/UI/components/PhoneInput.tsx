@@ -273,11 +273,11 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >
-                {icon === 1 ? <><IoPhonePortraitOutline /><span className=' text-xs ml-1'>(mobile)</span></>: icon === 2 ? <><BsTelephone /><span className=' text-xs ml-1'>(home)</span></> : <><SlEarphonesAlt /><span className=' text-xs ml-1'>(work)</span></>}
+                {icon === 1 ? <><IoPhonePortraitOutline /><span className=' text-xs ml-1'>Mobile</span></>: icon === 2 ? <><BsTelephone /><span className=' text-xs ml-1'>Home</span></> : <><SlEarphonesAlt /><span className=' text-xs ml-1'>Work</span></>}
                 <ul className={isOpen ?subMenu: 'hidden'} ref={ref}>
-                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className=' text-xs ml-2'>(mobile)</span></li>
-                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className=' text-xs ml-2'>(home)</span> </li>
-                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className=' text-xs ml-2'>(work)</span></li>
+                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className=' text-xs ml-2'>Mobile</span></li>
+                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className=' text-xs ml-2'>Home</span> </li>
+                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className=' text-xs ml-2'>Work</span></li>
                 </ul>
             </div>
             <Select
@@ -285,7 +285,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 defaultValue={'Canada'}
                 value={country || 'Canada'}
                 placeholder={country || "Canada"}
-                className=" sm:max-w-[55px] phoneArrow max-w-[100px]"
+                className=" sm:max-w-[55px] phoneArrow max-w-[100px] pl-[2px]"
                 style={{ width:'100%', height: 30, }}
                 onChange={setCountry}
                 filterOption={filterOption}
@@ -339,7 +339,7 @@ export default PhoneNumberInput
 
 const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
 const subItem ='flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
-const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r'
+const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r-2 border-gray-600'
 const container = 'flex'
 
 

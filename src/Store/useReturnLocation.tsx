@@ -73,8 +73,8 @@ export const useReturnLocation = create<Store>()(
             date:'',
             time: '',
 
-            icon: 1,
-            icon2: 2,
+            icon: 0,
+            icon2: 0,
             flight:'',
             flight2:'',
             bus:'',
@@ -126,8 +126,8 @@ export const useReturnLocation = create<Store>()(
             date:'',
             time: '',
 
-            icon: 1,
-            icon2: 2,
+            icon: 0,
+            icon2: 0,
             flight:'',
             flight2:'',
             bus:'',
