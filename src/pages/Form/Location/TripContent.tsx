@@ -427,12 +427,12 @@ const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text
 
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
-const dateRow = 'flex relative sm:items-start items-start w-full   justify-between border-b-2 pb-6'
+const dateRow = 'flex relative sm:items-start items-start w-full   justify-between'
 
 
 const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full'
 
-const date = 'flex flex-col sm:mb-2 w-full items-start  justify-between border-b-2 pb-6'
+const date = 'flex flex-col sm:mb-2 w-full items-start  justify-between border-b-2 border-black pb-6'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end'

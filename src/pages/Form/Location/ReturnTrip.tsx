@@ -444,7 +444,7 @@ const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max
 const airportContainer ='flex w-full border sm:max-w-[380px] sm:space-between items-center'
 const airportSection = 'flex sm:items-center sm:justify-center w-full max-w-[350px]'
 
-const date = 'flex sm:items-start items-start w-full   justify-between border-b-2 pb-6'
+const date = 'flex sm:items-start items-start w-full   justify-between border-b-2 border-black pb-6'
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full '
