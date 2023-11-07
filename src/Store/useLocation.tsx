@@ -15,12 +15,12 @@ interface IUser {
     flights: string[];
     isFlight:boolean;
 
-    pickUpLocation: string;
-    dropOffLocation: string;
+    from: string;
+    to: string;
 
-    stopFirst:string;
-    stopSecond:string;
-    stopLast:string;
+    stops: {
+        [key:number] : string;
+    };
 
     icon: number;
     icon2: number;
@@ -45,12 +45,13 @@ interface Store {
     setTime:(value: string) => void;
     setDateNow: (value: boolean) => void;
 
-    setPickUpLocation: (address: string) => void;
-    setDropOffLocation: (address: string) => void;
+    setFrom: (address: string) => void;
+    setTo: (address: string) => void;
 
-    setStopFirst: (value: string) => void;
-    setStopSecond: (value: string) => void;
-    setStopLast: (value: string) => void;
+    setStops: (value: {
+        [key:number] : string;
+    }) => void;
+
     setDeparture: (section: string) => void;
     setDeparture2: (section: string) => void;
 
@@ -81,12 +82,10 @@ export const useLocation = create<Store>()(
                 isFlight: false,
                 dateNow: true,
 
-                pickUpLocation: '',
-                dropOffLocation: '',
+                from: '',
+                to: '',
 
-                stopFirst: '',
-                stopSecond: '',
-                stopLast: '',
+                stops: {},
 
                 icon:0,
                 icon2:0,
@@ -106,12 +105,10 @@ export const useLocation = create<Store>()(
                 tripType:'',
 
             },
-            setDropOffLocation: (name) => set(state => ({ user: {...state.user, dropOffLocation: name }})),
-            setPickUpLocation: (name) => set(state => ({ user: {...state.user, pickUpLocation: name }})),
+            setTo: (name) => set(state => ({ user: {...state.user, to: name }})),
+            setFrom: (name) => set(state => ({ user: {...state.user, from: name }})),
 
-            setStopFirst: (data) => set((state) => ({ user: {...state.user, stopFirst: data } })),
-            setStopSecond: (data) => set((state) => ({ user: {...state.user, stopSecond: data } })),
-            setStopLast: (data) => set((state) => ({ user: {...state.user, stopLast: data } })),
+            setStops: (data) => set((state) => ({ user: {...state.user, stops:data } })),
             
             setIcon: (data) => set((state) => ({ user: {...state.user, icon: data } })),
             setIcon2: (data) => set((state) => ({ user: {...state.user, icon2: data } })),
@@ -147,12 +144,10 @@ export const useLocation = create<Store>()(
                 isFlight: false,
                 dateNow: true,
 
-                pickUpLocation: '',
-                dropOffLocation: '',
+                from: '',
+                to: '',
 
-                stopFirst: '',
-                stopSecond: '',
-                stopLast: '',
+                stops: {},
 
                 icon:0,
                 icon2:0,

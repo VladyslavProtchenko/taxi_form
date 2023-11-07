@@ -339,7 +339,7 @@ export default PhoneNumberInput
 
 const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
 const subItem ='flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
-const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r-2 border-gray-600'
-const container = 'flex'
+const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r-[1.5px] border-gray-600'
+const container = 'flex '
 
 

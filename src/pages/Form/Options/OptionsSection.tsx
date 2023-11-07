@@ -5,7 +5,6 @@ import PetsSelect from "./PetsSelect/PetsSelect";
 import PassengersSelect from "./PassengersSelect/PassengersSelect";
 import { useStore } from "../../../Store";
 import { useOptions } from "../../../Store/useOptions";
-import { Select } from "antd";
 import { useValidation } from "../../../Store/useValidation";
 
 import { IoCarSportOutline } from "react-icons/io5";
@@ -16,37 +15,29 @@ import { AiOutlineStop } from "react-icons/ai";
 
 const OptionsSection = () => {
 
-    const {user } = useStore()
+    const { user } = useStore()
     const { options, setCarType } = useOptions()
     const { validation } = useValidation()
 
+    console.log(options.carType)
     return (
         <section className={section}>
             <div className={validation.isCarType ? type : type + ' border-red-500'}>
-
-                <Select
-                    style={{width:"100%",  height: 30}}
-                    placeholder='Select car'
-                    onChange={setCarType}
-                    defaultValue={options.carType || 'sedan (max 4)'}
-                    value={options.carType || 'sedan (max 4)'}
-                    options={user.carList.map(item=>(
-                        {
-                            value: item, 
-                            label: (
-                            <span className='flex'>
-                            {item === 'VAN (5-7)'
-                            ? <div className='flex items-center space-x-1'><LiaShuttleVanSolid/><span>{'VAN (5-7)'}</span> </div>
-                            :item === 'SUV (max 4)'
-                            ?<div className='flex items-center space-x-1'><PiJeepLight/><span>{'SUV (max 4)'}</span> </div>
-                            :item === 'limo (disabled)'
-                            ?<div className='flex items-center space-x-1'><AiOutlineStop/><span>{'limo (disabled)'}</span> </div>
-                            : <div className='flex items-center space-x-1' ><IoCarSportOutline/><span>{'sedan (max 4)'}</span></div>
-                            }
-                        </span>)
-                        }
+                    {user.carList.map(item => (
+                        <div className={options.carType === item ? typeItem+' bg-green-400': item === 'limo (disabled)' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem } onClick={()=>{
+                                if(item === 'limo (disabled)') return;
+                                setCarType(item)
+                            }}>
+                            { item === 'VAN (5-7)'
+                                ? <LiaShuttleVanSolid/>
+                                :item === 'SUV (max 4)'
+                                ?<PiJeepLight/>
+                                :item === 'limo (disabled)'
+                                ?<AiOutlineStop/>
+                                :<IoCarSportOutline/> }
+                                <span className='ml-1'>{item}</span>
+                        </div>
                     ))}
-                />
             </div>
             
             <div className={content}>
@@ -62,10 +53,12 @@ const OptionsSection = () => {
 
 export default OptionsSection;
 
+
+const typeItem = 'flex items-center px-3 py-1 cursor-pointer text-sm'
 const content = 'flex flex-wrap w-full h-min sm:w-full lg:flex-col lg:w-full lg:items-center '
 
 const item = 'flex  relative 2xl:w-1/3 sm:w-full sm:border-b  sm:w-full md:w-1/2 sm:pb-2 md:w-full lg:w-4/5 xl:w-1/2' 
 const passengersItem = ' 2xl:w-1/3  flex relative sm:w-full lg:w-4/5 xl:w-1/2' 
-const type = 'flex w-[200px] sm:w-full mb-6 pl-2 mb-10 border items-center '
+const type = 'flex lg:self-center sm:self-center border rounded self-start divide-x overflow-hidden '
 
 const section = 'flex w-full flex-col p-8  sm:flex-col sm:max-w-[576px]  max-w-[1240px] sm:py-8 sm:px-1 lg:items-start '

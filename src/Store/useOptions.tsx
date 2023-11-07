@@ -41,7 +41,7 @@ interface Store {
 }
 export const useOptions = create<Store>((set) => ({
     options: {
-        carType: '',
+        carType: 'sedan (max 4)',
         passengers:{
             adults:1,
             kids:[],
@@ -149,7 +149,7 @@ export const useOptions = create<Store>((set) => ({
     setCarSeats: (data) => set((state) => ({ options: {...state.options, carSeats: data } })),
     resetOptions:() => set(() => ({ options:
         {
-            carType: '',
+            carType: 'sedan (max 4)',
             passengers:{
                 adults:1,
                 kids:[],

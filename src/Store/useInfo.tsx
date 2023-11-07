@@ -97,7 +97,7 @@ export const useInfo = create<IStore>()(
             setPaymentMethod: (method) => set((state) => ({ user: { ...state.user, paymentMethod: method } })),
             setAdditionalText: (text) => set((state) => ({ user: { ...state.user, additionalText: text } })),
             resetData: () => set(() => ({ user: { 
-                genderList: ['Mr.', 'Msr.', 'null', 'undefined', 'object', 'infinity'],
+                genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
                 gender: '',
                 extraGender1: '',
                 extraGender2: '',

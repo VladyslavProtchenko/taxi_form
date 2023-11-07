@@ -145,4 +145,4 @@ const input2 ='pr-2 py-1 pl-[2px] w-[35px] outline-none'
 const button ='absolute top-[130px] left-2 bg-blue-600 px-2 text-xs text-white active:bg-blue-400'
 const submenu = "absolute flex shadow top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white z-20"
 
-const container = 'flex relative bg-white items-center border text-sm relative w-[100px] outline-none hover:border hover:border-blue-800 cursor-text'
+const container = 'flex relative bg-white items-center border text-sm relative w-[100px] outline-none hover:border hover:border-blue-800 cursor-text rounded'

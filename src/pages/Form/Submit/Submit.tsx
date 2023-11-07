@@ -105,9 +105,9 @@ const Submit = () => {
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {location.pickUpLocation &&
+                            {location.to &&
                             <div className={locationData}>
-                                {location.pickUpLocation}
+                                {location.to}
                             </div>}
                         </div>
 
@@ -136,32 +136,32 @@ const Submit = () => {
                             </div>}
                         </div>}
 
-                        {location.stopFirst &&
+                        {location.stops[1] &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {location.stopFirst}
+                                {location.stops[1]}
                             </div>
                         </div>}
-                        {(location.stopSecond) &&
+                        {(location.stops[2]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {location.stopSecond}
+                                {location.stops[2]}
                             </div>
                         </div>}
-                        {(location.stopLast) &&
+                        {(location.stops[3]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {location.stopLast}, 
+                                {location.stops[3]}, 
                             </div>
                         </div>}
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {location.dropOffLocation && <div className={locationData}>
-                                {location.dropOffLocation}
+                            {location.to && <div className={locationData}>
+                                {location.to}
                             </div>}
                         </div>
 
@@ -212,8 +212,8 @@ const Submit = () => {
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {(returnTrip.from || location.dropOffLocation) &&<div className={locationData}>
-                                {returnTrip.from ? returnTrip.from: location.dropOffLocation}
+                            {(returnTrip.from || location.to) &&<div className={locationData}>
+                                {returnTrip.from ? returnTrip.from: location.to}
                             </div>}
                         </div>
                         
@@ -246,32 +246,32 @@ const Submit = () => {
                         </div>}
                     
                         
-                        {(returnTrip.stop1) &&
+                        {(returnTrip.stops[1]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {returnTrip.stop1}
+                                {returnTrip.stops[1]}
                             </div>
                         </div>}
-                        {(returnTrip.stop2) &&
+                        {(returnTrip.stops[2]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {returnTrip.stop2}
+                                {returnTrip.stops[2]}
                             </div>
                         </div>}
-                        {(returnTrip.stop3) &&
+                        {(returnTrip.stops[3]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {returnTrip.stop3}, 
+                                {returnTrip.stops[3]}, 
                             </div>
                         </div>}
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {(returnTrip.to || location.pickUpLocation) && <div className={nameBox}>
-                                {returnTrip.to ? returnTrip.to : location.pickUpLocation}
+                            {(returnTrip.to || location.from) && <div className={nameBox}>
+                                {returnTrip.to ? returnTrip.to : location.from}
                             </div>}
                         </div>    
                         {returnTrip.icon2 && returnTrip.flight2 && <div className={contentItem}>

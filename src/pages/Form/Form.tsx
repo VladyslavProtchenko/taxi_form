@@ -64,13 +64,13 @@ const Form = () => {
         setIsDateBack(false)
         setIsTimeBack(false)
 
-        if(trip.pickUpLocation) setIsFrom(true)
-        if(trip.dropOffLocation) setIsTo(true)
+        if(trip.from) setIsFrom(true)
+        if(trip.to) setIsTo(true)
         if(trip.date) setIsDate(true)
         if(trip.time.length === 5 ) setIsTime(true)
 
-        if(returnTrip.isReturnTrip && ( returnTrip.from || trip.dropOffLocation )) setIsBackFrom(true)
-        if(returnTrip.isReturnTrip && ( returnTrip.to || trip.pickUpLocation )) setIsBackTo(true)
+        if(returnTrip.isReturnTrip && ( returnTrip.from || trip.from )) setIsBackFrom(true)
+        if(returnTrip.isReturnTrip && ( returnTrip.to || trip.to )) setIsBackTo(true)
         if(returnTrip.isReturnTrip && returnTrip.date) setIsDateBack(true)
         
         if(returnTrip.isReturnTrip && returnTrip.time.length === 5) setIsTimeBack(true)
@@ -96,11 +96,9 @@ const Form = () => {
             phone2: user.extraPhone1,
             phone3: user.extraPhone2,
 
-            fromLocation: trip.pickUpLocation,
-            to: trip.dropOffLocation,
-            stop1: trip.stopFirst,
-            stop2: trip.stopSecond,
-            stop3: trip.stopLast,
+            fromLocation: trip.from,
+            to: trip.to,
+            stops: trip.stops,
             
             date: trip.date,
             time:trip.dateNow ? dayjs().format('HH:mm') : trip.time,
@@ -117,9 +115,7 @@ const Form = () => {
 
             returnFrom: returnTrip.from,
             returnTo: returnTrip.to,
-            returnStop1: returnTrip.stop1,
-            returnStop2: returnTrip.stop2,
-            returnStop3: returnTrip.stop3,
+            returnStops: returnTrip.stops,
             
             returnDate: returnTrip.date,
             returnTime: returnTrip.time,
@@ -184,11 +180,11 @@ const Form = () => {
             alert('Phone required')
             return setIsPhone(false)
         }
-        if(!trip.pickUpLocation) {
+        if(!trip.from) {
             alert('Set pick up address')
             return setIsFrom(false)
         }
-        if(!trip.dropOffLocation) {
+        if(!trip.to) {
             alert('Set drop off address')
             return setIsTo(false)
         }

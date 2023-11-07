@@ -21,9 +21,9 @@ const PaymentSection = ({sendOrder}:ISendOrder) => {
             <div className="flex w-full sm:flex-col">
                 <div className={content}>
                     <span className={box}>
-                        <Select  placeholder='Trip type' style={{ width:200 , height: 30}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
-                    <span className={validation.isPayment ? box: box +' border-red-500'}>
-                        <Select placeholder='Payment method' style={{ width:200 , height: 30}} value={store.paymentMethod} onChange={setPaymentMethod} options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
+                        <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 5}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
+                    <span className={validation.isPayment ? box2: box2 +' border-red-500'}>
+                        <Select placeholder='Payment method' style={{ width:200 , height: 30, borderRadius: 5}} value={store.paymentMethod} onChange={setPaymentMethod} options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
                         <button className={btn} onClick={sendOrder}>Order</button>
                 </div>
                 
@@ -45,6 +45,7 @@ const btn = 'py-2 px-4 rounded ml-auto bg-yellow-400 self-start text-white activ
 const additional ='flex additional w-2/3 px-2 sm:w-full lg:w-1/2'
 const content ='flex w-1/3 px-2 lg:mb-4 lg:space-x-4 sm:w-full sm:mb-10 lg:w-1/2'
 
-const box ='flex border h-min pl-3 w-[100px]'
+const box ='flex border h-min pl-3 w-[100px] rounded-l'
+const box2 ='flex border h-min pl-3 w-[100px] rounded-r'
 const textArea ='flex border h-min w-full rounded-xl'
 const section = 'flex flex-col w-full px-8 sm:max-w-[576px] lg:w-full xl:w-full sm:border-none max-w-[1240px] sm:py-8 sm:px-1 lg:flex-col sm:flex-col pb-20'

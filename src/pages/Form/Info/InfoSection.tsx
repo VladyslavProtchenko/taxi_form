@@ -14,12 +14,12 @@ const InfoSection = () => {
         2:false,
     })
     const [isExtraPhoneOpen, setIsExtraPhoneOpen] = useState({
-        1:false,
-        2:false,
+        1:true,
+        2:true,
     })
     const [isExtraEmailOpen, setIsExtraEmailOpen] = useState({
-        1:false,
-        2:false,
+        1:true,
+        2:true,
     })
     return (
         <section className={section}>
@@ -38,52 +38,59 @@ const InfoSection = () => {
                         allowClear 
                         value={user.name || ''}
                         placeholder='Name'
-                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 0, height: 30}}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 5, height: 30}}
                     />
                 </div>
 
-                {isExtraNameOpen[1] && 
-                <div className={nameCard}>
-                    <span className='icon'><BsPeople/></span>
-                    <Select
-                        value={user.extraGender1 || null}
-                        placeholder='title'
-                        style={{width: 118, height: 30}}
-                        onChange={setExtraGender1}
-                        options={user.genderList.map(item=>({value: item, label: item }))}
-                    /> 
-                    <Input value={user.extraName1 || ''} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 0, height: 30}}/>
-                    <button className={extraNameClose} onClick={()=>{ setIsExtraNameOpen({ ...isExtraNameOpen, 1: false }) }}>-</button>
-                </div>}
-
-                {isExtraNameOpen[2] &&  
-                <div className={nameCard}>
-                    <span className='icon'><BsPeople/></span>
-                    <Select
-                        value={user.extraGender2 || null}
-                        placeholder='title'
-                        style={{width: 118, height: 30}}
-                        onChange={setExtraGender2}
-                        options={user.genderList.map(item=>({value: item, label: item }))}
-                    /> 
-                    <Input 
-                        value={user.extraName2 || ''}
-                        allowClear
-                        placeholder='Third name'
-                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName2(e.target.value)}
-                        style={{width:200, borderRadius: 0, height: 30}}
-                    />
-                    <div 
-                        className={extraNameClose} 
-                        onClick={()=>{ setIsExtraNameOpen({ ...isExtraNameOpen, 2: false }) }}
-                    >-</div> 
-                </div>}
+                
+                <div className={isExtraNameOpen[1]? nameCard: nameCard+ ' border-white h-[32px]'}>
+                    {isExtraNameOpen[1] &&  <>
+                        <span className='icon'><BsPeople/></span>
+                        <Select
+                            value={user.extraGender1 || null}
+                            placeholder='title'
+                            style={{width: 118, height: 30}}
+                            onChange={setExtraGender1}
+                            options={user.genderList.map(item=>({value: item, label: item }))}
+                        /> 
+                        <Input value={user.extraName1 || ''} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 5, height: 30}}/>
+                        
+                    </>}
+                    <button className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } onClick={()=>{
+                                    setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
+                                }}>
+                        {`${(isExtraNameOpen[1]) ? '-' : '+'}`}
+                    </button>
+                </div>
 
                 
-                {(!isExtraNameOpen[2] || !isExtraNameOpen[1] ) && <div className={addExtraBtn} onClick={()=>{
-                    if(!isExtraNameOpen[1]) return setIsExtraNameOpen({ ...isExtraNameOpen, 1: true })
-                    if(!isExtraNameOpen[2]) return setIsExtraNameOpen({ ...isExtraNameOpen, 2: true })
-                }}>+</div>}
+                <div className={isExtraNameOpen[2]? nameCard: nameCard+ ' border-white h-[32px]'}>
+                    {isExtraNameOpen[2] &&  <>
+                        <span className='icon'><BsPeople/></span>
+                        <Select
+                            value={user.extraGender2 || null}
+                            placeholder='title'
+                            style={{width: 118, height: 30}}
+                            onChange={setExtraGender2}
+                            options={user.genderList.map(item=>({value: item, label: item }))}
+                        /> 
+                        <Input 
+                            value={user.extraName2 || ''}
+                            allowClear
+                            placeholder='Third name'
+                            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName2(e.target.value)}
+                            style={{width:200, borderRadius: 5, height: 30}}
+                        />
+                    </>}
+                    
+                    {isExtraNameOpen[1] && 
+                    <button className={(isExtraNameOpen[2]) ? extraNameClose : addExtraBtn } onClick={()=>{
+                                    setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })
+                                }}>
+                        {`${(isExtraNameOpen[2]) ? '-' : '+'}`}
+                    </button>}
+                </div>
+
             </div>
 
             <div className={extraContainer  + ' xl:mb-3 lg:mb-3'}>
@@ -154,16 +161,16 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-const nameCard = 'flex max-w-[400px] w-full relative items-center border'
+const nameCard = 'flex max-w-[400px] w-full relative items-center border rounded'
+// const addExtraBtn = " w-5 h-5 flex justify-center bg-green-400 -translate-y-1 rounded text-md border border-black cursor-pointer font-bold text-black sm:-translate-x-[150px] ml-auto"
+const addExtraBtn = "absolute w-5 h-5 flex justify-center bg-green-400 rounded text-md border border-black cursor-pointer font-bold text-black  left-[101%]"
 
-const addExtraBtn = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full text-md border border-black cursor-pointer font-bold text-black sm:-translate-x-[150px]"
 
+const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded text-md border border-gray-600 cursor-pointer font-bold text-black  left-[101%]"
+const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded text-md border border-gray-600  right-2 cursor-pointer font-bold text-black  left-[101%]"
+const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded text-md border border-gray-600  right-2 cursor-pointer font-bold text-black left-[101%] "
 
-const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black cursor-pointer font-bold text-black  left-[101%]"
-const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black  left-[101%]"
-const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded-full text-md border border-black right-2 cursor-pointer font-bold text-black left-[101%] "
-
-const extraCard = ' flex relative items-center max-w-[400px] w-full'
+const extraCard = ' flex relative items-center max-w-[400px] w-full rounded'
 const extraContainer = 'flex flex-col sm:w-full items-start space-y-2 sm:items-center xl:max-w-[400px] xl:w-full lg:max-w-[400px] lg:w-full'
 
 const section = 'flex xl:flex-wrap lg:flex-wrap sm:flex-col sm:pt-40 sm:space-y-2 justify-between w-full px-8  pt-16 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:px-1'

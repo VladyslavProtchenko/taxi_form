@@ -21,20 +21,18 @@ import { useReturnLocation } from "../../../Store/useReturnLocation";
 import { useOptions } from "../../../Store/useOptions";
 import { useStore } from '../../../Store/index';
 
-
+interface IObj {[key:number]: string}
 const TripContent = () => {
     const { user: store} = useStore()
     const {resetData, setResetPhone} = useInfo()
     const { resetReturn } = useReturnLocation()
     const { resetOptions } = useOptions()
-    const { validation, setIsMontreal,setIsMontrealPick,setIsAirport } = useValidation()
+    const { validation} = useValidation()
     const { 
         user, 
-        setPickUpLocation, 
-        setDropOffLocation, 
-        setStopFirst, 
-        setStopSecond, 
-        setStopLast, 
+        setFrom, 
+        setTo, 
+        setStops,
         setDate,
         setTime,
         setDeparture,
@@ -42,7 +40,6 @@ const TripContent = () => {
         setFlight,
         setFlight2,
         setAirline,
-        setIsFlight,
         setIcon,
         setIcon2,
         setAirlineBack,
@@ -53,9 +50,8 @@ const TripContent = () => {
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
-    const [stop, setStop] = useState({first:false,second:false,last: false,})
-    const isAirport = ['Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport']
-
+    const [stop, setStop] = useState(0)
+    const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
 
 
     function resetForm() {
@@ -91,78 +87,60 @@ const TripContent = () => {
         //if montreal airport is pick up location  we need require departure and flight.
         //if if montreal airport is pick up location we need just show departure and flight.
         //if just airport we need show flight number
-        if(user.pickUpLocation.toLowerCase().includes('yul')
-            || user.pickUpLocation.toLowerCase().includes('montréal airport') 
-            || user.pickUpLocation.toLowerCase().includes(isAirport[0].toLowerCase())
-            || user.pickUpLocation.toLowerCase().includes(isAirport[1].toLowerCase())
-            || user.pickUpLocation.toLowerCase().includes(isAirport[2].toLowerCase())
-            || user.dropOffLocation.toLowerCase().includes('montréal airport') 
-            || user.dropOffLocation.toLowerCase().includes('yul') 
-            || user.dropOffLocation.toLowerCase().includes(isAirport[0].toLowerCase())
-            || user.dropOffLocation.toLowerCase().includes(isAirport[1].toLowerCase())
-            || user.dropOffLocation.toLowerCase().includes(isAirport[2].toLowerCase())
-        ){ 
-            setIsMontreal(true)
-        } else { 
-            setIsMontreal(false) 
-        }
-
-        if(user.pickUpLocation.toLowerCase().includes('yul')
-            || user.pickUpLocation.toLowerCase().includes('montréal airport') 
-            || user.pickUpLocation.toLowerCase().includes(isAirport[0].toLowerCase())
-            || user.pickUpLocation.toLowerCase().includes(isAirport[1].toLowerCase())
-            || user.pickUpLocation.toLowerCase().includes(isAirport[2].toLowerCase())
-        ) {
-            setIsMontrealPick(true)
-            setIsFlight(true)
-        }else{
-            setIsFlight(false)
-            setIsMontrealPick(false)
-        }
-        if(user.pickUpLocation.toLowerCase().includes('airport')|| user.dropOffLocation.toLowerCase().includes('airport')) {
-            setIsAirport(true)
-        } else {
-            setIsAirport(false)        
-        }
 
         setIcon(0)
         setIcon2(0)
         //we try to find word airport|bus|room|train and set Icon
         store.airportArray.map(item =>{
-            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
+            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
         })
         store.busArray.map(item =>{
-            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
+            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
 
         })
         store.trainArray.map(item =>{
-            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
+            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
         })
         store.boatArray.map(item =>{
-            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
+            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
         })
         store.hotelArray.map(item =>{
-            if(user.pickUpLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
+            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
         })
         store.airportArray.map(item =>{
-            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
+            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
         })
         store.busArray.map(item =>{
-            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
+            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
 
         })
         store.trainArray.map(item =>{
-            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
+            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
         })
         store.boatArray.map(item =>{
-            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
+            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
         })
         store.hotelArray.map(item =>{
-            if(user.dropOffLocation.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
+            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
         })
 
-    },[user.pickUpLocation, user.dropOffLocation])
+    },[user.from, user.to])
 
+    useEffect(()=>{
+        setStops(localStops)
+    },[localStops])
+
+
+    function mapStops(data:IObj){
+
+        const values = Object.values(data).filter(value=>value)
+        const object:IObj={}
+        values.map((item, index) => {
+            const number  = index+1;
+            if(item) object[number] = item;
+        })
+        setLocalStops(object)
+    }
 
 
     return (
@@ -180,7 +158,7 @@ const TripContent = () => {
             </div>
             <div className={dateRow}>
                 
-                {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000"></div>}
+                {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
                 <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
                     <div className='flex items-center'>
@@ -234,7 +212,7 @@ const TripContent = () => {
                 {user.icon === 1 && 
                 <Select 
                     className='favorite w-1/2 max-h-[30px]'
-                    style={{width: '100px'}} 
+                    style={{width: '100px', borderRadius: 5}} 
                     options={user.flights.map(item=>(
                         {value: item, label: item}
                     ))} 
@@ -281,16 +259,16 @@ const TripContent = () => {
                 <span className='icon text-green-500'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full' 
-                    defaultLocation={user.pickUpLocation || ''} 
-                    onChange={setPickUpLocation}
+                    defaultLocation={user.from || ''} 
+                    onChange={setFrom}
                     placeholder='Pick up location'
                 />
             </div>
             {user.icon === 1 && 
-            <div className="border flex items-center w-1/3 ">
+            <div className="border flex items-center w-1/3 rounded">
                 <Select 
                     className='favorite truncate'
-                    style={{}} 
+                    style={{borderRadius: 5}} 
                     options={user.departureSections.map(item=>(
                         {value: item, label: item}
                     ))}   
@@ -300,65 +278,91 @@ const TripContent = () => {
             </div>}
         </div>
             
-        {stop.first && 
+        {stop > 0 && 
         <div className={extraCardStop}>
             <span className='icon text-orange-400'><SlLocationPin/></span>  
             <GoogleAddressInput
                 style='w-full'
-                defaultLocation={user.stopFirst || ''} 
-                onChange={setStopFirst}
+                defaultLocation={localStops[1] || ''} 
+                onChange={(e)=>{
+                    setLocalStops({...localStops, 1:e})
+                }}
                 placeholder='Stop'
             />
             <div 
                 className={closeStop} 
                 onClick={()=>{ 
-                    setStopFirst('')
-                    setStop({ ...stop, first: false }) 
+                    mapStops({...localStops, 1: ''})
+                    setStop(stop - 1) 
                 }}
             >-</div>
         </div>}
 
-        {stop.second &&  
-        <div className={extraCardStop}>
-            <span className='icon  text-orange-400'><SlLocationPin/></span>
-            <GoogleAddressInput 
-                defaultLocation={user.stopSecond || ''} 
-                style='w-full'
-                onChange={setStopSecond}
-                placeholder='Second stop'
-            />
-            <div 
-                className={closeStop}  
-                onClick={()=>{ 
-                    setStopSecond('')
-                    setStop({ ...stop, second: false }) 
-                }}
-            >-</div> 
-        </div>}
-
-        {stop.last &&  
+        {stop > 1 &&  
         <div className={extraCardStop}>
             <span className='icon  text-orange-400'><SlLocationPin/></span>
             <GoogleAddressInput
                 style='w-full'
-                defaultLocation={user.stopLast || ''} 
-                onChange={setStopLast}
-                placeholder='Last stop'
+                defaultLocation={localStops[2] || ''} 
+                onChange={(e)=>{
+                    setLocalStops({...localStops, 2:e})
+                }}
+                placeholder='Stop'
             />
             <div 
-                className={closeStop}  
+                className={closeStop} 
                 onClick={()=>{ 
-                    setStopLast('')
-                    setStop({ ...stop, last: false }) 
+
+                    mapStops({...localStops, 2: ''})
+                    setStop(stop - 1) 
+                }}
+            >-</div>
+        </div>}
+
+        {stop > 2 &&  
+        <div className={extraCardStop}>
+            <span className='icon  text-orange-400'><SlLocationPin/></span>
+            <GoogleAddressInput
+                style='w-full'
+                defaultLocation={localStops[3] || ''} 
+                onChange={(e)=>{
+                    setLocalStops({...localStops, 3:e})
+                }}
+                placeholder='Stop'
+            />
+            <div 
+                className={closeStop} 
+                onClick={()=>{ 
+
+                    mapStops({...localStops, 3: ''})
+                    setStop(stop - 1) 
                 }}
             >-</div> 
         </div>}
 
-        {(!stop.first || !stop.second || !stop.last) 
+        {stop> 3 &&  
+        <div className={extraCardStop}>
+            <span className='icon  text-orange-400'><SlLocationPin/></span>
+            <GoogleAddressInput
+                style='w-full'
+                defaultLocation={localStops[4] || ''} 
+                onChange={(e)=>{
+                    setLocalStops({...localStops, 4:e})
+                }}
+                placeholder='Stop'
+            />
+            <div 
+                className={closeStop} 
+                onClick={()=>{ 
+                    mapStops({...localStops, 4: ''})
+                    setStop(stop - 1) 
+                }}
+            >-</div>
+        </div>}
+
+        {(stop < 4) 
         && <div className={addExtraBtn} onClick={()=>{
-            if(!stop.first) return setStop({ ...stop, first: true })
-            if(!stop.second) return setStop({ ...stop, second: true })
-            if(!stop.last) return setStop({ ...stop, last: true })
+            setStop(stop+1)
         }}>
             <span className={addCircle}>+</span>
         </div>}
@@ -368,15 +372,16 @@ const TripContent = () => {
                 <span className='icon text-red-500'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full' 
-                    defaultLocation={user.dropOffLocation || ''} 
-                    onChange={setDropOffLocation}
+                    defaultLocation={user.to || ''} 
+                    onChange={setTo}
                     placeholder='Drop off location'
                 />
             </div>
             {user.icon2 ===1 && 
-            <div className="border flex items-center w-1/3 ">
+            <div className="border flex items-center w-1/3 rounded ">
             <Select 
-                className='favorite truncate'
+                style={{borderRadius: 5}}
+                className='favorite truncate '
                 options={user.departureSections.map(item=>(
                     {value: item, label: item}
                 ))}   
@@ -410,7 +415,7 @@ const TripContent = () => {
                 {user.icon2 === 1 && 
                 <Select 
                     className='favorite w-1/2 max-h-[30px]'
-                    style={{width: '100px'}} 
+                    style={{width: '100px', borderRadius: 5}} 
                     options={user.flights.map(item=>(
                         {value: item, label: item}
                     ))} 
@@ -463,7 +468,7 @@ export default TripContent;
 
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer xl:mb-2 lg:mb-2 sm:mb-2' 
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold w-[42px] py-1'
-const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-700'
+const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-400'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 ml-auto'
 
@@ -472,11 +477,11 @@ const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px
 const iconItem = ' '
 const icons = 'flex w-1/3 justify-around pt-1'
 const type = 'flex items-center justify-between w-full space-x-4 '
-const flightCard = 'flex relative items-center border lg:w-3/5 w-1/2'
+const flightCard = 'flex relative items-center border lg:w-3/5 w-1/2 rounded'
 
-const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded-full border border-black cursor-pointer font-bold text-black opacity-20 hover:opacity-100 duration-300 "
-const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded-full flex  justify-center cursor-pointer text-bold  items-center"
-const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
+const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded border border-black cursor-pointer font-bold text-black "
+const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
+const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 duration-500 w-[100px]'
 
 
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
@@ -484,13 +489,13 @@ const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 
 const dateRow = 'flex relative sm:items-start items-start w-full   justify-between'
 
 
-const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full'
+const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full rounded'
 
 const date = 'flex sm:mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap sm:flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
-const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end'
-const extraCardPickUp = 'flex relative w-3/4 items-center border w-full '
+const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end rounded'
+const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
-const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400'
+const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold'
 const container = 'flex relative border p-10  flex-col w-[48%] sm:w-full relative space-y-3 rounded shadow-xl'

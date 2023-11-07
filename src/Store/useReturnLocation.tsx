@@ -7,9 +7,9 @@ interface IUser {
     from: string;
     to: string;
 
-    stop1: string;
-    stop2: string;
-    stop3: string;
+    stops: {
+        [key:number] : string;
+    },
 
     date: string;
     time: string;
@@ -36,9 +36,10 @@ interface Store {
     setFrom: (trip:string) => void;
     setTo: (trip:string) => void;
 
-    setStop1: (trip:string) => void;
-    setStop2: (trip:string) => void;
-    setStop3: (trip:string) => void;
+    setStops: (trip:{
+        [key:number] : string;
+    }) => void;
+
 
     setDate: (trip:string) => void;
     setTime: (trip:string) => void;
@@ -66,9 +67,7 @@ export const useReturnLocation = create<Store>()(
             from: '',
             to: '',
 
-            stop1: '',
-            stop2: '',
-            stop3: '',
+            stops: {},
 
             date:'',
             time: '',
@@ -92,9 +91,7 @@ export const useReturnLocation = create<Store>()(
         setFrom: (data) => set((state) => ({ returnTrip: {...state.returnTrip, from: data } })),
         setTo: (data) => set((state) => ({ returnTrip: {...state.returnTrip, to: data } })),
 
-        setStop1: (data) => set((state) => ({ returnTrip: {...state.returnTrip, stop1: data } })),
-        setStop2: (data) => set((state) => ({ returnTrip: {...state.returnTrip, stop2: data } })),
-        setStop3:  (data) => set((state) => ({ returnTrip: {...state.returnTrip, stop3: data } })),
+        setStops: (data) => set((state) => ({ returnTrip: {...state.returnTrip, stops: data } })),
 
         setDate: (data) => set((state) => ({ returnTrip: {...state.returnTrip, date: data } })),
         setTime: (data) => set((state) => ({ returnTrip: {...state.returnTrip, time: data } })),
@@ -119,9 +116,7 @@ export const useReturnLocation = create<Store>()(
             from: '',
             to: '',
 
-            stop1: '',
-            stop2: '',
-            stop3: '',
+            stops: {},
 
             date:'',
             time: '',
