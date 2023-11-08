@@ -14,12 +14,12 @@ const InfoSection = () => {
         2:false,
     })
     const [isExtraPhoneOpen, setIsExtraPhoneOpen] = useState({
-        1:true,
-        2:true,
+        1:false,
+        2:false,
     })
     const [isExtraEmailOpen, setIsExtraEmailOpen] = useState({
-        1:true,
-        2:true,
+        1:false,
+        2:false,
     })
     return (
         <section className={section}>
@@ -42,9 +42,8 @@ const InfoSection = () => {
                     />
                 </div>
 
-                
-                <div className={isExtraNameOpen[1]? nameCard: nameCard+ ' border-white h-[32px]'}>
-                    {isExtraNameOpen[1] &&  <>
+                <div className={nameCard}>
+                    {!isExtraNameOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
                         <Select
                             value={user.extraGender1 || null}
@@ -55,17 +54,17 @@ const InfoSection = () => {
                         /> 
                         <Input value={user.extraName1 || ''} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 5, height: 30}}/>
                         
-                    </>}
-                    <button className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } onClick={()=>{
+                    
+                    {!isExtraNameOpen[2] && <button className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } onClick={()=>{
                                     setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
                                 }}>
                         {`${(isExtraNameOpen[1]) ? '-' : '+'}`}
-                    </button>
+                    </button>}
                 </div>
-
                 
-                <div className={isExtraNameOpen[2]? nameCard: nameCard+ ' border-white h-[32px]'}>
-                    {isExtraNameOpen[2] &&  <>
+                <div className={isExtraNameOpen[1]? nameCard: nameCard+ ' border-white h-[32px]'}>
+                    {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
+                    {isExtraNameOpen[1] &&  <>
                         <span className='icon'><BsPeople/></span>
                         <Select
                             value={user.extraGender2 || null}
@@ -97,31 +96,30 @@ const InfoSection = () => {
                 <div className={extraCard}>
                     <MailInput value={user.email} mainMail={true} onChange={setEmail} placeholder='Set your email'/>
                 </div>
-
-                {isExtraEmailOpen[1] && 
-                <div className={extraCard}>    
-                    <MailInput value={user.extraEmail1} onChange={setExtraEmail1} placeholder='Set second email'/>
-                    <div 
-                        className={extraEmailClose}
-                        onClick={()=>{ setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: false }) }}
-                    >-</div>         
-                </div>}
-
-                {isExtraEmailOpen[2] &&  
-                <div className={extraCard}>
-                    <MailInput value={user.extraEmail2} onChange={setExtraEmail2} placeholder='Set third email'/>
-                    <div 
-                        className={extraEmailClose}
-                        onClick={()=>{ setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: false }) }}
-                    >-</div>   
-                </div>}
-
                 
-                {(!isExtraEmailOpen[2] || !isExtraEmailOpen[1] ) && <div className={addExtraBtn} onClick={()=>{
-                    if(!isExtraEmailOpen[1]) return setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: true })
-                    if(!isExtraEmailOpen[2]) return setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: true })
-                }}>+</div>}
+                <div className={extraCard}>
+                    {!isExtraEmailOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
+                    <MailInput value={user.extraEmail1} onChange={setExtraEmail1} placeholder='Set second email'/>
 
+                    {!isExtraEmailOpen[2] && <button className={(isExtraEmailOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{
+                                    setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })
+                                }}>
+                        {`${(isExtraEmailOpen[1]) ? '-' : '+'}`}
+                    </button>}       
+                </div>
+                
+                <div className={isExtraEmailOpen[1]? nameCard + ' border-none' : nameCard + ' border-white h-[32px]'}>
+                    {!isExtraEmailOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
+                    {isExtraEmailOpen[1] &&  <>
+                    <MailInput value={user.extraEmail2} onChange={setExtraEmail2} placeholder='Set third email'/>
+                    </>}
+                    {isExtraEmailOpen[1] && 
+                    <button className={(isExtraEmailOpen[2]) ? extraEmailClose : addExtraBtn } onClick={()=>{
+                                    setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: !isExtraEmailOpen[2] })
+                                }}>
+                        {`${(isExtraEmailOpen[2]) ? '-' : '+'}`}
+                    </button>}
+                </div>
             </div>
 
             <div className={extraContainer}>
@@ -129,30 +127,29 @@ const InfoSection = () => {
                     <PhoneNumberInput type={1} value={user.phone} onChange={setPhone}/>
                 </div>
 
-                {isExtraPhoneOpen[1] && 
-                <div className={extraCard+' border'}>    
-                    <PhoneNumberInput type={2}  value={user.extraPhone1} onChange={setExtraPhone1}/>
-                    <div 
-                        className={extraPhoneClose}
-                        onClick={()=>{ setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: false }) }}
-                    >-</div>         
-                </div>}
+                <div className={extraCard + ' border'}>
+                    {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
+                        <PhoneNumberInput type={3}  value={user.extraPhone1} onChange={setExtraPhone1}/>
 
-                {isExtraPhoneOpen[2] &&  
-                <div className={extraCard+' border'}>
-                    <PhoneNumberInput type={3}  value={user.extraPhone2} onChange={setExtraPhone2}/>
-                    <div 
-                        className={extraPhoneClose}
-                        onClick={()=>{ setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: false }) }}
-                    >-</div>   
-                </div>}
+                    {!isExtraPhoneOpen[2] && <button className={(isExtraPhoneOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{
+                                    setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })
+                                }}>
+                        {`${(isExtraPhoneOpen[1]) ? '-' : '+'}`}
+                    </button>}       
+                </div>
 
-                
-                {(!isExtraPhoneOpen[2] || !isExtraPhoneOpen[1] ) && <div className={addExtraBtn} onClick={()=>{
-                        if(!isExtraPhoneOpen[1]) return setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: true })
-                        if(!isExtraPhoneOpen[2]) return setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: true })
-                }}>+</div>}
-
+                <div className={isExtraPhoneOpen[1]? nameCard + ' ' : nameCard + ' border-white h-[32px]'}>
+                    {!isExtraPhoneOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
+                    {isExtraPhoneOpen[1] &&  <>
+                        <PhoneNumberInput type={2}  value={user.extraPhone2} onChange={setExtraPhone2}/>
+                    </>}
+                    {isExtraPhoneOpen[1] && 
+                    <button className={(isExtraPhoneOpen[2]) ? extraPhoneClose : addExtraBtn } onClick={()=>{
+                            setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: !isExtraPhoneOpen[2] })
+                                }}>
+                        {`${(isExtraPhoneOpen[2]) ? '-' : '+'}`}
+                    </button>}
+                </div>
             </div>
     </section>
     );
@@ -161,7 +158,7 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-const nameCard = 'flex max-w-[400px] w-full relative items-center border rounded'
+const nameCard = 'relative flex max-w-[400px] w-full relative items-center border rounded'
 // const addExtraBtn = " w-5 h-5 flex justify-center bg-green-400 -translate-y-1 rounded text-md border border-black cursor-pointer font-bold text-black sm:-translate-x-[150px] ml-auto"
 const addExtraBtn = "absolute w-5 h-5 flex justify-center bg-green-400 rounded text-md border border-black cursor-pointer font-bold text-black  left-[101%]"
 

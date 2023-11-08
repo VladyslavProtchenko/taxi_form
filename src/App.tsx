@@ -1,10 +1,13 @@
 import Form from "./pages/Form/Form"
-
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 function App() {
 
   return (
     <div className={container}>
-      <Form />
+      <DndProvider backend={HTML5Backend}>
+        <Form />
+      </DndProvider>
     </div>
   )
 }

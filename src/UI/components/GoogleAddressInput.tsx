@@ -63,7 +63,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
     });
 
     return (
-        <div className={container+' '+ style} ref={ref}>
+        <div className={container+' '+ style} ref={ref} >
             <Input
                 allowClear
                 className={input}

@@ -19,7 +19,6 @@ const OptionsSection = () => {
     const { options, setCarType } = useOptions()
     const { validation } = useValidation()
 
-    console.log(options.carType)
     return (
         <section className={section}>
             <div className={validation.isCarType ? type : type + ' border-red-500'}>
@@ -29,13 +28,13 @@ const OptionsSection = () => {
                                 setCarType(item)
                             }}>
                             { item === 'VAN (5-7)'
-                                ? <LiaShuttleVanSolid/>
+                                ? <LiaShuttleVanSolid className='w-1/4 text-sm'/>
                                 :item === 'SUV (max 4)'
-                                ?<PiJeepLight/>
+                                ?<PiJeepLight className='w-1/4 text-sm'/>
                                 :item === 'limo (disabled)'
-                                ?<AiOutlineStop/>
-                                :<IoCarSportOutline/> }
-                                <span className='ml-1'>{item}</span>
+                                ?<AiOutlineStop className='w-1/4 text-sm'/>
+                                :<IoCarSportOutline className='w-1/4 text-sm'/> }
+                                <div className='truncate sm:ml-0 ml-1'>{item}</div>
                         </div>
                     ))}
             </div>
@@ -54,11 +53,11 @@ const OptionsSection = () => {
 export default OptionsSection;
 
 
-const typeItem = 'flex items-center px-3 py-1 cursor-pointer text-sm'
-const content = 'flex flex-wrap w-full h-min sm:w-full lg:flex-col lg:w-full lg:items-center '
+const typeItem = 'flex items-center px-3 py-1 cursor-pointer text-sm sm:text-[10px] sm:px-0 w-1/4'
+const content = 'flex flex-wrap w-full h-min  lg:flex-col lg:items-center '
 
 const item = 'flex  relative 2xl:w-1/3 sm:w-full sm:border-b  sm:w-full md:w-1/2 sm:pb-2 md:w-full lg:w-4/5 xl:w-1/2' 
 const passengersItem = ' 2xl:w-1/3  flex relative sm:w-full lg:w-4/5 xl:w-1/2' 
-const type = 'flex lg:self-center sm:self-center border rounded self-start divide-x overflow-hidden '
+const type = 'flex lg:self-center sm:self-center border rounded self-start divide-x overflow-hidden sm:w-full mb-4'
 
 const section = 'flex w-full flex-col p-8  sm:flex-col sm:max-w-[576px]  max-w-[1240px] sm:py-8 sm:px-1 lg:items-start '

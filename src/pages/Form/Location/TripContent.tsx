@@ -24,7 +24,7 @@ import { useStore } from '../../../Store/index';
 interface IObj {[key:number]: string}
 const TripContent = () => {
     const { user: store} = useStore()
-    const {resetData, setResetPhone} = useInfo()
+    const { resetData, setResetPhone} = useInfo()
     const { resetReturn } = useReturnLocation()
     const { resetOptions } = useOptions()
     const { validation} = useValidation()
@@ -52,6 +52,7 @@ const TripContent = () => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
     const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
+    const [cars, setCars] = useState(1)
 
 
     function resetForm() {
@@ -141,323 +142,352 @@ const TripContent = () => {
         })
         setLocalStops(object)
     }
-
-
     return (
     <div className={container}>
         <h1 className={label}>One-Way</h1>
+        <ul className={tabsContainer}>
+            <li 
+                className={defaultTab}
+                onClick={()=>{
+                    setCars(1)
+                }}
+            >1</li>
+            <li 
+                className={cars>= 2 ? activeTab : cars ===1 ? tab + ' rounded-tr': tab}
+                onClick={()=>{
+                    setCars(2)
+                }}
+            >2</li>
+            <li 
+                className={cars>= 3 ? activeTab : cars ===2 ? tab + ' rounded-tr': tab}
+                onClick={()=>{
+                    setCars(3)
+                }}
+            >3</li>
+            <li 
+                className={cars>= 4 ? activeTab : cars ===3 ? tab + ' rounded-tr': tab}
+                onClick={()=>{
+                    setCars(4)
+                }}
+            >4</li>
+            <li 
+                className='h-full bg-gray-100'
+                
+            ></li>
+        </ul>
 
-        <div className={date}>
-            <div className={!user.dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
-                        setDateNow(!user.dateNow)
-                    }}>
-                <span className={!user.dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
-                </span>
-                <span className={user.dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>Later</span>
-                
-            </div>
-            <div className={dateRow}>
-                
-                {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
-                <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
-                    <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                    <div className='flex items-center'>
-                    {fullDate.format('dddd')},  
-                    {'  '+fullDate.format('MMM')}
-                    {'.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
-                                                ? 'st'
-                                                :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
-                                                ?  'nd'
-                                                :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
-                                                ? 'rd'
-                                                : 'th'
-                                            }
-                    {' '+fullDate.format('YYYY')}</div>
-                    {isDateOpen && <div className={dateTimeSubmenu}>
-                        <DatePicker time={user.time} onChange={setDate} getFullDate={setFullDate}/>
-                        <div className="flex justify-between pl-8">
-                            <div className={setDateBtn} onClick={(e)=> {
-                                    e.stopPropagation();
-                                    setIsDateOpen(false)
-                                }}>accept</div>
-                        </div>
-                    </div>}
+        <div className={content}>
+
+            <div className={date}>
+                <div className={!user.dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
+                            setDateNow(!user.dateNow)
+                        }}>
+                    <span className={!user.dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
+                    </span>
+                    <span className={user.dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>Later</span>
+                    
                 </div>
-                <TimePicker time={user.dateNow ? dayjs().add(30,'minutes').format('HH:mm'): user.time}  onChange={setTime} date={user.date}/> 
+                <div className={dateRow}>
+                    
+                    {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
+                    <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                        <span className='icon text-xl'><PiCalendarCheckLight/></span>
+                        <div className='flex items-center'>
+                        {fullDate.format('dddd')},  
+                        {'  '+fullDate.format('MMM')}
+                        {'.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
+                                                    ? 'st'
+                                                    :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
+                                                    ?  'nd'
+                                                    :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
+                                                    ? 'rd'
+                                                    : 'th'
+                                                }
+                        {' '+fullDate.format('YYYY')}</div>
+                        {isDateOpen && <div className={dateTimeSubmenu}>
+                            <DatePicker time={user.time} onChange={setDate} getFullDate={setFullDate}/>
+                            <div className="flex justify-between pl-8">
+                                <div className={setDateBtn} onClick={(e)=> {
+                                        e.stopPropagation();
+                                        setIsDateOpen(false)
+                                    }}>accept</div>
+                            </div>
+                        </div>}
+                    </div>
+                    <TimePicker time={user.dateNow ? dayjs().add(30,'minutes').format('HH:mm'): user.time}  onChange={setTime} date={user.date}/> 
+                </div>
             </div>
-        </div>
 
-        <div className={type}>
-            
-            <div className={icons}>
-                <span className={user.icon == 1 ? iconCard : iconCardActive}>
-                    <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' }/>
-                </span>
-                <span className={user.icon == 2 ? iconCard : iconCardActive}>
-                    <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
-                </span>
-                <span className={user.icon == 3 ? iconCard: iconCardActive}>
-                    <FaBus className={ iconItem+ ' text-yellow-300 '}/>
-                </span>
-                <span className={user.icon == 4 ? iconCard : iconCardActive}>
-                    <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
-                </span>
-                <span className={user.icon == 5 ?iconCard : iconCardActive}>
-                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
-                </span>
-            </div>
+            <div className={type}>
+                
+                <div className={icons}>
+                    <span className={user.icon == 1 ? iconCard : iconCardActive}>
+                        <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' }/>
+                    </span>
+                    <span className={user.icon == 2 ? iconCard : iconCardActive}>
+                        <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
+                    </span>
+                    <span className={user.icon == 3 ? iconCard: iconCardActive}>
+                        <FaBus className={ iconItem+ ' text-yellow-300 '}/>
+                    </span>
+                    <span className={user.icon == 4 ? iconCard : iconCardActive}>
+                        <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
+                    </span>
+                    <span className={user.icon == 5 ?iconCard : iconCardActive}>
+                        <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
+                    </span>
+                </div>
 
-            {user.icon ? <div className={flightCard }>
-                
-                {user.icon === 1 && 
-                <Select 
-                    className='favorite w-1/2 max-h-[30px]'
-                    style={{width: '100px', borderRadius: 5}} 
-                    options={user.flights.map(item=>(
-                        {value: item, label: item}
-                    ))} 
-                    onChange={setAirline} 
-                    placeholder='Airlines'
-                />}
-                
-                {user.icon === 1
-                    ?<MdFlightLand className='text-xl mx-1'/>
-                    :user.icon === 2
-                    ?< BsTrainFrontFill className=' mx-1'/>
-                    :user.icon === 3
-                    ? <FaBus className=' mx-1'/>
-                    :user.icon === 4
-                    ? <FaSailboat className=' mx-1'/>
-                    :user.icon === 5 
-                    ?<MdLocalHotel className='mx-1'/>
-                    :<MdFlightTakeoff className='text-xl mx-1'/>
-                }   
-                {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
-                    {user.airline.toLowerCase().includes('canada') 
-                        ? 'AC'
-                        : user.airline.toLowerCase().includes('transat') 
-                        ? 'TS'
-                        : user.airline.toLowerCase().includes('quatar') 
-                        ? 'QR'
-                        : ''
-                    }
+                {user.icon>0 && <div className={flightCard }>
+                    
+                    {user.icon === 1 && 
+                    <Select 
+                        className='favorite w-1/2 max-h-[30px]'
+                        style={{width: '100px', borderRadius: 5}} 
+                        options={user.flights.map(item=>(
+                            {value: item, label: item}
+                        ))} 
+                        onChange={setAirline} 
+                        placeholder='Airlines'
+                    />}
+                    
+                    {user.icon === 1
+                        ?<MdFlightLand className='text-xl mx-1'/>
+                        :user.icon === 2
+                        ?< BsTrainFrontFill className=' mx-1'/>
+                        :user.icon === 3
+                        ? <FaBus className=' mx-1'/>
+                        :user.icon === 4
+                        ? <FaSailboat className=' mx-1'/>
+                        :user.icon === 5 
+                        ?<MdLocalHotel className='mx-1'/>
+                        :<MdFlightTakeoff className='text-xl mx-1'/>
+                    }   
+                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                        {user.airline.toLowerCase().includes('canada') 
+                            ? 'AC'
+                            : user.airline.toLowerCase().includes('transat') 
+                            ? 'TS'
+                            : user.airline.toLowerCase().includes('quatar') 
+                            ? 'QR'
+                            : ''
+                        }
+                    </div>}
+                    <Input
+                        value={user.flight}
+                        maxLength={4}
+                        placeholder={user.icon === 1 ?'####': user.icon === 2 ? 'Train#' : user.icon === 3 ? "Bus#" : user.icon === 4 ? 'Boat#': 'Room#'} 
+                        className={user.icon === 1 ? ' max-w-[80px]': '' } 
+                        style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
+                    />
                 </div>}
-                <Input
-                    value={user.flight}
-                    maxLength={4}
-                    placeholder={user.icon === 1 ?'####': user.icon === 2 ? 'Train#' : user.icon === 3 ? "Bus#" : user.icon === 4 ? 'Boat#': 'Room#'} 
-                    className={user.icon === 1 ? ' max-w-[80px]': '' } 
-                    style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
-                />
             </div>
-            :<div className={flightCard + ' h-full'}></div>}
-        </div>
 
-        <div className={locationCard}>
-            <div className={validation.isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
-                <span className='icon text-green-500'><SlLocationPin/></span>
-                <GoogleAddressInput
-                    style='w-full' 
-                    defaultLocation={user.from || ''} 
-                    onChange={setFrom}
-                    placeholder='Pick up location'
-                />
+            <div className={locationCard}>
+                <div className={validation.isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                    <span className='icon text-green-500'><SlLocationPin/></span>
+                    <GoogleAddressInput
+                        style='w-full' 
+                        defaultLocation={user.from || ''} 
+                        onChange={setFrom}
+                        placeholder='Pick up location'
+                    />
+                </div>
+                {user.icon === 1 && 
+                <div className="border flex items-center w-1/3 rounded">
+                    <Select 
+                        className='favorite truncate'
+                        style={{borderRadius: 5}} 
+                        options={user.departureSections.map(item=>(
+                            {value: item, label: item}
+                        ))}   
+                        onChange={setDeparture} 
+                        placeholder='Departure' 
+                    />
+                </div>}
             </div>
-            {user.icon === 1 && 
-            <div className="border flex items-center w-1/3 rounded">
+                
+            {stop > 0 && 
+            <div className={extraCardStop}>
+                <span className='icon text-orange-400'><SlLocationPin/></span>  
+                <GoogleAddressInput
+                    style='w-full'
+                    defaultLocation={localStops[1] || ''} 
+                    onChange={(e)=>{
+                        setLocalStops({...localStops, 1:e})
+                    }}
+                    placeholder='Stop'
+                />
+                <div 
+                    className={closeStop} 
+                    onClick={()=>{ 
+                        mapStops({...localStops, 1: ''})
+                        setStop(stop - 1) 
+                    }}
+                >-</div>
+            </div>}
+
+            {stop > 1 &&  
+            <div className={extraCardStop}>
+                <span className='icon  text-orange-400'><SlLocationPin/></span>
+                <GoogleAddressInput
+                    style='w-full'
+                    defaultLocation={localStops[2] || ''} 
+                    onChange={(e)=>{
+                        setLocalStops({...localStops, 2:e})
+                    }}
+                    placeholder='Stop'
+                />
+                <div 
+                    className={closeStop} 
+                    onClick={()=>{ 
+                        mapStops({...localStops, 2: ''})
+                        setStop(stop - 1) 
+                    }}
+                >-</div>
+            </div>}
+
+            {stop > 2 &&  
+            <div className={extraCardStop}>
+                <span className='icon  text-orange-400'><SlLocationPin/></span>
+                <GoogleAddressInput
+                    style='w-full'
+                    defaultLocation={localStops[3] || ''} 
+                    onChange={(e)=>{
+                        setLocalStops({...localStops, 3:e})
+                    }}
+                    placeholder='Stop'
+                />
+                <div 
+                    className={closeStop} 
+                    onClick={()=>{ 
+
+                        mapStops({...localStops, 3: ''})
+                        setStop(stop - 1) 
+                    }}
+                >-</div> 
+            </div>}
+
+            {stop> 3 &&  
+            <div className={extraCardStop}>
+                <span className='icon  text-orange-400'><SlLocationPin/></span>
+                <GoogleAddressInput
+                    style='w-full'
+                    defaultLocation={localStops[4] || ''} 
+                    onChange={(e)=>{
+                        setLocalStops({...localStops, 4:e})
+                    }}
+                    placeholder='Stop'
+                />
+                <div 
+                    className={closeStop} 
+                    onClick={()=>{ 
+                        mapStops({...localStops, 4: ''})
+                        setStop(stop - 1) 
+                    }}
+                >-</div>
+            </div>}
+
+            {(stop < 4) 
+            && <div className={addExtraBtn} onClick={()=>{
+                setStop(stop+1)
+            }}>
+                <span className={addCircle}>+</span>
+            </div>}
+
+            <div className={locationCard}>
+                <div className={validation.isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                    <span className='icon text-red-500'><SlLocationPin/></span>
+                    <GoogleAddressInput
+                        style='w-full' 
+                        defaultLocation={user.to || ''} 
+                        onChange={setTo}
+                        placeholder='Drop off location'
+                    />
+                </div>
+                {user.icon2 ===1 && 
+                <div className="border flex items-center w-1/3 rounded ">
                 <Select 
-                    className='favorite truncate'
-                    style={{borderRadius: 5}} 
+                    style={{borderRadius: 5}}
+                    className='favorite truncate '
                     options={user.departureSections.map(item=>(
                         {value: item, label: item}
                     ))}   
-                    onChange={setDeparture} 
+                    onChange={setDeparture2} 
                     placeholder='Departure' 
                 />
-            </div>}
-        </div>
-            
-        {stop > 0 && 
-        <div className={extraCardStop}>
-            <span className='icon text-orange-400'><SlLocationPin/></span>  
-            <GoogleAddressInput
-                style='w-full'
-                defaultLocation={localStops[1] || ''} 
-                onChange={(e)=>{
-                    setLocalStops({...localStops, 1:e})
-                }}
-                placeholder='Stop'
-            />
-            <div 
-                className={closeStop} 
-                onClick={()=>{ 
-                    mapStops({...localStops, 1: ''})
-                    setStop(stop - 1) 
-                }}
-            >-</div>
-        </div>}
-
-        {stop > 1 &&  
-        <div className={extraCardStop}>
-            <span className='icon  text-orange-400'><SlLocationPin/></span>
-            <GoogleAddressInput
-                style='w-full'
-                defaultLocation={localStops[2] || ''} 
-                onChange={(e)=>{
-                    setLocalStops({...localStops, 2:e})
-                }}
-                placeholder='Stop'
-            />
-            <div 
-                className={closeStop} 
-                onClick={()=>{ 
-
-                    mapStops({...localStops, 2: ''})
-                    setStop(stop - 1) 
-                }}
-            >-</div>
-        </div>}
-
-        {stop > 2 &&  
-        <div className={extraCardStop}>
-            <span className='icon  text-orange-400'><SlLocationPin/></span>
-            <GoogleAddressInput
-                style='w-full'
-                defaultLocation={localStops[3] || ''} 
-                onChange={(e)=>{
-                    setLocalStops({...localStops, 3:e})
-                }}
-                placeholder='Stop'
-            />
-            <div 
-                className={closeStop} 
-                onClick={()=>{ 
-
-                    mapStops({...localStops, 3: ''})
-                    setStop(stop - 1) 
-                }}
-            >-</div> 
-        </div>}
-
-        {stop> 3 &&  
-        <div className={extraCardStop}>
-            <span className='icon  text-orange-400'><SlLocationPin/></span>
-            <GoogleAddressInput
-                style='w-full'
-                defaultLocation={localStops[4] || ''} 
-                onChange={(e)=>{
-                    setLocalStops({...localStops, 4:e})
-                }}
-                placeholder='Stop'
-            />
-            <div 
-                className={closeStop} 
-                onClick={()=>{ 
-                    mapStops({...localStops, 4: ''})
-                    setStop(stop - 1) 
-                }}
-            >-</div>
-        </div>}
-
-        {(stop < 4) 
-        && <div className={addExtraBtn} onClick={()=>{
-            setStop(stop+1)
-        }}>
-            <span className={addCircle}>+</span>
-        </div>}
-
-        <div className={locationCard}>
-            <div className={validation.isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
-                <span className='icon text-red-500'><SlLocationPin/></span>
-                <GoogleAddressInput
-                    style='w-full' 
-                    defaultLocation={user.to || ''} 
-                    onChange={setTo}
-                    placeholder='Drop off location'
-                />
-            </div>
-            {user.icon2 ===1 && 
-            <div className="border flex items-center w-1/3 rounded ">
-            <Select 
-                style={{borderRadius: 5}}
-                className='favorite truncate '
-                options={user.departureSections.map(item=>(
-                    {value: item, label: item}
-                ))}   
-                onChange={setDeparture2} 
-                placeholder='Departure' 
-            />
-            </div>}
-        </div>
-
-        <div className={type}>
-            
-            <div className={icons}>           
-                <span className={user.icon2 == 1 ? iconCard : iconCardActive}>
-                    <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl ' } />
-                </span>
-                <span className={user.icon2 == 2 ? iconCard : iconCardActive}>
-                    <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
-                </span>
-                <span className={user.icon2 == 3 ?iconCard : iconCardActive}>
-                    <FaBus className={ iconItem+ ' text-yellow-200 '}/>
-                </span>
-                <span className={user.icon2 == 4 ?iconCard : iconCardActive}>
-                    <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
-                </span>
-                <span className={user.icon2 == 5 ?iconCard : iconCardActive }>
-                    <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
-                </span>
-            </div>
-
-            {user.icon2 ? <div className={flightCard }>
-                {user.icon2 === 1 && 
-                <Select 
-                    className='favorite w-1/2 max-h-[30px]'
-                    style={{width: '100px', borderRadius: 5}} 
-                    options={user.flights.map(item=>(
-                        {value: item, label: item}
-                    ))} 
-                    onChange={setAirlineBack} 
-                    placeholder='Airlines' 
-                />}
-                
-                {user.icon2 === 1
-                    ?<MdFlightTakeoff className='text-xl mx-1'/>
-                    :user.icon2 === 2
-                    ?<BsTrainFrontFill className=' mx-1'/>
-                    :user.icon2 === 3
-                    ? <FaBus className=' mx-1'/>
-                    :user.icon2 === 4
-                    ? <FaSailboat className=' mx-1'/>
-                    :user.icon2 === 5 
-                    ?<MdLocalHotel className='mx-1'/>
-                    :<MdFlightLand className='text-xl mx-1'/>
-                }
-                {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
-                    {user.airlineBack.toLowerCase().includes('canada') 
-                        ? 'AC'
-                        : user.airlineBack.toLowerCase().includes('transat') 
-                        ? 'TS'
-                        : user.airlineBack.toLowerCase().includes('quatar') 
-                        ? 'QR'
-                        : ''
-                    }
                 </div>}
-                <Input 
-                    value={user.flight2}
-                    maxLength={4}
-                    placeholder={user.icon2 === 1 ?'####': user.icon2 === 2 ? 'Train#' : user.icon2 === 3 ? "Bus#" : user.icon2 === 4 ? 'Boat#': 'Room#'} 
-                    className={user.icon === 1 ? ' max-w-[80px]': '' } 
-                    style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}
-                />
-            </div>:<div className={flightCard+ ' h-full' }></div>}
-        </div>
+            </div>
 
-        <div className={type+ 'pt-4'}>
-            <button className={reset} onClick={resetForm}>Reset</button>
+            <div className={type}>
+                
+                <div className={icons}>           
+                    <span className={user.icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
+                        <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl ' } />
+                    </span>
+                    <span className={user.icon2 == 2 ? iconCard : iconCardActive}>
+                        <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
+                    </span>
+                    <span className={user.icon2 == 3 ?iconCard : iconCardActive}>
+                        <FaBus className={ iconItem+ ' text-yellow-200 '}/>
+                    </span>
+                    <span className={user.icon2 == 4 ?iconCard : iconCardActive}>
+                        <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
+                    </span>
+                    <span className={user.icon2 == 5 ?iconCard+ ' rounded-r' : iconCardActive }>
+                        <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
+                    </span>
+                </div>
+
+                {user.icon2>0 && <div className={flightCard }>
+                    {user.icon2 === 1 && 
+                    <Select 
+                        className='favorite w-1/2 max-h-[30px]'
+                        style={{width: '100px', borderRadius: 5}} 
+                        options={user.flights.map(item=>(
+                            {value: item, label: item}
+                        ))} 
+                        onChange={setAirlineBack} 
+                        placeholder='Airlines' 
+                    />}
+                    
+                    {user.icon2 === 1
+                        ?<MdFlightTakeoff className='text-xl mx-1'/>
+                        :user.icon2 === 2
+                        ?<BsTrainFrontFill className=' mx-1'/>
+                        :user.icon2 === 3
+                        ? <FaBus className=' mx-1'/>
+                        :user.icon2 === 4
+                        ? <FaSailboat className=' mx-1'/>
+                        :user.icon2 === 5 
+                        ?<MdLocalHotel className='mx-1'/>
+                        :<MdFlightLand className='text-xl mx-1'/>
+                    }
+                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                        {user.airlineBack.toLowerCase().includes('canada') 
+                            ? 'AC'
+                            : user.airlineBack.toLowerCase().includes('transat') 
+                            ? 'TS'
+                            : user.airlineBack.toLowerCase().includes('quatar') 
+                            ? 'QR'
+                            : ''
+                        }
+                    </div>}
+                    <Input 
+                        value={user.flight2}
+                        maxLength={4}
+                        placeholder={user.icon2 === 1 ?'####': user.icon2 === 2 ? 'Train#' : user.icon2 === 3 ? "Bus#" : user.icon2 === 4 ? 'Boat#': 'Room#'} 
+                        className={user.icon === 1 ? ' max-w-[80px]': '' } 
+                        style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}
+                    />
+                </div>}
+            </div>
+
+            <div className={type+ 'pt-4'}>
+                <button className={reset} onClick={resetForm}>Reset</button>
+            </div>
         </div>
     </div>
     );
@@ -465,6 +495,11 @@ const TripContent = () => {
 
 export default TripContent;
 
+const defaultTab = 'px-2 py-[2px] cursor-pointer pt-3 bg-white'
+const tab = 'px-2 py-[2px]  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100' 
+const activeTab = 'px-2 py-[2px] cursor-pointer '
+const tabsContainer = 'flex flex-col w-[80px] mr-4 text-sm  h-full mb-0'
+const content = 'flex flex-col w-full space-y-3 py-10'
 
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer xl:mb-2 lg:mb-2 sm:mb-2' 
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold w-[42px] py-1'
@@ -472,12 +507,13 @@ const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 ml-auto'
 
-const iconCard = 'flex items-center justify-center border w-[30px] h-[30px] rounded bg-green-400 border-gray-500'
-const iconCardActive = 'flex items-center justify-center border w-[30px] h-[30px] rounded   border-white '
+const iconCard = 'flex items-center justify-center w-1/5 h-[30px] bg-green-400'
+const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
 const iconItem = ' '
-const icons = 'flex w-1/3 justify-around pt-1'
-const type = 'flex items-center justify-between w-full space-x-4 '
-const flightCard = 'flex relative items-center border lg:w-3/5 w-1/2 rounded'
+const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-1/2 border-black border rounded  overflow-hidden'
+const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
+const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-1/2'
+
 
 const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded border border-black cursor-pointer font-bold text-black "
 const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
@@ -491,11 +527,11 @@ const dateRow = 'flex relative sm:items-start items-start w-full   justify-betwe
 
 const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full rounded'
 
-const date = 'flex sm:mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap sm:flex-wrap'
+const date = 'flex mt-3 sm:mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap sm:flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] self-end rounded'
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
-const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold'
-const container = 'flex relative border p-10  flex-col w-[48%] sm:w-full relative space-y-3 rounded shadow-xl'
+const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
+const container = 'flex relative border pr-10  w-[48%] sm:w-full relative  rounded-b border-t-0 shadow-xl'
