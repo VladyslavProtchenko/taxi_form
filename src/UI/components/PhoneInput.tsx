@@ -286,7 +286,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 value={country || 'Canada'}
                 placeholder={country || "Canada"}
                 className=" sm:max-w-[55px] phoneArrow max-w-[100px] pl-[2px]"
-                style={{ width:'100%', height: 30, }}
+                style={{ width:'100%', height: 40, }}
                 onChange={setCountry}
                 filterOption={filterOption}
                 options={countries.map((item)=>(
@@ -340,6 +340,6 @@ export default PhoneNumberInput
 const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
 const subItem ='flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
 const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r-[1.5px] border-gray-600'
-const container = 'flex '
+const container = 'flex items-center'
 
 

@@ -2102,6 +2102,12 @@ select option {
     margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
   }
 
+  .sm\:space-y-6 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-y-reverse: 0;
+    margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+  }
+
   .sm\:self-center{
     align-self: center;
   }
@@ -2150,8 +2156,8 @@ select option {
     padding-right: 1.5rem;
   }
 
-  .sm\:pt-40{
-    padding-top: 10rem;
+  .sm\:pt-20{
+    padding-top: 5rem;
   }
 
   .sm\:pt-8{
