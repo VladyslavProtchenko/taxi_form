@@ -66,6 +66,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
         <div className={container+' '+ style} ref={ref} >
             <Input
                 allowClear
+                style={{height:40}}
                 className={input}
                 value={value}
                 onChange={(e)=>{

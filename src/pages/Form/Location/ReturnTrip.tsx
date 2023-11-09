@@ -242,7 +242,7 @@ const TripContent = () => {
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightLand className='text-xl mx-1'/>
                     }   
-                    {returnTrip.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                    {returnTrip.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
                         {returnTrip.airline.toLowerCase().includes('canada') 
                             ? 'AC'
                             : returnTrip.airline.toLowerCase().includes('transat') 
@@ -477,7 +477,7 @@ const TripContent = () => {
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightTakeoff className='text-xl mx-1'/>
                     }   
-                    {returnTrip.icon2 === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                    {returnTrip.icon2 === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
                         {returnTrip.airlineBack.toLowerCase().includes('canada') 
                             ? 'AC'
                             : returnTrip.airlineBack.toLowerCase().includes('transat') 
@@ -523,9 +523,9 @@ const revert = 'px-4 py-1 bg-orange-400 text-white rounded hover:bg-orange-300 a
 const iconCard = 'flex items-center justify-center w-1/5 h-[30px] bg-green-400'
 const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
 const iconItem = ' '
-const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-1/2 border-black border rounded  overflow-hidden'
+const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'
 const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
-const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-1/2'
+const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 
 const btns = 'flex items-center  w-full  space-x-4 pt-4'
 const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded border border-black cursor-pointer font-bold text-black "

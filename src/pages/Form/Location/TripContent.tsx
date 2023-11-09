@@ -255,18 +255,18 @@ const TripContent = () => {
                     />}
                     
                     {user.icon === 1
-                        ?<MdFlightLand className='text-xl mx-1'/>
+                        ?<MdFlightLand className='text-xl mx-1 e'/>
                         :user.icon === 2
-                        ?< BsTrainFrontFill className=' mx-1'/>
+                        ?< BsTrainFrontFill className=' mx-1 '/>
                         :user.icon === 3
-                        ? <FaBus className=' mx-1'/>
+                        ? <FaBus className=' mx-1 sm:text-sm'/>
                         :user.icon === 4
                         ? <FaSailboat className=' mx-1'/>
                         :user.icon === 5 
-                        ?<MdLocalHotel className='mx-1'/>
-                        :<MdFlightTakeoff className='text-xl mx-1'/>
+                        ?<MdLocalHotel className='mx-1 '/>
+                        :<MdFlightTakeoff className='text-xl mx-1 '/>
                     }   
-                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
                         {user.airline.toLowerCase().includes('canada') 
                             ? 'AC'
                             : user.airline.toLowerCase().includes('transat') 
@@ -467,7 +467,7 @@ const TripContent = () => {
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightLand className='text-xl mx-1'/>
                     }
-                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[1px] pr-[1px]'>
+                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
                         {user.airlineBack.toLowerCase().includes('canada') 
                             ? 'AC'
                             : user.airlineBack.toLowerCase().includes('transat') 
@@ -501,7 +501,7 @@ export default TripContent;
 const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
 const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
 const activeTab = 'px-4 py-2 cursor-pointer  border-white'
-const tabsContainer = 'flex flex-col mr-4 font-bold h-full mb-0'
+const tabsContainer = 'flex flex-col mr-2 font-bold h-full mb-0'
 const content = 'flex flex-col w-full space-y-3 py-10'
 
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer xl:mb-2 lg:mb-2 sm:mb-2' 
@@ -510,12 +510,12 @@ const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 ml-auto'
 
-const iconCard = 'flex items-center justify-center w-1/5 h-[30px] bg-green-400'
-const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
+const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-green-400 sm:text-sm'
+const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black sm:text-sm'
 const iconItem = ' '
-const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-1/2 border-black border rounded  overflow-hidden'
+const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'
 const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
-const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-1/2'
+const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 
 
 const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded border border-black cursor-pointer font-bold text-black "
@@ -537,4 +537,4 @@ const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[35
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
 const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
-const container = 'flex relative border pr-10  w-[48%] sm:w-full relative  rounded-b sm:border-t-0 shadow-xl'
+const container = 'flex relative border pr-4 w-[48%] sm:w-full relative  rounded-b sm:border-t-0 shadow-xl'

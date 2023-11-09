@@ -45,7 +45,7 @@ export const useStore = create<Store>(() => ({
         departureSections: ['Departure (Domestic)', 'Departure (International)', 'Departure (USA)', 'Arrival'],
         paymentList: ['Cash', 'Debit', 'Credit Card(need receipt),', 'Voucher','Office Charges'],
         flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
-        airportArray: ['plane','airport', 'Airport','Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport'],
+        airportArray: ['plane','airport','airport,', 'Airport','Airport - Montreal ( 975 Roméo-Vachon)','Aéroport - Montréal ( 975 Roméo-Vachon)', 'YUL - Montreal Airport'],
         busArray:['bus',  'bus station', ],
         trainArray:[ 'train', 'train station underground', ],
         boatArray : [ 'boat', ],
