@@ -34,7 +34,12 @@ const TripContent = () => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
     // const [currentCard, setCurrentCard] = useState<IObj>({})
-    const [cars, setCars] = useState(1)
+    const [cars, setCars] = useState({
+        1: true,
+        2: false,
+        3: false,
+        4: false,
+    })
 
 
     useEffect(()=>{
@@ -138,32 +143,30 @@ const TripContent = () => {
             <li 
                 className={defaultTab}
                 onClick={()=>{
-                    setCars(1)
+                    setCars({1:true, 2:false, 3:false, 4:false})
                 }}
             >1</li>
             <li 
-                className={cars>= 2 ? activeTab : cars ===1 ? tab + ' rounded-tr': tab}
+                className={cars[2] ? activeTab + ' border-t' : cars[3] ? tab + ' border-b border-t rounded-tr rounded-br ' : cars[1] ? tab + ' rounded-tr border-t' : tab + ' border-y-gray-100'}
                 onClick={()=>{
-                    setCars(2)
+                    setCars({1:true, 2:true, 3:false, 4:false})
                 }}
             >2</li>
             <li 
-                className={cars>= 3 ? activeTab : cars ===2 ? tab + ' rounded-tr': tab}
+                className={cars[3] ? activeTab + '' : cars[4] ? tab + ' border-b rounded-br pt-[9px]' : cars[2] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
                 onClick={()=>{
-                    setCars(3)
+                    setCars({1:true, 2:false, 3:true, 4:false})
                 }}
             >3</li>
             <li 
-                className={cars>= 4 ? activeTab : cars ===3 ? tab + ' rounded-tr': tab}
+                className={cars[4] ? activeTab : cars[3] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
                 onClick={()=>{
-                    setCars(4)
+                    setCars({1:true, 2:false, 3:false, 4:true})
                 }}
             >4</li>
-            <li 
-                className='h-full bg-gray-100'
-                
-            ></li>
+            <li className={cars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t' : ' h-full border-r bg-gray-100'}></li>
         </ul>
+
         <div className={content}>
 
             <div className={date+ ' xl:pt-8 lg:pt-8 sm:pt-8'}>
@@ -508,10 +511,10 @@ const TripContent = () => {
 export default TripContent;
 
 
-const defaultTab = 'px-2 py-[2px] cursor-pointer pt-3 bg-white'
-const tab = 'px-2 py-[2px]  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100' 
-const activeTab = 'px-2 py-[2px] cursor-pointer '
-const tabsContainer = 'flex flex-col w-[80px] mr-4 text-sm  h-full mb-0'
+const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
+const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
+const activeTab = 'px-4 py-2 cursor-pointer  border-white'
+const tabsContainer = 'flex flex-col mr-4 font-bold h-full mb-0'
 const content = 'flex flex-col w-full  space-y-3 py-10'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '

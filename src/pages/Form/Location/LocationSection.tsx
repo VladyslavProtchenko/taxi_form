@@ -44,7 +44,7 @@ export default LocationSection;
 // const removeCar = ' px-2 no-underline'
 const carCard = 'flex w-1/2 text-gray-400 cursor-pointer justify-center  rounded-t-xl border bg-gray-200 opacity-50 py-2 '
 const carCardActive = 'flex w-1/2 text-gray-400 cursor-pointer justify-center rounded-t-xl border py-2'
-const carContainer = 'flex w-full  border-b-0  rounded-t-lg mt-10' 
+const carContainer = 'hidden sm:flex w-full  border-b-0  rounded-t-lg mt-10' 
 
 const returnContainer = 'flex text-sm items-center flex-col justify-center mx-2 sm:flex-row sm:hidden'
 const button = ' bg-white my-2 font-bold cursor-pointer sm:w-min o sm:justify-center sm:rotate-90 rounded-full text-red-500 hover:text-red-400 p-1 shadow-xl  border sm:mx-2'

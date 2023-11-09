@@ -52,7 +52,12 @@ const TripContent = () => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
     const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
-    const [cars, setCars] = useState(1)
+    const [cars, setCars] = useState({
+        1: true,
+        2: false,
+        3: false,
+        4: false,
+    })
 
 
     function resetForm() {
@@ -145,35 +150,33 @@ const TripContent = () => {
     return (
     <div className={container}>
         <h1 className={label}>One-Way</h1>
+
         <ul className={tabsContainer}>
             <li 
                 className={defaultTab}
                 onClick={()=>{
-                    setCars(1)
+                    setCars({1:true, 2:false, 3:false, 4:false})
                 }}
             >1</li>
             <li 
-                className={cars>= 2 ? activeTab : cars ===1 ? tab + ' rounded-tr': tab}
+                className={cars[2] ? activeTab + ' border-t' : cars[3] ? tab + ' border-b border-t rounded-tr rounded-br ' : cars[1] ? tab + ' rounded-tr border-t' : tab + ' border-y-gray-100'}
                 onClick={()=>{
-                    setCars(2)
+                    setCars({1:true, 2:true, 3:false, 4:false})
                 }}
             >2</li>
             <li 
-                className={cars>= 3 ? activeTab : cars ===2 ? tab + ' rounded-tr': tab}
+                className={cars[3] ? activeTab + '' : cars[4] ? tab + ' border-b rounded-br pt-[9px]' : cars[2] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
                 onClick={()=>{
-                    setCars(3)
+                    setCars({1:true, 2:false, 3:true, 4:false})
                 }}
             >3</li>
             <li 
-                className={cars>= 4 ? activeTab : cars ===3 ? tab + ' rounded-tr': tab}
+                className={cars[4] ? activeTab : cars[3] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
                 onClick={()=>{
-                    setCars(4)
+                    setCars({1:true, 2:false, 3:false, 4:true})
                 }}
             >4</li>
-            <li 
-                className='h-full bg-gray-100'
-                
-            ></li>
+            <li className={cars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t' : ' h-full border-r bg-gray-100'}></li>
         </ul>
 
         <div className={content}>
@@ -495,10 +498,10 @@ const TripContent = () => {
 
 export default TripContent;
 
-const defaultTab = 'px-2 py-[2px] cursor-pointer pt-3 bg-white'
-const tab = 'px-2 py-[2px]  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100' 
-const activeTab = 'px-2 py-[2px] cursor-pointer '
-const tabsContainer = 'flex flex-col w-[80px] mr-4 text-sm  h-full mb-0'
+const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
+const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
+const activeTab = 'px-4 py-2 cursor-pointer  border-white'
+const tabsContainer = 'flex flex-col mr-4 font-bold h-full mb-0'
 const content = 'flex flex-col w-full space-y-3 py-10'
 
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer xl:mb-2 lg:mb-2 sm:mb-2' 
@@ -534,4 +537,4 @@ const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[35
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
 const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
-const container = 'flex relative border pr-10  w-[48%] sm:w-full relative  rounded-b border-t-0 shadow-xl'
+const container = 'flex relative border pr-10  w-[48%] sm:w-full relative  rounded-b sm:border-t-0 shadow-xl'
