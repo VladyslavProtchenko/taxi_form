@@ -1423,10 +1423,6 @@ video {
   padding-left: 7px;
 }
 
-.pr-10{
-  padding-right: 2.5rem;
-}
-
 .pr-2{
   padding-right: 0.5rem;
 }
@@ -2027,6 +2023,10 @@ select option {
     display: none;
   }
 
+  .sm\:h-\[40px\]{
+    height: 40px;
+  }
+
   .sm\:w-2\/5{
     width: 40%;
   }
@@ -2168,8 +2168,8 @@ select option {
     padding-top: 5rem;
   }
 
-  .sm\:pt-8{
-    padding-top: 2rem;
+  .sm\:pt-\[46px\]{
+    padding-top: 46px;
   }
 
   .sm\:text-end{

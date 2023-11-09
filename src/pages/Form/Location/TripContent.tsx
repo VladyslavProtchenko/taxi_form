@@ -488,7 +488,7 @@ const TripContent = () => {
                 </div>}
             </div>
 
-            <div className={type+ 'pt-4'}>
+            <div className={type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>Reset</button>
             </div>
         </div>
@@ -508,10 +508,10 @@ const toggle ='flex mr-6 relative items-center rounded border border-black durat
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold w-[42px] py-1'
 const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-400'
 
-const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 ml-auto'
+const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 
-const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-green-400 sm:text-sm'
-const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black sm:text-sm'
+const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-green-400 '
+const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
 const iconItem = ' '
 const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'
 const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
@@ -528,7 +528,7 @@ const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 
 const dateRow = 'flex relative sm:items-start items-start w-full   justify-between'
 
 
-const dateInput = 'text-xs flex border py-1 relative w-[200px] sm:max-w-[200px] sm:w-full rounded'
+const dateInput = 'text-xs flex border sm:h-[40px] relative w-[200px] sm:max-w-[200px] sm:w-full rounded'
 
 const date = 'flex mt-3 sm:mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap sm:flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'

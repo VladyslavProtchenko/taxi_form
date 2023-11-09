@@ -169,7 +169,7 @@ const TripContent = () => {
 
         <div className={content}>
 
-            <div className={date+ ' xl:pt-8 lg:pt-8 sm:pt-8'}>
+            <div className={date+ ' xl:pt-8 lg:pt-8 sm:pt-[46px]'}>
                 <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {returnTrip.date ? 
@@ -514,7 +514,7 @@ export default TripContent;
 const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
 const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
 const activeTab = 'px-4 py-2 cursor-pointer  border-white'
-const tabsContainer = 'flex flex-col mr-4 font-bold h-full mb-0'
+const tabsContainer = 'flex flex-col mr-2 font-bold h-full mb-0'
 const content = 'flex flex-col w-full  space-y-3 py-10'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
@@ -536,13 +536,13 @@ const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cur
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
 
-const dateInput = 'text-xs flex border py-1 relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full rounded'
+const dateInput = 'text-xs flex border py-1 sm:h-[40px] relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full rounded'
 
-const date = 'flex sm:items-start items-start w-full   justify-between border-b-2 border-black pb-6'
+const date = 'flex sm:items-start sm:mb-2 items-start w-full justify-between border-b-2 border-black pb-6'
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] ml-auto rounded'
 
 const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
-const container = 'flex relative border pr-10  w-[48%] sm:w-full  relative  rounded-b border-t-0 shadow-xl'
+const container = 'flex relative border pr-4  w-[48%] sm:w-full  relative  rounded-b border-t-0 shadow-xl'
