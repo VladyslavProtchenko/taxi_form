@@ -28,7 +28,6 @@ const LocationSection = () => {
             <div className={user.isCars[5] ? '' : ' hidden' }>
                 <Car5 />
             </div>
-            
         </section>
     );
 };
