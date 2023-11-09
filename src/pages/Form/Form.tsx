@@ -104,8 +104,6 @@ const Form = () => {
             time:trip.dateNow ? dayjs().format('HH:mm') : trip.time,
 
             flight: trip.flight,
-            bus: trip.bus,
-            train: trip.train,
 
             departure: trip.departure,
             airline: trip.airline,

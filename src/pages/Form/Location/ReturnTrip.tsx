@@ -9,8 +9,8 @@ import DatePicker from "../../../UI/components/DatePicker";
 import { useStore } from "../../../Store";
 
 import { useValidation } from "../../../Store/useValidation";
-import { useReturnLocation } from "../../../Store/useReturnLocation";
-import { useLocation } from "../../../Store/useLocation";
+import { IStore } from "../../../Store/useReturnLocation";
+import { IUser } from "../../../Store/useLocation";
 
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
@@ -19,13 +19,15 @@ import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 import { BsTrainFrontFill } from "react-icons/bs";
+import { useInfo } from "../../../Store/useInfo";
 interface IObj {[key:number]: string}
 
 
-const TripContent = () => {
-    const { returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, setDate,setTime,setDeparture,setDeparture2,setFlight,setFlight2,setAirlines,setAirlinesBack,resetReturn } = useReturnLocation()
-    const { user: mainUser } = useLocation()
+const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, setDate,setTime,setDeparture,setDeparture2,setFlight,setFlight2, setAirlines, setAirlinesBack, resetReturn, mainUser }:IStore & { mainUser: IUser })  => {
+
     const { user: userStore } = useStore()
+    const {user:info, setIsCars} = useInfo()
+
     const { validation } =useValidation()
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
     const [stopTrigger, setStopTrigger] = useState(true)
@@ -34,12 +36,6 @@ const TripContent = () => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
     // const [currentCard, setCurrentCard] = useState<IObj>({})
-    const [cars, setCars] = useState({
-        1: true,
-        2: false,
-        3: false,
-        4: false,
-    })
 
 
     useEffect(()=>{
@@ -143,28 +139,28 @@ const TripContent = () => {
             <li 
                 className={defaultTab}
                 onClick={()=>{
-                    setCars({1:true, 2:false, 3:false, 4:false})
+                    setIsCars({1:true, 2:false, 3:false, 4:false, 5:false})
                 }}
             >1</li>
             <li 
-                className={cars[2] ? activeTab + ' border-t' : cars[3] ? tab + ' border-b border-t rounded-tr rounded-br ' : cars[1] ? tab + ' rounded-tr border-t' : tab + ' border-y-gray-100'}
+                className={info.isCars[2] ? activeTab + ' border-t' : info.isCars[3] ? tab + ' border-b border-t rounded-tr rounded-br ' : info.isCars[1] ? tab + ' rounded-tr border-t' : tab + ' border-y-gray-100'}
                 onClick={()=>{
-                    setCars({1:true, 2:true, 3:false, 4:false})
+                    setIsCars({1:true, 2:true, 3:false, 4:false, 5:false})
                 }}
             >2</li>
             <li 
-                className={cars[3] ? activeTab + '' : cars[4] ? tab + ' border-b rounded-br pt-[9px]' : cars[2] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
+                className={info.isCars[3] ? activeTab + '' : info.isCars[4] ? tab + ' border-b rounded-br pt-[9px]' : info.isCars[2] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
                 onClick={()=>{
-                    setCars({1:true, 2:false, 3:true, 4:false})
+                    setIsCars({1:true, 2:false, 3:true, 4:false, 5:false})
                 }}
             >3</li>
             <li 
-                className={cars[4] ? activeTab : cars[3] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
+                className={info.isCars[4] ? activeTab : info.isCars[3] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
                 onClick={()=>{
-                    setCars({1:true, 2:false, 3:false, 4:true})
+                    setIsCars({1:true, 2:false, 3:false, 4:true, 5:false})
                 }}
             >4</li>
-            <li className={cars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t' : ' h-full border-r bg-gray-100'}></li>
+            <li className={info.isCars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t' : ' h-full border-r bg-gray-100'}></li>
         </ul>
 
         <div className={content}>
@@ -508,7 +504,7 @@ const TripContent = () => {
 };
 
 
-export default TripContent;
+export default ReturnTrip;
 
 
 const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
@@ -542,7 +538,7 @@ const date = 'flex sm:items-start sm:mb-2 items-start w-full justify-between bor
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'
-const extraCardStop = 'flex relative mr-6  items-center border w-[90%] max-w-[350px] sm:max-w-[300px] ml-auto rounded'
+const extraCardStop = 'flex relative mr-6  items-center border w-[90%] 2xl:w-[90%] xl:w-[90%] lg:w-[90%]  2xl:max-w-[350px] xl:max-w-[350px] lg:max-w-[350px] sm:max-w-[230px] self-end rounded'
 
 const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
 const container = 'flex relative border pr-4  w-[48%] sm:w-full  relative  rounded-b border-t-0 shadow-xl'

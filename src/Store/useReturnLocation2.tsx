@@ -52,7 +52,7 @@ export interface IStore {
 
     resetReturn: () => void;
 }
-export const useReturnLocation = create<IStore>()(
+export const useReturnLocation2 = create<IStore>()(
     (set) => ({
         returnTrip: {
             isReturnTrip: false,

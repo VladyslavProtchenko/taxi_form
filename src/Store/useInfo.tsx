@@ -3,6 +3,13 @@ import { persist } from 'zustand/middleware';
 
 interface IUser {
     genderList: string[];
+    isCars: {
+        1: boolean,
+        2: boolean,
+        3: boolean,
+        4: boolean,
+        5: boolean,
+    }
 
     gender: string;
     extraGender1: string;
@@ -48,6 +55,14 @@ interface IStore {
     setAdditionalText: (text: string) => void;
     resetData: () => void;
     setResetPhone: (data: boolean) => void;
+    setIsCars: (data: {
+        1: boolean,
+        2: boolean,
+        3: boolean,
+        4: boolean,
+        5: boolean
+    }) => void;
+
 }
 
 export const useInfo = create<IStore>()(
@@ -56,6 +71,14 @@ export const useInfo = create<IStore>()(
             user: {
                 // genderList: ['Monsieur', 'Madame','Mademoiselle' ,'Non défini',]
                 genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
+                isCars: {
+                    1: true,
+                    2: false,
+                    3: false,
+                    4: false,
+                    5: false,
+                },
+
                 gender: '',
                 extraGender1: '',
                 extraGender2: '',
@@ -79,6 +102,7 @@ export const useInfo = create<IStore>()(
             },
 
             setGender: (data) => set((state) => ({ user: { ...state.user, gender: data } })),
+            setIsCars: (data) => set((state) => ({ user: { ...state.user, isCars: data } })),
             setExtraGender1: (data) => set((state) => ({ user: { ...state.user, extraGender1: data } })),
             setExtraGender2: (data) => set((state) => ({ user: { ...state.user, extraGender2: data } })),
 
@@ -98,6 +122,13 @@ export const useInfo = create<IStore>()(
             setAdditionalText: (text) => set((state) => ({ user: { ...state.user, additionalText: text } })),
             resetData: () => set(() => ({ user: { 
                 genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
+                isCars: {
+                    1: true,
+                    2: false,
+                    3: false,
+                    4: false,
+                    5: false,
+                },
                 gender: '',
                 extraGender1: '',
                 extraGender2: '',

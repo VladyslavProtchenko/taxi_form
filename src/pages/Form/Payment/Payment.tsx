@@ -13,7 +13,7 @@ interface ISendOrder {
 const PaymentSection = ({sendOrder}:ISendOrder) => {
     const {user} = useStore()
     const {user:store,  setPaymentMethod, setAdditionalText } = useInfo()
-    const { setTripType} = useLocation()
+    const { setTripType } = useLocation()
     const { validation } = useValidation()
 
     return (

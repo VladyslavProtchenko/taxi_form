@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 const today = dayjs().format('DD/MM/YYYY');
 const timeNow = dayjs().format('HH:mm');
 
-export interface IUser {
+interface IUser {
     date:string;
     time:string;
     dateNow:boolean;
@@ -13,6 +13,7 @@ export interface IUser {
     tripList:string[];
     departureSections: string[];
     flights: string[];
+    isFlight:boolean;
 
     from: string;
     to: string;
@@ -26,7 +27,8 @@ export interface IUser {
 
     flight:string;
     flight2:string;
-
+    bus: string,
+    train:string,
 
     airline:string;
     airlineBack:string;
@@ -34,8 +36,9 @@ export interface IUser {
     departure: string;
     departure2: string;
     tripType:string;
+    arrivalTime:string;
 }
-export interface IStore {
+interface Store {
     user: IUser;
     
     setDate:(value: string) => void;
@@ -57,22 +60,26 @@ export interface IStore {
 
     setFlight: (value: string) => void;
     setFlight2: (value: string) => void;
+    setTrain: (value: string) => void;
+    setBus: (value: string) => void;
 
-
-    setTripType?:(trip:string) => void;
+    setTripType:(trip:string) => void;
     setAirline:(value: string) => void;
     setAirlineBack:(value: string) => void;
 
+    setArrivalTime: (value: string) => void;
 
+    setIsFlight: (value: boolean) => void;
     resetLocation: () => void;
 }
-export const useLocation = create<IStore>()(
+export const useLocation4 = create<Store>()(
             (set) => ({
             user: {
                 tripList:['Business (need receipt)', 'Vacation', 'Else'],
                 departureSections: ['Domestic', 'International', 'USA', 'Arrival'],
                 flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
 
+                isFlight: false,
                 dateNow: true,
 
                 from: '',
@@ -84,12 +91,14 @@ export const useLocation = create<IStore>()(
                 icon2:0,
                 flight: '',
                 flight2: '',
-
+                bus: '',
+                train:'',
 
                 airline:'',
                 airlineBack:'',
                 departure: '',
                 departure2:'',
+                arrivalTime: '',
 
                 date: today,
                 time: timeNow,
@@ -106,12 +115,15 @@ export const useLocation = create<IStore>()(
 
             setFlight: (data) => set((state) => ({ user: {...state.user, flight: data } })),
             setFlight2: (data) => set((state) => ({ user: {...state.user, flight2: data } })),
+            setBus: (data) => set((state) => ({ user: {...state.user, bus: data } })),
+            setTrain: (data) => set((state) => ({ user: {...state.user, train: data } })),
 
             setAirline: (data) => set((state) => ({ user: {...state.user, airline: data } })),
             setAirlineBack: (data) => set((state) => ({ user: {...state.user, airlineBack: data } })),
 
             setDeparture: (data) => set((state) => ({ user: {...state.user, departure: data } })),
             setDeparture2: (data) => set((state) => ({ user: {...state.user, departure2: data } })),
+            setArrivalTime: (data) => set((state) => ({ user: {...state.user, arrivalTime: data } })),
 
             setDate: (data) => set((state) => ({ user: {...state.user, date: data } })),
             setTime: (data) => set((state) => ({ user: {...state.user, time: data } })),
@@ -123,11 +135,13 @@ export const useLocation = create<IStore>()(
                 } else return ( {user: {...state.user, dateNow: data}}) 
             }),
             setTripType: (data) => set((state) => ({ user: {...state.user, tripType: data } })),
+            setIsFlight: (data) => set((state) => ({ user: {...state.user, isFlight: data } })),
             resetLocation: () => set(() => ({ user: {
                 tripList:['Business (need receipt)', 'Vacation', 'Else'],
                 departureSections: ['Domestic', 'International', 'USA', 'Arrival'],
                 flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
 
+                isFlight: false,
                 dateNow: true,
 
                 from: '',
@@ -139,11 +153,14 @@ export const useLocation = create<IStore>()(
                 icon2:0,
                 flight: '',
                 flight2: '',
+                bus: '',
+                train:'',
 
                 airline:'',
                 airlineBack:'',
                 departure: '',
                 departure2:'',
+                arrivalTime: '',
 
                 date: today,
                 time: timeNow,
