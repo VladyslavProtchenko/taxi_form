@@ -4,29 +4,31 @@ import Car1 from "./Car1";
 import Car2 from "./Car2";
 import Car3 from "./Car3";
 import Car4 from "./Car4";
-// import Car5 from "./Car5";
+import Car5 from "./Car5";
 
 
 const LocationSection = () => {
     const {user} = useInfo()
 
+    
     return (
         <section className={section}>
+
             <div className={(user.isCars[1] && !user.isCars[2] && !user.isCars[3] && !user.isCars[4]) ? '' : ' hidden' }>
-                <Car1 />
+                <Car1/>
             </div>
-            <div className={user.isCars[2] ? '' : ' hidden' }>
-                <Car2 />
+            <div className={user.isCars[2]===true ? '' : ' hidden' }>
+                <Car2/>
             </div>
-            <div className={user.isCars[3]  ? '' : ' hidden' }>
-                <Car3 />
+            <div className={user.isCars[3]===true  ? '' : ' hidden' }>
+                <Car3/>
             </div>
-            <div className={user.isCars[4] ? '' : ' hidden' }>
-                <Car4 />
+            <div className={user.isCars[4]===true ? '' : ' hidden' }>
+                <Car4/>
             </div>
-            {/* <div className={user.isCars[5] ? '' : ' hidden' }>
-                <Car5 />
-            </div> */}
+            <div className={user.isCars[5]===true ? '' : ' hidden' }>
+                <Car5/>
+            </div>
         </section>
     );
 };

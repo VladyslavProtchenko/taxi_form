@@ -10,7 +10,6 @@ interface IUser {
         4: boolean,
         5: boolean,
     }
-
     gender: string;
     extraGender1: string;
     extraGender2: string;

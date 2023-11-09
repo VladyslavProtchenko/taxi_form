@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import Form from "./pages/Form/Form"
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 function App() {
-
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   return (
     <div className={container}>
       <DndProvider backend={HTML5Backend}>
