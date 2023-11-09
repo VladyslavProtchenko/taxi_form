@@ -68,4 +68,4 @@ const Steps = () => {
 export default Steps;
 
 const navBtn = ' flex items-center text-2xl text-white active:text-gray-500 px-5 py-2 bg-red-500 active:bg-red-400 rounded-full'
-const buttons = 'flex max-w-[320px] w-full justify-between px-3 mt-auto mb-10'
+const buttons = 'flex max-w-[320px] w-full justify-between px-3 mt-auto mb-[100px]'
