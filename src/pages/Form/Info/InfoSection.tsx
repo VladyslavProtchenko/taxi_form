@@ -21,6 +21,7 @@ const InfoSection = () => {
         1:false,
         2:false,
     })
+    
     return (
         <section className={section}>
             <div className={extraContainer + ' xl:mb-3 lg:mb-3'}>
@@ -55,9 +56,11 @@ const InfoSection = () => {
                         <Input value={user.extraName1 || ''} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 5, height: 30}}/>
                         
                     
-                    {!isExtraNameOpen[2] && <button className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } onClick={()=>{
-                                    setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
-                                }}>
+                    {!isExtraNameOpen[2] && 
+                        <button className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } onClick={()=>{
+                            
+                            setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
+                        }}>
                         {`${(isExtraNameOpen[1]) ? '-' : '+'}`}
                     </button>}
                 </div>

@@ -171,7 +171,7 @@ const TripContent = ({
                     setIsCars({1:true, 2:false, 3:false, 4:true, 5:false})
                 }}
             >4</li>
-            <li className={info.isCars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t' : ' h-full border-r bg-gray-100'}></li>
+            <li className={info.isCars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t rounded' : ' rounded h-full border-r bg-gray-100'}></li>
         </ul>
 
         <div className={content}>
@@ -496,7 +496,8 @@ export default TripContent;
 const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
 const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
 const activeTab = 'px-4 py-2 cursor-pointer  border-white'
-const tabsContainer = 'flex flex-col mr-2 font-bold h-full mb-0'
+const tabsContainer = 'flex flex-col mr-2 font-bold h-full mb-0 rounded overflow-hidden'
+
 const content = 'flex flex-col w-full space-y-3 py-10'
 
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer xl:mb-2 lg:mb-2 sm:mb-2' 
@@ -532,4 +533,4 @@ const extraCardStop = 'flex relative mr-6  items-center border w-[90%] 2xl:w-[90
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
 const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
-const container = 'flex relative border pr-4 w-[48%] sm:w-full relative  rounded-b sm:border-t-0 shadow-xl'
+const container = 'flex relative border pr-4  w-full rounded relative  sm:rounded-b sm:border-t-0 shadow-xl'

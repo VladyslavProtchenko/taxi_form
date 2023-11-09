@@ -1107,11 +1107,6 @@ video {
   border-radius: 0.75rem;
 }
 
-.rounded-b{
-  border-bottom-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-
 .rounded-l{
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
@@ -1199,10 +1194,6 @@ video {
 
 .border-t{
   border-top-width: 1px;
-}
-
-.border-t-0{
-  border-top-width: 0px;
 }
 
 .border-none{
@@ -2114,6 +2105,11 @@ select option {
 
   .sm\:self-center{
     align-self: center;
+  }
+
+  .sm\:rounded-b{
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
   }
 
   .sm\:border-b{
