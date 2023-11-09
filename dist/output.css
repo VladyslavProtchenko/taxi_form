@@ -2142,6 +2142,14 @@ select option {
     padding-bottom: 0.5rem;
   }
 
+  .sm\:pl-0{
+    padding-left: 0px;
+  }
+
+  .sm\:pr-6{
+    padding-right: 1.5rem;
+  }
+
   .sm\:pt-40{
     padding-top: 10rem;
   }
