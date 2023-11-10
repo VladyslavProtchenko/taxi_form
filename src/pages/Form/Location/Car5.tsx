@@ -80,7 +80,7 @@ const Car5 = () => {
                 <div className={!returnTrip.isReturnTrip ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} onClick={()=>setIsReturnTrip(true)}>Return</div>
             </div>
             <div className='flex'>
-                <div className={!returnTrip.isReturnTrip ? 'flex w-full' : 'hidden'} >
+                <div className={!returnTrip.isReturnTrip ? 'flex w-full 2xl:w-[48%] ' : 'sm:hidden w-full flex 2xl:w-[48%]'} >
                     <TripWrapper />
                 </div>
                 <div className={returnContainer}>
@@ -98,7 +98,7 @@ const Car5 = () => {
                     <span className='font-thin  w-10'>trip</span>
 
                 </div>
-                <div className={returnTrip.isReturnTrip ? 'flex w-full' : 'hidden'} >
+                <div className={returnTrip.isReturnTrip ? 'flex w-full 2xl:w-[48%] ' : 'sm:hidden w-full flex 2xl:w-[48%]'} >
                     <BackWrapper />
                 </div>
             </div>
