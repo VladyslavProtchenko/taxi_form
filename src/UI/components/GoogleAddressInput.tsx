@@ -84,7 +84,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
 export default GoogleAddressInput;
 
 const input = ' text-sm w-full cursor-pointer relative px-2 py-1 focus:border-blue-800 w-[200px] '
-const submenu = 'absolute top-full bg-white z-10'
+const submenu = 'absolute top-full bg-white z-30'
 const oneItem ='cursor-pointer hover:bg-gray-50 px-4 py-1'
 
 const container = 'relative w-[200px]'

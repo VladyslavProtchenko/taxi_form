@@ -75,7 +75,8 @@ const Car3 = () => {
     const { returnTrip,setIsReturnTrip } = useReturnLocation3()
 
     return (
-        <>
+        <div className='relative'>
+            <div className='absolute left-12 sm:top-11 top-3 text-sm text-gray-300'> First third</div>
             <div className={carContainer}>
                 <div className={ returnTrip.isReturnTrip ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} onClick={()=>setIsReturnTrip(false)}>One-Way</div>
                 <div className={!returnTrip.isReturnTrip ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} onClick={()=>setIsReturnTrip(true)}>Return</div>
@@ -103,7 +104,7 @@ const Car3 = () => {
                     <BackWrapper />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

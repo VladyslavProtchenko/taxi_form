@@ -132,16 +132,7 @@ const TripContent = ({
 
 
 
-    function mapStops(data:IObj){
 
-        const values = Object.values(data).filter(value=>value)
-        const object:IObj={}
-        values.map((item, index) => {
-            const number  = index+1;
-            if(item) object[number] = item;
-        })
-        setLocalStops(object)
-    }
     return (
     <div className={container}>
         <h1 className={label}>One-Way</h1>
@@ -187,7 +178,7 @@ const TripContent = ({
                 </div>
                 <div className={dateRow}>
                     
-                    {user.dateNow && <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
+                    {user.dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
                     <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         <div className='flex items-center'>
@@ -306,8 +297,8 @@ const TripContent = ({
                 </div>}
             </div>
                 
-            {stop > 0 && 
             <div className={extraCardStop}>
+                {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span>  
                 <GoogleAddressInput
                     style='w-full'
@@ -318,16 +309,25 @@ const TripContent = ({
                     placeholder='Stop'
                 />
                 <div 
-                    className={closeStop} 
+                    className={(stop === 0) ? openStop :closeStop} 
                     onClick={()=>{ 
-                        mapStops({...localStops, 1: ''})
-                        setStop(stop - 1) 
-                    }}
-                >-</div>
-            </div>}
+                        if(stop===0) return setStop(1);
+                        const array = Object.values(user.stops).filter((_, index) => index !== 0)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
 
-            {stop > 1 &&  
-            <div className={extraCardStop}>
+                        setLocalStops(data)
+                        setStops(data)
+                        setStop(stop - 1)
+                    }}
+                    >{(stop === 0) ? '+' :'-'}</div> 
+            </div>
+            
+            <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
+                {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full'
@@ -338,16 +338,24 @@ const TripContent = ({
                     placeholder='Stop'
                 />
                 <div 
-                    className={closeStop} 
+                    className={(stop === 1) ? openStop :closeStop} 
                     onClick={()=>{ 
-                        mapStops({...localStops, 2: ''})
-                        setStop(stop - 1) 
+                        if(stop===1) return setStop(2);
+                        const array = Object.values(user.stops).filter((_, index) => index !== 1)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
+                        setLocalStops(data)
+                        setStops(data)
+                        setStop(stop - 1)
                     }}
-                >-</div>
-            </div>}
+                >{(stop === 1) ? '+' :'-'}</div> 
+            </div>
 
-            {stop > 2 &&  
-            <div className={extraCardStop}>
+            <div className={(stop > 1) ?  extraCardStop: 'hidden'}>
+                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full'
@@ -358,17 +366,24 @@ const TripContent = ({
                     placeholder='Stop'
                 />
                 <div 
-                    className={closeStop} 
+                    className={(stop === 2) ? openStop :closeStop} 
                     onClick={()=>{ 
-
-                        mapStops({...localStops, 3: ''})
-                        setStop(stop - 1) 
+                        if(stop===2) return setStop(3);
+                        const array = Object.values(user.stops).filter((_, index) => index !== 2)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
+                        setLocalStops(data)
+                        setStops(data)
+                        setStop(stop - 1)
                     }}
-                >-</div> 
-            </div>}
+                >{(stop === 2) ? '+' :'-'}</div> 
+            </div>
 
-            {stop> 3 &&  
-            <div className={extraCardStop}>
+            <div className={(stop > 2) ?  extraCardStop: 'hidden'}>
+                {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full'
@@ -378,21 +393,23 @@ const TripContent = ({
                     }}
                     placeholder='Stop'
                 />
-                <div 
-                    className={closeStop} 
-                    onClick={()=>{ 
-                        mapStops({...localStops, 4: ''})
-                        setStop(stop - 1) 
-                    }}
-                >-</div>
-            </div>}
 
-            {(stop < 4) 
-            && <div className={addExtraBtn} onClick={()=>{
-                setStop(stop+1)
-            }}>
-                <span className={addCircle}>+</span>
-            </div>}
+                <div 
+                    className={(stop === 3) ? openStop :closeStop} 
+                    onClick={()=>{ 
+                        if(stop===3) return setStop(4);
+                        const array = Object.values(user.stops).filter((_, index) => index !== 3)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
+                        setLocalStops(data)
+                        setStops(data)
+                        setStop(stop - 1)
+                    }}
+                    >{(stop === 3) ? '+' :'-'}</div> 
+            </div>
 
             <div className={locationCard}>
                 <div className={validation.isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
@@ -513,14 +530,12 @@ const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black
 const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
 const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 
-
-const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded border border-black cursor-pointer font-bold text-black "
 const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
-const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 duration-500 w-[100px]'
+const openStop ="absolute w-5 h-5 -right-6 bg-green-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
 
 
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
-const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
+const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 const dateRow = 'flex relative sm:items-start items-start w-full   justify-between'
 
 

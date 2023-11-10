@@ -75,7 +75,8 @@ const Car2 = () => {
     const { returnTrip,setIsReturnTrip } = useReturnLocation2()
 
     return (
-        <>
+        <div className='relative'>
+            <div className='absolute sm:top-11 left-12 top-3 text-sm text-gray-300'> First second</div>
             <div className={carContainer}>
                 <div className={ returnTrip.isReturnTrip ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} onClick={()=>setIsReturnTrip(false)}>One-Way</div>
                 <div className={!returnTrip.isReturnTrip ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} onClick={()=>setIsReturnTrip(true)}>Return</div>
@@ -99,11 +100,11 @@ const Car2 = () => {
                     <span className='font-thin  w-10'>trip</span>
 
                 </div>
-                    <div className={returnTrip.isReturnTrip ? 'flex w-full 2xl:w-[48%] ' : 'sm:hidden w-full flex 2xl:w-[48%]'} >
+                <div className={returnTrip.isReturnTrip ? 'flex w-full 2xl:w-[48%] ' : 'sm:hidden w-full flex 2xl:w-[48%]'} >
                     <BackWrapper />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

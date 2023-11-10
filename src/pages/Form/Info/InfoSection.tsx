@@ -21,76 +21,36 @@ const InfoSection = () => {
         1:false,
         2:false,
     })
-    
+
+
     return (
         <section className={section}>
             <div className={extraContainer + ' xl:mb-3 lg:mb-3'}>
                 <div className={ (validation.isName && validation.isTitle ) ? nameCard + ' ': nameCard + '  border-red-500' }>
                     <span className='icon'><BsPeople/></span>
-                    <Select
-                        allowClear 
-                        value={user.gender || null}
-                        placeholder='title'
-                        style={{width: 118, height: 40}}
-                        onChange={setGender}
-                        options={user.genderList.map(item=>({value: item, label: item }))}
-                    />
-                    <Input 
-                        allowClear 
-                        value={user.name || ''}
-                        placeholder='Name'
-                        onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 5, height: 30}}
-                    />
+                    <Select allowClear value={user.gender || null} placeholder='title' style={{width: 118, height: 40}} onChange={setGender}options={user.genderList.map(item=>({value: item, label: item }))}/>
+                    <Input allowClear value={user.name || ''} placeholder='Name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 5, height: 30}}/>
                 </div>
 
                 <div className={nameCard}>
                     {!isExtraNameOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
-                        <Select
-                            value={user.extraGender1 || null}
-                            placeholder='title'
-                            style={{width: 118, height: 40}}
-                            onChange={setExtraGender1}
-                            options={user.genderList.map(item=>({value: item, label: item }))}
-                        /> 
+                        <Select value={user.extraGender1 || null} placeholder='title'  style={{width: 118, height: 40}} onChange={setExtraGender1}options={user.genderList.map(item=>({value: item, label: item }))}/> 
                         <Input value={user.extraName1 || ''} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName1(e.target.value)} style={{width:200, borderRadius: 5, height: 30}}/>
                         
-                    
-                    {!isExtraNameOpen[2] && 
-                        <button className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } onClick={()=>{
-                            
-                            setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
-                        }}>
+                        <button className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } onClick={()=>{    setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })}}>
                         {`${(isExtraNameOpen[1]) ? '-' : '+'}`}
-                    </button>}
+                    </button>
                 </div>
                 
-                <div className={isExtraNameOpen[1]? nameCard: nameCard+ ' border-white h-[32px]'}>
+                <div className={(isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard: nameCard+ ' border-white h-[32px]'}>
                     {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
-                    {isExtraNameOpen[1] &&  <>
+                    {(isExtraNameOpen[1] || isExtraNameOpen[2]) &&  <>
                         <span className='icon'><BsPeople/></span>
-                        <Select
-                            value={user.extraGender2 || null}
-                            placeholder='title'
-                            style={{width: 118, height: 40}}
-                            onChange={setExtraGender2}
-                            options={user.genderList.map(item=>({value: item, label: item }))}
-                        /> 
-                        <Input 
-                            value={user.extraName2 || ''}
-                            allowClear
-                            placeholder='Third name'
-                            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName2(e.target.value)}
-                            style={{width:200, borderRadius: 5, height: 30}}
-                        />
+                        <Select value={user.extraGender2 || null} placeholder='title' style={{width: 118, height: 40}} onChange={setExtraGender2}options={user.genderList.map(item=>({value: item, label: item }))}/> 
+                        <Input  value={user.extraName2 || ''} allowClear placeholder='Third name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setExtraName2(e.target.value)} style={{width:200, borderRadius: 5, height: 30}}/>
                     </>}
-                    
-                    {isExtraNameOpen[1] && 
-                    <button className={(isExtraNameOpen[2]) ? extraNameClose : addExtraBtn } onClick={()=>{
-                                    setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })
-                                }}>
-                        {`${(isExtraNameOpen[2]) ? '-' : '+'}`}
-                    </button>}
+                    {(isExtraNameOpen[1] || isExtraNameOpen[2])  && <button className={(isExtraNameOpen[2]) ? extraNameClose : addExtraBtn } onClick={()=>{setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })}}>{`${(isExtraNameOpen[2]) ? '-' : '+'}`}</button>}
                 </div>
 
             </div>
@@ -103,20 +63,17 @@ const InfoSection = () => {
                 <div className={extraCard}>
                     {!isExtraEmailOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                     <MailInput value={user.extraEmail1} onChange={setExtraEmail1} placeholder='Set second email'/>
-
-                    {!isExtraEmailOpen[2] && <button className={(isExtraEmailOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{
-                                    setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })
-                                }}>
+                    <button className={(isExtraEmailOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })}}>
                         {`${(isExtraEmailOpen[1]) ? '-' : '+'}`}
-                    </button>}       
+                    </button>      
                 </div>
                 
-                <div className={isExtraEmailOpen[1]? nameCard + ' border-none' : nameCard + ' border-white h-[32px]'}>
+                <div className={(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) ? nameCard + ' border-none' : nameCard + ' border-white h-[32px]'}>
                     {!isExtraEmailOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
-                    {isExtraEmailOpen[1] &&  <>
+                    {(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) &&  <>
                     <MailInput value={user.extraEmail2} onChange={setExtraEmail2} placeholder='Set third email'/>
                     </>}
-                    {isExtraEmailOpen[1] && 
+                    {(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) && 
                     <button className={(isExtraEmailOpen[2]) ? extraEmailClose : addExtraBtn } onClick={()=>{
                                     setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: !isExtraEmailOpen[2] })
                                 }}>
@@ -133,20 +90,15 @@ const InfoSection = () => {
                 <div className={extraCard + ' border'}>
                     {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                         <PhoneNumberInput type={3}  value={user.extraPhone1} onChange={setExtraPhone1}/>
-
-                    {!isExtraPhoneOpen[2] && <button className={(isExtraPhoneOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{
-                                    setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })
-                                }}>
-                        {`${(isExtraPhoneOpen[1]) ? '-' : '+'}`}
-                    </button>}       
+                    <button className={(isExtraPhoneOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })}}> {`${(isExtraPhoneOpen[1]) ? '-' : '+'}`} </button>      
                 </div>
 
-                <div className={isExtraPhoneOpen[1]? nameCard + ' ' : nameCard + ' border-white h-[32px]'}>
+                <div className={(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) ? nameCard + ' ' : nameCard + ' border-white h-[32px]'}>
                     {!isExtraPhoneOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
-                    {isExtraPhoneOpen[1] &&  <>
+                    {(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) &&  <>
                         <PhoneNumberInput type={2}  value={user.extraPhone2} onChange={setExtraPhone2}/>
                     </>}
-                    {isExtraPhoneOpen[1] && 
+                    {(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) && 
                     <button className={(isExtraPhoneOpen[2]) ? extraPhoneClose : addExtraBtn } onClick={()=>{
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: !isExtraPhoneOpen[2] })
                                 }}>

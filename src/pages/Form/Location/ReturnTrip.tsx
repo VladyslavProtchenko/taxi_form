@@ -34,14 +34,14 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
-    const [stop, setStop] = useState(0)
-    // const [currentCard, setCurrentCard] = useState<IObj>({})
+    const [stop, setStop] = useState(3)
 
 
     useEffect(()=>{
         if(trigger[1]) setFrom(mainUser.to)
         if(trigger[2]) setTo(mainUser.from)
     },[trigger,mainUser.to, mainUser.from])
+
 
     useEffect(()=>{
         //I get all stops revert it ans complete in new array, I want to display stops order without holes im order! so we need make a sort every time when stops changes
@@ -55,7 +55,6 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 if(item) { setStops(data) }
             })
         }
-
     },[stopTrigger, mainUser.stops])
 
     useEffect(()=>{
@@ -105,33 +104,6 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
         setStopTrigger(false)
         resetReturn();
     }
-
-    // function dragStartHandler(e, data:IObj){
-    //     setCurrentCard(data)
-    //     console.log(data, 'data')
-    // }
-    // function dragLeaveHandler(e){
-
-    //     e.target.style.opacity = '100%';
-
-    // }
-    // function dragEndHandler(e){
-    //     e.preventDefault()
-
-    //     e.target.style.opacity = '100%';
-    // }
-    // function dragOverHandler(e){
-    //     e.stopPropagation()
-
-    //     e.preventDefault()
-    //     e.target.style.opacity = '10%';
-    // }
-    // function dragDropHandler(e:any, data:IObj){
-    //     e.preventDefault()
-    //     console.log(data, 'data')
-    // }
-
-
     return (
     <div className={container}>
         <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1>
@@ -160,11 +132,10 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                     setIsCars({1:true, 2:false, 3:false, 4:true, 5:false})
                 }}
             >4</li>
-            <li className={info.isCars[4] ? 'h-full rounded bg-gray-100 rounded-tr border-r border-t' : ' h-full rounded border-r bg-gray-100'}></li>
+            <li className={info.isCars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t' : ' h-full border-r bg-gray-100'}></li>
         </ul>
 
         <div className={content}>
-
             <div className={date+ ' xl:pt-8 lg:pt-8 sm:pt-[46px]'}>
                 <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
@@ -282,16 +253,9 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 </div>}
             </div>
 
-            {stop >0 &&
-            <div 
-                className={extraCardStop} 
-                // draggable={true} 
-                // onDragStart={(e: React.DragEvent)=>dragStartHandler(e,returnTrip. stops[1])}
-                // onDragLeave={(e: React.DragEvent)=>dragLeaveHandler(e)}
-                // onDragEnd={(e: React.DragEvent)=>dragEndHandler(e)}
-                // onDragOver={(e: React.DragEvent)=>dragOverHandler(e)}
-                // onDrop={(e: React.DragEvent)=>dragDropHandler(e, returnTrip. stops[1])}
-            >
+            
+            <div className={extraCardStop}>
+                {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span> 
                 <GoogleAddressInput
                     style='w-full'
@@ -300,28 +264,29 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                         setStopTrigger(false)
                         setStops({...returnTrip.stops, 1: e})
                     }}
-                    placeholder='Stop'
+                    placeholder='First Stop'
                 />
                     
                 <div 
-                    className={closeStop} 
+                    className={(stop === 0) ? openStop :closeStop} 
                     onClick={()=>{ 
-                        setStops({...returnTrip.stops})
-                        setStop(stop -1)  
+                        if(stop===0) return setStop(1);
+                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 0)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
+                        setStopTrigger(false)
+                        setStops(data)
+                        setStop(stop - 1)
                     }}
-                >-</div>
-            </div>}
+                    >{(stop === 0) ? '+' :'-'}</div> 
+            </div>
 
-            { stop>1  && 
-            <div 
-                    className={extraCardStop} 
-                    // draggable={true} 
-                    // onDragStart={(e: React.DragEvent<HTMLDivElement>)=>dragStartHandler(e,returnTrip. stops[2])}
-                    // onDragLeave={(e: React.DragEvent<HTMLDivElement>)=>dragLeaveHandler(e)}
-                    // onDragEnd={(e: React.DragEvent<HTMLDivElement>)=>dragEndHandler(e)}
-                    // onDragOver={(e: React.DragEvent<HTMLDivElement>)=>dragOverHandler(e)}
-                    // onDrop={(e: React.DragEvent<HTMLDivElement>)=>dragDropHandler(e, returnTrip. stops[2])}
-                >
+            
+            <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
+                {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full'
@@ -330,27 +295,29 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                         setStopTrigger(false)
                         setStops({...returnTrip.stops, 2: e})
                     }}
-                    placeholder='Stop'
+                    placeholder='Second Stop'
                 />
             <div 
-                className={closeStop} 
-                onClick={()=>{ 
-                        setStops({...returnTrip.stops})
-                        setStop(stop -1)  
+                className={(stop === 1) ? openStop :closeStop} 
+                onClick={()=>{
+                        if(stop===1) return setStop(2) 
+                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 1)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
+                        setStopTrigger(false)
+                        setStops(data)
+                        setStop(stop -1)
                     }}
-                >-</div> 
-            </div>}
+                >{(stop === 1) ? '+' :'-'}</div> 
+            </div>
 
-            {stop>2  &&
-            <div 
-                    className={extraCardStop} 
-                    draggable={true} 
-                    // onDragStart={(e: React.DragEvent<HTMLDivElement>)=>dragStartHandler(e,returnTrip. stops[3])}
-                    // onDragLeave={(e: React.DragEvent<HTMLDivElement>)=>dragLeaveHandler(e)}
-                    // onDragEnd={(e: React.DragEvent<HTMLDivElement>)=>dragEndHandler(e)}
-                    // onDragOver={(e: React.DragEvent<HTMLDivElement>)=>dragOverHandler(e)}
-                    // onDrop={(e: React.DragEvent<HTMLDivElement>)=>dragDropHandler(e, returnTrip. stops[3])}
-                >
+            
+            <div className={(stop > 1) ?  extraCardStop: 'hidden'}>
+                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full'
@@ -359,27 +326,29 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                         setStopTrigger(false)
                         setStops({...returnTrip.stops, 3: e})
                     }}
-                    placeholder='Stop'
+                    placeholder='Third Stop'
                 />
             <div 
-                className={closeStop} 
+                className={(stop === 2) ? openStop :closeStop} 
                 onClick={()=>{ 
-                        setStops({...returnTrip.stops})
+                        if(stop===2) return setStop(3)
+                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 2)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
+                        setStopTrigger(false)
+                        setStops(data)
                         setStop(stop -1) 
                     }}
-                >-</div> 
-            </div>}
+                    >{(stop === 2) ? '+' :'-'}</div> 
+            </div>
 
-            {stop>3  &&
-                    <div 
-                    className={extraCardStop} 
-                    draggable={true} 
-                    // onDragStart={(e: React.DragEvent<HTMLDivElement>)=>dragStartHandler(e,returnTrip. stops[4])}
-                    // onDragLeave={(e: React.DragEvent<HTMLDivElement>)=>dragLeaveHandler(e)}
-                    // onDragEnd={(e: React.DragEvent<HTMLDivElement>)=>dragEndHandler(e)}
-                    // onDragOver={(e: React.DragEvent<HTMLDivElement>)=>dragOverHandler(e)}
-                    // onDrop={(e: React.DragEvent<HTMLDivElement>)=>dragDropHandler(e, returnTrip. stops[4])}
-                >
+            
+            <div className={(stop > 2) ?  extraCardStop: 'hidden'}>
+                {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full '
@@ -388,22 +357,24 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                         setStopTrigger(false)
                         setStops({...returnTrip.stops, 4: e})
                     }}
-                    placeholder='Stop'
+                    placeholder='Fourth Stop'
                 />
             <div 
-                className={closeStop} 
+                className={(stop === 3) ? openStop :closeStop} 
                 onClick={()=>{ 
-                    setStops({...returnTrip.stops})
+                    if(stop===3) return setStop(4)
+                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 3)
+                        const data: IObj ={}
+                        array.map((item, index) => {
+                            const number  = index+1;
+                            data[number] = item;
+                        })
+                        setStopTrigger(false)
+                        setStops(data)
                         setStop(stop -1) 
                     }}
-                >-</div> 
-            </div>}
-
-            {(stop < 4) && <div className={addExtraBtn} onClick={()=>{
-                setStop(stop+1)
-            }}>
-                <span className={addCircle}>+</span>
-            </div>}
+                >{(stop === 3) ? '+' :'-'}</div> 
+            </div>
 
             <div className={locationCard}>
                 <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
@@ -510,8 +481,8 @@ export default ReturnTrip;
 const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
 const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
 const activeTab = 'px-4 py-2 cursor-pointer  border-white'
-const tabsContainer = 'flex flex-col mr-2 font-bold h-full mb-0 rounded overflow-hidden'
-const content = 'flex flex-col w-full  space-y-3 py-10'
+const tabsContainer = 'hidden sm:flex flex-col mr-2 font-bold h-full mb-0  overflow-hidden'
+const content = 'flex flex-col w-full  space-y-3 py-10 ml-10 sm:ml-0'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 const revert = 'px-4 py-1 bg-orange-400 text-white rounded hover:bg-orange-300 active:bg-orange-500 '
@@ -524,12 +495,11 @@ const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4
 const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 
 const btns = 'flex items-center  w-full  space-x-4 pt-4'
-const addCircle = " w-5 h-5 flex justify-center bg-green-400 ml-2 -translate-y-1 rounded border border-black cursor-pointer font-bold text-black "
 const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
-const addExtraBtn = 'flex text-xs self-start ml-10 cursor-pointer ml-1 mt-1 text-gray-400 hover:text-black duration-500 w-[100px]'
+const openStop ="absolute w-5 h-5 -right-6 bg-green-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
 
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
-const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
+const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
 
 const dateInput = 'text-xs flex border py-1 sm:h-[40px] relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full rounded'

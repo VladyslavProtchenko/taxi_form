@@ -36,7 +36,7 @@ export default function DatePicker({onChange, getFullDate}:IDate) {
             </div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <StaticDatePicker
-                    className='sm:w-[280px] mt-8'
+                    className='sm:w-[280px] mt-8 '
                     minDate={dayjs()}
                     
                     onChange={handleDate}
