@@ -244,7 +244,7 @@ const Form = () => {
     return (
         <div  className={container}>
             {!validation.isSubmit &&
-            <div className="hidden w-full sm:flex-col sm:flex items-center sm:max-w-[576px] h-full">
+            <div className=" w-full flex-col flex items-center sm:max-w-[576px] h-full">
                 {store.steps === 1 && <InfoSection />}
                 {store.steps === 2 && <AddressSection />}
                 {store.steps === 3 && <OptionsSection />}
@@ -252,13 +252,13 @@ const Form = () => {
                 
                 <Steps/>
             </div>}
-            {!validation.isSubmit &&
+            {/* {!validation.isSubmit &&
             <div className="sm:hidden flex flex-col items-center">
                 <InfoSection />
                 <AddressSection />
                 <OptionsSection />
                 <PaymentSection sendOrder={sendOrder}/>
-            </div>}
+            </div>} */}
             {validation.isSubmit && <div className='flex justify-center'>
                 <Submit />
             </div>}

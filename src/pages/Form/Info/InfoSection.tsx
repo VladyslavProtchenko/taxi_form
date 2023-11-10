@@ -125,4 +125,4 @@ const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounde
 const extraCard = ' flex relative items-center max-w-[400px] w-full rounded'
 const extraContainer = 'flex flex-col sm:w-full items-start space-y-2 sm:items-center xl:max-w-[400px] xl:w-full lg:max-w-[400px] lg:w-full'
 
-const section = 'flex xl:flex-wrap lg:flex-wrap sm:flex-col sm:pt-20 sm:space-y-6 justify-between w-full px-8  pt-16 sm:max-w-[576px] sm:border-none max-w-[1240px] sm:py-8 sm:pl-0 sm:pr-6'
+const section = 'flex flex-col pt-20 sm:space-y-6 justify-between w-full px-8  pt-16 max-w-[576px] border-none max-w-[1240px] py-8 pl-0 pr-6'
