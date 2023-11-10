@@ -20,11 +20,13 @@ import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 import { BsTrainFrontFill } from "react-icons/bs";
 import { useInfo } from "../../../Store/useInfo";
+import Steps from "../Steps";
+import { useSteps } from "../../../Store/useSteps";
 interface IObj {[key:number]: string}
 
 
 const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, setDate,setTime,setDeparture,setDeparture2,setFlight,setFlight2, setAirlines, setAirlinesBack, resetReturn, mainUser }:IStore & { mainUser: IUser })  => {
-
+    const { store } = useSteps()
     const { user: userStore } = useStore()
     const {user:info, setIsCars} = useInfo()
 
@@ -106,7 +108,7 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
     }
     return (
     <div className={container}>
-        <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1>
+        {/* <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1> */}
         <ul className={tabsContainer}>
             <li 
                 className={defaultTab}
@@ -136,7 +138,7 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
         </ul>
 
         <div className={content}>
-            <div className={date+ ' xl:pt-8 lg:pt-8 sm:pt-[46px]'}>
+            <div className={date+ ' pt-[46px]'}>
                 <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {returnTrip.date ? 
@@ -468,6 +470,7 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 <button className={reset} onClick={resetCard}>Reset</button>
                 <button className={revert} onClick={setBackSection}>Return</button>
             </div>
+            {store.steps=== 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>
         {!returnTrip.isReturnTrip && <div className='absolute -top-2 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
     </div>
@@ -510,5 +513,6 @@ const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] 2xl:w-[90%] xl:w-[90%] lg:w-[90%]  2xl:max-w-[350px] xl:max-w-[350px] lg:max-w-[350px] sm:max-w-[230px] self-end rounded'
 
-const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
-const container = 'flex relative border pr-4  w-full rounded relative  sm:rounded-b sm:border-t-0 shadow-xl'
+const container = 'flex relative  pr-4  w-full rounded relative rounded border shadow-xl border-t-0'
+
+// const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'

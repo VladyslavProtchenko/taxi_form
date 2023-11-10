@@ -66,5 +66,5 @@ const bagCount ='flex space-x-2 ml-auto items-center'
 const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
 
 const card = 'relative flex px-4 py-2 cursor-pointer w-full border'
-const container = 'flex w-full flex-col items-center p-2 pb-2 2xl:pr-0 xl:pl-0'
+const container = 'flex w-full flex-col items-center p-2 pb-2'
 

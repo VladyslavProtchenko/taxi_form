@@ -174,4 +174,4 @@ const qntKids = 'flex h-5 w-5 items-center justify-center cursor-pointer font-bo
 
 const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[130%]'
 const subItem = 'relative flex px-4 py-2 justify-between cursor-pointer border'
-const content = 'flex flex-col pb-2 bg-white p-2 2xl:pl-0 xl:pl-0 relative text-sm w-full'
+const content = 'flex flex-col pb-2 bg-white p-2  relative text-sm w-full'

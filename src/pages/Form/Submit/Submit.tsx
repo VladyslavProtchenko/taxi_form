@@ -13,6 +13,7 @@ import { PiCreditCard, PiSuitcaseRolling } from "react-icons/pi";
 import { MdOutlineStroller, MdPets } from "react-icons/md";
 import { GiPalmTree } from "react-icons/gi";
 
+
 const Submit = () => {
     const { user  } = useInfo()
     const { user:location } = useLocation()
@@ -20,10 +21,11 @@ const Submit = () => {
     const { options } = useOptions()
 
 
+
     return (
         <section className={section}>
-            <div className='flex w-full sm:flex-col sm:space-y-2'>
-                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2  2xl:w-1/2 lg:w-1/2 ' }>
+            <div className='flex w-full flex-col space-y-2'>
+                <div className={returnTrip.isReturnTrip ? InfoCard : InfoCard }>
                     <FiEdit className={edit}/>
                     <div className={header}>
                         Personal info
@@ -87,7 +89,7 @@ const Submit = () => {
                     </div>
                 </div>
 
-                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2 2xl:w-1/2 lg:w-1/2 ' }>
+                <div className={returnTrip.isReturnTrip ? InfoCard : InfoCard  }>
                     <FiEdit className={edit}/>
                     <div className={header}>Trip info</div>
                     <div className={infoContent}>
@@ -111,12 +113,12 @@ const Submit = () => {
                             </div>}
                         </div>
 
-                        {location.icon && location.flight &&
+                        {location.icon>0 && location.flight &&
                         <div className={contentItem}>
                             {location.departure && <div className={airportsItem}>
                                 {location.departure}
                             </div>}
-                            {location.airline&&  location.icon == 1  &&  <div className={airportsItem}>
+                            {location.airline &&  location.icon == 1  &&  <div className={airportsItem}>
                                 {location.airline}
                             </div>}
                             {location.icon && location.flight && 
@@ -165,7 +167,7 @@ const Submit = () => {
                             </div>}
                         </div>
 
-                        {location.icon2 && location.flight2 && 
+                        {location.icon2>0 && location.flight2 && 
                         <div className={contentItem}>
                             {location.departure2 && <div className={airportsItem}>
                                 {location.departure2}
@@ -175,7 +177,7 @@ const Submit = () => {
                                 {location.airlineBack}
                             </div>}
 
-                            {location.icon2 && location.flight2 && 
+                            {location.icon2>0 && location.flight2 && 
                             <div className={airportsItem}>
                                 {location.icon2 == 1 
                                     ? 'Flight#'+ location.flight2
@@ -194,7 +196,7 @@ const Submit = () => {
                     </div>             
                 </div>
 
-                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': ' hidden'}>
+                <div className={returnTrip.isReturnTrip ? InfoCard : ' hidden'}>
                     {returnTrip.isReturnTrip &&<FiEdit className={edit}/>}
                     {returnTrip.isReturnTrip &&<>
                     <div className={header}> RETURN TRIP </div>
@@ -218,7 +220,7 @@ const Submit = () => {
                         </div>
                         
 
-                        {returnTrip.icon && returnTrip.flight && <div className={contentItem}>
+                        {returnTrip.icon>0 && returnTrip.flight && <div className={contentItem}>
                             {returnTrip.departure && <div className={airportsItem}>
                                 {returnTrip.departure}
                             </div>}
@@ -228,7 +230,7 @@ const Submit = () => {
                                 {returnTrip.airline}
                             </div>}
 
-                            {returnTrip.icon && returnTrip.flight && 
+                            {returnTrip.icon>0 && returnTrip.flight && 
                             <div className={airportsItem }>
                                 {returnTrip.icon == 1 
                                     ? 'Flight#'+ returnTrip.flight
@@ -274,7 +276,7 @@ const Submit = () => {
                                 {returnTrip.to ? returnTrip.to : location.from}
                             </div>}
                         </div>    
-                        {returnTrip.icon2 && returnTrip.flight2 && <div className={contentItem}>
+                        {returnTrip.icon2>0 && returnTrip.flight2 && <div className={contentItem}>
                             {returnTrip.departure2 && <div className={airportsItem}>
                                 {returnTrip.departure2}
                             </div>}
@@ -284,7 +286,7 @@ const Submit = () => {
                                 {returnTrip.airlineBack}
                             </div>}
 
-                            {returnTrip.icon2 && returnTrip.flight2 && 
+                            {returnTrip.icon2>0 && returnTrip.flight2 && 
                             <div className={airportsItem}>
                                 {returnTrip.icon2 == 1 
                                     ? 'Flight#'+ returnTrip.flight2
@@ -305,8 +307,8 @@ const Submit = () => {
                 </div> 
             </div>
             
-            <div className="flex w-full sm:flex-col">
-                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2 2xl:w-1/2 lg:w-1/2 ' }>
+            <div className="flex w-full flex-col">
+                <div className={returnTrip.isReturnTrip ? InfoCard: InfoCard  }>
                     <FiEdit className={edit}/>
                     <div className={header}> Options </div>
 
@@ -353,7 +355,7 @@ const Submit = () => {
                     </div>
                 </div>
 
-                <div className={returnTrip.isReturnTrip ? InfoCard + ' 2xl:w-1/3  xl:w-1/3 lg:w-1/3 ': InfoCard + ' xl:w-1/2 2xl:w-1/2 lg:w-1/2 ' }>
+                <div className={returnTrip.isReturnTrip ? InfoCard: InfoCard }>
                     <FiEdit className={edit}/>
                     <div className={header}> Payments </div>
 
@@ -386,6 +388,7 @@ const Submit = () => {
 
 export default Submit;
 
+
 const timeItem = ' mr-4'
 
 const airportsItem = 'shadow px-2 py-1 flex '
@@ -404,5 +407,5 @@ const infoContent = ' flex flex-col w-full space-y-2 text-sm'
 const InfoCard = 'flex w-full  py-4 pt-8 px-2  relative text-sm'
 
 const kidsIcon ='w-4 mr-2 h-[16px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[140%]'
-const section = 'flex w-full space-y-4 py-8 flex-col sm:max-w-[576px] sm:border-none max-w-[1240px] flex-wrap sm:py-8 sm:px-1 lg:items-start mb-20'
+const section = 'flex w-full space-y-4  flex-col max-w-[576px] border-none  flex-wrap py-8 px-1 mb-20'
 

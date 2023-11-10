@@ -24,8 +24,8 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
     ]
     const { user } = useLocation()
     
-    let hoursNow = dayjs().format('HH')
-    let minutesNow = dayjs().format('mm')
+    const hoursNow = dayjs().format('HH')
+    const minutesNow = dayjs().format('mm')
 
     const ref = useOnclickOutside(() => setIsOpen(false));
 

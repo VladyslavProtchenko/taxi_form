@@ -20,6 +20,8 @@ import { useInfo } from "../../../Store/useInfo";
 import { useReturnLocation } from "../../../Store/useReturnLocation";
 import { useOptions } from "../../../Store/useOptions";
 import { useStore } from '../../../Store/index';
+import Steps from "../Steps";
+import { useSteps } from "../../../Store/useSteps";
 
 interface IObj {[key:number]: string}
 const TripContent = ({ 
@@ -43,6 +45,8 @@ const TripContent = ({
     const {user:info, resetData, setResetPhone, setIsCars} = useInfo()
 
     const { user: store} = useStore()
+    const { store:steps } = useSteps()
+
     const { resetReturn } = useReturnLocation()
     const { resetOptions } = useOptions()
     const { validation} = useValidation()
@@ -135,8 +139,7 @@ const TripContent = ({
 
     return (
     <div className={container}>
-        <h1 className={label}>One-Way</h1>
-
+        {/* <h1 className={label}>One-Way</h1> */}
         <ul className={tabsContainer}>
             <li 
                 className={defaultTab}
@@ -503,6 +506,7 @@ const TripContent = ({
             <div className={type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>Reset</button>
             </div>
+            {steps.steps === 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>
     </div>
     );
@@ -517,7 +521,7 @@ const tabsContainer = 'flex flex-col mr-2 font-bold h-full mb-0 rounded overflow
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
-const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer xl:mb-2 lg:mb-2 sm:mb-2' 
+const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2' 
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold w-[42px] py-1'
 const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-400'
 
@@ -539,13 +543,14 @@ const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 
 const dateRow = 'flex relative sm:items-start items-start w-full   justify-between'
 
 
-const dateInput = 'text-xs flex border sm:h-[40px] relative w-[200px] sm:max-w-[200px] sm:w-full rounded'
+const dateInput = 'text-xs flex border h-[40px] relative w-[200px] max-w-[200px] w-full rounded'
 
-const date = 'flex mt-3 sm:mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap sm:flex-wrap'
+const date = 'flex mt-3 mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
 const extraCardStop = 'flex relative mr-6  items-center border w-[90%] 2xl:w-[90%] xl:w-[90%] lg:w-[90%]  2xl:max-w-[350px] xl:max-w-[350px] lg:max-w-[350px] sm:max-w-[230px] self-end rounded'
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
-const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
-const container = 'flex relative border pr-4  w-full rounded relative  sm:rounded-b sm:border-t-0 shadow-xl'
+const container = 'flex relative  pr-4  w-full rounded relative  rounded-b  border shadow-xl border-t-0'
+
+// const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'

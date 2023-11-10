@@ -250,7 +250,7 @@ const Form = () => {
                 {store.steps === 3 && <OptionsSection />}
                 {store.steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
                 
-                <Steps/>
+                {store.steps !== 2 && <Steps/>}
             </div>}
             {/* {!validation.isSubmit &&
             <div className="sm:hidden flex flex-col items-center">
@@ -259,8 +259,9 @@ const Form = () => {
                 <OptionsSection />
                 <PaymentSection sendOrder={sendOrder}/>
             </div>} */}
-            {validation.isSubmit && <div className='flex justify-center'>
+            {validation.isSubmit && <div className='flex flex-col items-center justify-center'>
                 <Submit />
+                <Steps/>
             </div>}
             
 

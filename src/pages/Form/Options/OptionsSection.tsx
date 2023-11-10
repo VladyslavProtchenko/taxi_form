@@ -53,11 +53,11 @@ const OptionsSection = () => {
 export default OptionsSection;
 
 
-const typeItem = 'flex items-center px-3 py-1 cursor-pointer text-sm sm:text-[10px] sm:px-0 w-1/4'
-const content = 'flex flex-wrap w-full h-min  lg:flex-col lg:items-center '
+const typeItem = 'flex items-center px-3 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/4'
+const content = 'flex flex-wrap w-full h-min '
 
-const item = 'flex  relative 2xl:w-1/3 sm:w-full sm:border-b  sm:w-full md:w-1/2 sm:pb-2 md:w-full lg:w-4/5 xl:w-1/2' 
-const passengersItem = ' 2xl:w-1/3  flex relative sm:w-full lg:w-4/5 xl:w-1/2' 
-const type = 'flex lg:self-center sm:self-center border rounded self-start divide-x overflow-hidden sm:w-full mb-4'
+const item = 'flex  relative  w-full border-b  pb-2  l' 
+const passengersItem = '  flex relative w-full ' 
+const type = 'flex  self-center border rounded s divide-x overflow-hidden w-full mb-4'
 
-const section = 'flex w-full flex-col p-8  sm:flex-col sm:max-w-[576px]  max-w-[1240px] sm:py-8 sm:px-1 lg:items-start '
+const section = 'flex w-full flex-col p-8  flex-col max-w-[576px]   py-8 px-1  '
