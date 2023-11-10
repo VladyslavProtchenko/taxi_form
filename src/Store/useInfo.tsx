@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface IUser {
     genderList: string[];
@@ -65,93 +64,89 @@ interface IStore {
 }
 
 export const useInfo = create<IStore>()(
-    persist(
-        (set) => ({
-            user: {
-                // genderList: ['Monsieur', 'Madame','Mademoiselle' ,'Non défini',]
-                genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
-                isCars: {
-                    1: true,
-                    2: false,
-                    3: false,
-                    4: false,
-                    5: false,
-                },
-
-                gender: '',
-                extraGender1: '',
-                extraGender2: '',
-
-                name: '',
-                extraName1: '',
-                extraName2: '',
-
-                email: '@',
-                extraEmail1: '@',
-                extraEmail2: '@',
-
-                phone: '',
-                extraPhone1: '',
-                extraPhone2: '',
-
-                paymentMethod: 'Cash',
-                additionalText: '',
-
-                resetPhone: false,
+    
+    (set) => ({
+        user: {
+            // genderList: ['Monsieur', 'Madame','Mademoiselle' ,'Non défini',]
+            genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
+            isCars: {
+                1: true,
+                2: false,
+                3: false,
+                4: false,
+                5: false,
             },
 
-            setGender: (data) => set((state) => ({ user: { ...state.user, gender: data } })),
-            setIsCars: (data) => set((state) => ({ user: { ...state.user, isCars: data } })),
-            setExtraGender1: (data) => set((state) => ({ user: { ...state.user, extraGender1: data } })),
-            setExtraGender2: (data) => set((state) => ({ user: { ...state.user, extraGender2: data } })),
+            gender: '',
+            extraGender1: '',
+            extraGender2: '',
 
-            setName: (name) => set((state) => ({ user: { ...state.user, name } })),
-            setExtraName1: (name) => set((state) => ({ user: { ...state.user, extraName1: name } })),
-            setExtraName2: (name) => set((state) => ({ user: { ...state.user, extraName2: name } })),
+            name: '',
+            extraName1: '',
+            extraName2: '',
 
-            setEmail: (email) => set((state) => ({ user: { ...state.user, email } })),
-            setExtraEmail1: (email) => set((state) => ({ user: { ...state.user, extraEmail1: email } })),
-            setExtraEmail2: (email) => set((state) => ({ user: { ...state.user, extraEmail2: email } })),
+            email: '@',
+            extraEmail1: '@',
+            extraEmail2: '@',
 
-            setPhone: (phone) => set((state) => ({ user: { ...state.user, phone } })),
-            setExtraPhone1: (phone) => set((state) => ({ user: { ...state.user, extraPhone1: phone } })),
-            setExtraPhone2: (phone) => set((state) => ({ user: { ...state.user, extraPhone2: phone } })),
+            phone: '',
+            extraPhone1: '',
+            extraPhone2: '',
 
-            setPaymentMethod: (method) => set((state) => ({ user: { ...state.user, paymentMethod: method } })),
-            setAdditionalText: (text) => set((state) => ({ user: { ...state.user, additionalText: text } })),
-            resetData: () => set(() => ({ user: { 
-                genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
-                isCars: {
-                    1: true,
-                    2: false,
-                    3: false,
-                    4: false,
-                    5: false,
-                },
-                gender: '',
-                extraGender1: '',
-                extraGender2: '',
+            paymentMethod: 'Cash',
+            additionalText: '',
 
-                name: '',
-                extraName1: '',
-                extraName2: '',
+            resetPhone: false,
+        },
 
-                email: '@',
-                extraEmail1: '@',
-                extraEmail2: '@',
+        setGender: (data) => set((state) => ({ user: { ...state.user, gender: data } })),
+        setIsCars: (data) => set((state) => ({ user: { ...state.user, isCars: data } })),
+        setExtraGender1: (data) => set((state) => ({ user: { ...state.user, extraGender1: data } })),
+        setExtraGender2: (data) => set((state) => ({ user: { ...state.user, extraGender2: data } })),
 
-                phone: '',
-                extraPhone1: '',
-                extraPhone2: '',
+        setName: (name) => set((state) => ({ user: { ...state.user, name } })),
+        setExtraName1: (name) => set((state) => ({ user: { ...state.user, extraName1: name } })),
+        setExtraName2: (name) => set((state) => ({ user: { ...state.user, extraName2: name } })),
 
-                paymentMethod: 'Cash',
-                additionalText: '',
-                resetPhone: false,
-            } })),
-            setResetPhone: (data) => set((state) => ({ user: { ...state.user, resetPhone: data  } })),
-        }),
-        {
-            name: 'info'
-        }
-    )
+        setEmail: (email) => set((state) => ({ user: { ...state.user, email } })),
+        setExtraEmail1: (email) => set((state) => ({ user: { ...state.user, extraEmail1: email } })),
+        setExtraEmail2: (email) => set((state) => ({ user: { ...state.user, extraEmail2: email } })),
+
+        setPhone: (phone) => set((state) => ({ user: { ...state.user, phone } })),
+        setExtraPhone1: (phone) => set((state) => ({ user: { ...state.user, extraPhone1: phone } })),
+        setExtraPhone2: (phone) => set((state) => ({ user: { ...state.user, extraPhone2: phone } })),
+
+        setPaymentMethod: (method) => set((state) => ({ user: { ...state.user, paymentMethod: method } })),
+        setAdditionalText: (text) => set((state) => ({ user: { ...state.user, additionalText: text } })),
+        resetData: () => set(() => ({ user: { 
+            genderList: ['Mr.', 'Msr.', 'Miss.', 'undefined' ],
+            isCars: {
+                1: true,
+                2: false,
+                3: false,
+                4: false,
+                5: false,
+            },
+            gender: '',
+            extraGender1: '',
+            extraGender2: '',
+
+            name: '',
+            extraName1: '',
+            extraName2: '',
+
+            email: '@',
+            extraEmail1: '@',
+            extraEmail2: '@',
+
+            phone: '',
+            extraPhone1: '',
+            extraPhone2: '',
+
+            paymentMethod: 'Cash',
+            additionalText: '',
+            resetPhone: false,
+        } })),
+        setResetPhone: (data) => set((state) => ({ user: { ...state.user, resetPhone: data  } })),
+    })
 );
