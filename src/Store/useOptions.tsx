@@ -139,7 +139,7 @@ export const useOptions = create<Store>((set) => ({
                 cage: false,
                 isActive: false
             },
-        ]
+        ],
     },
     setCarType: (data) => set((state) => ({ options: {...state.options, carType: data } })),
     setPassengers: (data) => set((state) => ({ options: {...state.options, passengers: data } })),

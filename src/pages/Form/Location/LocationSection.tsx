@@ -1,33 +1,28 @@
 
-import { useInfo } from "../../../Store/useInfo";
-import Car1 from "./Car1";
-import Car2 from "./Car2";
-import Car3 from "./Car3";
-import Car4 from "./Car4";
-import Car5 from "./Car5";
+import { useMain } from "../../../Store/useMain";
+import ReturnTrip from "./ReturnTrip";
+import TripContent from "./TripContent";
+
 
 
 const LocationSection = () => {
-    const {user} = useInfo()
-
+    const { list, activeCarId, setIsReturnTrip} = useMain()
     
     return (
         <section className={section}>
 
-            <div className={(user.isCars[1] && !user.isCars[2] && !user.isCars[3] && !user.isCars[4]) ? '' : ' hidden' }>
-                <Car1/>
+        <div className='absolute left-12 top-11 text-sm text-gray-300'>Taxi First</div>
+            <div className={carContainer}>
+                <div className={ list[activeCarId-1].isReturnTrip ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} onClick={()=>setIsReturnTrip(false)}>One-Way</div>
+                <div className={!list[activeCarId-1].isReturnTrip ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} onClick={()=>setIsReturnTrip(true)}>Return</div>
             </div>
-            <div className={user.isCars[2]===true ? '' : ' hidden' }>
-                <Car2/>
-            </div>
-            <div className={user.isCars[3]===true  ? '' : ' hidden' }>
-                <Car3/>
-            </div>
-            <div className={user.isCars[4]===true ? '' : ' hidden' }>
-                <Car4/>
-            </div>
-            <div className={user.isCars[5]===true ? '' : ' hidden' }>
-                <Car5/>
+            <div className='flex'>
+                <div className={!list[activeCarId-1].isReturnTrip ? 'flex w-full  flex-coll ' : 'hidden w-full '} >
+                <TripContent />
+                </div>
+                <div className={list[activeCarId-1].isReturnTrip ? 'flex w-full flex-col' : 'hidden w-full '} >
+                <ReturnTrip />
+                </div>
             </div>
         </section>
     );
@@ -37,6 +32,8 @@ export default LocationSection;
 // const addCar = 'flex  py-1 font-bold text-gray-200 hover:text-gray-400 cursor-pointer'
 // const removeCar = ' px-2 no-underline'
 
-
+const carCard = 'flex w-1/2 text-gray-600 cursor-pointer justify-center  rounded-t-xl border bg-gray-200 opacity-50 py-2 '
+const carCardActive = 'flex w-1/2 text-black cursor-pointer justify-center rounded-t-xl border py-2'
+const carContainer = 'flex w-full  border-t-0  rounded-t-lg mt-10 ' 
 
 const section = 'flex flex-col w-full justify-between py-8 px-1 max-w-[576px] flex-col '

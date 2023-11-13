@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { Input, Select } from "antd";
+import { Input, Select, Tabs } from "antd";
 
 import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
@@ -22,29 +22,31 @@ import { useOptions } from "../../../Store/useOptions";
 import { useStore } from '../../../Store/index';
 import Steps from "../Steps";
 import { useSteps } from "../../../Store/useSteps";
+import { useMain } from "../../../Store/useMain";
 
 interface IObj {[key:number]: string}
-const TripContent = ({ 
-    user, 
-    setFrom, 
-    setTo, 
-    setStops,
-    setDate,
-    setTime,
-    setDeparture,
-    setDeparture2,
-    setFlight,
-    setFlight2,
-    setAirline,
-    setIcon,
-    setIcon2,
-    setAirlineBack,
-    resetLocation,
-    setDateNow,
-}:IStore) => {
+const TripContent = () => {
     const {user:info, resetData, setResetPhone, setIsCars} = useInfo()
-
-    const { user: store} = useStore()
+    const {  
+        activeCarId,
+        list,
+        setFrom, 
+        setTo, 
+        setStops,
+        setDate,
+        setTime,
+        setDeparture,
+        setDeparture2,
+        setFlight,
+        setFlight2,
+        setAirlines,
+        setIcon,
+        setIcon2,
+        setAirlinesBack,
+        resetLocation,
+        setDateNow
+    } = useMain()
+    const { store } = useStore()
     const { store:steps } = useSteps()
 
     const { resetReturn } = useReturnLocation()
@@ -96,92 +98,83 @@ const TripContent = ({
         setIcon2(0)
         //we try to find word airport|bus|room|train and set Icon
         store.airportArray.map(item =>{
-            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
         })
         store.busArray.map(item =>{
-            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
 
         })
         store.trainArray.map(item =>{
-            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
         })
         store.boatArray.map(item =>{
-            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
         })
         store.hotelArray.map(item =>{
-            if(user.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
         })
         store.airportArray.map(item =>{
-            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
         })
         store.busArray.map(item =>{
-            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
 
         })
         store.trainArray.map(item =>{
-            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
         })
         store.boatArray.map(item =>{
-            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
         })
         store.hotelArray.map(item =>{
-            if(user.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
         })
 
-    },[user.from, user.to])
+    },[list[activeCarId-1].from, list[activeCarId-1].to])
 
     useEffect(()=>{
         setStops(localStops)
     },[localStops])
 
-
+    const onChange = (key: string) => {
+        console.log(key);
+    };
 
 
     return (
     <div className={container}>
         {/* <h1 className={label}>One-Way</h1> */}
-        <ul className={tabsContainer}>
-            <li 
-                className={defaultTab}
-                onClick={()=>{
-                    setIsCars({1:true, 2:false, 3:false, 4:false, 5:false})
-                }}
-            >1</li>
-            <li 
-                className={info.isCars[2] ? activeTab + ' border-t' : info.isCars[3] ? tab + ' border-b border-t rounded-tr rounded-br ' : info.isCars[1] ? tab + ' rounded-tr border-t' : tab + ' border-y-gray-100'}
-                onClick={()=>{
-                    setIsCars({1:true, 2:true, 3:false, 4:false, 5:false})
-                }}
-            >2</li>
-            <li 
-                className={info.isCars[3] ? activeTab + '' : info.isCars[4] ? tab + ' border-b rounded-br pt-[9px]' : info.isCars[2] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
-                onClick={()=>{
-                    setIsCars({1:true, 2:false, 3:true, 4:false, 5:false})
-                }}
-            >3</li>
-            <li 
-                className={info.isCars[4] ? activeTab : info.isCars[3] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
-                onClick={()=>{
-                    setIsCars({1:true, 2:false, 3:false, 4:true, 5:false})
-                }}
-            >4</li>
-            <li className={info.isCars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t rounded' : ' rounded h-full border-r bg-gray-100'}></li>
-        </ul>
+
+{/* 
+        <div className={tabsContainer}>
+        <Tabs
+            tabPosition='left'
+            onChange={onChange}
+            type="card"
+            items={new Array(5).fill(null).map((_, i) => {
+            const id = String(i + 1);
+            return {
+                label: `${id}`,
+                key: id,
+            };
+            })}
+        />
+        </div> */}
 
         <div className={content}>
 
             <div className={date}>
-                <div className={!user.dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
-                            setDateNow(!user.dateNow)
+                <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
+                            setDateNow(!list[activeCarId-1].dateNow)
                         }}>
-                    <span className={!user.dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
+                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
                     </span>
-                    <span className={user.dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>Later</span>
+                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>Later</span>
                     
                 </div>
                 <div className={dateRow}>
                     
-                    {user.dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
+                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
                     <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         <div className='flex items-center'>
@@ -197,7 +190,7 @@ const TripContent = ({
                                                 }
                         {' '+fullDate.format('YYYY')}</div>
                         {isDateOpen && <div className={dateTimeSubmenu}>
-                            <DatePicker time={user.time} onChange={setDate} getFullDate={setFullDate}/>
+                            <DatePicker time={list[activeCarId-1].time} onChange={setDate} getFullDate={setFullDate}/>
                             <div className="flex justify-between pl-8">
                                 <div className={setDateBtn} onClick={(e)=> {
                                         e.stopPropagation();
@@ -206,71 +199,71 @@ const TripContent = ({
                             </div>
                         </div>}
                     </div>
-                    <TimePicker time={user.dateNow ? dayjs().add(30,'minutes').format('HH:mm'): user.time}  onChange={setTime} date={user.date}/> 
+                    <TimePicker time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
                 </div>
             </div>
 
             <div className={type}>
                 
                 <div className={icons}>
-                    <span className={user.icon == 1 ? iconCard : iconCardActive}>
+                    <span className={list[activeCarId-1].icon == 1 ? iconCard : iconCardActive}>
                         <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' }/>
                     </span>
-                    <span className={user.icon == 2 ? iconCard : iconCardActive}>
+                    <span className={list[activeCarId-1].icon == 2 ? iconCard : iconCardActive}>
                         <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
                     </span>
-                    <span className={user.icon == 3 ? iconCard: iconCardActive}>
+                    <span className={list[activeCarId-1].icon == 3 ? iconCard: iconCardActive}>
                         <FaBus className={ iconItem+ ' text-yellow-300 '}/>
                     </span>
-                    <span className={user.icon == 4 ? iconCard : iconCardActive}>
+                    <span className={list[activeCarId-1].icon == 4 ? iconCard : iconCardActive}>
                         <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
                     </span>
-                    <span className={user.icon == 5 ?iconCard : iconCardActive}>
+                    <span className={list[activeCarId-1].icon == 5 ?iconCard : iconCardActive}>
                         <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                     </span>
                 </div>
 
-                {user.icon>0 && <div className={flightCard }>
+                {list[activeCarId-1].icon>0 && <div className={flightCard }>
                     
-                    {user.icon === 1 && 
+                    {list[activeCarId-1].icon === 1 && 
                     <Select 
                         className='favorite w-1/2 max-h-[30px]'
                         style={{width: '100px', borderRadius: 5}} 
-                        options={user.flights.map(item=>(
+                        options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
-                        onChange={setAirline} 
+                        onChange={setAirlines} 
                         placeholder='Airlines'
                     />}
                     
-                    {user.icon === 1
+                    {list[activeCarId-1].icon === 1
                         ?<MdFlightLand className='text-xl mx-1 e'/>
-                        :user.icon === 2
+                        :list[activeCarId-1].icon === 2
                         ?< BsTrainFrontFill className=' mx-1 '/>
-                        :user.icon === 3
+                        :list[activeCarId-1].icon === 3
                         ? <FaBus className=' mx-1 sm:text-sm'/>
-                        :user.icon === 4
+                        :list[activeCarId-1].icon === 4
                         ? <FaSailboat className=' mx-1'/>
-                        :user.icon === 5 
+                        :list[activeCarId-1].icon === 5 
                         ?<MdLocalHotel className='mx-1 '/>
                         :<MdFlightTakeoff className='text-xl mx-1 '/>
                     }   
-                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {user.airline.toLowerCase().includes('canada') 
+                    {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                        {list[activeCarId-1].airlines.toLowerCase().includes('canada') 
                             ? 'AC'
-                            : user.airline.toLowerCase().includes('transat') 
+                            : list[activeCarId-1].airlines.toLowerCase().includes('transat') 
                             ? 'TS'
-                            : user.airline.toLowerCase().includes('quatar') 
+                            : list[activeCarId-1].airlines.toLowerCase().includes('quatar') 
                             ? 'QR'
                             : ''
                         }
                     </div>}
                     <Input
-                        value={user.flight}
+                        value={list[activeCarId-1].flight}
                         maxLength={4}
-                        placeholder={user.icon === 1 ?'####': user.icon === 2 ? 'Train#' : user.icon === 3 ? "Bus#" : user.icon === 4 ? 'Boat#': 'Room#'} 
-                        className={user.icon === 1 ? ' max-w-[80px]': '' } 
-                        style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                        placeholder={list[activeCarId-1].icon === 1 ?'####': list[activeCarId-1].icon === 2 ? 'Train#' : list[activeCarId-1].icon === 3 ? "Bus#" : list[activeCarId-1].icon === 4 ? 'Boat#': 'Room#'} 
+                        className={list[activeCarId-1].icon === 1 ? ' max-w-[80px]': '' } 
+                        style={{ width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
                     />
                 </div>}
@@ -281,17 +274,17 @@ const TripContent = ({
                     <span className='icon text-green-500'><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full' 
-                        defaultLocation={user.from || ''} 
+                        defaultLocation={list[activeCarId-1].from || ''} 
                         onChange={setFrom}
                         placeholder='Pick up location'
                     />
                 </div>
-                {user.icon === 1 && 
+                {list[activeCarId-1].icon === 1 && 
                 <div className="border flex items-center w-1/3 rounded">
                     <Select 
                         className='favorite truncate'
                         style={{borderRadius: 5}} 
-                        options={user.departureSections.map(item=>(
+                        options={store.departureSections.map(item=>(
                             {value: item, label: item}
                         ))}   
                         onChange={setDeparture} 
@@ -315,7 +308,7 @@ const TripContent = ({
                     className={(stop === 0) ? openStop :closeStop} 
                     onClick={()=>{ 
                         if(stop===0) return setStop(1);
-                        const array = Object.values(user.stops).filter((_, index) => index !== 0)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 0)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -344,7 +337,7 @@ const TripContent = ({
                     className={(stop === 1) ? openStop :closeStop} 
                     onClick={()=>{ 
                         if(stop===1) return setStop(2);
-                        const array = Object.values(user.stops).filter((_, index) => index !== 1)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 1)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -372,7 +365,7 @@ const TripContent = ({
                     className={(stop === 2) ? openStop :closeStop} 
                     onClick={()=>{ 
                         if(stop===2) return setStop(3);
-                        const array = Object.values(user.stops).filter((_, index) => index !== 2)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -401,7 +394,7 @@ const TripContent = ({
                     className={(stop === 3) ? openStop :closeStop} 
                     onClick={()=>{ 
                         if(stop===3) return setStop(4);
-                        const array = Object.values(user.stops).filter((_, index) => index !== 3)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 3)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -419,17 +412,17 @@ const TripContent = ({
                     <span className='icon text-red-500'><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full' 
-                        defaultLocation={user.to || ''} 
+                        defaultLocation={list[activeCarId-1].to || ''} 
                         onChange={setTo}
                         placeholder='Drop off location'
                     />
                 </div>
-                {user.icon2 ===1 && 
+                {list[activeCarId-1].icon2 ===1 && 
                 <div className="border flex items-center w-1/3 rounded ">
                 <Select 
                     style={{borderRadius: 5}}
                     className='favorite truncate '
-                    options={user.departureSections.map(item=>(
+                    options={store.departureSections.map(item=>(
                         {value: item, label: item}
                     ))}   
                     onChange={setDeparture2} 
@@ -441,63 +434,63 @@ const TripContent = ({
             <div className={type}>
                 
                 <div className={icons}>           
-                    <span className={user.icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
+                    <span className={list[activeCarId-1].icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
                         <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl ' } />
                     </span>
-                    <span className={user.icon2 == 2 ? iconCard : iconCardActive}>
+                    <span className={list[activeCarId-1].icon2 == 2 ? iconCard : iconCardActive}>
                         <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
                     </span>
-                    <span className={user.icon2 == 3 ?iconCard : iconCardActive}>
+                    <span className={list[activeCarId-1].icon2 == 3 ?iconCard : iconCardActive}>
                         <FaBus className={ iconItem+ ' text-yellow-200 '}/>
                     </span>
-                    <span className={user.icon2 == 4 ?iconCard : iconCardActive}>
+                    <span className={list[activeCarId-1].icon2 == 4 ?iconCard : iconCardActive}>
                         <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
                     </span>
-                    <span className={user.icon2 == 5 ?iconCard+ ' rounded-r' : iconCardActive }>
+                    <span className={list[activeCarId-1].icon2 == 5 ?iconCard+ ' rounded-r' : iconCardActive }>
                         <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                     </span>
                 </div>
 
-                {user.icon2>0 && <div className={flightCard }>
-                    {user.icon2 === 1 && 
+                {list[activeCarId-1].icon2>0 && <div className={flightCard }>
+                    {list[activeCarId-1].icon2 === 1 && 
                     <Select 
                         className='favorite w-1/2 max-h-[30px]'
                         style={{width: '100px', borderRadius: 5}} 
-                        options={user.flights.map(item=>(
+                        options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
-                        onChange={setAirlineBack} 
+                        onChange={setAirlinesBack} 
                         placeholder='Airlines' 
                     />}
                     
-                    {user.icon2 === 1
+                    {list[activeCarId-1].icon2 === 1
                         ?<MdFlightTakeoff className='text-xl mx-1'/>
-                        :user.icon2 === 2
+                        :list[activeCarId-1].icon2 === 2
                         ?<BsTrainFrontFill className=' mx-1'/>
-                        :user.icon2 === 3
+                        :list[activeCarId-1].icon2 === 3
                         ? <FaBus className=' mx-1'/>
-                        :user.icon2 === 4
+                        :list[activeCarId-1].icon2 === 4
                         ? <FaSailboat className=' mx-1'/>
-                        :user.icon2 === 5 
+                        :list[activeCarId-1].icon2 === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightLand className='text-xl mx-1'/>
                     }
-                    {user.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {user.airlineBack.toLowerCase().includes('canada') 
+                    {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                        {list[activeCarId-1].airlinesBack.toLowerCase().includes('canada') 
                             ? 'AC'
-                            : user.airlineBack.toLowerCase().includes('transat') 
+                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('transat') 
                             ? 'TS'
-                            : user.airlineBack.toLowerCase().includes('quatar') 
+                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('quatar') 
                             ? 'QR'
                             : ''
                         }
                     </div>}
                     <Input 
-                        value={user.flight2}
+                        value={list[activeCarId-1].flight2}
                         maxLength={4}
-                        placeholder={user.icon2 === 1 ?'####': user.icon2 === 2 ? 'Train#' : user.icon2 === 3 ? "Bus#" : user.icon2 === 4 ? 'Boat#': 'Room#'} 
-                        className={user.icon === 1 ? ' max-w-[80px]': '' } 
-                        style={{ width:`${user.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                        placeholder={list[activeCarId-1].icon2 === 1 ?'####': list[activeCarId-1].icon2 === 2 ? 'Train#' : list[activeCarId-1].icon2 === 3 ? "Bus#" : list[activeCarId-1].icon2 === 4 ? 'Boat#': 'Room#'} 
+                        className={list[activeCarId-1].icon === 1 ? ' max-w-[80px]': '' } 
+                        style={{ width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}
                     />
                 </div>}
@@ -506,7 +499,7 @@ const TripContent = ({
             <div className={type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>Reset</button>
             </div>
-            {steps.steps === 2 && <div className='w-full flex justify-center'><Steps /></div>}
+            {list[activeCarId-1].steps === 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>
     </div>
     );
@@ -514,10 +507,7 @@ const TripContent = ({
 
 export default TripContent;
 
-const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
-const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
-const activeTab = 'px-4 py-2 cursor-pointer  border-white'
-const tabsContainer = 'flex flex-col mr-2 font-bold h-full mb-0 rounded overflow-hidden'
+
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
@@ -548,9 +538,9 @@ const dateInput = 'text-xs flex border h-[40px] relative w-[200px] max-w-[200px]
 const date = 'flex mt-3 mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
-const extraCardStop = 'flex relative mr-6  items-center border w-[90%] 2xl:w-[90%] xl:w-[90%] lg:w-[90%]  2xl:max-w-[350px] xl:max-w-[350px] lg:max-w-[350px] sm:max-w-[230px] self-end rounded'
+const extraCardStop = 'flex relative mr-6  items-center border w-4/5 self-end  rounded'
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
-const container = 'flex relative  pr-4  w-full rounded relative  rounded-b  border shadow-xl border-t-0'
+const container = 'flex relative  px-4  w-full  relative  rounded-b  border shadow-xl border-t-0'
 
 // const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'

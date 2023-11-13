@@ -17,8 +17,6 @@ export interface IUser {
     icon2:number;
     flight: string;
     flight2: string;
-    bus: string;
-    train: string;
 
     airline: string;
     airlineBack: string;

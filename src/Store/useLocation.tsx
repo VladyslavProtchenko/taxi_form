@@ -10,10 +10,6 @@ export interface IUser {
     time:string;
     dateNow:boolean;
 
-    tripList:string[];
-    departureSections: string[];
-    flights: string[];
-
     from: string;
     to: string;
 
@@ -58,20 +54,15 @@ export interface IStore {
     setFlight: (value: string) => void;
     setFlight2: (value: string) => void;
 
-
     setTripType?:(trip:string) => void;
     setAirline:(value: string) => void;
     setAirlineBack:(value: string) => void;
-
 
     resetLocation: () => void;
 }
 export const useLocation = create<IStore>()(
             (set) => ({
             user: {
-                tripList:['Business (need receipt)', 'Vacation', 'Else'],
-                departureSections: ['Domestic', 'International', 'USA', 'Arrival'],
-                flights: ['Air Canada', 'Air Canada(to USA)', 'Air Transat','Air Transat (to USA)', 'Sunwing', 'Qatar', 'RAM', 'Another'],
 
                 dateNow: true,
 

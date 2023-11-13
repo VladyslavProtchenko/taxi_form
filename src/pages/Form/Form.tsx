@@ -12,8 +12,11 @@ import { useValidation } from '../../Store/useValidation';
 import { useEffect } from 'react';
 import Submit from './Submit/Submit';
 import dayjs from 'dayjs';
+import { useMain } from '../../Store/useMain';
 
 const Form = () => {
+    const { list, activeCarId } = useMain()
+
     const { store } = useSteps()
     const {user} = useInfo()
     const {user:trip} = useLocation()
@@ -46,15 +49,12 @@ const Form = () => {
         setIsEmail(false)
         setIsPayment(false)
 
-        if(user.gender) setIsTitle(true)
-        if(user.name.length > 3) setIsName(true) 
+        if(list[activeCarId-1].title) setIsTitle(true)
+        if(list[activeCarId-1].name.length > 3) setIsName(true) 
         const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if(pattern.test(user.email)) setIsEmail(true)
-        if(user.paymentMethod) setIsPayment(true)
+        if(pattern.test(list[activeCarId-1].email)) setIsEmail(true)
+        if(list[activeCarId-1].paymentMethod) setIsPayment(true)
 
-    },[user,options])
-
-    useEffect(()=>{
         setIsFrom(false)
         setIsTo(false)
         setIsDate(false)
@@ -64,17 +64,17 @@ const Form = () => {
         setIsDateBack(false)
         setIsTimeBack(false)
 
-        if(trip.from) setIsFrom(true)
-        if(trip.to) setIsTo(true)
-        if(trip.date) setIsDate(true)
-        if(trip.time.length === 5 ) setIsTime(true)
+        if(list[activeCarId-1].from) setIsFrom(true)
+        if(list[activeCarId-1].to) setIsTo(true)
+        if(list[activeCarId-1].date) setIsDate(true)
+        if(list[activeCarId-1].time.length === 5 ) setIsTime(true)
 
-        if(returnTrip.isReturnTrip && ( returnTrip.from || trip.from )) setIsBackFrom(true)
-        if(returnTrip.isReturnTrip && ( returnTrip.to || trip.to )) setIsBackTo(true)
-        if(returnTrip.isReturnTrip && returnTrip.date) setIsDateBack(true)
+        if(list[activeCarId-1].isReturnTrip && ( returnTrip.from || trip.from )) setIsBackFrom(true)
+        if(list[activeCarId-1].isReturnTrip && ( returnTrip.to || trip.to )) setIsBackTo(true)
+        if(list[activeCarId-1].isReturnTrip && returnTrip.date) setIsDateBack(true)
         
-        if(returnTrip.isReturnTrip && returnTrip.time.length === 5) setIsTimeBack(true)
-    },[trip,returnTrip])
+        if(list[activeCarId-1].isReturnTrip && returnTrip.time.length === 5) setIsTimeBack(true)
+    },[list])
 
     const sendOrder = () => {
 
@@ -119,8 +119,6 @@ const Form = () => {
             returnTime: returnTrip.time,
 
             returnFlight: returnTrip.flight,
-            returnBus: returnTrip.bus,
-            returnTrain: returnTrip.train,
 
             returnDeparture: returnTrip.departure,
             returnAirline: returnTrip.airline,
@@ -243,22 +241,16 @@ const Form = () => {
     }
     return (
         <div  className={container}>
+            
             {!validation.isSubmit &&
             <div className=" w-full flex-col flex items-center sm:max-w-[576px] h-full">
-                {store.steps === 1 && <InfoSection />}
-                {store.steps === 2 && <AddressSection />}
-                {store.steps === 3 && <OptionsSection />}
-                {store.steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
+                {list[activeCarId-1].steps === 1 && <InfoSection />}
+                {list[activeCarId-1].steps === 2 && <AddressSection />}
+                {list[activeCarId-1].steps === 3 && <OptionsSection />}
+                {list[activeCarId-1].steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
                 
-                {store.steps !== 2 && <Steps/>}
+                {list[activeCarId-1].steps !== 2 && <Steps/>}
             </div>}
-            {/* {!validation.isSubmit &&
-            <div className="sm:hidden flex flex-col items-center">
-                <InfoSection />
-                <AddressSection />
-                <OptionsSection />
-                <PaymentSection sendOrder={sendOrder}/>
-            </div>} */}
             {validation.isSubmit && <div className='flex flex-col items-center justify-center'>
                 <Submit />
                 <Steps/>

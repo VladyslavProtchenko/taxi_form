@@ -9,8 +9,6 @@ import DatePicker from "../../../UI/components/DatePicker";
 import { useStore } from "../../../Store";
 
 import { useValidation } from "../../../Store/useValidation";
-import { IStore } from "../../../Store/useReturnLocation";
-import { IUser } from "../../../Store/useLocation";
 
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
@@ -19,16 +17,35 @@ import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 import { BsTrainFrontFill } from "react-icons/bs";
-import { useInfo } from "../../../Store/useInfo";
+// import { useInfo } from "../../../Store/useInfo";
 import Steps from "../Steps";
-import { useSteps } from "../../../Store/useSteps";
+import { useMain } from "../../../Store/useMain";
 interface IObj {[key:number]: string}
 
 
-const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, setDate,setTime,setDeparture,setDeparture2,setFlight,setFlight2, setAirlines, setAirlinesBack, resetReturn, mainUser }:IStore & { mainUser: IUser })  => {
-    const { store } = useSteps()
-    const { user: userStore } = useStore()
-    const {user:info, setIsCars} = useInfo()
+const ReturnTrip = ()  => {
+    const {
+        list,
+        activeCarId,
+        setFromR, 
+        setToR, 
+        setIconR, 
+        setIcon2R, 
+        setStopsR, 
+        setDateR,
+        setTimeR,
+        setDepartureR,
+        setDeparture2R,
+        setFlightR,
+        setFlight2R, 
+        setAirlinesR, 
+        setAirlinesBackR, 
+        resetReturn 
+    } =useMain()
+    const { store } = useStore()
+    // const { store } = useSteps()
+    
+    // const {user:info, setIsCars} = useInfo()
 
     const { validation } =useValidation()
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
@@ -40,62 +57,62 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
 
 
     useEffect(()=>{
-        if(trigger[1]) setFrom(mainUser.to)
-        if(trigger[2]) setTo(mainUser.from)
-    },[trigger,mainUser.to, mainUser.from])
+        if(trigger[1]) setFromR(list[activeCarId-1].to)
+        if(trigger[2]) setToR(list[activeCarId-1].from)
+    },[trigger,list[activeCarId-1].to, list[activeCarId-1].from])
 
 
     useEffect(()=>{
         //I get all stops revert it ans complete in new array, I want to display stops order without holes im order! so we need make a sort every time when stops changes
         if(stopTrigger) {
-            const values = Object.values(mainUser.stops).filter(value=>value).reverse()
+            const values = Object.values(list[activeCarId-1].stops).filter(value=>value).reverse()
             setStop(values.length)
             const data: IObj ={}
             values.map((item, index) => {
                 const number  = index+1;
                 data[number] = item;
-                if(item) { setStops(data) }
+                if(item) { setStopsR(data) }
             })
         }
-    },[stopTrigger, mainUser.stops])
+    },[stopTrigger, list[activeCarId-1].stops])
 
     useEffect(()=>{
-        setIcon(0)
-        setIcon2(0)
-        userStore.airportArray.map(item =>{
-            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
+        setIconR(0)
+        setIcon2R(0)
+        store.airportArray.map(item =>{
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIconR(1)
         })
-        userStore.busArray.map(item =>{
-            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
+        store.busArray.map(item =>{
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIconR(3)
 
         })
-        userStore.trainArray.map(item =>{
-            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
+        store.trainArray.map(item =>{
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(2)
         })
-        userStore.boatArray.map(item =>{
-            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
+        store.boatArray.map(item =>{
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(4)
         })
-        userStore.hotelArray.map(item =>{
-            if(returnTrip.from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
+        store.hotelArray.map(item =>{
+            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(5)
         })
-        userStore.airportArray.map(item =>{
-            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
+        store.airportArray.map(item =>{
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2R(1)
         })
-        userStore.busArray.map(item =>{
-            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
+        store.busArray.map(item =>{
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2R(3)
 
         })
-        userStore.trainArray.map(item =>{
-            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
+        store.trainArray.map(item =>{
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(2)
         })
-        userStore.boatArray.map(item =>{
-            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
+        store.boatArray.map(item =>{
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(4)
         })
-        userStore.hotelArray.map(item =>{
-            if(returnTrip.to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
+        store.hotelArray.map(item =>{
+            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(5)
         })
 
-    },[returnTrip.from, returnTrip.to])
+    },[list[activeCarId-1].from, list[activeCarId-1].to])
 
     function setBackSection(){
         setTrigger({ 1: 1, 2: 1 })
@@ -108,40 +125,11 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
     }
     return (
     <div className={container}>
-        {/* <h1 className={returnTrip.isReturnTrip ? label : 'hidden'}>Return</h1> */}
-        <ul className={tabsContainer}>
-            <li 
-                className={defaultTab}
-                onClick={()=>{
-                    setIsCars({1:true, 2:false, 3:false, 4:false, 5:false})
-                }}
-            >1</li>
-            <li 
-                className={info.isCars[2] ? activeTab + ' border-t' : info.isCars[3] ? tab + ' border-b border-t rounded-tr rounded-br ' : info.isCars[1] ? tab + ' rounded-tr border-t' : tab + ' border-y-gray-100'}
-                onClick={()=>{
-                    setIsCars({1:true, 2:true, 3:false, 4:false, 5:false})
-                }}
-            >2</li>
-            <li 
-                className={info.isCars[3] ? activeTab + '' : info.isCars[4] ? tab + ' border-b rounded-br pt-[9px]' : info.isCars[2] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
-                onClick={()=>{
-                    setIsCars({1:true, 2:false, 3:true, 4:false, 5:false})
-                }}
-            >3</li>
-            <li 
-                className={info.isCars[4] ? activeTab : info.isCars[3] ? tab + ' border-t rounded-tr': tab + ' pt-[9px]'}
-                onClick={()=>{
-                    setIsCars({1:true, 2:false, 3:false, 4:true, 5:false})
-                }}
-            >4</li>
-            <li className={info.isCars[4] ? 'h-full bg-gray-100 rounded-tr border-r border-t' : ' h-full border-r bg-gray-100'}></li>
-        </ul>
-
         <div className={content}>
             <div className={date+ ' pt-[46px]'}>
                 <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                        {returnTrip.date ? 
+                        {list[activeCarId-1].date ? 
                         <div className='flex items-center'>
                             {fullDate.format('dddd')},  
                             {'  '+fullDate.format('MMM')}
@@ -156,7 +144,7 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                             }
                         {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choose return date</div> }
                     {isDateOpen && <div className={dateTimeSubmenu}>
-                        <DatePicker time={returnTrip.time} onChange={setDate} getFullDate={setFullDate}/>
+                        <DatePicker time={list[activeCarId-1].time} onChange={setDateR} getFullDate={setFullDate}/>
                         <div className="flex justify-between pl-8">
                             <div className={setDateBtn} onClick={(e)=> {
                                     e.stopPropagation();
@@ -165,68 +153,68 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                         </div>
                     </div>}
                 </div>
-                <TimePicker time={returnTrip.time} onChange={setTime} date={returnTrip.date}/>
+                <TimePicker time={list[activeCarId-1].time} onChange={setTimeR} date={list[activeCarId-1].date}/>
             </div>
 
             <div className={type}>
                 <div className={icons}>
                     
-                    <span className={returnTrip.icon == 1 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon == 1 ? iconCard : iconCardActive  }>
                         <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } />
                     </span>
-                    <span className={returnTrip.icon == 2 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon == 2 ? iconCard : iconCardActive  }>
                         <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
                     </span>
-                    <span className={returnTrip.icon == 3 ? iconCard : iconCardActive }>
+                    <span className={list[activeCarId-1].icon == 3 ? iconCard : iconCardActive }>
                         <FaBus className={ iconItem+ ' text-yellow-200 '} />
                     </span>
-                    <span className={returnTrip.icon == 4 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon == 4 ? iconCard : iconCardActive  }>
                         <FaSailboat className={ iconItem+ ' text-orange-300 '} />
                     </span>
-                    <span className={returnTrip.icon == 5 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon == 5 ? iconCard : iconCardActive  }>
                         <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                     </span>
                 </div>
 
-                {returnTrip.icon > 0 && <div className={flightCard }>
-                    {returnTrip.icon === 1 && <Select 
+                {list[activeCarId-1].icon > 0 && <div className={flightCard }>
+                    {list[activeCarId-1].icon === 1 && <Select 
                         className='favorite w-1/2 max-h-[30px]'
                         style={{width: '100px', borderRadius: 5}} 
-                        options={mainUser.flights.map(item=>(
+                        options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
-                        onChange={setAirlines} 
+                        onChange={setAirlinesR} 
                         placeholder='Airlines' 
                     />}
                     
-                    {returnTrip.icon === 1
+                    {list[activeCarId-1].icon === 1
                         ?<MdFlightLand className='text-xl mx-1'/>
-                        :returnTrip.icon === 2
+                        :list[activeCarId-1].icon === 2
                         ?<BsTrainFrontFill className=' mx-1'/>
-                        :returnTrip.icon === 3
+                        :list[activeCarId-1].icon === 3
                         ? <FaBus className=' mx-1'/>
-                        :returnTrip.icon === 4
+                        :list[activeCarId-1].icon === 4
                         ? <FaSailboat className=' mx-1'/>
-                        :returnTrip.icon === 5 
+                        :list[activeCarId-1].icon === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightLand className='text-xl mx-1'/>
                     }   
-                    {returnTrip.icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {returnTrip.airline.toLowerCase().includes('canada') 
+                    {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                        {list[activeCarId-1].airlines.toLowerCase().includes('canada') 
                             ? 'AC'
-                            : returnTrip.airline.toLowerCase().includes('transat') 
+                            : list[activeCarId-1].airlines.toLowerCase().includes('transat') 
                             ? 'TS'
-                            : returnTrip.airline.toLowerCase().includes('quatar') 
+                            : list[activeCarId-1].airlines.toLowerCase().includes('quatar') 
                             ? 'QR'
                             : ''
                         }
                     </div>}
                     <Input 
-                        value={returnTrip.flight}
+                        value={list[activeCarId-1].flight}
                         maxLength={4}
-                        placeholder={returnTrip.icon === 1 ?'####': returnTrip.icon === 2 ? 'Train#' : returnTrip.icon === 3 ? "Bus#" : returnTrip.icon === 4 ? 'Boat#': 'Room#'} 
-                        style={{width:`${returnTrip.icon === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
+                        placeholder={list[activeCarId-1].icon === 1 ?'####': list[activeCarId-1].icon === 2 ? 'Train#' : list[activeCarId-1].icon === 3 ? "Bus#" : list[activeCarId-1].icon === 4 ? 'Boat#': 'Room#'} 
+                        style={{width:`${list[activeCarId-1].icon === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlightR(e.target.value.replace(/\D/g, ''))}
                     />
                 </div>} 
             </div>
@@ -237,21 +225,21 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                     <GoogleAddressInput 
                         style='w-full ' 
                         defaultLocation={
-                            returnTrip.from
-                            ? returnTrip.from
-                            : mainUser.to && trigger[1] 
-                            ? mainUser.to
+                            list[activeCarId-1].from
+                            ? list[activeCarId-1].from
+                            : list[activeCarId-1].to && trigger[1] 
+                            ? list[activeCarId-1].to
                             : ''
                         }
                         onChange={(e)=> {
-                            setFrom(e)
+                            setFromR(e)
                             setTrigger({...trigger, 1: 0})
                         }}
                         placeholder='Pick up location'
                     />
                 </div>
-                {returnTrip.icon === 1 && <div className="border flex items-center w-1/3 rounded">
-                    <Select placeholder='Departure' className='favorite' style={{ height: 30, borderRadius: 5}}onChange={setDeparture}options={mainUser.departureSections.map(item=>({value: item, label: item}))}/>
+                {list[activeCarId-1].icon === 1 && <div className="border flex items-center w-1/3 rounded">
+                    <Select placeholder='Departure' className='favorite' style={{ height: 30, borderRadius: 5}}onChange={setDepartureR}options={store.departureSections.map(item=>({value: item, label: item}))}/>
                 </div>}
             </div>
 
@@ -261,10 +249,10 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 <span className='icon text-orange-400'><SlLocationPin/></span> 
                 <GoogleAddressInput
                     style='w-full'
-                    defaultLocation={returnTrip.stops[1]} 
+                    defaultLocation={list[activeCarId-1].stops[1]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStops({...returnTrip.stops, 1: e})
+                        setStopsR({...list[activeCarId-1].stops, 1: e})
                     }}
                     placeholder='First Stop'
                 />
@@ -273,14 +261,14 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                     className={(stop === 0) ? openStop :closeStop} 
                     onClick={()=>{ 
                         if(stop===0) return setStop(1);
-                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 0)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 0)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
                             data[number] = item;
                         })
                         setStopTrigger(false)
-                        setStops(data)
+                        setStopsR(data)
                         setStop(stop - 1)
                     }}
                     >{(stop === 0) ? '+' :'-'}</div> 
@@ -292,10 +280,10 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full'
-                    defaultLocation={returnTrip.stops[2]} 
+                    defaultLocation={list[activeCarId-1].stops[2]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStops({...returnTrip.stops, 2: e})
+                        setStopsR({...list[activeCarId-1].stops, 2: e})
                     }}
                     placeholder='Second Stop'
                 />
@@ -303,14 +291,14 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 className={(stop === 1) ? openStop :closeStop} 
                 onClick={()=>{
                         if(stop===1) return setStop(2) 
-                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 1)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 1)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
                             data[number] = item;
                         })
                         setStopTrigger(false)
-                        setStops(data)
+                        setStopsR(data)
                         setStop(stop -1)
                     }}
                 >{(stop === 1) ? '+' :'-'}</div> 
@@ -323,10 +311,10 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full'
-                    defaultLocation={returnTrip.stops[3]} 
+                    defaultLocation={list[activeCarId-1].stops[3]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStops({...returnTrip.stops, 3: e})
+                        setStopsR({...list[activeCarId-1].stops, 3: e})
                     }}
                     placeholder='Third Stop'
                 />
@@ -334,14 +322,14 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 className={(stop === 2) ? openStop :closeStop} 
                 onClick={()=>{ 
                         if(stop===2) return setStop(3)
-                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 2)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
                             data[number] = item;
                         })
                         setStopTrigger(false)
-                        setStops(data)
+                        setStopsR(data)
                         setStop(stop -1) 
                     }}
                     >{(stop === 2) ? '+' :'-'}</div> 
@@ -354,10 +342,10 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full '
-                    defaultLocation={returnTrip.stops[4]} 
+                    defaultLocation={list[activeCarId-1].stops[4]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStops({...returnTrip.stops, 4: e})
+                        setStopsR({...list[activeCarId-1].stops, 4: e})
                     }}
                     placeholder='Fourth Stop'
                 />
@@ -365,14 +353,14 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 className={(stop === 3) ? openStop :closeStop} 
                 onClick={()=>{ 
                     if(stop===3) return setStop(4)
-                        const array = Object.values(returnTrip.stops).filter((_, index) => index !== 3)
+                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 3)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
                             data[number] = item;
                         })
                         setStopTrigger(false)
-                        setStops(data)
+                        setStopsR(data)
                         setStop(stop -1) 
                     }}
                 >{(stop === 3) ? '+' :'-'}</div> 
@@ -383,85 +371,85 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                     <span className='icon text-red-400'><SlLocationPin/></span>
                     <GoogleAddressInput 
                         defaultLocation={
-                            returnTrip.to 
-                            ?  returnTrip.to
-                            : mainUser.from && trigger[2]
-                            ? mainUser.from 
+                            list[activeCarId-1].to 
+                            ?  list[activeCarId-1].to
+                            : list[activeCarId-1].from && trigger[2]
+                            ? list[activeCarId-1].from 
                             : ''
                         } 
                         style='w-full' 
                         onChange={(e)=> {
-                            setTo(e)
+                            setToR(e)
                             setTrigger({...trigger, 2: 0})
                         }}
                         placeholder='Drop off location'
                     />
                 </div>
-                {returnTrip.icon2 === 1 && 
+                {list[activeCarId-1].icon2 === 1 && 
                 <div className="border flex items-center w-1/3 rounded">
-                    <Select placeholder='Departure' className='favorite ' style={{ height: 30, borderRadius: 5}}onChange={setDeparture2}options={mainUser.departureSections.map(item=>({value: item, label: item}))}/>
+                    <Select placeholder='Departure' className='favorite ' style={{ height: 30, borderRadius: 5}}onChange={setDeparture2R}options={store.departureSections.map(item=>({value: item, label: item}))}/>
                 </div>}
             </div>
 
             <div className={type}>
                 
                 <div className={icons}>
-                    <span className={returnTrip.icon2 == 1 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2 == 1 ? iconCard : iconCardActive  }>
                         <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl' } />
                     </span>
-                    <span className={returnTrip.icon2 == 2 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2 == 2 ? iconCard : iconCardActive  }>
                         <BsTrainFrontFill className={iconItem + ' text-amber-600 '} />
                     </span>
-                    <span className={returnTrip.icon2 == 3 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2 == 3 ? iconCard : iconCardActive  }>
                         <FaBus className={ iconItem+ ' text-yellow-200 '} />
                     </span>
-                    <span className={returnTrip.icon2 == 4 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2 == 4 ? iconCard : iconCardActive  }>
                         <FaSailboat className={ iconItem+ ' text-orange-300 '} />
                     </span>
-                    <span className={returnTrip.icon2 == 5 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2 == 5 ? iconCard : iconCardActive  }>
                         <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
                     </span>
                 </div>
 
-                {returnTrip.icon2>0 && <div className={flightCard }>
-                    {returnTrip.icon2 === 1 && <Select 
+                {list[activeCarId-1].icon2>0 && <div className={flightCard }>
+                    {list[activeCarId-1].icon2 === 1 && <Select 
                         className='favorite w-1/2 max-h-[30px]'
                         style={{width: '100px', borderRadius:5}} 
-                        options={mainUser.flights.map(item=>(
+                        options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
-                        onChange={setAirlinesBack} 
+                        onChange={setAirlinesBackR} 
                         placeholder='Airlines' 
                     />}
                     
-                    {returnTrip.icon2 === 1
+                    {list[activeCarId-1].icon2 === 1
                         ?< MdFlightLand className='text-xl mx-1'/>
-                        :returnTrip.icon2 === 2
+                        :list[activeCarId-1].icon2 === 2
                         ?< BsTrainFrontFill className=' mx-1'/>
-                        :returnTrip.icon2 === 3
+                        :list[activeCarId-1].icon2 === 3
                         ? <FaBus className=' mx-1'/>
-                        :returnTrip.icon2 === 4
+                        :list[activeCarId-1].icon2 === 4
                         ? <FaSailboat className=' mx-1'/>
-                        :returnTrip.icon2 === 5 
+                        :list[activeCarId-1].icon2 === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightTakeoff className='text-xl mx-1'/>
                     }   
-                    {returnTrip.icon2 === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {returnTrip.airlineBack.toLowerCase().includes('canada') 
+                    {list[activeCarId-1].icon2 === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                        {list[activeCarId-1].airlinesBack.toLowerCase().includes('canada') 
                             ? 'AC'
-                            : returnTrip.airlineBack.toLowerCase().includes('transat') 
+                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('transat') 
                             ? 'TS'
-                            : returnTrip.airlineBack.toLowerCase().includes('quatar') 
+                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('quatar') 
                             ? 'QR'
                             : ''
                         }
                     </div>}
                     <Input 
-                        value={returnTrip.flight2}
+                        value={list[activeCarId-1].flight2}
                         maxLength={4}
-                        placeholder={returnTrip.icon2 === 1 ?'####': returnTrip.icon2 === 2 ? 'Train#' : returnTrip.icon2 === 3 ? "Bus#" : returnTrip.icon2 === 4 ? 'Boat#': 'Room#'} 
-                        style={{width:`${returnTrip.icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}/>
+                        placeholder={list[activeCarId-1].icon2 === 1 ?'####': list[activeCarId-1].icon2 === 2 ? 'Train#' : list[activeCarId-1].icon2 === 3 ? "Bus#" : list[activeCarId-1].icon2 === 4 ? 'Boat#': 'Room#'} 
+                        style={{width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2R(e.target.value.replace(/\D/g, ''))}/>
                 </div> }
             </div>
 
@@ -470,9 +458,9 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
                 <button className={reset} onClick={resetCard}>Reset</button>
                 <button className={revert} onClick={setBackSection}>Return</button>
             </div>
-            {store.steps=== 2 && <div className='w-full flex justify-center'><Steps /></div>}
+            {list[activeCarId-1].steps=== 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>
-        {!returnTrip.isReturnTrip && <div className='absolute -top-2 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
+        {!list[activeCarId-1].isReturnTrip && <div className='absolute -top-2 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
     </div>
     );
 };
@@ -481,11 +469,11 @@ const ReturnTrip = ({returnTrip, setFrom, setTo,setIcon, setIcon2, setStops, set
 export default ReturnTrip;
 
 
-const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
-const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
-const activeTab = 'px-4 py-2 cursor-pointer  border-white'
-const tabsContainer = 'hidden sm:flex flex-col mr-2 font-bold h-full mb-0  overflow-hidden'
-const content = 'flex flex-col w-full  space-y-3 py-10 ml-10 sm:ml-0'
+// const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
+// const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
+// const activeTab = 'px-4 py-2 cursor-pointer  border-white'
+// const tabsContainer = 'hidden sm:flex flex-col mr-2 font-bold h-full mb-0  overflow-hidden'
+const content = ' relative flex flex-col w-full  space-y-3 py-10'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 const revert = 'px-4 py-1 bg-orange-400 text-white rounded hover:bg-orange-300 active:bg-orange-500 '
@@ -504,15 +492,13 @@ const openStop ="absolute w-5 h-5 -right-6 bg-green-500 ml-1 border border-black
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
-
 const dateInput = 'text-xs flex border py-1 sm:h-[40px] relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full rounded'
-
 const date = 'flex sm:items-start sm:mb-2 items-start w-full justify-between border-b-2 border-black pb-6'
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'
-const extraCardStop = 'flex relative mr-6  items-center border w-[90%] 2xl:w-[90%] xl:w-[90%] lg:w-[90%]  2xl:max-w-[350px] xl:max-w-[350px] lg:max-w-[350px] sm:max-w-[230px] self-end rounded'
+const extraCardStop = 'flex relative mr-6  items-center border w-4/5 self-end  rounded'
 
-const container = 'flex relative  pr-4  w-full rounded relative rounded border shadow-xl border-t-0'
+const container = 'flex relative  px-4  w-full rounded-b relative border shadow-xl border-t-0'
 
 // const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
