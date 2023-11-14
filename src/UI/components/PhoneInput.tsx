@@ -7,7 +7,7 @@ import { BsTelephone } from "react-icons/bs";
 import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 import { useValidation } from '../../Store/useValidation';
-import { useInfo } from '../../Store/useInfo';
+import { useMain } from '../../Store/useMain';
 
 const countries = [
     ["Afghanistan", "93"],
@@ -236,22 +236,20 @@ interface IPhone {
 
 function PhoneNumberInput({ value, onChange, type }: IPhone) {
     const ref = useOnclickOutside(() => setIsOpen(false));
-    const { user, setResetPhone} = useInfo()
+    const { activeCarId } = useMain()
     const {setIsPhone } = useValidation()
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
     const [isOpen, setIsOpen] = useState(false)
     const [icon, setIcon] = useState(1)
-
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
-    useEffect(()=>{
-        if(user.resetPhone){
-            console.log('work')
-            setCountryCode('')
-        }
-        setResetPhone(false)
-    },[user.resetPhone])
+    // useEffect(()=>{
+    //     if(user.resetPhone){
+    //         setCountryCode('')
+    //     }
+    //     setResetPhone(false)
+    // },[user.resetPhone])
 
     useEffect(()=>{
         if(type===1) {
@@ -267,9 +265,14 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
         }
     },[country])
 
+    useEffect(()=>{
+        
+    },[activeCarId])
+    
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     
+    console.log(value, 'value')
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >
@@ -306,7 +309,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 }}
                 priority={{ca: 1, us: 0,kz: 0, ru: 1}  }
                 country={'us'}
-                value={countryCode}
+                value={value || countryCode}
                 onChange={(e, countryName:ICountry)=>{
                     setCountry(countryName.name)
                     onChange(e)
@@ -324,7 +327,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 dropdownClass='max-w-[200px]  '
                 priority={{ca: 0, us: 1,kz: 0, ru: 1} }
                 country={'ca'}
-                value={countryCode}
+                value={value || countryCode}
                 onChange={(e, countryName:ICountry)=>{
                     setCountry(countryName.name)
                     onChange(e)

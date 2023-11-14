@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from 'react';
 import { IoMdTime } from 'react-icons/io';
 import useOnclickOutside from "react-cool-onclickoutside";
-import { useLocation } from "../../Store/useLocation";
+import { useMain } from "../../Store/useMain";
 
 
 interface InputProps {
@@ -22,8 +22,7 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
         "20", "21", "22", "23", "00",
     ]
-    const { user } = useLocation()
-    
+    const { list, activeCarId } = useMain()
     const hoursNow = dayjs().format('HH')
     const minutesNow = dayjs().format('mm')
 
@@ -42,8 +41,8 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
             setFilteredMinutes(minutes.filter(item => item > dayjs().format('mm')))
             setFilteredHours(hours.filter(item => item >= dayjs().format('HH')))
         }
-        if(!user.dateNow && JSON.stringify(dayjs().format('DD/MM/YYYY')) === JSON.stringify(date)) {
-            if(user.time < dayjs().format('HH:mm')) {
+        if(!list[activeCarId-1].dateNow && JSON.stringify(dayjs().format('DD/MM/YYYY')) === JSON.stringify(date)) {
+            if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
                 setMinute(dayjs().add(30, 'minutes').format('mm'))
                 setHour(dayjs().add(1, 'hours').format('HH'))
                 onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
@@ -57,7 +56,7 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
             setFilteredMinutes(minutes)
             setFilteredHours(hours)
         }
-    },[date, user.dateNow, user.date, user.time])
+    },[date, list[activeCarId-1].dateNow, list[activeCarId-1].date, list[activeCarId-1].time])
 
 
     useEffect(() => {

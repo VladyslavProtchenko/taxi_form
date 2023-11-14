@@ -1,9 +1,8 @@
 import { Select } from "antd";
-import { useStore } from "../../../Store";
-import { useInfo } from "../../../Store/useInfo";
-import { useLocation } from "../../../Store/useLocation";
 import { Input } from 'antd';
 import { useValidation } from "../../../Store/useValidation";
+import { useMain } from "../../../Store/useMain";
+import { useStore } from "../../../Store";
 const { TextArea } = Input;
 
 interface ISendOrder {
@@ -11,19 +10,17 @@ interface ISendOrder {
 }
 
 const PaymentSection = ({sendOrder}:ISendOrder) => {
-    const {user} = useStore()
-    const {user:store,  setPaymentMethod, setAdditionalText } = useInfo()
-    const { setTripType } = useLocation()
     const { validation } = useValidation()
-
+    const {list, activeCarId, setPaymentMethod,setAdditionalText,setTripType} = useMain()
+    const { store} = useStore()
     return (
         <section className={section}>
             <div className="flex w-full sm:flex-col">
                 <div className={content}>
                     <span className={box}>
-                        <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 5}} onChange={setTripType}options={user.tripList.map(item=>({value: item, label: item}))}/></span>
+                        <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 5}} value={list[activeCarId-1].tripType || ''} onChange={setTripType} options={store.tripList.map(item=>({value: item, label: item}))}/></span>
                     <span className={validation.isPayment ? box2: box2 +' border-red-500'}>
-                        <Select placeholder='Payment method' style={{ width:200 , height: 30, borderRadius: 5}} value={store.paymentMethod} onChange={setPaymentMethod} options={user.paymentList.map(item=>({value: item, label: item}))}/></span>
+                        <Select placeholder='Payment method' style={{ width:200 , height: 30, borderRadius: 5}} value={list[activeCarId-1].paymentMethod} onChange={setPaymentMethod} options={store.paymentList.map(item=>({value: item, label: item}))}/></span>
                         <button className={btn} onClick={sendOrder}>Order</button>
                 </div>
                 

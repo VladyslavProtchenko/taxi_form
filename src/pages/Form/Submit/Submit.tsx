@@ -1,8 +1,5 @@
 import dayjs from 'dayjs';
-import { useInfo } from "../../../Store/useInfo";
-import { useLocation } from "../../../Store/useLocation";
-import { useOptions } from "../../../Store/useOptions";
-import { useReturnLocation } from "../../../Store/useReturnLocation";
+
 import { SlLocationPin } from "react-icons/sl";
 import { IoCarSportOutline, IoPhonePortraitOutline, IoTimeOutline } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
@@ -12,183 +9,179 @@ import { LiaBabyCarriageSolid, LiaSkiingSolid } from "react-icons/lia";
 import { PiCreditCard, PiSuitcaseRolling } from "react-icons/pi";
 import { MdOutlineStroller, MdPets } from "react-icons/md";
 import { GiPalmTree } from "react-icons/gi";
+import { useMain } from '../../../Store/useMain';
 
 
 const Submit = () => {
-    const { user  } = useInfo()
-    const { user:location } = useLocation()
-    const { returnTrip } = useReturnLocation()
-    const { options } = useOptions()
-
-
+    const { activeCarId, list } =useMain()
 
     return (
         <section className={section}>
             <div className='flex w-full flex-col space-y-2'>
-                <div className={returnTrip.isReturnTrip ? InfoCard : InfoCard }>
+                <div className={list[activeCarId-1].isReturnTrip ? InfoCard : InfoCard }>
                     <FiEdit className={edit}/>
                     <div className={header}>
                         Personal info
                     </div>
                     <div className={infoContent}>
-                        {(user.gender || user.name)  && 
+                        {(list[activeCarId-1].title || list[activeCarId-1].name)  && 
                         <div className={card}>
                             <BsPeople className={locationIcon}/>
                             <span className={label}>name:</span>
-                            {user.gender} {user.name}
+                            {list[activeCarId-1].title} {list[activeCarId-1].name}
                         </div>}
-                        {(user.extraGender1|| user.extraName1)  && 
+                        {(list[activeCarId-1].title2|| list[activeCarId-1].name2)  && 
                         <div className={card}>
                             <BsPeople className={locationIcon}/>
                             <span className={label}>extra name:</span>
-                            {user.extraGender1} {user.extraName1}
+                            {list[activeCarId-1].title2} {list[activeCarId-1].name2}
                         </div>}
-                        {(user.extraGender2 || user.extraName2)  && 
+                        {(list[activeCarId-1].title3 || list[activeCarId-1].name3)  && 
                         <div className={card}>
                             <BsPeople className={locationIcon}/>
                             <span className={label}>extra name:</span>
-                            {user.extraGender2} {user.extraName2}
+                            {list[activeCarId-1].title3} {list[activeCarId-1].name3}
                         </div>}
 
-                        {user.email.length>4 && 
+                        {list[activeCarId-1].email.length>4 && 
                         <div className={card}>
                             <TfiEmail className={locationIcon}/>
                             <span className={label}>email:</span> 
-                            {user.email} 
+                            {list[activeCarId-1].email} 
                         </div>}
-                        {user.extraEmail1.length>4 && 
+                        {list[activeCarId-1].email2.length>4 && 
                         <div className={card}>
                             <TfiEmail className={locationIcon}/>
                             <span className={label}>extra email:</span> 
-                            {user.extraEmail1} 
+                            {list[activeCarId-1].email2} 
                         </div>}
-                        {user.extraEmail2.length>4 && 
+                        {list[activeCarId-1].email3.length>4 && 
                         <div className={card}>
                             <TfiEmail className={locationIcon}/>
                             <span className={label}>extra email:</span> 
-                            {user.extraEmail2} 
+                            {list[activeCarId-1].email3} 
                         </div>}
-                        {user.phone && 
+                        {list[activeCarId-1].phone && 
                         <div className={card}>
                             <IoPhonePortraitOutline className={locationIcon}/>
                             <span className={label}>phone:</span> 
-                            {user.phone} 
+                            {list[activeCarId-1].phone} 
                         </div>}
-                        {user.extraPhone1 && 
+                        {list[activeCarId-1].phone2 && 
                         <div className={card}>
                             <IoPhonePortraitOutline className={locationIcon}/>
                             <span className={label}>extra phone:</span> 
-                            {user.extraPhone1} 
+                            {list[activeCarId-1].phone2} 
                         </div>}
-                        {user.extraPhone2 && 
+                        {list[activeCarId-1].phone3 && 
                         <div className={card}>
                             <IoPhonePortraitOutline className={locationIcon}/>
                             <span className={label}>extra phone:</span> 
-                            {user.extraPhone2} 
+                            {list[activeCarId-1].phone3} 
                         </div>}
                     </div>
                 </div>
 
-                <div className={returnTrip.isReturnTrip ? InfoCard : InfoCard  }>
+                <div className={list[activeCarId-1].isReturnTrip ? InfoCard : InfoCard  }>
                     <FiEdit className={edit}/>
                     <div className={header}>Trip info</div>
                     <div className={infoContent}>
                         <div className={contentItem}>
                             <IoTimeOutline  className={locationIcon}/>
-                            {location.time.length>2  && 
+                            {list[activeCarId-1].time.length>2  && 
                             <div className={timeItem}>
-                                {location.time}
+                                {list[activeCarId-1].time}
                             </div>}
 
-                            {location.date && <div className={timeItem}>
-                                {dayjs(location.date).format('dddd')}, {location.date}
+                            {list[activeCarId-1].date && <div className={timeItem}>
+                                {dayjs(list[activeCarId-1].date).format('dddd')}, {list[activeCarId-1].date}
                             </div>}
                         </div>
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {location.to &&
+                            {list[activeCarId-1].to &&
                             <div className={locationData}>
-                                {location.to}
+                                {list[activeCarId-1].to}
                             </div>}
                         </div>
 
-                        {location.icon>0 && location.flight &&
+                        {list[activeCarId-1].icon>0 && list[activeCarId-1].flight &&
                         <div className={contentItem}>
-                            {location.departure && <div className={airportsItem}>
-                                {location.departure}
+                            {list[activeCarId-1].departure && <div className={airportsItem}>
+                                {list[activeCarId-1].departure}
                             </div>}
-                            {location.airline &&  location.icon == 1  &&  <div className={airportsItem}>
-                                {location.airline}
+                            {list[activeCarId-1].airlines &&  list[activeCarId-1].icon == 1  &&  <div className={airportsItem}>
+                                {list[activeCarId-1].airlines}
                             </div>}
-                            {location.icon && location.flight && 
+                            {list[activeCarId-1].icon && list[activeCarId-1].flight && 
                             <div className={airportsItem}>
-                                {location.icon == 1 
-                                    ? 'Flight#'+ location.flight
-                                    : location.icon == 2
-                                    ? 'Train#'+ location.flight
-                                    : location.icon == 3
-                                    ? 'Bus#'+ location.flight
-                                    : location.icon == 4
-                                    ? 'Boat#'+ location.flight
-                                    : location.icon == 5
-                                    ? 'Room#'+ location.flight
+                                {list[activeCarId-1].icon == 1 
+                                    ? 'Flight#'+ list[activeCarId-1].flight
+                                    : list[activeCarId-1].icon == 2
+                                    ? 'Train#'+ list[activeCarId-1].flight
+                                    : list[activeCarId-1].icon == 3
+                                    ? 'Bus#'+ list[activeCarId-1].flight
+                                    : list[activeCarId-1].icon == 4
+                                    ? 'Boat#'+ list[activeCarId-1].flight
+                                    : list[activeCarId-1].icon == 5
+                                    ? 'Room#'+ list[activeCarId-1].flight
                                     : ''
                                 }   
                             </div>}
                         </div>}
 
-                        {location.stops[1] &&
+                        {list[activeCarId-1].stops[1] &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {location.stops[1]}
+                                {list[activeCarId-1].stops[1]}
                             </div>
                         </div>}
-                        {(location.stops[2]) &&
+                        {(list[activeCarId-1].stops[2]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {location.stops[2]}
+                                {list[activeCarId-1].stops[2]}
                             </div>
                         </div>}
-                        {(location.stops[3]) &&
+                        {(list[activeCarId-1].stops[3]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {location.stops[3]}, 
+                                {list[activeCarId-1].stops[3]}, 
                             </div>
                         </div>}
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {location.to && <div className={locationData}>
-                                {location.to}
+                            {list[activeCarId-1].to && <div className={locationData}>
+                                {list[activeCarId-1].to}
                             </div>}
                         </div>
 
-                        {location.icon2>0 && location.flight2 && 
+                        {list[activeCarId-1].icon2>0 && list[activeCarId-1].flight2 && 
                         <div className={contentItem}>
-                            {location.departure2 && <div className={airportsItem}>
-                                {location.departure2}
+                            {list[activeCarId-1].departure2 && <div className={airportsItem}>
+                                {list[activeCarId-1].departure2}
                             </div>}
 
-                            {location.airlineBack &&  location.icon2 == 1 &&  <div className={airportsItem}>
-                                {location.airlineBack}
+                            {list[activeCarId-1].airlinesBack &&  list[activeCarId-1].icon2 == 1 &&  <div className={airportsItem}>
+                                {list[activeCarId-1].airlinesBack}
                             </div>}
 
-                            {location.icon2>0 && location.flight2 && 
+                            {list[activeCarId-1].icon2>0 && list[activeCarId-1].flight2 && 
                             <div className={airportsItem}>
-                                {location.icon2 == 1 
-                                    ? 'Flight#'+ location.flight2
-                                    : location.icon2 == 2
-                                    ? 'Train#'+ location.flight2
-                                    : location.icon2 == 3
-                                    ? 'Bus#'+ location.flight2
-                                    : location.icon2 == 4
-                                    ? 'Boat#'+ location.flight2
-                                    : location.icon2 == 5
-                                    ? 'Room#'+ location.flight2
+                                {list[activeCarId-1].icon2 == 1 
+                                    ? 'Flight#'+ list[activeCarId-1].flight2
+                                    : list[activeCarId-1].icon2 == 2
+                                    ? 'Train#'+ list[activeCarId-1].flight2
+                                    : list[activeCarId-1].icon2 == 3
+                                    ? 'Bus#'+ list[activeCarId-1].flight2
+                                    : list[activeCarId-1].icon2 == 4
+                                    ? 'Boat#'+ list[activeCarId-1].flight2
+                                    : list[activeCarId-1].icon2 == 5
+                                    ? 'Room#'+ list[activeCarId-1].flight2
                                     : ''
                                 }   
                             </div>}
@@ -196,108 +189,108 @@ const Submit = () => {
                     </div>             
                 </div>
 
-                <div className={returnTrip.isReturnTrip ? InfoCard : ' hidden'}>
-                    {returnTrip.isReturnTrip &&<FiEdit className={edit}/>}
-                    {returnTrip.isReturnTrip &&<>
+                <div className={list[activeCarId-1].isReturnTrip ? InfoCard : ' hidden'}>
+                    {list[activeCarId-1].isReturnTrip &&<FiEdit className={edit}/>}
+                    {list[activeCarId-1].isReturnTrip &&<>
                     <div className={header}> RETURN TRIP </div>
                     <div className={infoContent}>
                         <div className={contentItem}>
                             <IoTimeOutline className={locationIcon}/> 
-                            {returnTrip.time.length>2 && <div className={timeItem}>
-                                {returnTrip.time}
+                            {list[activeCarId-1].timeR.length>2 && <div className={timeItem}>
+                                {list[activeCarId-1].timeR}
                             </div>}
 
-                            {returnTrip.date && <div className={timeItem}>
-                                {returnTrip.date}
+                            {list[activeCarId-1].dateR && <div className={timeItem}>
+                                {list[activeCarId-1].dateR}
                             </div>}
                         </div>
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {(returnTrip.from || location.to) &&<div className={locationData}>
-                                {returnTrip.from ? returnTrip.from: location.to}
+                            {(list[activeCarId-1].fromR || list[activeCarId-1].to) &&<div className={locationData}>
+                                {list[activeCarId-1].fromR ? list[activeCarId-1].fromR: list[activeCarId-1].to}
                             </div>}
                         </div>
                         
 
-                        {returnTrip.icon>0 && returnTrip.flight && <div className={contentItem}>
-                            {returnTrip.departure && <div className={airportsItem}>
-                                {returnTrip.departure}
+                        {list[activeCarId-1].iconR>0 && list[activeCarId-1].flightR && <div className={contentItem}>
+                            {list[activeCarId-1].departureR && <div className={airportsItem}>
+                                {list[activeCarId-1].departureR}
                             </div>}
 
-                            {returnTrip.airline &&  returnTrip.icon === 1  &&  
+                            {list[activeCarId-1].airlinesR &&  list[activeCarId-1].iconR === 1  &&  
                             <div className={airportsItem}>
-                                {returnTrip.airline}
+                                {list[activeCarId-1].airlinesR}
                             </div>}
 
-                            {returnTrip.icon>0 && returnTrip.flight && 
+                            {list[activeCarId-1].iconR>0 && list[activeCarId-1].flightR && 
                             <div className={airportsItem }>
-                                {returnTrip.icon == 1 
-                                    ? 'Flight#'+ returnTrip.flight
-                                    : returnTrip.icon == 2
-                                    ? 'Train#'+ returnTrip.flight
-                                    : returnTrip.icon == 3
-                                    ? 'Bus#'+ returnTrip.flight
-                                    : returnTrip.icon == 4
-                                    ? 'Boat#'+ returnTrip.flight
-                                    : returnTrip.icon == 5
-                                    ? 'Room#'+ returnTrip.flight
+                                {list[activeCarId-1].iconR == 1 
+                                    ? 'Flight#'+ list[activeCarId-1].flightR
+                                    : list[activeCarId-1].iconR == 2
+                                    ? 'Train#'+ list[activeCarId-1].flightR
+                                    : list[activeCarId-1].iconR == 3
+                                    ? 'Bus#'+ list[activeCarId-1].flightR
+                                    : list[activeCarId-1].iconR == 4
+                                    ? 'Boat#'+ list[activeCarId-1].flightR
+                                    : list[activeCarId-1].iconR == 5
+                                    ? 'Room#'+ list[activeCarId-1].flightR
                                     : ''
                             }   
                             </div>}
                         </div>}
                     
                         
-                        {(returnTrip.stops[1]) &&
+                        {(list[activeCarId-1].stopsR[1]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {returnTrip.stops[1]}
+                                {list[activeCarId-1].stopsR[1]}
                             </div>
                         </div>}
-                        {(returnTrip.stops[2]) &&
+                        {(list[activeCarId-1].stopsR[2]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {returnTrip.stops[2]}
+                                {list[activeCarId-1].stopsR[2]}
                             </div>
                         </div>}
-                        {(returnTrip.stops[3]) &&
+                        {(list[activeCarId-1].stopsR[3]) &&
                         <div className={contentItem}>
                             <SlLocationPin className={stopIcon}/>
                             <div className={nameBox}>
-                                {returnTrip.stops[3]}, 
+                                {list[activeCarId-1].stopsR[3]}, 
                             </div>
                         </div>}
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
-                            {(returnTrip.to || location.from) && <div className={nameBox}>
-                                {returnTrip.to ? returnTrip.to : location.from}
+                            {(list[activeCarId-1].toR || list[activeCarId-1].from) && <div className={nameBox}>
+                                {list[activeCarId-1].toR ? list[activeCarId-1].toR : list[activeCarId-1].from}
                             </div>}
                         </div>    
-                        {returnTrip.icon2>0 && returnTrip.flight2 && <div className={contentItem}>
-                            {returnTrip.departure2 && <div className={airportsItem}>
-                                {returnTrip.departure2}
+                        {list[activeCarId-1].icon2R>0 && list[activeCarId-1].flight2R && <div className={contentItem}>
+                            {list[activeCarId-1].departure2R && <div className={airportsItem}>
+                                {list[activeCarId-1].departure2R}
                             </div>}
 
-                            {returnTrip.airlineBack &&  returnTrip.icon2 == 1 &&  
+                            {list[activeCarId-1].airlinesBackR &&  list[activeCarId-1].icon2R == 1 &&  
                             <div className={airportsItem}>
-                                {returnTrip.airlineBack}
+                                {list[activeCarId-1].airlinesBackR}
                             </div>}
 
-                            {returnTrip.icon2>0 && returnTrip.flight2 && 
+                            {list[activeCarId-1].icon2R>0 && list[activeCarId-1].flight2R && 
                             <div className={airportsItem}>
-                                {returnTrip.icon2 == 1 
-                                    ? 'Flight#'+ returnTrip.flight2
-                                    : returnTrip.icon2 == 2
-                                    ? 'Train#'+ location.flight2
-                                    : returnTrip.icon2 == 3
-                                    ? 'Bus#'+ returnTrip.flight2
-                                    : returnTrip.icon2 == 4
-                                    ? 'Boat#'+ returnTrip.flight2
-                                    : returnTrip.icon2 == 5
-                                    ? 'Room#'+ returnTrip.flight2
+                                {list[activeCarId-1].icon2R == 1 
+                                    ? 'Flight#'+ list[activeCarId-1].flight2R
+                                    : list[activeCarId-1].icon2R == 2
+                                    ? 'Train#'+ list[activeCarId-1].flight2R
+                                    : list[activeCarId-1].icon2R == 3
+                                    ? 'Bus#'+ list[activeCarId-1].flight2R
+                                    : list[activeCarId-1].icon2 == 4
+                                    ? 'Boat#'+ list[activeCarId-1].flight2R
+                                    : list[activeCarId-1].icon2R == 5
+                                    ? 'Room#'+ list[activeCarId-1].flight2R
                                     : ''
                                 }   
                             </div>}
@@ -308,75 +301,75 @@ const Submit = () => {
             </div>
             
             <div className="flex w-full flex-col">
-                <div className={returnTrip.isReturnTrip ? InfoCard: InfoCard  }>
+                <div className={list[activeCarId-1].isReturnTrip ? InfoCard: InfoCard  }>
                     <FiEdit className={edit}/>
                     <div className={header}> Options </div>
 
                     <div className={infoContent}>
                         
-                        {options.carType && <div className={contentItem}>
-                            <IoCarSportOutline className={locationIcon}/> <span className='text-sm text-gray-600 italic pr-2'>car type: </span>{options.carType}
+                        {list[activeCarId-1].carType && <div className={contentItem}>
+                            <IoCarSportOutline className={locationIcon}/> <span className='text-sm text-gray-600 italic pr-2'>car type: </span>{list[activeCarId-1].carType}
                         </div>}
-                        {options.passengers && <div className={contentItem}>
+                        {list[activeCarId-1].passengers && <div className={contentItem}>
                         <BsPeople className={locationIcon}/>
                         <span className='text-sm text-gray-600 italic pr-2'>adults: </span>
-                            {options.passengers.adults},
+                            {list[activeCarId-1].passengers.adults},
                         </div>}
-                        {(options.passengers.kids.length> 0) && <div className={contentItem}>
+                        {(list[activeCarId-1].passengers.kids.length> 0) && <div className={contentItem}>
                         <span className={kidsIcon}></span>
                         <span className='text-sm text-gray-600 italic pr-2'>Kids: </span>
-                            {options.passengers.kids.map(child => (<span className='px-1 rounded border mx-1'>{child.age} years</span>))}
+                            {list[activeCarId-1].passengers.kids.map(child => (<span className='px-1 rounded border mx-1'>{child.age} years</span>))}
                         </div>}
-                        {options.passengers.babies>0   && <div className={contentItem}>
+                        {list[activeCarId-1].passengers.babies>0   && <div className={contentItem}>
                         <LiaBabyCarriageSolid className={locationIcon}/>
                         <span className='text-sm text-gray-600 italic pr-2'>Babies: </span>
-                            {options.passengers.babies}
+                            {list[activeCarId-1].passengers.babies}
                         </div>}
-                        {options.baggage.filter(item=>item.quantity > 0).length > 0 && <div className={contentItem}>
+                        {list[activeCarId-1].baggage.filter(item=>item.quantity > 0).length > 0 && <div className={contentItem}>
                         <PiSuitcaseRolling className={locationIcon}/>
                         <span className='text-sm text-gray-600 italic pr-2'>Baggage: </span>
-                            {options.baggage.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))} 
+                            {list[activeCarId-1].baggage.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))} 
                         </div>}
-                        {options.carSeats.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
+                        {list[activeCarId-1].carSeats.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
                         <MdOutlineStroller className={locationIcon}/>
                         <span className='text-sm text-gray-600 italic pr-2'>Car seats: </span>
-                            {options.carSeats.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
+                            {list[activeCarId-1].carSeats.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
                         </div>} 
-                        {options.sport.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
+                        {list[activeCarId-1].sport.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
                         <LiaSkiingSolid className={locationIcon}/>
                         <span className='text-sm text-gray-600 italic pr-2'>Sport attributes: </span>
-                            {options.sport.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
+                            {list[activeCarId-1].sport.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
                         </div>}
-                        {options.pets.filter(item=>item.isActive).length>0  && <div className={contentItem}>
+                        {list[activeCarId-1].pets.filter(item=>item.isActive).length>0  && <div className={contentItem}>
                         <MdPets className={locationIcon}/>
                         <span className='text-sm text-gray-600 italic pr-2'>Pets: </span>
-                            {options.pets.map(item=> item.isActive && (<span className='px-1 rounded border mx-1'>{`${item.title} ${item.cage ? "(cage)":''}`}</span>) )}
+                            {list[activeCarId-1].pets.map(item=> item.isActive && (<span className='px-1 rounded border mx-1'>{`${item.title} ${item.cage ? "(cage)":''}`}</span>) )}
                         </div>}
                     </div>
                 </div>
 
-                <div className={returnTrip.isReturnTrip ? InfoCard: InfoCard }>
+                <div className={list[activeCarId-1].isReturnTrip ? InfoCard: InfoCard }>
                     <FiEdit className={edit}/>
                     <div className={header}> Payments </div>
 
                     <div className={infoContent}>
                         
-                        {user.paymentMethod && 
+                        {list[activeCarId-1].paymentMethod && 
                         <div className={contentItem}>
                             <PiCreditCard className={locationIcon}/>
                             <span className='text-sm text-gray-600 italic pr-2'>Payment method: </span>
-                            {user.paymentMethod}
+                            {list[activeCarId-1].paymentMethod}
                         </div>}
-                        {location.tripType && <div className={contentItem}>
+                        {list[activeCarId-1].tripType && <div className={contentItem}>
                         <GiPalmTree className={locationIcon}/>
                         <span className='text-sm text-gray-600 italic pr-2'>Trip type: </span>
-                            {location.tripType}
+                            {list[activeCarId-1].tripType}
                         </div>}
-                        {user.additionalText && <div className={contentItem}>
+                        {list[activeCarId-1].additionalText && <div className={contentItem}>
                         <BsChatSquareText className={locationIcon}/>
 
                         <span className='text-sm text-gray-600 italic pr-2'>Additional text: </span>
-                            {user.additionalText} 
+                            {list[activeCarId-1].additionalText} 
                         </div>}
                         
                     </div>

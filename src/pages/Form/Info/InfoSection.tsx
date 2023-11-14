@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PhoneNumberInput from '../../../UI/components/PhoneInput';
 import MailInput from '../../../UI/components/MailInput';
 import { Input, Select } from 'antd';
@@ -40,10 +40,10 @@ const InfoSection = () => {
         2:false,
     })
 
-
+    console.log(list[activeCarId-1], 'item')
     return (
         <section className={section}>
-            <div className={extraContainer }>
+            <div className={extraContainer}>
                 <div className={ (validation.isName && validation.isTitle ) ? nameCard + ' ': nameCard + '  border-red-500' }>
                     <span className='icon'><BsPeople/></span>
                     <Select allowClear value={list[activeCarId-1].title || null} placeholder='title' style={{width: 118, height: 40}} onChange={setTitle} options={store.titleList.map(item=>({value: item, label: item }))}/>

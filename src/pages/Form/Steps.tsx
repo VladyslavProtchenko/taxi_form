@@ -1,7 +1,6 @@
 import { useMain } from '../../Store/useMain';
 // import { useSteps } from '../../Store/useSteps';
 import { useValidation } from '../../Store/useValidation';
-import { useEffect, useState } from 'react';
 
 const Steps = () => {
     
@@ -46,9 +45,7 @@ const Steps = () => {
             >back</div>}
 
             {list[activeCarId-1].steps != 4 && <div 
-                className={'' 
-                    ? navBtn + `${list[activeCarId-1].steps === 1? ' ml-auto': ''}`
-                    : ' text-gray-200 active:text-gray-200 ' + navBtn+ `${list[activeCarId-1].steps === 1? ' ml-auto': ''}`}
+                className={navBtn + `${list[activeCarId-1].steps === 1? ' ml-auto': ''}`}
                 onClick={() =>{
                     if(list[activeCarId-1].steps >= 5 ) return setSteps(4)
                     // if(disabled) return;

@@ -4,26 +4,25 @@ import CarSeatSelect from "./CarSeats/CarSeatsSelect";
 import PetsSelect from "./PetsSelect/PetsSelect";
 import PassengersSelect from "./PassengersSelect/PassengersSelect";
 import { useStore } from "../../../Store";
-import { useOptions } from "../../../Store/useOptions";
 import { useValidation } from "../../../Store/useValidation";
 
 import { IoCarSportOutline } from "react-icons/io5";
 import { LiaShuttleVanSolid } from "react-icons/lia";
 import { PiJeepLight } from "react-icons/pi";
 import { AiOutlineStop } from "react-icons/ai";
+import { useMain } from "../../../Store/useMain";
 
 
 const OptionsSection = () => {
-
-    const { user } = useStore()
-    const { options, setCarType } = useOptions()
+    const { store } = useStore()
+    const {list, activeCarId, setCarType} = useMain()
     const { validation } = useValidation()
 
     return (
         <section className={section}>
             <div className={validation.isCarType ? type : type + ' border-red-500'}>
-                    {user.carList.map(item => (
-                        <div className={options.carType === item ? typeItem+' bg-green-400': item === 'limo (disabled)' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem } onClick={()=>{
+                    {store.carList.map(item => (
+                        <div className={list[activeCarId-1].carType === item ? typeItem+' bg-green-400': item === 'limo (disabled)' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem } onClick={()=>{
                                 if(item === 'limo (disabled)') return;
                                 setCarType(item)
                             }}>

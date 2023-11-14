@@ -1,25 +1,26 @@
-import { useOptions } from '../../../../Store/useOptions';
 import type { MenuProps } from 'antd';
 import Dropdown from 'antd/es/dropdown/dropdown';
 import { PiDog } from "react-icons/pi";
 import { LuCat } from "react-icons/lu";
 import { MdPets } from "react-icons/md";
+import { useMain } from '../../../../Store/useMain';
 
 
 const PetsSelect = () => {
-    const {options, setPets} = useOptions()
+    const {list, activeCarId, setPets} = useMain()
+    
 
     const items: MenuProps['items'] = [];
-    options.pets.filter(item=>!item.isActive).map((item,index) =>{
+    list[activeCarId-1].pets.filter(item=>!item.isActive).map((item,index) =>{
         items.push({
             key: index,
-            label: (<span onClick={()=>setPets(options.pets.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
+            label: (<span onClick={()=>setPets(list[activeCarId-1].pets.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
     })
 
     return (
         <div className={container}>
 
-        {options.pets.filter(item=>item.isActive === true).map((item)=>(
+        {list[activeCarId-1].pets.filter(item=>item.isActive === true).map((item)=>(
             <div className={card} key={item.title}>
                 <div className='flex items-center space-x-2'>
                     {(item.title =='Dog')
@@ -37,17 +38,17 @@ const PetsSelect = () => {
                         className='ml-1'
                         checked={item.cage} 
                         onChange={()=>{
-                            setPets(options.pets.map(rem=>item.title === rem.title ? {...rem, cage:!rem.cage} : rem ))
+                            setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, cage:!rem.cage} : rem ))
                         }}
                     />
                 </div>
-                {item.title != options.pets[0].title  
-                    ? <div className={qntMinus+ ' absolute -right-6'} onClick={()=>{setPets(options.pets.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))}}>-</div>
+                {item.title != list[activeCarId-1].pets[0].title  
+                    ? <div className={qntMinus+ ' absolute -right-6'} onClick={()=>{setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))}}>-</div>
                     : <div className=''></div>
                 }
             </div>
         ))}
-        {options.pets.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
+        {list[activeCarId-1].pets.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
             <div className={qntPlus+ 'mt-2 ml-4 w-4 h-4'}>+</div>
         </Dropdown>}
     </div>

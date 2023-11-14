@@ -123,7 +123,7 @@ interface IStore {
     
     setPaymentMethod: (method: string) => void;
     setAdditionalText: (text: string) => void;
-    resetData: () => void;
+    resetForm: () => void;
 
     //trip data methods
     setDate:(value: string) => void;
@@ -269,7 +269,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  '',
+                carType:  'sedan (max 4)',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -446,7 +446,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  '',
+                carType:  'sedan (max 4)',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -623,7 +623,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  '',
+                carType:  'sedan (max 4)',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -800,7 +800,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  '',
+                carType:  'sedan (max 4)',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -977,7 +977,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  '',
+                carType:  'sedan (max 4)',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -1100,7 +1100,7 @@ export const useMain = create<IStore>()(
 
         setPaymentMethod: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, paymentMethod: data} : item )})),
         setAdditionalText: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, additionalText: data} : item )})),
-        resetData: () => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { 
+        resetForm: () => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { 
             ...item,
             name: '',
             name2: '',

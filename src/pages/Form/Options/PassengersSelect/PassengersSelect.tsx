@@ -1,28 +1,29 @@
 import { useEffect, useState } from 'react';
 import { IoPeopleOutline, } from "react-icons/io5";
 import { LiaBabyCarriageSolid } from "react-icons/lia";
-import { useOptions } from '../../../../Store/useOptions';
+import { useMain } from '../../../../Store/useMain';
 
 
 const PassengersSelect = () => {
-    const {options, setPassengers, setCarType} = useOptions()
-    const [adults, setAdults] = useState(options.passengers.adults)
-    const [babies, setBabies] = useState(options.passengers.babies)
-    const [children, setChildren] = useState<{id:number; age:number}[]>(options.passengers.kids)
+    const {list, activeCarId, setPassengers,setCarType} = useMain()
+    const [adults, setAdults] = useState(list[activeCarId-1].passengers.adults)
+    const [babies, setBabies] = useState(list[activeCarId-1].passengers.babies)
+    const [children, setChildren] = useState<{id:number; age:number}[]>(list[activeCarId-1].passengers.kids)
+
 
     useEffect(()=>{
         setPassengers({adults, kids:children,babies})
     },[adults,babies,children])
 
     useEffect(()=>{ 
-        if(options.carType !== 'VAN (5-7)' && (adults + children.length ) >=4) {
+        if(list[activeCarId-1].carType !== 'VAN (5-7)' && (adults + children.length ) >=4) {
             setAdults((adults >= 4 ? 4: adults))
             setChildren(children.filter(( child, index)=> {
                 if(index+1 <= (4 - adults) ) return child;
                 return false;
             }))
         }
-    },[options.carType])
+    },[list[activeCarId-1].carType])
 
     useEffect(()=>{ 
         if(adults < babies) setBabies(adults) 
@@ -138,7 +139,7 @@ const PassengersSelect = () => {
                             className={qntPlus} 
                             onClick={()=>{
                                 if(babies >= adults) return;
-                                if(babies >= 1  && options.carType !== 'VAN (5-7)') return;
+                                if(babies >= 1  && list[activeCarId-1].carType !== 'VAN (5-7)') return;
                                 if(babies >= 2) return;
                                 if(babies >= 1 && adults >5) return;
 

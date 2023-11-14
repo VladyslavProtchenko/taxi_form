@@ -1,26 +1,26 @@
-import { useOptions } from '../../../../Store/useOptions';
 import type { MenuProps } from 'antd';
 import Dropdown from 'antd/es/dropdown/dropdown';
 import { MdOutlineDirectionsBike } from "react-icons/md";
 import { LiaSkiingSolid } from "react-icons/lia";
 import { MdSurfing } from "react-icons/md";
 import { IoGolfOutline } from "react-icons/io5";
+import { useMain } from '../../../../Store/useMain';
 
 
 const SportsSelect = () => {
-    const {options, setSport} = useOptions()
+    const {list, activeCarId, setSport} = useMain()
 
 
     const items: MenuProps['items'] = [];
-    options.sport.filter(item=>!item.isActive).map((item,index) =>{
+    list[activeCarId-1].sport.filter(item=>!item.isActive).map((item,index) =>{
         items.push({
             key: index,
-            label: (<span onClick={()=>setSport(options.sport.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
+            label: (<span onClick={()=>setSport(list[activeCarId-1].sport.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
     })
 
     return (
         <div className={container}>
-            {options.sport.filter(item=>item.isActive === true).map((item)=>(
+            {list[activeCarId-1].sport.filter(item=>item.isActive === true).map((item)=>(
                 <div className={card} key={item.title}>
                     <div className='flex items-center space-x-2'>
                         {(item.title =='Bikes')
@@ -36,9 +36,9 @@ const SportsSelect = () => {
                         <div 
                             className={qntMinus} 
                             onClick={()=>{
-                                if(item.title === options.sport[0].title && item.quantity <= 0) return;
-                                if(item.quantity <= 0 ) return setSport(options.sport.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
-                                setSport(options.sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                                if(item.title === list[activeCarId-1].sport[0].title && item.quantity <= 0) return;
+                                if(item.quantity <= 0 ) return setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
+                                setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}
                         > - </div>
                         <div className='text-xl text-center w-7'>{item.quantity}</div>
@@ -46,14 +46,14 @@ const SportsSelect = () => {
                         className={qntPlus} 
                             onClick={()=>{
                                 if(item.quantity >= 4) return;
-                                setSport(options.sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                                setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
                             }}
                         >+</div>
                     </div>
 
                 </div>
             ))}
-            {options.sport.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
+            {list[activeCarId-1].sport.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
                 <div className={qntPlus+  'mt-2 ml-4 w-4 h-4'}>+</div>
             </Dropdown>}
         </div>

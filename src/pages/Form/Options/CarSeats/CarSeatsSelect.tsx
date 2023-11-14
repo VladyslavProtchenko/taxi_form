@@ -1,22 +1,22 @@
-import { useOptions } from '../../../../Store/useOptions';
 import type { MenuProps } from 'antd';
 import Dropdown from 'antd/es/dropdown/dropdown';
 import { LiaBabyCarriageSolid } from "react-icons/lia";
 import { MdOutlineStroller } from "react-icons/md";
 import { MdOutlineAirlineSeatFlatAngled } from "react-icons/md";
+import { useMain } from '../../../../Store/useMain';
 const CarSeatsSelect = () => {
-    const { options, setCarSeats} = useOptions()
+    const {list, activeCarId, setCarSeats} = useMain()
 
     const items: MenuProps['items'] = [];
-    options.carSeats.filter(item=>!item.isActive).map((item,index) =>{
+    list[activeCarId-1].carSeats.filter(item=>!item.isActive).map((item,index) =>{
         items.push({
             key: index,
-            label: (<span onClick={()=>setCarSeats(options.carSeats.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
+            label: (<span onClick={()=>setCarSeats(list[activeCarId-1].carSeats.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
     })
 
     return (
         <div className={container}>
-            {options.carSeats.filter(item=>item.isActive === true).map((item)=>(
+            {list[activeCarId-1].carSeats.filter(item=>item.isActive === true).map((item)=>(
                 <div className={card} key={item.title}>
                     <div className='flex items-center space-x-2'>
                         {(item.title =='Baby seat')
@@ -32,9 +32,9 @@ const CarSeatsSelect = () => {
                         <div 
                             className={qntMinus} 
                             onClick={()=>{
-                                if(item.title === options.carSeats[0].title && item.quantity === 0) return;
-                                if(item.quantity <= 0 ) return setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
-                                setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                                if(item.title === list[activeCarId-1].carSeats[0].title && item.quantity === 0) return;
+                                if(item.quantity <= 0 ) return setCarSeats(list[activeCarId-1].carSeats.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
+                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}
                         > - </div>
                         <div className='text-xl text-center w-7'>{item.quantity}</div>
@@ -42,14 +42,14 @@ const CarSeatsSelect = () => {
                         className={qntPlus} 
                             onClick={()=>{
                                 if(item.quantity >= 10) return;
-                                setCarSeats(options.carSeats.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
                             }}
                         >+</div>
                     </div>
 
                 </div>
             ))}
-            {options.carSeats.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
+            {list[activeCarId-1].carSeats.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
                 <div className={qntPlus+ ' mt-2 ml-4 w-4 h-4'}>+</div>
             </Dropdown>}
         </div>

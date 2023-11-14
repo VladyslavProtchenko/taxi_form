@@ -1,12 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { Input, Select, Tabs } from "antd";
+import { Input, Select } from "antd";
 
 import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
 import DatePicker from "../../../UI/components/DatePicker";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { IStore } from "../../../Store/useLocation";
 import { useValidation } from "../../../Store/useValidation";
 
 import { SlLocationPin } from "react-icons/sl";
@@ -16,17 +15,12 @@ import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 import { BsTrainFrontFill } from "react-icons/bs";
-import { useInfo } from "../../../Store/useInfo";
-import { useReturnLocation } from "../../../Store/useReturnLocation";
-import { useOptions } from "../../../Store/useOptions";
 import { useStore } from '../../../Store/index';
 import Steps from "../Steps";
-import { useSteps } from "../../../Store/useSteps";
 import { useMain } from "../../../Store/useMain";
 
 interface IObj {[key:number]: string}
 const TripContent = () => {
-    const {user:info, resetData, setResetPhone, setIsCars} = useInfo()
     const {  
         activeCarId,
         list,
@@ -43,14 +37,12 @@ const TripContent = () => {
         setIcon,
         setIcon2,
         setAirlinesBack,
-        resetLocation,
+        resetForm,
         setDateNow
     } = useMain()
     const { store } = useStore()
-    const { store:steps } = useSteps()
 
-    const { resetReturn } = useReturnLocation()
-    const { resetOptions } = useOptions()
+
     const { validation} = useValidation()
 
 
@@ -60,34 +52,6 @@ const TripContent = () => {
     const [stop, setStop] = useState(0)
     const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
 
-    function resetForm() {
-        resetData();
-        setResetPhone(true);
-        resetLocation();
-        resetReturn();
-        resetOptions();
-        localStorage.setItem('user', JSON.stringify({
-            genderList: ['Mr.', 'Msr.', 'null', 'undefined', 'object', 'infinity'],
-            gender: '',
-            extraGender1: '',
-            extraGender2: '',
-
-            name: '',
-            extraName1: '',
-            extraName2: '',
-
-            email: '@',
-            extraEmail1: '@',
-            extraEmail2: '@',
-
-            phone: '',
-            extraPhone1: '',
-            extraPhone2: '',
-
-            paymentMethod: 'Cash',
-            additionalText: '',
-        }))
-    }
 
     useEffect(()=>{
         //if montreal airport is pick up location  we need require departure and flight.
@@ -136,31 +100,12 @@ const TripContent = () => {
         setStops(localStops)
     },[localStops])
 
-    const onChange = (key: string) => {
-        console.log(key);
-    };
+    useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
 
+    console.log(list[activeCarId-1].stops)
     return (
     <div className={container}>
-        {/* <h1 className={label}>One-Way</h1> */}
-
-{/* 
-        <div className={tabsContainer}>
-        <Tabs
-            tabPosition='left'
-            onChange={onChange}
-            type="card"
-            items={new Array(5).fill(null).map((_, i) => {
-            const id = String(i + 1);
-            return {
-                label: `${id}`,
-                key: id,
-            };
-            })}
-        />
-        </div> */}
-
         <div className={content}>
 
             <div className={date}>
@@ -302,7 +247,7 @@ const TripContent = () => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 1:e})
                     }}
-                    placeholder='Stop'
+                    placeholder='First top'
                 />
                 <div 
                     className={(stop === 0) ? openStop :closeStop} 
@@ -331,7 +276,7 @@ const TripContent = () => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 2:e})
                     }}
-                    placeholder='Stop'
+                    placeholder='Second stop'
                 />
                 <div 
                     className={(stop === 1) ? openStop :closeStop} 
@@ -359,7 +304,7 @@ const TripContent = () => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 3:e})
                     }}
-                    placeholder='Stop'
+                    placeholder='Third stop'
                 />
                 <div 
                     className={(stop === 2) ? openStop :closeStop} 
@@ -387,7 +332,7 @@ const TripContent = () => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 4:e})
                     }}
-                    placeholder='Stop'
+                    placeholder='Fourth stop'
                 />
 
                 <div 
@@ -538,7 +483,7 @@ const dateInput = 'text-xs flex border h-[40px] relative w-[200px] max-w-[200px]
 const date = 'flex mt-3 mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
-const extraCardStop = 'flex relative mr-6  items-center border w-4/5 self-end  rounded'
+const extraCardStop = 'flex relative mr-6  items-center border w-5/6 self-end  rounded'
 const extraCardPickUp = 'flex relative w-3/4 items-center border w-full rounded'
 
 const container = 'flex relative  px-4  w-full  relative  rounded-b  border shadow-xl border-t-0'

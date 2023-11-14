@@ -1,22 +1,23 @@
-import { useOptions } from '../../../../Store/useOptions';
 import type { MenuProps } from 'antd';
 import Dropdown from 'antd/es/dropdown/dropdown';
 import { PiSuitcaseRolling,PiBackpackLight,PiHandbag } from "react-icons/pi";
+import { useMain } from '../../../../Store/useMain';
 
 const BagsSelect = () => {
-    const {options, setBaggage} = useOptions()
+    const {list, activeCarId, setBaggage} = useMain()
+
 
     const items: MenuProps['items'] = [];
-    options.baggage.filter(item=>!item.isActive).map((item,index) =>{
+    list[activeCarId-1].baggage.filter(item=>!item.isActive).map((item,index) =>{
         items.push({
             key: index,
-            label: (<span onClick={()=>setBaggage(options.baggage.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
+            label: (<span onClick={()=>setBaggage(list[activeCarId-1].baggage.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
     })
     
 
     return (
         <div className={container} >
-            {options.baggage.filter(item=>item.isActive === true).map((item)=>(
+            {list[activeCarId-1].baggage.filter(item=>item.isActive === true).map((item)=>(
                 <div className={card} key={item.title}>
                     <div className='flex items-center'>
                         {(item.title =='32 kg' || item.title == '23 kg')
@@ -30,9 +31,9 @@ const BagsSelect = () => {
                         <div 
                             className={qntMinus} 
                             onClick={()=>{
-                                if(item.title === options.baggage[1].title && item.quantity <= 0) return;
-                                if(item.quantity <= 0 ) return setBaggage(options.baggage.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
-                                setBaggage(options.baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                                if(item.title === list[activeCarId-1].baggage[1].title && item.quantity <= 0) return;
+                                if(item.quantity <= 0 ) return setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
+                                setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}
                         > - </div>
                         <div className='text-xl text-center w-7'>{item.quantity}</div>
@@ -40,14 +41,14 @@ const BagsSelect = () => {
                         className={qntPlus} 
                             onClick={()=>{
                                 if(item.quantity >= 10) return;
-                                setBaggage(options.baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                                setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
                             }}
                         >+</div>
                     </div>
                 </div>
             ))}
             
-            {options.baggage.filter(item=>item.isActive !== true).length > 0 && <Dropdown overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
+            {list[activeCarId-1].baggage.filter(item=>item.isActive !== true).length > 0 && <Dropdown overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
                 <div className={qntPlus+ ' mt-2 ml-4 w-4 h-4'}>+</div>
             </Dropdown>}
         </div>

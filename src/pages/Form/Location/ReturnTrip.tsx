@@ -225,8 +225,8 @@ const ReturnTrip = ()  => {
                     <GoogleAddressInput 
                         style='w-full ' 
                         defaultLocation={
-                            list[activeCarId-1].from
-                            ? list[activeCarId-1].from
+                            list[activeCarId-1].fromR
+                            ? list[activeCarId-1].fromR
                             : list[activeCarId-1].to && trigger[1] 
                             ? list[activeCarId-1].to
                             : ''
@@ -249,10 +249,10 @@ const ReturnTrip = ()  => {
                 <span className='icon text-orange-400'><SlLocationPin/></span> 
                 <GoogleAddressInput
                     style='w-full'
-                    defaultLocation={list[activeCarId-1].stops[1]} 
+                    defaultLocation={list[activeCarId-1].stopsR[1]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stops, 1: e})
+                        setStopsR({...list[activeCarId-1].stopsR, 1: e})
                     }}
                     placeholder='First Stop'
                 />
@@ -261,7 +261,7 @@ const ReturnTrip = ()  => {
                     className={(stop === 0) ? openStop :closeStop} 
                     onClick={()=>{ 
                         if(stop===0) return setStop(1);
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 0)
+                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 0)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -280,10 +280,10 @@ const ReturnTrip = ()  => {
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full'
-                    defaultLocation={list[activeCarId-1].stops[2]} 
+                    defaultLocation={list[activeCarId-1].stopsR[2]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stops, 2: e})
+                        setStopsR({...list[activeCarId-1].stopsR, 2: e})
                     }}
                     placeholder='Second Stop'
                 />
@@ -291,7 +291,7 @@ const ReturnTrip = ()  => {
                 className={(stop === 1) ? openStop :closeStop} 
                 onClick={()=>{
                         if(stop===1) return setStop(2) 
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 1)
+                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 1)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -311,10 +311,10 @@ const ReturnTrip = ()  => {
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full'
-                    defaultLocation={list[activeCarId-1].stops[3]} 
+                    defaultLocation={list[activeCarId-1].stopsR[3]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stops, 3: e})
+                        setStopsR({...list[activeCarId-1].stopsR, 3: e})
                     }}
                     placeholder='Third Stop'
                 />
@@ -322,7 +322,7 @@ const ReturnTrip = ()  => {
                 className={(stop === 2) ? openStop :closeStop} 
                 onClick={()=>{ 
                         if(stop===2) return setStop(3)
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
+                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 2)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -342,10 +342,10 @@ const ReturnTrip = ()  => {
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full '
-                    defaultLocation={list[activeCarId-1].stops[4]} 
+                    defaultLocation={list[activeCarId-1].stopsR[4]} 
                     onChange={(e)=>{
                         setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stops, 4: e})
+                        setStopsR({...list[activeCarId-1].stopsR, 4: e})
                     }}
                     placeholder='Fourth Stop'
                 />
@@ -353,7 +353,7 @@ const ReturnTrip = ()  => {
                 className={(stop === 3) ? openStop :closeStop} 
                 onClick={()=>{ 
                     if(stop===3) return setStop(4)
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 3)
+                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 3)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
@@ -371,8 +371,8 @@ const ReturnTrip = ()  => {
                     <span className='icon text-red-400'><SlLocationPin/></span>
                     <GoogleAddressInput 
                         defaultLocation={
-                            list[activeCarId-1].to 
-                            ?  list[activeCarId-1].to
+                            list[activeCarId-1].toR 
+                            ?  list[activeCarId-1].toR
                             : list[activeCarId-1].from && trigger[2]
                             ? list[activeCarId-1].from 
                             : ''
@@ -497,7 +497,7 @@ const date = 'flex sm:items-start sm:mb-2 items-start w-full justify-between bor
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'
-const extraCardStop = 'flex relative mr-6  items-center border w-4/5 self-end  rounded'
+const extraCardStop = 'flex relative mr-6  items-center border w-5/6 self-end  rounded'
 
 const container = 'flex relative  px-4  w-full rounded-b relative border shadow-xl border-t-0'
 
