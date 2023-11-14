@@ -1,11 +1,10 @@
 
+import React from "react";
 import { useMain } from "../../../Store/useMain";
 import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 
-
-
-const LocationSection = () => {
+const LocationSection = ():React.ReactNode => {
     const { list, activeCarId, setIsReturnTrip} = useMain()
     
     return (

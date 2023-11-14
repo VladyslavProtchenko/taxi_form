@@ -11,9 +11,10 @@ import { LiaShuttleVanSolid } from "react-icons/lia";
 import { PiJeepLight } from "react-icons/pi";
 import { AiOutlineStop } from "react-icons/ai";
 import { useMain } from "../../../Store/useMain";
+import React from "react";
 
 
-const OptionsSection = () => {
+const OptionsSection = ():React.ReactNode => {
     const { store } = useStore()
     const {list, activeCarId, setCarType} = useMain()
     const { validation } = useValidation()

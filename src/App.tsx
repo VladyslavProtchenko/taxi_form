@@ -1,7 +1,8 @@
+import React from "react"
 import { useMain } from "./Store/useMain"
 import Form from "./pages/Form/Form"
-function App() {
-  const {activeCarId, setActiveCarId} = useMain()
+function App():React.ReactNode {
+  const {activeCarId, setActiveCarId, isCars} = useMain()
 
   return (
     <div className={container}>
@@ -35,24 +36,28 @@ function App() {
             <li 
                 className={activeCarId===2 ? activeTab  : activeCarId ===3 ? tab + ' border-b rounded-br pt-[10px]' : activeCarId===1 ? tab + ' rounded-tr border-t' : tab+ ' pt-[10px]' }
                 onClick={()=>{
+                  if(!isCars[1]) return
                   setActiveCarId(2)
                 }}
             >2</li>
             <li 
                 className={activeCarId===3 ? activeTab  : activeCarId===4 ? tab + ' border-b rounded-br pt-[10px]' : activeCarId===2 ? tab + ' border-t rounded-tr': tab + ' pt-[10px]'}
                 onClick={()=>{
+                  if(!isCars[2]) return
                   setActiveCarId(3)
                 }}
             >3</li>
             <li 
                 className={activeCarId===4 ? activeTab  : activeCarId===5 ? tab + ' border-b rounded-br pt-[10px]' : activeCarId===3 ? tab + ' border-t rounded-tr': tab + ' pt-[10px]'}
                 onClick={()=>{
+                  if(!isCars[3]) return
                   setActiveCarId(4)
                 }}
             >4</li>
             <li 
                 className={activeCarId===5 ? activeTab : activeCarId===4 ? tab + ' border-t rounded-tr': tab + ' pt-[10px]'}
                 onClick={()=>{
+                  if(!isCars[4]) return
                   setActiveCarId(5)
                 }}
             >5</li>

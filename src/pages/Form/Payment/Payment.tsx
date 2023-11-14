@@ -1,24 +1,24 @@
 import { Select } from "antd";
 import { Input } from 'antd';
-import { useValidation } from "../../../Store/useValidation";
 import { useMain } from "../../../Store/useMain";
 import { useStore } from "../../../Store";
+import React from "react";
 const { TextArea } = Input;
 
 interface ISendOrder {
     sendOrder: () => void;
 }
 
-const PaymentSection = ({sendOrder}:ISendOrder) => {
-    const { validation } = useValidation()
+const PaymentSection = ({sendOrder}:ISendOrder):React.ReactNode => {
     const {list, activeCarId, setPaymentMethod,setAdditionalText,setTripType} = useMain()
     const { store} = useStore()
+
     return (
         <section className={section}>
             <div className={content}>
                 <span className={box}>
-                    <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 5}} value={list[activeCarId-1].tripType || ''} onChange={setTripType} options={store.tripList.map(item=>({value: item, label: item}))}/></span>
-                <span className={validation.isPayment ? box2: box2 +' border-red-500'}>
+                    <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 5}} value={list[activeCarId-1].tripType} onChange={setTripType} options={store.tripList.map(item=>({value: item, label: item}))}/></span>
+                <span className={list[activeCarId-1].paymentMethod ? box2: box2 +' border-red-500'}>
                     <Select placeholder='Payment method' style={{ width:200 , height: 30, borderRadius: 5}} value={list[activeCarId-1].paymentMethod} onChange={setPaymentMethod} options={store.paymentList.map(item=>({value: item, label: item}))}/></span>
                     <button className={btn} onClick={sendOrder}>Order</button>
             </div>

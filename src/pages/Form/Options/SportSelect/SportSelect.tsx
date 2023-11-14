@@ -5,9 +5,10 @@ import { LiaSkiingSolid } from "react-icons/lia";
 import { MdSurfing } from "react-icons/md";
 import { IoGolfOutline } from "react-icons/io5";
 import { useMain } from '../../../../Store/useMain';
+import React from 'react';
 
 
-const SportsSelect = () => {
+const SportsSelect = ():React.ReactNode => {
     const {list, activeCarId, setSport} = useMain()
 
 

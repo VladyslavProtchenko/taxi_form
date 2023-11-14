@@ -1,5 +1,6 @@
+import React from "react";
 
-const Success = () => {
+const Success = ():React.ReactNode => {
     return (
         <div>
             

@@ -1,44 +1,47 @@
+import React from 'react';
 import { useMain } from '../../Store/useMain';
-// import { useSteps } from '../../Store/useSteps';
 import { useValidation } from '../../Store/useValidation';
+import { useState, useEffect } from 'react';
 
-const Steps = () => {
+const Steps = ():React.ReactNode => {
     
-    const { activeCarId, list, setSteps } = useMain()
+    const { activeCarId, list, setSteps, } = useMain()
     const { validation, setIsSubmit } = useValidation()
-    // const [disabled, setDisabled] = useState(true)
+    const [activePage, setActivePage] = useState(1)
 
-    // useEffect(()=>{
-    //     // setDisabled(true)
-    //     if(list[activeCarId-1].steps === 1 && (validation.isTitle && validation.isName && validation.isPhone && validation.isEmail)) return setDisabled(false);
-    //     if(validation.isReturn && list[activeCarId-1].steps === 2
-    //         && (!validation.isDateBack || !validation.isTimeBack)
-    //     ) return setDisabled(true)
+    useEffect(()=>{
 
-    //     if(validation.isReturn && list[activeCarId-1].steps === 2 
-    //         && validation.isDateBack
-    //         && validation.isTimeBack
-    //     )  return setDisabled(false);
 
-    //     if(list[activeCarId-1].steps === 2 && 
-    //         (validation.isDate 
-    //         && validation.isTime 
-    //         && validation.isFrom
-    //         && validation.isTo
-    //     )) return setDisabled(false);
+        if(!list[activeCarId-1].isReturnTrip &&  list[activeCarId-1].from && list[activeCarId-1].to){ 
+            
+            return  setActivePage(3) 
+        }
 
-    //     if(list[activeCarId-1].steps === 3 && validation.isCarType)return setDisabled(false);
-    // },[list[activeCarId-1].steps, validation, validation.isReturn])
-    
+        if(list[activeCarId-1].isReturnTrip && list[activeCarId-1].dateR && list[activeCarId-1].timeR && list[activeCarId-1].fromR && list[activeCarId-1].toR && list[activeCarId-1].from && list[activeCarId-1].to) {
+
+            return setActivePage(3)
+        }
+
+        const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if((list[activeCarId-1].name.length > 3) 
+            && list[activeCarId-1].title 
+            && pattern.test(list[activeCarId-1].email)
+            && (list[activeCarId-1].phone.length >= 11)) 
+        { return setActivePage(2) }
+
+    },[list])
+
+
     return (
         <div className={buttons +' text-gray-300 active:text-gray-300'}>
-            {list[activeCarId-1].steps != 1 && <div 
+            {list[activeCarId-1].steps != 1 && 
+            <div 
                 className={navBtn}
                 onClick={() =>{
                     if(validation.isSubmit) {
                         setIsSubmit(false)
                         return setSteps(1)
-                    } 
+                    }
                     if(list[activeCarId-1].steps <=1 ) return setSteps(1)
                     setSteps(list[activeCarId-1].steps - 1)
                 }}
@@ -47,20 +50,14 @@ const Steps = () => {
             {list[activeCarId-1].steps != 4 && <div 
                 className={navBtn + `${list[activeCarId-1].steps === 1? ' ml-auto': ''}`}
                 onClick={() =>{
-                    if(list[activeCarId-1].steps >= 5 ) return setSteps(4)
-                    // if(disabled) return;
-                    console.log(list[activeCarId-1].steps, 'stepsss')
-                    // if(list[activeCarId-1].steps === 2 && 
-                    //     (validation.isDate 
-                    //     && !validation.isTime 
-                    //     && !validation.isFrom
-                    //     && !validation.isTo
-                    //     && (validation.isReturn && !validation.isDateBack)
-                    //     && (validation.isReturn && !validation.isTimeBack)
-                    //     && (validation.isReturn && !validation.isBackFrom)
-                    //     && (validation.isReturn && !validation.isBackTo)
-                    //     )) return;
-                    setSteps(list[activeCarId-1].steps + 1)
+                    list[activeCarId-1].steps === 1 && activePage === 2 
+                    ? setSteps(list[activeCarId-1].steps + 1)
+                    : list[activeCarId-1].steps === 2 && activePage === 3
+                    ? setSteps(list[activeCarId-1].steps + 1) 
+                    : list[activeCarId-1].steps === 3 && activePage === 3
+                    ? setSteps(list[activeCarId-1].steps + 1) 
+                    : setSteps(list[activeCarId-1].steps) 
+                    
                 }}
             >next</div>}
         </div>

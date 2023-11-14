@@ -10,9 +10,10 @@ import { PiCreditCard, PiSuitcaseRolling } from "react-icons/pi";
 import { MdOutlineStroller, MdPets } from "react-icons/md";
 import { GiPalmTree } from "react-icons/gi";
 import { useMain } from '../../../Store/useMain';
+import React from 'react';
 
 
-const Submit = () => {
+const Submit = ():React.ReactNode => {
     const { activeCarId, list } =useMain()
 
     return (

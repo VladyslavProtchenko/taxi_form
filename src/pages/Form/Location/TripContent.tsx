@@ -17,9 +17,10 @@ import { BsTrainFrontFill } from "react-icons/bs";
 import { useStore } from '../../../Store/index';
 import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
+import React from "react";
 
 interface IObj {[key:number]: string}
-const TripContent = () => {
+const TripContent = ():React.ReactNode => {
     const {  
         activeCarId,
         list,
@@ -39,6 +40,7 @@ const TripContent = () => {
         resetForm,
         setDateNow
     } = useMain()
+
     const { store } = useStore()
 
     const [fullDate, setFullDate] = useState(dayjs())
@@ -46,7 +48,9 @@ const TripContent = () => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
     const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
-
+    useEffect(()=>{
+        setDate(dayjs().format('DD/MM/YYYY'))
+    },[])
 
     useEffect(()=>{
         //if montreal airport is pick up location  we need require departure and flight.
@@ -98,7 +102,6 @@ const TripContent = () => {
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
 
-    console.log(list[activeCarId-1].stops)
     return (
     <div className={container}>
         <div className={content}>

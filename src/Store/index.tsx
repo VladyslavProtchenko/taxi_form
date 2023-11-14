@@ -18,26 +18,14 @@ interface IUser {
     trainArray: string[];
     boatArray: string[];
     hotelArray: string[];
-    isCars: {
-        1: boolean,
-        2: boolean,
-        3: boolean,
-        4: boolean,
-        5: boolean,
-    }
+
 
 }
 interface Store {
     store: IUser;
-    setIsCars: (data: {
-        1: boolean,
-        2: boolean,
-        3: boolean,
-        4: boolean,
-        5: boolean
-    }) => void;
+
 }
-export const useStore = create<Store>((set) => ({
+export const useStore = create<Store>(() => ({
     store: {
         // French Version : const [tripType, setTripType] = useState('S.V.P. choisissez :');
         // French Version : const [tripList, setTripList] = useState(['Affaires', 'Vacance']);
@@ -68,14 +56,8 @@ export const useStore = create<Store>((set) => ({
         trainArray:[ 'train', 'train station underground', ],
         boatArray : [ 'boat', ],
         hotelArray: [ 'room', 'hotel', ],
-        isCars: {
-            1: true,
-            2: false,
-            3: false,
-            4: false,
-            5: false,
-        },
+
         
-    },    setIsCars: (data) => set((state) => ({ store: { ...state.store, isCars: data } })),
+    },
 
 }))

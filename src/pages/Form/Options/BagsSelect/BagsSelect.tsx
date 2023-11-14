@@ -2,8 +2,9 @@ import type { MenuProps } from 'antd';
 import Dropdown from 'antd/es/dropdown/dropdown';
 import { PiSuitcaseRolling,PiBackpackLight,PiHandbag } from "react-icons/pi";
 import { useMain } from '../../../../Store/useMain';
+import React from 'react';
 
-const BagsSelect = () => {
+const BagsSelect = ():React.ReactNode => {
     const {list, activeCarId, setBaggage} = useMain()
 
 

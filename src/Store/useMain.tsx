@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-
 interface IPassengers {
     adults: number;
     kids: {
@@ -24,6 +23,7 @@ interface IItem {
 
 interface ITaxi {
     id:number;
+    filled: boolean;
     name: string;
     name2: string;
     name3: string;
@@ -100,10 +100,25 @@ interface ITaxi {
 }
 
 interface IStore {
+    isCars: {
+        1: boolean,
+        2: boolean,
+        3: boolean,
+        4: boolean,
+        5: boolean,
+    }
     activeCarId: number;
     list: ITaxi[];
     //info methods
     setActiveCarId: (value: number) => void;
+    setFilled: (value: boolean) => void;
+    setIsCars: (data: {
+        1: boolean,
+        2: boolean,
+        3: boolean,
+        4: boolean,
+        5: boolean
+    }) => void;
 
     setTitle: (value: string) => void;
     setTitle2: (value: string) => void;
@@ -191,10 +206,18 @@ interface IStore {
 
 export const useMain = create<IStore>()(
     (set) => ({
+        isCars: {
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+            5: false,
+        },
         activeCarId: 1,
         list: [
             {
                 id:1,
+                filled: false,
                 name: '',
                 name2: '',
                 name3: '',
@@ -237,9 +260,9 @@ export const useMain = create<IStore>()(
             
                 departure: '',
                 departure2: '',
-                tripType:'',
+                tripType:'Vacation',
             
-                paymentMethod: '',
+                paymentMethod: 'Cash',
                 additionalText: '',
             
                 //return trip information
@@ -372,6 +395,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:2,
+                filled: false,
                 name: '',
                 name2: '',
                 name3: '',
@@ -414,9 +438,9 @@ export const useMain = create<IStore>()(
             
                 departure: '',
                 departure2: '',
-                tripType:'',
+                tripType:'Vacation',
             
-                paymentMethod: '',
+                paymentMethod: 'Cash',
                 additionalText: '',
             
                 //return trip information
@@ -549,6 +573,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:3,
+                filled: false,
                 name: '',
                 name2: '',
                 name3: '',
@@ -591,9 +616,9 @@ export const useMain = create<IStore>()(
             
                 departure: '',
                 departure2: '',
-                tripType:'',
+                tripType:'Vacation',
             
-                paymentMethod: '',
+                paymentMethod: 'Cash',
                 additionalText: '',
             
                 //return trip information
@@ -726,6 +751,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:4,
+                filled: false,
                 name: '',
                 name2: '',
                 name3: '',
@@ -768,9 +794,9 @@ export const useMain = create<IStore>()(
             
                 departure: '',
                 departure2: '',
-                tripType:'',
+                tripType:'Vacation',
             
-                paymentMethod: '',
+                paymentMethod: 'Cash',
                 additionalText: '',
             
                 //return trip information
@@ -903,6 +929,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:5,
+                filled: false,
                 name: '',
                 name2: '',
                 name3: '',
@@ -945,9 +972,9 @@ export const useMain = create<IStore>()(
             
                 departure: '',
                 departure2: '',
-                tripType:'',
+                tripType:'Vacation',
             
-                paymentMethod: '',
+                paymentMethod: 'Cash',
                 additionalText: '',
             
                 //return trip information
@@ -1080,8 +1107,10 @@ export const useMain = create<IStore>()(
             },
         ],
         setActiveCarId: (data) => set((state) =>  ({ ...state, activeCarId: data})),
+        setIsCars: (data) => set((state) => ({ ...state, isCars: data })),
 
         //info methods
+        setFilled: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, filled: data} : item )})),
         setTitle: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title: data} : item )})),
         setTitle2: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title2: data} : item )})),
         setTitle3: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title3: data} : item )})),

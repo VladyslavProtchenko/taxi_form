@@ -8,6 +8,7 @@ import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 import { useValidation } from '../../Store/useValidation';
 import { useMain } from '../../Store/useMain';
+import React from 'react';
 
 const countries = [
     ["Afghanistan", "93"],
@@ -234,7 +235,7 @@ interface IPhone {
     onChange: (value: string) => void;
 }
 
-function PhoneNumberInput({ value, onChange, type }: IPhone) {
+function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     const ref = useOnclickOutside(() => setIsOpen(false));
     const { activeCarId } = useMain()
     const {setIsPhone } = useValidation()
@@ -272,7 +273,6 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     
-    console.log(value, 'value')
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >

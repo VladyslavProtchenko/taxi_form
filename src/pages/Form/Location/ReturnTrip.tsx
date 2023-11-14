@@ -19,10 +19,11 @@ import { BsTrainFrontFill } from "react-icons/bs";
 // import { useInfo } from "../../../Store/useInfo";
 import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
+import React from "react";
 interface IObj {[key:number]: string}
 
 
-const ReturnTrip = ()  => {
+const ReturnTrip = ():React.ReactNode  => {
     const {
         list,
         activeCarId,
@@ -42,9 +43,7 @@ const ReturnTrip = ()  => {
         resetReturn 
     } =useMain()
     const { store } = useStore()
-    // const { store } = useSteps()
     
-    // const {user:info, setIsCars} = useInfo()
 
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
     const [stopTrigger, setStopTrigger] = useState(true)

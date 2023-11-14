@@ -5,6 +5,7 @@ import { Input, Select } from 'antd';
 import { BsPeople } from "react-icons/bs";
 import { useMain } from '../../../Store/useMain';
 import { useStore } from '../../../Store';
+import React from 'react';
 
 const InfoSection = () => {
     const { store } = useStore()
@@ -38,7 +39,6 @@ const InfoSection = () => {
         2:false,
     })
 
-    console.log(list[activeCarId-1], 'item')
     return (
         <section className={section}>
             <div className={extraContainer}>

@@ -3,13 +3,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import React from 'react';
 interface IDate {
     onChange:(date:string) => void;
     getFullDate?: (date: dayjs.Dayjs) => void;
     time:string;
 }
 
-export default function DatePicker({onChange, getFullDate}:IDate) {
+export default function DatePicker({onChange, getFullDate}:IDate):React.ReactNode {
     const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
 
     const handleDate = (date: string | number | dayjs.Dayjs | Date | null | undefined) => {
