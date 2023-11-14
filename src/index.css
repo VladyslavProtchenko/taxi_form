@@ -26,20 +26,24 @@
 
 .form-control {
     border: none !important;
-    width: auto !important;
+    width: 100% !important;
     padding-top: 3px;
     padding-bottom: 3px;
     height: auto !important;
     line-height: 22px !important;
+    text-overflow: ellipsis !important;
+    overflow-x: hidden;
 }
-
+.react-tel-input .form-control {
+    text-overflow: ellipsis !important;
+    overflow-x: hidden !important;
+}
 .flag-dropdown {
     background: #fff !important;
     border: none !important;
     border-right: 1px solid #ededed !important;
 
 }
-
 .css-4pax7l-MuiPickersLayout-root .MuiPickersLayout-actionBar {
     display: none !important;
 }

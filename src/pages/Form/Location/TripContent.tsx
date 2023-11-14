@@ -6,7 +6,6 @@ import GoogleAddressInput from "../../../UI/components/GoogleAddressInput";
 import TimePicker from "../../../UI/components/TimePicker";
 import DatePicker from "../../../UI/components/DatePicker";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { useValidation } from "../../../Store/useValidation";
 
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
@@ -41,10 +40,6 @@ const TripContent = () => {
         setDateNow
     } = useMain()
     const { store } = useStore()
-
-
-    const { validation} = useValidation()
-
 
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
@@ -120,7 +115,7 @@ const TripContent = () => {
                 <div className={dateRow}>
                     
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
-                    <div className={validation.isDate ? dateInput : dateInput +' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                    <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         <div className='flex items-center'>
                         {fullDate.format('dddd')},  
@@ -215,7 +210,7 @@ const TripContent = () => {
             </div>
 
             <div className={locationCard}>
-                <div className={validation.isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                <div className={list[activeCarId-1].from ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-green-500'><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full' 
@@ -353,7 +348,7 @@ const TripContent = () => {
             </div>
 
             <div className={locationCard}>
-                <div className={validation.isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                <div className={list[activeCarId-1].to ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-red-500'><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full' 

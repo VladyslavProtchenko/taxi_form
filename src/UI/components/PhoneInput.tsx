@@ -288,7 +288,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                 defaultValue={'Canada'}
                 value={country || 'Canada'}
                 placeholder={country || "Canada"}
-                className=" sm:max-w-[55px] phoneArrow max-w-[100px] pl-[2px]"
+                className=" max-w-[55px] phoneArrow  pl-[2px]"
                 style={{ width:'100%', height: 40, }}
                 onChange={setCountry}
                 filterOption={filterOption}
@@ -299,7 +299,8 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                     }
                 ))}
             />
-            {(country==='USA' || country.toLowerCase() ==="united states") && <PhoneInput
+            {(country==='USA' || country.toLowerCase() ==="united states") && 
+                <PhoneInput
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 isValid={(value, country:any,) => {
                     const res = country.format.split(".").length-1;
@@ -307,6 +308,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                     setRes(res)
                     return true
                 }}
+                dropdownClass='max-w-[200px] z-40'
                 priority={{ca: 1, us: 0,kz: 0, ru: 1}  }
                 country={'us'}
                 value={value || countryCode}
@@ -324,7 +326,8 @@ function PhoneNumberInput({ value, onChange, type }: IPhone) {
                     setRes(res)
                     return true
                 }}
-                dropdownClass='max-w-[200px]  '
+                
+                dropdownClass='max-w-[200px] z-40'
                 priority={{ca: 0, us: 1,kz: 0, ru: 1} }
                 country={'ca'}
                 value={value || countryCode}

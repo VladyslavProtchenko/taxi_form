@@ -3,7 +3,6 @@ import PhoneNumberInput from '../../../UI/components/PhoneInput';
 import MailInput from '../../../UI/components/MailInput';
 import { Input, Select } from 'antd';
 import { BsPeople } from "react-icons/bs";
-import { useValidation } from '../../../Store/useValidation';
 import { useMain } from '../../../Store/useMain';
 import { useStore } from '../../../Store';
 
@@ -26,7 +25,6 @@ const InfoSection = () => {
         setPhone3,
     } = useMain()
 
-    const { validation } = useValidation()
     const [isExtraNameOpen, setIsExtraNameOpen] = useState({
         1:false,
         2:false,
@@ -44,7 +42,7 @@ const InfoSection = () => {
     return (
         <section className={section}>
             <div className={extraContainer}>
-                <div className={ (validation.isName && validation.isTitle ) ? nameCard + ' ': nameCard + '  border-red-500' }>
+                <div className={ (list[activeCarId-1].name.length>3 && list[activeCarId-1].title ) ? nameCard + ' ': nameCard + '  border-red-500' }>
                     <span className='icon'><BsPeople/></span>
                     <Select allowClear value={list[activeCarId-1].title || null} placeholder='title' style={{width: 118, height: 40}} onChange={setTitle} options={store.titleList.map(item=>({value: item, label: item }))}/>
                     <Input allowClear value={list[activeCarId-1].name || ''} placeholder='Name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{width:200, borderRadius: 5, height: 30}}/>
@@ -101,11 +99,11 @@ const InfoSection = () => {
             </div>
 
             <div className={extraContainer}>
-                <div className={validation.isPhone ? extraCard +' border': extraCard+ ' border border-red-500' } >
+                <div className={list[activeCarId-1].phone.length>=11 ? extraCard +' border z-30': extraCard+ ' border border-red-500 z-30' } >
                     <PhoneNumberInput type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
                 </div>
 
-                <div className={extraCard + ' border'}>
+                <div className={extraCard + ' border z-20'}>
                     {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                         <PhoneNumberInput type={3}  value={list[activeCarId-1].phone2} onChange={setPhone2}/>
                     <button className={(isExtraPhoneOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })}}> {`${(isExtraPhoneOpen[1]) ? '-' : '+'}`} </button>      
@@ -131,7 +129,7 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-const nameCard = 'relative flex max-w-[400px] w-full relative items-center border rounded'
+const nameCard = 'relative flex max-w-[400px] w-[100%] relative items-center border rounded'
 const addExtraBtn = "absolute w-5 h-5 flex justify-center bg-green-400 rounded text-md border border-black cursor-pointer font-bold text-black  left-[101%]"
 
 const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded text-md border border-gray-600 cursor-pointer font-bold text-black  left-[101%]"
@@ -141,5 +139,5 @@ const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounde
 const extraCard = ' flex relative items-center max-w-[400px] w-full rounded'
 const extraContainer = 'flex flex-col w-full items-start space-y-2 items-center'
 
-const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full px-8  max-w-[576px] border-none '
+const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full pr-8 max-w-[576px] border-none '
 // const missIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://icons.iconarchive.com/icons/iconsmind/outline/512/Girl-icon.png")] bg-no-repeat scale-[130%]'

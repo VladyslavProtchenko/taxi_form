@@ -23,17 +23,14 @@ const Form = () => {
         setIsTo,
         setIsDate,
         setIsTime,
-        setIsFlight,
-        setIsDeparture,
-        setIsBackFrom,
-        setIsBackTo,
-        setIsDateBack,
-        setIsTimeBack,
-        setIsFlightBack,
-        setIsDepartureBack,
         setIsPayment,
         setIsSubmit,
+        setIsFromR,
+        setIsDateR,
+        setIsTimeR,
+        setIsToR
     } = useValidation()
+
     useEffect(()=>{
         setIsTitle(false)
         setIsName(false)
@@ -50,21 +47,21 @@ const Form = () => {
         setIsTo(false)
         setIsDate(false)
         setIsTime(false) 
-        setIsBackFrom(false)
-        setIsBackTo(false)
-        setIsDateBack(false)
-        setIsTimeBack(false)
+        setIsFromR(false)
+        setIsToR(false)
+        setIsDateR(false)
+        setIsTimeR(false)
 
         if(list[activeCarId-1].from) setIsFrom(true)
         if(list[activeCarId-1].to) setIsTo(true)
         if(list[activeCarId-1].date) setIsDate(true)
         if(list[activeCarId-1].time.length === 5 ) setIsTime(true)
 
-        if(list[activeCarId-1].isReturnTrip && ( list[activeCarId-1].fromR || list[activeCarId-1].from )) setIsBackFrom(true)
-        if(list[activeCarId-1].isReturnTrip && ( list[activeCarId-1].toR || list[activeCarId-1].to )) setIsBackTo(true)
-        if(list[activeCarId-1].isReturnTrip && list[activeCarId-1].dateR) setIsDateBack(true)
+        if(list[activeCarId-1].isReturnTrip && ( list[activeCarId-1].fromR || list[activeCarId-1].from )) setIsFromR(true)
+        if(list[activeCarId-1].isReturnTrip && ( list[activeCarId-1].toR || list[activeCarId-1].to )) setIsToR(true)
+        if(list[activeCarId-1].isReturnTrip && list[activeCarId-1].dateR) setIsDateR(true)
         
-        if(list[activeCarId-1].isReturnTrip && list[activeCarId-1].timeR.length === 5) setIsTimeBack(true)
+        if(list[activeCarId-1].isReturnTrip && list[activeCarId-1].timeR.length === 5) setIsTimeR(true)
     },[list])
 
     const sendOrder = () => {
@@ -82,16 +79,11 @@ const Form = () => {
         setIsDate(true)
         setIsTime(true)
 
-        setIsFlight(true)
-        setIsDeparture(true)
+        setIsFromR(true)
+        setIsToR(true)
+        setIsDateR(true)
+        setIsTimeR(true)
 
-        setIsBackFrom(true)
-        setIsBackTo(true)
-        setIsDateBack(true)
-        setIsTimeBack(true)
-
-        setIsFlightBack(true)
-        setIsDepartureBack(true)
 
         setIsPayment(true)
 
@@ -123,7 +115,9 @@ const Form = () => {
             return setIsTo(false)
         }
 
-        if(!list[activeCarId-1].date) {
+        console.log(list[activeCarId-1].dateNow, 'date now')
+        
+        if(!list[activeCarId-1].date && !list[activeCarId-1].dateNow) {
             alert('date is required')
             return setIsDate(false)
         }
@@ -131,42 +125,26 @@ const Form = () => {
             alert('time is required')
             return setIsTime(false) 
         } 
-        if(validation.isMontrealPick && !list[activeCarId-1].flight) {
-            alert('flight is required')
-            return setIsFlight(false)
-        }
-        if(validation.isMontrealPick && (!list[activeCarId-1].departure || !list[activeCarId-1].airlines)){
-            alert('departure section is required')
-            return setIsDeparture(false) 
-        } 
+
         
-        if(validation.isReturn && !list[activeCarId-1].fromR){
+        if(list[activeCarId-1].isReturnTrip && !list[activeCarId-1].fromR){
             alert('return address is required')
-            return setIsBackFrom(false)
+            return setIsFromR(false)
         } 
-        if(validation.isReturn && !list[activeCarId-1].toR)  {
+        if(list[activeCarId-1].isReturnTrip && !list[activeCarId-1].toR)  {
             alert('return to address is required')
-            return setIsBackTo(true)
+            return setIsToR(true)
         }
 
-        if(validation.isReturn && !list[activeCarId-1].dateR) {
+        if(list[activeCarId-1].isReturnTrip && !list[activeCarId-1].dateR) {
             alert('date is required')
-            return setIsDateBack(false)
+            return setIsDateR(false)
         }
-        if(validation.isReturn && list[activeCarId-1].timeR.length !== 5) {
+        if(list[activeCarId-1].isReturnTrip && list[activeCarId-1].timeR.length !== 5) {
             alert('time is required')
-            return  setIsTimeBack(false)
+            return  setIsTimeR(false)
         }
 
-        
-        if(validation.isReturn && validation.isMontrealPickBack && !list[activeCarId-1].flight) {
-            alert('flight is required')
-            return setIsFlightBack(false)
-        }
-        if(validation.isReturn && validation.isMontrealPickBack && (!list[activeCarId-1].departure || !list[activeCarId-1].airlines)) {
-            alert('departure is required')
-            return setIsDepartureBack(false)
-        }
 
         if(!list[activeCarId-1].paymentMethod){
             alert('choice payment method')
@@ -181,14 +159,14 @@ const Form = () => {
         <div  className={container}>
             
             {!validation.isSubmit &&
-            <div className=" w-full flex-col flex items-center sm:max-w-[576px] h-full">
+            <>
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
                 {list[activeCarId-1].steps === 2 && <AddressSection />}
                 {list[activeCarId-1].steps === 3 && <OptionsSection />}
                 {list[activeCarId-1].steps === 4 && <PaymentSection sendOrder={sendOrder}/>}
                 
                 {list[activeCarId-1].steps !== 2 && <Steps/>}
-            </div>}
+            </>}
             {validation.isSubmit && <div className='flex flex-col items-center justify-center'>
                 <Submit />
                 <Steps/>
@@ -200,4 +178,4 @@ const Form = () => {
 };
 
 export default Form;
-const container = 'flex  flex-col w-full bg-white sm:max-width-[767px] sm:border-none sm:px-2 sm:items-center '
+const container = 'flex w-[85%] flex-col bg-white  border-none items-center '

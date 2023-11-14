@@ -8,7 +8,6 @@ import TimePicker from "../../../UI/components/TimePicker";
 import DatePicker from "../../../UI/components/DatePicker";
 import { useStore } from "../../../Store";
 
-import { useValidation } from "../../../Store/useValidation";
 
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
@@ -47,7 +46,6 @@ const ReturnTrip = ()  => {
     
     // const {user:info, setIsCars} = useInfo()
 
-    const { validation } =useValidation()
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
     const [stopTrigger, setStopTrigger] = useState(true)
     const [fullDate, setFullDate] = useState(dayjs())
@@ -127,9 +125,9 @@ const ReturnTrip = ()  => {
     <div className={container}>
         <div className={content}>
             <div className={date+ ' pt-[46px]'}>
-                <div className={validation.isDateBack ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                <div className={list[activeCarId-1].dateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                        {list[activeCarId-1].date ? 
+                        {list[activeCarId-1].dateR ? 
                         <div className='flex items-center'>
                             {fullDate.format('dddd')},  
                             {'  '+fullDate.format('MMM')}
@@ -144,7 +142,7 @@ const ReturnTrip = ()  => {
                             }
                         {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choose return date</div> }
                     {isDateOpen && <div className={dateTimeSubmenu}>
-                        <DatePicker time={list[activeCarId-1].time} onChange={setDateR} getFullDate={setFullDate}/>
+                        <DatePicker time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
                         <div className="flex justify-between pl-8">
                             <div className={setDateBtn} onClick={(e)=> {
                                     e.stopPropagation();
@@ -153,7 +151,7 @@ const ReturnTrip = ()  => {
                         </div>
                     </div>}
                 </div>
-                <TimePicker time={list[activeCarId-1].time} onChange={setTimeR} date={list[activeCarId-1].date}/>
+                <TimePicker time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
             </div>
 
             <div className={type}>
@@ -220,7 +218,7 @@ const ReturnTrip = ()  => {
             </div>
 
             <div className={locationCard}>
-                <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
+                <div className={list[activeCarId-1].fromR ? extraCard : extraCard + ' border-red-500'}>
                     <span className='icon text-green-400'><SlLocationPin/></span>
                     <GoogleAddressInput 
                         style='w-full ' 
@@ -367,7 +365,7 @@ const ReturnTrip = ()  => {
             </div>
 
             <div className={locationCard}>
-                <div className={validation.isBackFrom ? extraCard : extraCard + ' border-red-500'}>
+                <div className={list[activeCarId-1].toR ? extraCard : extraCard + ' border-red-500'}>
                     <span className='icon text-red-400'><SlLocationPin/></span>
                     <GoogleAddressInput 
                         defaultLocation={
@@ -492,8 +490,8 @@ const openStop ="absolute w-5 h-5 -right-6 bg-green-500 ml-1 border border-black
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
-const dateInput = 'text-xs flex border py-1 sm:h-[40px] relative w-full max-w-[200px] sm:max-w-[200px] sm:w-full rounded'
-const date = 'flex sm:items-start sm:mb-2 items-start w-full justify-between border-b-2 border-black pb-6'
+const dateInput = 'text-xs flex border py-1 h-[40px] relative w-full max-w-[200px] rounded'
+const date = 'flex items-start mb-2  w-full justify-between border-b-2 border-black pb-6'
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'

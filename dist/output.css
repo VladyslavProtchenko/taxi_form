@@ -678,6 +678,14 @@ video {
   z-index: 30;
 }
 
+.z-40{
+  z-index: 40;
+}
+
+.m-0{
+  margin: 0px;
+}
+
 .mx-1{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
@@ -689,10 +697,6 @@ video {
 
 .mb-1{
   margin-bottom: 0.25rem;
-}
-
-.mb-10{
-  margin-bottom: 2.5rem;
 }
 
 .mb-2{
@@ -880,6 +884,10 @@ video {
   width: 2rem;
 }
 
+.w-\[100\%\]{
+  width: 100%;
+}
+
 .w-\[100px\]{
   width: 100px;
 }
@@ -896,24 +904,24 @@ video {
   width: 35px;
 }
 
+.w-\[40px\]{
+  width: 40px;
+}
+
 .w-\[42px\]{
   width: 42px;
+}
+
+.w-\[85\%\]{
+  width: 85%;
 }
 
 .w-full{
   width: 100%;
 }
 
-.w-screen{
-  width: 100vw;
-}
-
 .min-w-\[22px\]{
   min-width: 22px;
-}
-
-.max-w-\[100px\]{
-  max-width: 100px;
 }
 
 .max-w-\[200px\]{
@@ -930,6 +938,10 @@ video {
 
 .max-w-\[400px\]{
   max-width: 400px;
+}
+
+.max-w-\[55px\]{
+  max-width: 55px;
 }
 
 .max-w-\[576px\]{
@@ -1344,11 +1356,6 @@ video {
   padding-right: 1rem;
 }
 
-.px-8{
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
 .py-1{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -1413,6 +1420,10 @@ video {
 
 .pr-2{
   padding-right: 0.5rem;
+}
+
+.pr-8{
+  padding-right: 2rem;
 }
 
 .pr-\[1px\]{
@@ -1655,11 +1666,18 @@ video {
 
 .form-control {
   border: none !important;
-  width: auto !important;
+  width: 100% !important;
   padding-top: 3px;
   padding-bottom: 3px;
   height: auto !important;
   line-height: 22px !important;
+  text-overflow: ellipsis !important;
+  overflow-x: hidden;
+}
+
+.react-tel-input .form-control {
+  text-overflow: ellipsis !important;
+  overflow-x: hidden !important;
 }
 
 .flag-dropdown {
@@ -1948,10 +1966,6 @@ select option {
     left: -10px;
   }
 
-  .sm\:mb-2{
-    margin-bottom: 0.5rem;
-  }
-
   .sm\:ml-0{
     margin-left: 0px;
   }
@@ -1962,10 +1976,6 @@ select option {
 
   .sm\:hidden{
     display: none;
-  }
-
-  .sm\:h-\[40px\]{
-    height: 40px;
   }
 
   .sm\:w-2\/5{
@@ -1980,47 +1990,14 @@ select option {
     width: 280px;
   }
 
-  .sm\:w-full{
-    width: 100%;
-  }
-
-  .sm\:max-w-\[200px\]{
-    max-width: 200px;
-  }
-
-  .sm\:max-w-\[55px\]{
-    max-width: 55px;
-  }
-
-  .sm\:max-w-\[576px\]{
-    max-width: 576px;
-  }
-
-  .sm\:flex-col{
-    flex-direction: column;
-  }
-
   .sm\:items-start{
     align-items: flex-start;
-  }
-
-  .sm\:items-center{
-    align-items: center;
   }
 
   .sm\:space-x-0 > :not([hidden]) ~ :not([hidden]){
     --tw-space-x-reverse: 0;
     margin-right: calc(0px * var(--tw-space-x-reverse));
     margin-left: calc(0px * calc(1 - var(--tw-space-x-reverse)));
-  }
-
-  .sm\:border-none{
-    border-style: none;
-  }
-
-  .sm\:px-2{
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
   }
 
   .sm\:text-\[10px\]{

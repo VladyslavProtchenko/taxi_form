@@ -2,7 +2,7 @@ import React, {  useState } from 'react';
 import { Input, Select } from 'antd';
 import 'antd/dist/reset.css';
 import { TfiEmail } from "react-icons/tfi";
-import { useValidation } from '../../Store/useValidation';
+import { useMain } from '../../Store/useMain';
 
 interface InputProps {
     value:string;
@@ -34,14 +34,14 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
         "verizon.net",
         "qq.com",
     ])
+    const {list, activeCarId} = useMain()
     const [customDomain, setCustomDomain ] = useState('')
-
-    const { validation } = useValidation()
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     
     return (
-        <div className={(!validation.isEmail && mainMail) ? container  +' border-red-500': container}>
+        <div className={(!pattern.test(list[activeCarId-1].email) && mainMail) ? container  +' border-red-500': container}>
             <span className='icon'><TfiEmail/></span>
             <Input
                 style={{width: 200,fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
