@@ -43,8 +43,11 @@ const OptionsSection = ():React.ReactNode => {
                 <div className={passengersItem}>
                     <PassengersSelect /> 
                     <div className='flex w-1/2 flex-col'>
-                        <BagsSelect /><CarSeatSelect />
+                        <BagsSelect />
                     </div>
+                </div>
+                <div className={item+ ' border-b-2 border-gray-600'}>
+                    <CarSeatSelect />
                 </div>
                 <div className={item}><SportSelect /><PetsSelect/></div>
             </div>
@@ -58,7 +61,7 @@ export default OptionsSection;
 const typeItem = 'flex items-center px-3 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/4'
 const content = 'flex flex-wrap w-full h-min '
 
-const item = 'flex  relative  w-full pb-2  ' 
+const item = 'flex  relative  w-full   ' 
 const passengersItem = '  flex relative w-full border-b-2 border-gray-500' 
 const type = 'flex  self-center border rounded s divide-x overflow-hidden w-full mb-4'
 
