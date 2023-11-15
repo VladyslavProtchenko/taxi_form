@@ -21,8 +21,8 @@ const SportsSelect = ():React.ReactNode => {
 
     return (
         <div className={container}>
-            {list[activeCarId-1].sport.map((item)=>(
-                <div className={card} key={item.title}>
+            {list[activeCarId-1].sport.map((item,index)=>(
+                <div className={ index===0?  card + ' rounded-t':index===3?  card + ' rounded-b': card} key={item.title}>
                     <div className='flex items-center space-x-2'>
                         {(item.title =='Bikes')
                         ?<MdOutlineDirectionsBike className='w-6 h-6'/>
@@ -70,4 +70,4 @@ const button = "   cursor-pointer scale-[160%] duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 
 const card = 'relative flex px-2 pr-4 py-2 text-sm cursor-pointer w-full border h-[45px] '
-const container = 'flex w-1/2 flex-col items-center py-2 pb-2 xl:pr-0 2xl:pl-0 '
+const container = 'flex w-1/2 flex-col items-center py-2 pr-1 pb-2 xl:pr-0 2xl:pl-0 '

@@ -19,8 +19,8 @@ const BagsSelect = ():React.ReactNode => {
 
     return (
         <div className={container} >
-            {list[activeCarId-1].baggage.map((item)=>(
-                <div className={card} key={item.title}>
+            {list[activeCarId-1].baggage.map((item,index)=>(
+                <div className={index===0? card+ ' rounded-t': card} key={item.title}>
                     <div className='flex items-center'>
                         {(item.title =='32 kg' || item.title == '23 kg')
                         ?<PiSuitcaseRolling className='w-6 h-6'/>
@@ -63,4 +63,4 @@ const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 const card = 'relative flex px-1 pr-4 py-2 cursor-pointer text-sm w-full h-[45px] border '
-const container = 'flex w-full flex-col items-center pt-2 '
+const container = 'flex w-full flex-col items-center pt-2 pl-1 border-l-2 border-gray-500'

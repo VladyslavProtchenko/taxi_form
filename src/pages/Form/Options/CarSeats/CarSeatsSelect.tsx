@@ -17,8 +17,8 @@ const CarSeatsSelect = () => {
 
     return (
         <div className={container}>
-            {list[activeCarId-1].carSeats.map((item)=>(
-                <div className={card} key={item.title}>
+            {list[activeCarId-1].carSeats.map((item,index)=>(
+                <div className={index ===3? card+ ' rounded-b ': card} key={item.title}>
                     <div className='flex items-center space-x-2'>
                         {(item.title =='Baby car seat')
                         ?<MdOutlineAirlineSeatFlatAngled className='w-6 h-6'/>
@@ -65,5 +65,5 @@ const bagCount ='flex space-x-1 ml-auto items-center'
 const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-no-repeat bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
 
 const card = 'relative flex px-1 pr-4 py-2 cursor-pointer w-full text-sm border max-h-[45px]'
-const container = 'flex w-full flex-col items-center pb-2 pb-2'
+const container = 'flex w-full flex-col items-center pb-2 pl-1 border-l-2 border-gray-500'
 
