@@ -40,9 +40,14 @@ const OptionsSection = ():React.ReactNode => {
             </div>
             
             <div className={content}>
-                <div className={passengersItem}><PassengersSelect /></div>
-                <div className={item}><BagsSelect /><CarSeatSelect /></div>
-                {/* <div className={item}></div> */}
+                <div className={passengersItem}>
+                    <PassengersSelect /> 
+                    <div className='flex w-1/2 flex-col'>
+                        <BagsSelect /><CarSeatSelect />
+                    </div>
+                </div>
+                <div className={item}></div>
+                
                 <div className={item}><SportSelect /><PetsSelect/></div>
             </div>
         </section>

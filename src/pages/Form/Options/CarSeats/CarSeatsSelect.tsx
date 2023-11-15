@@ -1,5 +1,4 @@
 import type { MenuProps } from 'antd';
-import Dropdown from 'antd/es/dropdown/dropdown';
 import { LiaBabyCarriageSolid } from "react-icons/lia";
 import { MdOutlineStroller } from "react-icons/md";
 import { MdOutlineAirlineSeatFlatAngled } from "react-icons/md";
@@ -18,7 +17,7 @@ const CarSeatsSelect = () => {
 
     return (
         <div className={container}>
-            {list[activeCarId-1].carSeats.filter(item=>item.isActive === true).map((item)=>(
+            {list[activeCarId-1].carSeats.map((item)=>(
                 <div className={card} key={item.title}>
                     <div className='flex items-center space-x-2'>
                         {(item.title =='Baby car seat')
@@ -54,23 +53,17 @@ const CarSeatsSelect = () => {
 
                 </div>
             ))}
-            {list[activeCarId-1].carSeats.filter(item=>item.isActive !== true).length > 0 && <Dropdown  overlayStyle={{minWidth: 150}} menu={{ items }} placement="bottomLeft" className='self-start'>
-                <div className={qntPlus+ ' mt-2 ml-4 w-4 h-4'}>+</div>
-            </Dropdown>}
         </div>
     );
 };
 
 export default CarSeatsSelect;
 
-const countBox =' flex flex-col'
-const qntPlus = " w-5 h-5 flex justify-center items-center bg-green-400 active:bg-green-500  border rounded-full  border-black cursor-pointer font-bold text-black  duration-300 "
-const button = "   cursor-pointer scale-[140%]  duration-300 "
-
+const countBox =' flex flex-col space-y-1'
+const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
-
 const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-no-repeat bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
 
-const card = 'relative flex px-1 pr-2 py-2 cursor-pointer w-full border max-h-[50px]'
-const container = 'flex w-1/2 flex-col items-center py-2 pb-2'
+const card = 'relative flex px-1 pr-4 py-2 cursor-pointer w-full text-sm border max-h-[45px]'
+const container = 'flex w-full flex-col items-center pb-2 pb-2'
 
