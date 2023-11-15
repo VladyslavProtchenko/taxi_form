@@ -9,11 +9,18 @@ interface IPassengers {
     babies: number
 }
 
-interface IPet {
+export interface IPet {
+    isOther?: boolean;
     title: string,
     cage: boolean,
     isActive: boolean
 }
+// interface IOther {
+//     title: string,
+//     description:string,
+//     cage: boolean,
+//     isActive: boolean
+// }
 
 interface IItem {
     title: string,
@@ -222,9 +229,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: '',
-                title2: '',
-                title3: '',
+                title: 'Undefined',
+                title2: 'Undefined',
+                title3: 'Undefined',
             
                 email:'@',
                 email2: '@',
@@ -349,7 +356,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Baby seat',
+                        title: 'Baby car seat',
                         quantity: 0,
                         isActive: true,
                     },
@@ -386,6 +393,7 @@ export const useMain = create<IStore>()(
                         isActive: false
                     },
                     {
+                        isOther: true,
                         title: 'Other',
                         cage: false,
                         isActive: false
@@ -400,9 +408,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: '',
-                title2: '',
-                title3: '',
+                title: 'Undefined',
+                title2: 'Undefined',
+                title3: 'Undefined',
             
                 email:'@',
                 email2: '@',
@@ -527,7 +535,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Baby seat',
+                        title: 'Baby car seat',
                         quantity: 0,
                         isActive: true,
                     },
@@ -564,6 +572,7 @@ export const useMain = create<IStore>()(
                         isActive: false
                     },
                     {
+                        isOther: true,
                         title: 'Other',
                         cage: false,
                         isActive: false
@@ -578,9 +587,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: '',
-                title2: '',
-                title3: '',
+                title: 'Undefined',
+                title2: 'Undefined',
+                title3: 'Undefined',
             
                 email:'@',
                 email2: '@',
@@ -705,7 +714,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Baby seat',
+                        title: 'Baby car seat',
                         quantity: 0,
                         isActive: true,
                     },
@@ -742,6 +751,7 @@ export const useMain = create<IStore>()(
                         isActive: false
                     },
                     {
+                        isOther: true,
                         title: 'Other',
                         cage: false,
                         isActive: false
@@ -756,9 +766,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: '',
-                title2: '',
-                title3: '',
+                title: 'Undefined',
+                title2: 'Undefined',
+                title3: 'Undefined',
             
                 email:'@',
                 email2: '@',
@@ -883,7 +893,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Baby seat',
+                        title: 'Baby car seat',
                         quantity: 0,
                         isActive: true,
                     },
@@ -920,6 +930,7 @@ export const useMain = create<IStore>()(
                         isActive: false
                     },
                     {
+                        isOther: true,
                         title: 'Other',
                         cage: false,
                         isActive: false
@@ -934,9 +945,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: '',
-                title2: '',
-                title3: '',
+                title: 'Undefined',
+                title2: 'Undefined',
+                title3: 'Undefined',
             
                 email:'@',
                 email2: '@',
@@ -1061,7 +1072,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Baby seat',
+                        title: 'Baby car seat',
                         quantity: 0,
                         isActive: true,
                     },
@@ -1098,6 +1109,7 @@ export const useMain = create<IStore>()(
                         isActive: false
                     },
                     {
+                        isOther: true,
                         title: 'Other',
                         cage: false,
                         isActive: false
@@ -1135,9 +1147,9 @@ export const useMain = create<IStore>()(
             name2: '',
             name3: '',
             
-            title: '',
-            title2: '',
-            title3: '',
+            title: 'Undefined',
+            title2: 'Undefined',
+            title3: 'Undefined',
         
             email:'',
             email2: '',
@@ -1262,7 +1274,7 @@ export const useMain = create<IStore>()(
             ],
             carSeats: [
                 {
-                    title: 'Baby seat',
+                    title: 'Baby car seat',
                     quantity: 0,
                     isActive: true,
                 },
@@ -1299,6 +1311,7 @@ export const useMain = create<IStore>()(
                     isActive: false
                 },
                 {
+                    isOther: true,
                     title: 'Other',
                     cage: false,
                     isActive: false

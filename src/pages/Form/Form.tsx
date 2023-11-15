@@ -36,8 +36,7 @@ const Form = (): React.ReactNode => {
     useEffect(()=>{
         setIsCars({...isCars, 1:false})
         const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        console.log(' work')
-        console.log(list[0])
+        console.log(list[0].passengers.adults)
         if(list[0].isReturnTrip 
             && list[0].name.length > 3 
             && list[0].title 
@@ -49,8 +48,8 @@ const Form = (): React.ReactNode => {
             && list[0].fromR 
             && list[0].toR 
             && list[0].from 
-            && list[0].to){
-                console.log('return work')
+            && list[0].to
+            && list[0].passengers.adults){
                 setIsCars({...isCars, 1: true})
 
         } else if(
@@ -60,9 +59,8 @@ const Form = (): React.ReactNode => {
             && pattern.test(list[0].email)
             && list[0].phone.length >= 11
             &&  list[0].from 
-            && list[0].to){
-                console.log('trip work')
-
+            && list[0].to
+            && list[0].passengers.adults  ){
             setIsCars({...isCars, 1: true})
         }
     },[list[0]])

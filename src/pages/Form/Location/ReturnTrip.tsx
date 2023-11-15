@@ -242,7 +242,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
             
             <div className={extraCardStop}>
-                {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+                {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span> 
                 <GoogleAddressInput
                     style='w-full'
@@ -272,8 +272,8 @@ const ReturnTrip = ():React.ReactNode  => {
             </div>
 
             
-            <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
-                {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+            <div className={(stop > 0 && list[activeCarId-1].stopsR[1]) ?  extraCardStop: 'hidden'}>
+                {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
                     style='w-full'
@@ -302,8 +302,8 @@ const ReturnTrip = ():React.ReactNode  => {
             </div>
 
             
-            <div className={(stop > 1) ?  extraCardStop: 'hidden'}>
-                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+            <div className={(stop > 1 && list[activeCarId-1].stopsR[2]) ?  extraCardStop: 'hidden'}>
+                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
 
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 
@@ -333,8 +333,8 @@ const ReturnTrip = ():React.ReactNode  => {
             </div>
 
             
-            <div className={(stop > 2) ?  extraCardStop: 'hidden'}>
-                {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+            <div className={(stop > 2  && list[activeCarId-1].stopsR[3]) ?  extraCardStop: 'hidden'}>
+                {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
 
                 <span className='icon text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput 

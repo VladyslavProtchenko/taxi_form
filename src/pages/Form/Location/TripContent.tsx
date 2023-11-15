@@ -237,7 +237,7 @@ const TripContent = ():React.ReactNode => {
             </div>
                 
             <div className={extraCardStop}>
-                {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+                {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span>  
                 <GoogleAddressInput
                     style='w-full'
@@ -257,7 +257,7 @@ const TripContent = ():React.ReactNode => {
                             const number  = index+1;
                             data[number] = item;
                         })
-
+                        
                         setLocalStops(data)
                         setStops(data)
                         setStop(stop - 1)
@@ -265,8 +265,8 @@ const TripContent = ():React.ReactNode => {
                     >{(stop === 0) ? '+' :'-'}</div> 
             </div>
             
-            <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
-                {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+            <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
+                {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full'
@@ -290,11 +290,11 @@ const TripContent = ():React.ReactNode => {
                         setStops(data)
                         setStop(stop - 1)
                     }}
-                >{(stop === 1) ? '+' :'-'}</div> 
+                >{(stop === 1) ? '+' :'-'}</div>
             </div>
 
-            <div className={(stop > 1) ?  extraCardStop: 'hidden'}>
-                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+            <div className={(stop > 1  && list[activeCarId-1].stops[2]) ?  extraCardStop: 'hidden'}>
+                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full'
@@ -321,8 +321,8 @@ const TripContent = ():React.ReactNode => {
                 >{(stop === 2) ? '+' :'-'}</div> 
             </div>
 
-            <div className={(stop > 2) ?  extraCardStop: 'hidden'}>
-                {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-90 bg-white z-20"></div>}
+            <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
+                {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
                     style='w-full'
