@@ -65,7 +65,6 @@ const TripContent = ():React.ReactNode => {
         })
         store.busArray.map(item =>{
             if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
-
         })
         store.trainArray.map(item =>{
             if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
@@ -101,7 +100,6 @@ const TripContent = ():React.ReactNode => {
 
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
-
     return (
     <div className={container}>
         <div className={content}>
@@ -109,6 +107,8 @@ const TripContent = ():React.ReactNode => {
             <div className={date}>
                 <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
                             setDateNow(!list[activeCarId-1].dateNow)
+                            setDate('')
+                            setTime('')
                         }}>
                     <span className={!list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
                     </span>
@@ -120,10 +120,10 @@ const TripContent = ():React.ReactNode => {
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
                     <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                        <div className='flex items-center'>
-                        {fullDate.format('dddd')},  
-                        {'  '+fullDate.format('MMM')}
-                        {'.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
+                        {list[activeCarId-1].date ? <div className='flex items-center'>
+                            { fullDate.format('dddd')},  
+                            {'  '+fullDate.format('MMM')}
+                            { '.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
                                                     ? 'st'
                                                     :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
                                                     ?  'nd'
@@ -131,7 +131,13 @@ const TripContent = ():React.ReactNode => {
                                                     ? 'rd'
                                                     : 'th'
                                                 }
-                        {' '+fullDate.format('YYYY')}</div>
+                            {' '+fullDate.format('YYYY')}
+                        </div>
+                        :<div className='flex items-center'>Select trip date</div>
+                        }
+                        
+                        
+
                         {isDateOpen && <div className={dateTimeSubmenu}>
                             <DatePicker time={list[activeCarId-1].time} onChange={setDate} getFullDate={setFullDate}/>
                             <div className="flex justify-between pl-8">

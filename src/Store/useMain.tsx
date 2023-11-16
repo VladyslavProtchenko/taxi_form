@@ -15,12 +15,7 @@ export interface IPet {
     cage: boolean,
     isActive: boolean
 }
-// interface IOther {
-//     title: string,
-//     description:string,
-//     cage: boolean,
-//     isActive: boolean
-// }
+
 
 interface IItem {
     title: string,
@@ -28,7 +23,7 @@ interface IItem {
     isActive: boolean
 }
 
-interface ITaxi {
+export interface ITaxi {
     id:number;
     filled: boolean;
     name: string;
@@ -118,7 +113,7 @@ interface IStore {
     list: ITaxi[];
     //info methods
     setActiveCarId: (value: number) => void;
-    setFilled: (value: boolean) => void;
+    setFilled: (value: boolean, id: number) => void;
     setIsCars: (data: {
         1: boolean,
         2: boolean,
@@ -1122,7 +1117,7 @@ export const useMain = create<IStore>()(
         setIsCars: (data) => set((state) => ({ ...state, isCars: data })),
 
         //info methods
-        setFilled: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, filled: data} : item )})),
+        setFilled: (data,id) => set((state) => ({ ...state, list: state.list.map(item => item.id === id ? {...item, filled: data} : item )})),
         setTitle: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title: data} : item )})),
         setTitle2: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title2: data} : item )})),
         setTitle3: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title3: data} : item )})),

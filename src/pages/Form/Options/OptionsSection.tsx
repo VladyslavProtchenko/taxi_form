@@ -4,7 +4,6 @@ import CarSeatSelect from "./CarSeats/CarSeatsSelect";
 import PetsSelect from "./PetsSelect/PetsSelect";
 import PassengersSelect from "./PassengersSelect/PassengersSelect";
 import { useStore } from "../../../Store";
-import { useValidation } from "../../../Store/useValidation";
 
 import { IoCarSportOutline } from "react-icons/io5";
 import { LiaShuttleVanSolid } from "react-icons/lia";
@@ -17,11 +16,10 @@ import React from "react";
 const OptionsSection = ():React.ReactNode => {
     const { store } = useStore()
     const {list, activeCarId, setCarType} = useMain()
-    const { validation } = useValidation()
 
     return (
         <section className={section}>
-            <div className={validation.isCarType ? type : type + ' border-red-500'}>
+            <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
                     {store.carList.map(item => (
                         <div className={list[activeCarId-1].carType === item ? typeItem+' bg-green-400': item === 'limo (disabled)' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem } onClick={()=>{
                                 if(item === 'limo (disabled)') return;

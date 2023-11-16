@@ -1,23 +1,21 @@
 
-import React from "react";
-import { useMain } from "../../../Store/useMain";
+import React, { useState } from "react";
 import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 
 const LocationSection = ():React.ReactNode => {
-    const { list, activeCarId, setIsReturnTrip} = useMain()
-    
+    const [ tabs, setTabs ] = useState(false)
     return (
         <section className={section}>
             <div className={carContainer}>
-                <div className={ list[activeCarId-1].isReturnTrip ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} onClick={()=>setIsReturnTrip(false)}>One-Way</div>
-                <div className={!list[activeCarId-1].isReturnTrip ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} onClick={()=>setIsReturnTrip(true)}>Return</div>
+                <div className={tabs ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} onClick={()=>setTabs(false)}>One-Way</div>
+                <div className={!tabs ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} onClick={()=>setTabs(true)}>Return</div>
             </div>
             <div className='flex'>
-                <div className={!list[activeCarId-1].isReturnTrip ? 'flex w-full  flex-coll ' : 'hidden w-full '} >
+                <div className={!tabs ? 'flex w-full  flex-coll ' : 'hidden w-full '} >
                 <TripContent />
                 </div>
-                <div className={list[activeCarId-1].isReturnTrip ? 'flex w-full flex-col' : 'hidden w-full '} >
+                <div className={tabs ? 'flex w-full flex-col' : 'hidden w-full '} >
                 <ReturnTrip />
                 </div>
             </div>

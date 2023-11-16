@@ -16,7 +16,6 @@ const BagsSelect = ():React.ReactNode => {
             label: (<span onClick={()=>setBaggage(list[activeCarId-1].baggage.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
     })
     
-
     return (
         <div className={container} >
             {list[activeCarId-1].baggage.map((item,index)=>(

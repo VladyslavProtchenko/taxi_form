@@ -40,6 +40,7 @@ const ReturnTrip = ():React.ReactNode  => {
         setFlight2R, 
         setAirlinesR, 
         setAirlinesBackR, 
+        setIsReturnTrip,
         resetReturn 
     } =useMain()
     const { store } = useStore()
@@ -120,9 +121,17 @@ const ReturnTrip = ():React.ReactNode  => {
         setStopTrigger(false)
         resetReturn();
     }
+
     return (
     <div className={container}>
+        {!list[activeCarId-1].isReturnTrip && <div className='absolute left-0 top-10 right-0 bottom-0 z-20 bg-white opacity-50'></div>}
+        <div 
+            onClick={()=>setIsReturnTrip(!list[activeCarId-1].isReturnTrip )}
+            className={!list[activeCarId-1].isReturnTrip ? "absolute top-12 z-30 flex px-2 py-1 rounded text-white bg-blue-500": "absolute top-12 right-4 z-30 flex px-2 py-1 rounded text-white bg-rose-500"}
+        >{!list[activeCarId-1].isReturnTrip ? 'return trip': 'one way'}</div>
+
         <div className={content}>
+            
             <div className={date+ ' pt-[46px]'}>
                 <div className={list[activeCarId-1].dateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                     <span className='icon text-xl'><PiCalendarCheckLight/></span>

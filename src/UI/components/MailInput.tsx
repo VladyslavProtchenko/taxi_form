@@ -57,7 +57,7 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
                 showSearch
                 allowClear
                 value={value.split('@')[1] || null}
-                style={{width:118, height: 40, fontWeight: 'bold', borderRadius: 5, borderLeft:'none', color: '#0066ff' }}
+                style={{minWidth:118, width:'100%', height: 40, fontWeight: 'bold', borderRadius: 5, borderLeft:'none', color: '#0066ff' }}
                 placeholder='gmail.com'
                 onSearch={(value) => {setCustomDomain( value)}}
                 onChange={(v) => onChange(value.split('@')[0]+'@'+(v || ''))}

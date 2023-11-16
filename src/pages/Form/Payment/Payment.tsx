@@ -3,14 +3,13 @@ import { Input } from 'antd';
 import { useMain } from "../../../Store/useMain";
 import { useStore } from "../../../Store";
 import React from "react";
+import { useValidation } from "../../../Store/useValidation";
 const { TextArea } = Input;
 
-interface ISendOrder {
-    sendOrder: () => void;
-}
 
-const PaymentSection = ({sendOrder}:ISendOrder):React.ReactNode => {
-    const {list, activeCarId, setPaymentMethod,setAdditionalText,setTripType} = useMain()
+const PaymentSection = ():React.ReactNode => {
+    const {list, activeCarId, setPaymentMethod,setAdditionalText,setTripType,setFilled } = useMain()
+    const {setIsSubmit} = useValidation()
     const { store} = useStore()
 
     return (
@@ -20,15 +19,20 @@ const PaymentSection = ({sendOrder}:ISendOrder):React.ReactNode => {
                     <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 5}} value={list[activeCarId-1].tripType} onChange={setTripType} options={store.tripList.map(item=>({value: item, label: item}))}/></span>
                 <span className={list[activeCarId-1].paymentMethod ? box2: box2 +' border-red-500'}>
                     <Select placeholder='Payment method' style={{ width:200 , height: 30, borderRadius: 5}} value={list[activeCarId-1].paymentMethod} onChange={setPaymentMethod} options={store.paymentList.map(item=>({value: item, label: item}))}/></span>
-                    <button className={btn} onClick={sendOrder}>Order</button>
             </div>
             
             <div className={additional}>
                 <span className={textArea}>
-                        <TextArea style={{borderRadius: '20px'}} rows={2} placeholder='Additional information' onChange={(e)=>{
-                            setAdditionalText(e.target.value)
-                        }}/></span>
+                    <TextArea style={{borderRadius: '20px'}} rows={2} placeholder='Additional information' onChange={(e)=>{
+                        setAdditionalText(e.target.value)
+                    }}/></span>
             </div>
+            <div className='flex justify-between mt-4'>
+                <button className={btn} onClick={()=> setFilled(true, activeCarId)}>Order taxi</button>
+                <button className={btn2} onClick={()=> setIsSubmit(true)}>submit</button>
+            </div>
+            
+
         </section>
     );
 };
@@ -36,7 +40,8 @@ const PaymentSection = ({sendOrder}:ISendOrder):React.ReactNode => {
 export default PaymentSection;
 
 
-const btn = 'py-2 px-4 rounded ml-auto bg-yellow-400 self-start text-white active:bg-yellow-200 '
+const btn = 'py-2 px-4 rounded bg-yellow-400  text-white active:bg-yellow-200 self-start'
+const btn2 = 'py-2 px-4 rounded bg-green-400  text-white active:bg-green-200 self-start'
 const additional ='flex additional px-2 w-full '
 const content ='flex  px-2 w-full mb-4'
 
