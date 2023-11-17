@@ -102,6 +102,7 @@ export interface ITaxi {
 }
 
 interface IStore {
+    isFrench: boolean;
     isCars: {
         1: boolean,
         2: boolean,
@@ -112,6 +113,7 @@ interface IStore {
     activeCarId: number;
     list: ITaxi[];
     //info methods
+    setIsFrench:(value: boolean) => void;
     setActiveCarId: (value: number) => void;
     setFilled: (value: boolean, id: number) => void;
     setIsCars: (data: {
@@ -208,6 +210,7 @@ interface IStore {
 
 export const useMain = create<IStore>()(
     (set) => ({
+        isFrench: false,
         isCars: {
             1: false,
             2: false,
@@ -1114,11 +1117,15 @@ export const useMain = create<IStore>()(
             },
 
         ],
+        
+        setIsFrench: (data) => set((state) =>  ({ ...state, isFrench: data})),
         setActiveCarId: (data) => set((state) =>  ({ ...state, activeCarId: data})),
         setIsCars: (data) => set((state) => ({ ...state, isCars: data })),
+        setFilled: (data,id) => set((state) => ({ ...state, list: state.list.map(item => item.id === id ? {...item, filled: data} : item )})),
+
 
         //info methods
-        setFilled: (data,id) => set((state) => ({ ...state, list: state.list.map(item => item.id === id ? {...item, filled: data} : item )})),
+
         setTitle: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title: data} : item )})),
         setTitle2: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title2: data} : item )})),
         setTitle3: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, title3: data} : item )})),

@@ -23,7 +23,7 @@ const PaymentSection = ():React.ReactNode => {
             
             <div className={additional}>
                 <span className={textArea}>
-                    <TextArea style={{borderRadius: '20px'}} rows={2} placeholder='Additional information' onChange={(e)=>{
+                    <TextArea style={{borderRadius: '10px'}} rows={2} placeholder='Additional information' onChange={(e)=>{
                         setAdditionalText(e.target.value)
                     }}/></span>
             </div>
@@ -38,12 +38,12 @@ const PaymentSection = ():React.ReactNode => {
 export default PaymentSection;
 
 
-const btn = 'py-2 px-4 rounded bg-yellow-400  text-white active:bg-yellow-200 self-start'
+const btn = 'py-2 px-4 rounded bg-yellow-300  text-white active:bg-yellow-200 self-start'
 const btn2 = 'py-2 px-4 rounded bg-green-400  text-white active:bg-green-200 self-start'
 const additional ='flex additional px-2 w-full '
-const content ='flex  px-2 w-full mb-4'
+const content ='flex justify-between px-2 w-full mb-4'
 
 const box ='flex border h-min pl-3 w-[100px] rounded'
 const box2 ='flex border h-min ml-4 pl-3 w-[100px] rounded'
-const textArea ='flex border h-min w-full rounded-xl'
+const textArea ='flex border h-min w-full rounded'
 const section = 'flex flex-col w-full  max-w-[576px]  border-none  py-8 px-1 pb-20'

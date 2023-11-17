@@ -48,7 +48,7 @@ const PetsSelect = () => {
 
                     <div className='flex flex-col'>
                         <div 
-                            className={item.isActive ? add + ' bg-red-500 active:bg-red-600' : add+ ' bg-green-400 active:bg-green-300'}
+                            className={item.isActive ? add + ' bg-red-500 active:bg-red-600 ' : add + ' bg-green-400 active:bg-green-300'}
                             onClick={()=>setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, isActive:!rem.isActive} : rem ))}
                         >{item.isActive ? '-': "+" }</div>
                         <div className={item.isOther ? bagCount+ ' ml-0': bagCount}>
@@ -75,7 +75,7 @@ const PetsSelect = () => {
 
 export default PetsSelect;
 
-const add = 'self-end mr-2 border-black border px-1  rounded w-[18px] h-[18px] items-center font-black flex cursor-pointer'
+const add = 'self-end mr-2 border-black border px-1 justify-center  rounded w-[18px] h-[18px] items-center font-black flex cursor-pointer'
 const rabbitIcon ='w-5 h-5 overflow-hidden bg-contain bg-[url("https://i.pinimg.com/originals/2b/21/54/2b2154655f0eedb3dd372c1301c5552f.png")] scale-[130%]'
 const bagCount ='flex  ml-auto items-end'
 const card = 'relative flex px-2 py-2 cursor-pointer text-sm w-full border h-[45px] '

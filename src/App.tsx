@@ -1,20 +1,19 @@
-import React, { useState } from "react"
+import React from "react"
 import { useMain } from "./Store/useMain"
 import Form from "./pages/Form/Form"
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 
 function App():React.ReactNode {
-  const {activeCarId, setActiveCarId, isCars} = useMain()
-  const [isFrance, setIsFrance] = useState(false)
+  const {activeCarId, setActiveCarId, isCars, isFrench, setIsFrench} = useMain()
 
   return (
     <div className={container}>
       <div className={wrapper}>
         <div className={header}>
-        <AiOutlineInfoCircle className='cursor-pointer text-xl'/>
+        <AiOutlineInfoCircle className='cursor-pointer text-xl mr-6'/>
 
-          <div className={headerContent}>
+          <div >
             <span className={taxiLabel}>
               {activeCarId === 1 
               ? "1st Taxi"
@@ -30,12 +29,12 @@ function App():React.ReactNode {
           </div>
           <div className={lang}>
             <div 
-              className={isFrance? langItem + ' border-white': langItem+ ' border-green-400'} 
-              onClick={()=>setIsFrance(false)}
+              className={isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
+              onClick={()=>setIsFrench(false)}
             >Eng</div> |
             <div 
-              className={!isFrance? langItem + ' border-white': langItem+ ' border-green-400'} 
-              onClick={()=>setIsFrance(true)}
+              className={!isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
+              onClick={()=>setIsFrench(true)}
             >Fr</div>
           </div>
         </div>
@@ -94,10 +93,10 @@ const tab = 'px-4 py-2 cursor-pointer hover:bg-gray-50 text-gray-300 hover:text-
 const activeTab = 'px-4 py-2 cursor-pointer border-t border-b border-white'
 const tabsContainer = 'flex  flex-col mr-2 font-bold h-full m-0 w-[40px] shadow'
 
-const lang = ' flex rounded h-[20px] cursor-pointer'
+const lang = ' flex rounded h-[20px] cursor-pointer ml-auto'
 const langItem = 'text-sm px-1 border-b-2'
-const headerContent = ''
-const header = 'flex  w-full py-4 pt-10 px-14 justify-between shadow mb-[1px]'
+
+const header = 'flex items-center w-full py-4 pt-10 px-4  shadow mb-[1px]'
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px]'
 const container = 'flex w-full min-w-screen min-h-screen justify-center'

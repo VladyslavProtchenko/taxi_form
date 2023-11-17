@@ -21,7 +21,7 @@ const CarSeatsSelect = () => {
             <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[0].title}>
                 <div className='flex items-center space-x-2'>
                     <MdOutlineAirlineSeatFlatAngled className='w-6 h-6'/>
-                    <span className=' text-gray-400'> {list[activeCarId-1].carSeats[0].title}</span>
+                    <span className={text}> {list[activeCarId-1].carSeats[0].title}</span>
                 </div>
                 <div className={bagCount}>
                     <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[0].quantity}</div>
@@ -49,7 +49,7 @@ const CarSeatsSelect = () => {
             <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[3].title}>
                 <div className='flex items-center space-x-2'>
                     <div className={babiSeatIcon}/>
-                    <span className=' text-gray-400'> {list[activeCarId-1].carSeats[3].title}</span>
+                    <span className={text}> {list[activeCarId-1].carSeats[3].title}</span>
                 </div>
                 <div className={bagCount}>
                     <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[3].quantity}</div>
@@ -79,7 +79,7 @@ const CarSeatsSelect = () => {
             <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[2].title}>
                 <div className='flex items-center space-x-2'>
                     <LiaBabyCarriageSolid className='w-6 h-6'/>
-                    <span className=' text-gray-400'> {list[activeCarId-1].carSeats[2].title}</span>
+                    <span className={text}> {list[activeCarId-1].carSeats[2].title}</span>
                 </div>
                 <div className={bagCount}>
                     <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[2].quantity}</div>
@@ -106,7 +106,7 @@ const CarSeatsSelect = () => {
             <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[1].title}>
                 <div className='flex items-center space-x-2 '>
                     <MdOutlineStroller className='w-6 h-6'/>
-                    <span className=' text-gray-400 truncate overflow-hidden w-12'> {list[activeCarId-1].carSeats[1].title}</span>
+                    <span className={text}> {list[activeCarId-1].carSeats[1].title}</span>
                 </div>
                 <div className={bagCount}>
                     <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[1].quantity}</div>
@@ -137,6 +137,8 @@ const CarSeatsSelect = () => {
 };
 
 export default CarSeatsSelect;
+
+const text = ' text-gray-400 min-w-[50px] truncate'
 
 const part = ' flex flex-col w-1/2 '
 const countBox =' flex flex-col space-y-1'

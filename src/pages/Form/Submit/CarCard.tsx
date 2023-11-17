@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ITaxi } from '../../../Store/useMain';
+import { ITaxi, useMain } from '../../../Store/useMain';
 import dayjs from 'dayjs';
 
 import { SlLocationPin } from "react-icons/sl";
@@ -14,6 +14,7 @@ import { GiPalmTree } from "react-icons/gi";
 
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const [open, setOpen] = useState(false)
+    const { setFilled } = useMain()
 
     return (
         <div className={car}>
@@ -33,8 +34,8 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                 <div className="flex px-2 text-[10px] truncate mt-1"> {item.to}</div>
             </div>
             <div className="flex flex-col ml-auto justify-between">
-                <button className={submit2}>remove</button>
-                <button className={submit}>submit</button>
+                <button className={submit2} onClick={()=>setFilled(false, item.id)}>remove</button>
+                <button className={submit} onClick={()=>alert('taxi is ordered')}>submit</button>
             </div>
         </div>
         
