@@ -1,13 +1,19 @@
-import React from "react"
+import React, { useState } from "react"
 import { useMain } from "./Store/useMain"
 import Form from "./pages/Form/Form"
+import { AiOutlineInfoCircle } from "react-icons/ai";
+
+
 function App():React.ReactNode {
   const {activeCarId, setActiveCarId, isCars} = useMain()
-  
+  const [isFrance, setIsFrance] = useState(false)
+
   return (
     <div className={container}>
       <div className={wrapper}>
         <div className={header}>
+        <AiOutlineInfoCircle className='cursor-pointer text-xl'/>
+
           <div className={headerContent}>
             <span className={taxiLabel}>
               {activeCarId === 1 
@@ -22,7 +28,16 @@ function App():React.ReactNode {
               }
             </span>
           </div>
-          <div className={language}>language</div>
+          <div className={lang}>
+            <div 
+              className={isFrance? langItem + ' border-white': langItem+ ' border-green-400'} 
+              onClick={()=>setIsFrance(false)}
+            >Eng</div> |
+            <div 
+              className={!isFrance? langItem + ' border-white': langItem+ ' border-green-400'} 
+              onClick={()=>setIsFrance(true)}
+            >Fr</div>
+          </div>
         </div>
         
         <div className="flex h-full">
@@ -61,7 +76,7 @@ function App():React.ReactNode {
                   setActiveCarId(5)
                 }}
             >5</li>
-            <li className={activeCarId===5 ? 'h-full bg-gray-100 rounded-tr border-r border-t ' : ' h-full border-r bg-gray-100'}></li>
+            <li className={activeCarId===5 ? 'h-full  rounded-tr border-r border-t ' : ' h-full border-r '}></li>
         </ul>
 
           
@@ -75,13 +90,14 @@ function App():React.ReactNode {
 
 export default App
 const taxiLabel = 'text-gray-400'
-const tab = 'px-4 py-2 cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
+const tab = 'px-4 py-2 cursor-pointer hover:bg-gray-50 text-gray-300 hover:text-gray-600  border-r box-border' 
 const activeTab = 'px-4 py-2 cursor-pointer border-t border-b border-white'
-const tabsContainer = 'flex  flex-col mr-2 font-bold h-full m-0 w-[40px]'
+const tabsContainer = 'flex  flex-col mr-2 font-bold h-full m-0 w-[40px] shadow'
 
-const language = ''
+const lang = ' flex rounded h-[20px] cursor-pointer'
+const langItem = 'text-sm px-1 border-b-2'
 const headerContent = ''
-const header = 'flex  w-full py-4 pt-10 px-14 justify-between'
+const header = 'flex  w-full py-4 pt-10 px-14 justify-between shadow mb-[1px]'
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px]'
 const container = 'flex w-full min-w-screen min-h-screen justify-center'

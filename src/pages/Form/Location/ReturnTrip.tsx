@@ -128,7 +128,7 @@ const ReturnTrip = ():React.ReactNode  => {
         {!list[activeCarId-1].isReturnTrip && <div className='absolute left-0 top-10 right-0 bottom-0 z-20 bg-white opacity-50'></div>}
         <div 
             onClick={()=>setIsReturnTrip(!list[activeCarId-1].isReturnTrip )}
-            className={!list[activeCarId-1].isReturnTrip ? "absolute top-12 z-30 flex px-2 py-1 rounded text-white bg-blue-500": "absolute top-12 right-4 z-30 flex px-2 py-1 rounded text-white bg-rose-500"}
+            className={!list[activeCarId-1].isReturnTrip ? "absolute top-6 z-30 flex px-2 py-1 rounded text-white bg-blue-500": "absolute top-6 right-4 z-30 flex px-2 py-1 rounded text-white bg-rose-500"}
         >{!list[activeCarId-1].isReturnTrip ? 'return trip': 'one way'}</div>
 
         <div className={content}>
@@ -162,13 +162,10 @@ const ReturnTrip = ():React.ReactNode  => {
                 </div>
                 <TimePicker isAm={amTime} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
                 <div className={timeToggle}>
-                        <div 
-                            className={amTime === 1 ? amButtonA :amTime === 2 ? amButton: 'hidden' }
-                        >{amTime===1? 'am' :amTime===2? 'pm': '' }</div>
-                        <div className={amText+ ' -translate-y-[1px]'} onClick={()=>setAmTime(1)}>am</div>
-                        <div className={amText+ ' border-t'} onClick={()=>setAmTime(2)}>pm</div>
-                        
-                    </div>
+                    <div className={amTime===0 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(0)}>undefined</div>
+                    <div className={amTime===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(1)}>am</div>
+                    <div className={amTime===2 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(2)}>pm</div>    
+                </div>
             </div>
 
             <div className={type}>
@@ -475,7 +472,6 @@ const ReturnTrip = ():React.ReactNode  => {
             </div>
             {list[activeCarId-1].steps=== 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>
-        {!list[activeCarId-1].isReturnTrip && <div className='absolute -top-2 left-0 right-0 bottom-0 bg-white opacity-90'></div>}
     </div>
     );
 };
@@ -483,11 +479,8 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
-
-const amButton = ' absolute rounded-b bottom-[1px] top-1/2 left-0 right-0 bg-red-500  text-center'
-const amButtonA = ' absolute rounded-t top-[1px] bottom-1/2 left-0 right-0 bg-green-500  text-center'
-const amText = 'px-1'
-const timeToggle = ' relative flex flex-col items-center text-xs border cursor-pointer py-[2px] rounded '
+const amText = 'px-1 border-b-2 '
+const timeToggle = ' absolute top-[21px] right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
 
 const content = ' relative flex flex-col w-full  space-y-3 py-10'
 
@@ -509,7 +502,7 @@ const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cur
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
 const dateInput = 'text-xs flex border py-1 h-[40px] relative w-full max-w-[200px] rounded'
-const date = 'flex items-start mb-2  w-full justify-between border-b-2 border-black pb-6'
+const date = 'flex relative items-start mb-2  w-full justify-between border-b-2 border-black pb-6'
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'

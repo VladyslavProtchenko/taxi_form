@@ -151,12 +151,9 @@ const TripContent = ():React.ReactNode => {
                     </div>
                     <TimePicker isAm={amTime} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
                     <div className={timeToggle}>
-                        <div 
-                            className={amTime === 1 ? amButtonA :amTime === 2 ? amButton: 'hidden' }
-                        >{amTime===1? 'am' :amTime===2? 'pm': '' }</div>
-                        <div className={amText+ ' -translate-y-[1px]'} onClick={()=>setAmTime(1)}>am</div>
-                        <div className={amText+ ' border-t'} onClick={()=>setAmTime(2)}>pm</div>
-                        
+                        <div className={amTime===0 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(0)}>undefined</div>
+                        <div className={amTime===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(1)}>am</div>
+                        <div className={amTime===2 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(2)}>pm</div>    
                     </div>
                 </div>
             </div>
@@ -469,10 +466,9 @@ export default TripContent;
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
-const amButton = ' absolute rounded-b bottom-[1px] top-1/2 left-0 right-0 bg-red-500  text-center'
-const amButtonA = ' absolute rounded-t top-[1px] bottom-1/2 left-0 right-0 bg-green-500  text-center'
-const amText = 'px-1'
-const timeToggle = ' relative flex flex-col items-center text-xs border cursor-pointer py-[2px] rounded '
+const amText = 'px-1 border-b-2 '
+const timeToggle = ' absolute -top-6 right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
+
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2' 
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold w-[42px] py-1'
 const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-400'
