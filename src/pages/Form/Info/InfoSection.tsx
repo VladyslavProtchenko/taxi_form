@@ -46,15 +46,15 @@ const InfoSection = () => {
             <div className={extraContainer}>
                 <div className={ (list[activeCarId-1].name.length>3 && list[activeCarId-1].title ) ? nameCard + ' ': nameCard + '  border-red-500' }>
                     <span className='icon'><BsPeople/></span>
-                    <Select allowClear value={list[activeCarId-1].title || ''} defaultValue='Undefined' placeholder='title' style={{width: 118, height: 40}} onChange={setTitle} options={store.titleList.map(item=>({value: item, label: item }))}/>
-                    <Input allowClear value={list[activeCarId-1].name || ''} placeholder='Name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{minWidth:200, borderRadius: 5, height: 30}}/>
+                    <Select allowClear value={list[activeCarId-1].title}  placeholder='title' style={{width: 118, height: 40}} onChange={setTitle} options={store.titleList.map(item=>({value: item, label: item }))}/>
+                    <Input allowClear value={list[activeCarId-1].name} placeholder='Name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                 </div>
 
                 <div className={list[activeCarId-1].name.length>3 ? nameCard: 'hidden'}>
                     {!isExtraNameOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
-                        <Select value={list[activeCarId-1].title2 || ''} placeholder='title' defaultValue='Undefined'  style={{width: 118, height: 40}} onChange={setTitle2} options={store.titleList.map(item=>({value: item, label: item }))}/> 
-                        <Input value={list[activeCarId-1].name2 || ''} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{minWidth:200, borderRadius: 5, height: 30}}/>
+                        <Select value={list[activeCarId-1].title2} placeholder='title' style={{width: 118, height: 40}} onChange={setTitle2} options={store.titleList.map(item=>({value: item, label: item }))}/> 
+                        <Input value={list[activeCarId-1].name2} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                         
                         <button 
                             className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } 
@@ -66,7 +66,7 @@ const InfoSection = () => {
                                         setName3('');
                                         return setIsExtraNameOpen({ 1: true, 2:false })
                                     }
-                                    setTitle2('Undefined');
+                                    setTitle2('');
                                     setName2('');
                                     setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
                                 }}>
@@ -78,8 +78,8 @@ const InfoSection = () => {
                     {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) &&  <>
                         <span className='icon'><BsPeople/></span>
-                        <Select value={list[activeCarId-1].title3 || ''} defaultValue='Undefined' placeholder='title' style={{width: 118, height: 40}} onChange={setTitle3}options={store.titleList.map(item=>({value: item, label: item }))}/> 
-                        <Input  value={list[activeCarId-1].name3 || ''} allowClear placeholder='Third name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{minWidth:200, borderRadius: 5, height: 30}}/>
+                        <Select value={list[activeCarId-1].title3} placeholder='title' style={{width: 118, height: 40}} onChange={setTitle3}options={store.titleList.map(item=>({value: item, label: item }))}/> 
+                        <Input  value={list[activeCarId-1].name3 } allowClear placeholder='Third name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                     </>}
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
                     && <button 

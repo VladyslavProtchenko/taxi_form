@@ -52,6 +52,7 @@ const ReturnTrip = ():React.ReactNode  => {
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(3)
+    const [ amTime, setAmTime ] = useState<number>(0)
 
 
     useEffect(()=>{
@@ -159,7 +160,15 @@ const ReturnTrip = ():React.ReactNode  => {
                         </div>
                     </div>}
                 </div>
-                <TimePicker time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
+                <TimePicker isAm={amTime} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
+                <div className={timeToggle}>
+                        <div 
+                            className={amTime === 1 ? amButtonA :amTime === 2 ? amButton: 'hidden' }
+                        >{amTime===1? 'am' :amTime===2? 'pm': '' }</div>
+                        <div className={amText+ ' -translate-y-[1px]'} onClick={()=>setAmTime(1)}>am</div>
+                        <div className={amText+ ' border-t'} onClick={()=>setAmTime(2)}>pm</div>
+                        
+                    </div>
             </div>
 
             <div className={type}>
@@ -475,10 +484,11 @@ const ReturnTrip = ():React.ReactNode  => {
 export default ReturnTrip;
 
 
-// const defaultTab = 'px-4 py-2 cursor-pointer pt-3 bg-white'
-// const tab = 'px-4 py-2  cursor-pointer hover:bg-gray-50 text-gray-500 hover:text-black bg-gray-100 border-r box-border' 
-// const activeTab = 'px-4 py-2 cursor-pointer  border-white'
-// const tabsContainer = 'hidden sm:flex flex-col mr-2 font-bold h-full mb-0  overflow-hidden'
+const amButton = ' absolute rounded-b bottom-[1px] top-1/2 left-0 right-0 bg-red-500  text-center'
+const amButtonA = ' absolute rounded-t top-[1px] bottom-1/2 left-0 right-0 bg-green-500  text-center'
+const amText = 'px-1'
+const timeToggle = ' relative flex flex-col items-center text-xs border cursor-pointer py-[2px] rounded '
+
 const content = ' relative flex flex-col w-full  space-y-3 py-10'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '

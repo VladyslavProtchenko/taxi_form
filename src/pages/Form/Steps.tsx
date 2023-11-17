@@ -83,4 +83,4 @@ const Steps = ():React.ReactNode => {
 export default Steps;
 
 const navBtn = ' flex items-center text-xl text-white active:text-gray-500 px-4 py-1 cursor-pointer bg-red-500 active:bg-red-400 rounded'
-const buttons = 'flex max-w-[320px] w-full justify-between px-3 mt-4 mb-4'
+const buttons = 'flex  w-full justify-between px-3 mt-4 mb-4'

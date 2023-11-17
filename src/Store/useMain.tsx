@@ -224,9 +224,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Undefined',
-                title2: 'Undefined',
-                title3: 'Undefined',
+                title: 'Mr.',
+                title2: 'Mr.',
+                title3: 'Mr.',
             
                 email:'@',
                 email2: '@',
@@ -303,7 +303,7 @@ export const useMain = create<IStore>()(
                 baggage: [
                     {
                         title: '32 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
@@ -313,17 +313,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'middle',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '10 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '8.5 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     }
                 ],
@@ -335,17 +335,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Skis',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Golf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Surf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -357,17 +357,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Umbrella stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Regular stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Booster seat',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -375,7 +375,7 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: true,
+                        isActive: false,
                     },
                     {
                         title: 'Cat',
@@ -403,9 +403,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Undefined',
-                title2: 'Undefined',
-                title3: 'Undefined',
+                title: 'Mr.',
+                title2: 'Mr.',
+                title3: 'Mr.',
             
                 email:'@',
                 email2: '@',
@@ -482,7 +482,7 @@ export const useMain = create<IStore>()(
                 baggage: [
                     {
                         title: '32 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
@@ -492,17 +492,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'middle',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '10 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '8.5 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     }
                 ],
@@ -514,17 +514,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Skis',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Golf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Surf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -536,17 +536,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Umbrella stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Regular stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Booster seat',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -554,7 +554,7 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: true,
+                        isActive: false,
                     },
                     {
                         title: 'Cat',
@@ -582,9 +582,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Undefined',
-                title2: 'Undefined',
-                title3: 'Undefined',
+                title: 'Mr.',
+                title2: 'Mr.',
+                title3: 'Mr.',
             
                 email:'@',
                 email2: '@',
@@ -661,7 +661,7 @@ export const useMain = create<IStore>()(
                 baggage: [
                     {
                         title: '32 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
@@ -671,17 +671,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'middle',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '10 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '8.5 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     }
                 ],
@@ -693,17 +693,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Skis',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Golf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Surf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -715,17 +715,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Umbrella stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Regular stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Booster seat',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -733,7 +733,7 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: true,
+                        isActive: false,
                     },
                     {
                         title: 'Cat',
@@ -761,9 +761,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Undefined',
-                title2: 'Undefined',
-                title3: 'Undefined',
+                title: 'Mr.',
+                title2: 'Mr.',
+                title3: 'Mr.',
             
                 email:'@',
                 email2: '@',
@@ -840,7 +840,7 @@ export const useMain = create<IStore>()(
                 baggage: [
                     {
                         title: '32 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
@@ -850,17 +850,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'middle',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '10 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '8.5 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     }
                 ],
@@ -872,17 +872,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Skis',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Golf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Surf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -894,17 +894,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Umbrella stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Regular stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Booster seat',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -912,7 +912,7 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: true,
+                        isActive: false,
                     },
                     {
                         title: 'Cat',
@@ -940,9 +940,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Undefined',
-                title2: 'Undefined',
-                title3: 'Undefined',
+                title: 'Mr.',
+                title2: 'Mr.',
+                title3: 'Mr.',
             
                 email:'@',
                 email2: '@',
@@ -1019,7 +1019,7 @@ export const useMain = create<IStore>()(
                 baggage: [
                     {
                         title: '32 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
@@ -1029,17 +1029,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'middle',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '10 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: '8.5 kg',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     }
                 ],
@@ -1051,17 +1051,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Skis',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Golf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Surf',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -1073,17 +1073,17 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Umbrella stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Regular stroller',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                     {
                         title: 'Booster seat',
-                        quantity: 1,
+                        quantity: 0,
                         isActive: false,
                     },
                 ],
@@ -1091,7 +1091,7 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: true,
+                        isActive: false,
                     },
                     {
                         title: 'Cat',
@@ -1112,6 +1112,7 @@ export const useMain = create<IStore>()(
                 ],
                 steps:1,
             },
+
         ],
         setActiveCarId: (data) => set((state) =>  ({ ...state, activeCarId: data})),
         setIsCars: (data) => set((state) => ({ ...state, isCars: data })),
@@ -1142,9 +1143,9 @@ export const useMain = create<IStore>()(
             name2: '',
             name3: '',
             
-            title: 'Undefined',
-            title2: 'Undefined',
-            title3: 'Undefined',
+            title: 'Mr.',
+            title2: 'Mr.',
+            title3: 'Mr.',
         
             email:'',
             email2: '',

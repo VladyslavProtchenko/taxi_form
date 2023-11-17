@@ -10,21 +10,20 @@ interface InputProps {
     date?: string;
     time: string;
     style?:string;
+    isAm: number;
 }
 
-const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
+const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time }) => {
     const minutes = [
         "00","05","10", "15", "20", "25", "30",
-        "35", "40", "45",  "50","55","00"
+        "35", "40", "45",  "50","55",
     ]
     const hours = [
         "00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
-        "20", "21", "22", "23", "00",
+        "20", "21", "22", "23", 
     ]
     const { list, activeCarId } = useMain()
-    const hoursNow = dayjs().format('HH')
-    const minutesNow = dayjs().format('mm')
 
     const ref = useOnclickOutside(() => setIsOpen(false));
 
@@ -32,42 +31,133 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
     const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3) :  '')
     const [isOpen, setIsOpen] = useState(false)
     const [isTime, setIsTime] = useState(0)
-    const [filteredMinutes, setFilteredMinutes] = useState(minutes.filter(item => item > minutesNow))
-    const [filteredHours, setFilteredHours] = useState(hours.filter(item => item >= hoursNow))
+    const [filteredMinutes, setFilteredMinutes] = useState<string[]>([])
+    const [filteredHours, setFilteredHours] = useState<string[]>(hours)
 
     useEffect(()=>{
-        if (dayjs().format('DD/MM/YYYY') === date){
 
-            setFilteredMinutes(minutes.filter(item => item > dayjs().format('mm')))
-            setFilteredHours(hours.filter(item => item >= dayjs().format('HH')))
-        }
         if(!list[activeCarId-1].dateNow && JSON.stringify(dayjs().format('DD/MM/YYYY')) === JSON.stringify(date)) {
-            if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
-                setMinute(dayjs().add(30, 'minutes').format('mm'))
-                setHour(dayjs().add(1, 'hours').format('HH'))
-                onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
-            }
 
-            if(dayjs().format('mm') > '30') setFilteredHours(hours.filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
-            setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
+            //if 24 hours time 
+            if(isAm ===0 ) {
+                hour === dayjs().format('HH') 
+                    ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
+                    : setFilteredMinutes(minutes)
+
+                if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
+                    setMinute(dayjs().add(30, 'minutes').format('mm'))
+                    setHour(dayjs().add(1, 'hours').format('HH'))
+                    onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
+                }
+
+                (dayjs().format('mm') > '30') 
+                ? setFilteredHours(hours.filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
+                : setFilteredHours(hours.filter(item => item >= dayjs().format('HH')))
+
+            } else  {
+                
+                if(+dayjs().format('HH') <= 12) {
+                    
+                    hour === dayjs().format('hh') 
+                    ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
+                    : setFilteredMinutes(minutes)
+
+                    if(list[activeCarId-1].time < dayjs().format('hh:mm')) {
+                        setMinute(dayjs().add(30, 'minutes').format('mm'))
+                        setHour(dayjs().add(1, 'hours').format('hh'))
+                        onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('hh:mm'))
+                    }
+                    if(dayjs().format('mm') > '30'){
+                        isAm === 1
+                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().add(1, 'hours').format('hh') ))
+                        : setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
+                    } else {
+                        isAm === 1
+                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
+                        : setFilteredHours(hours.filter(x=> x<'13'))
+                    }
+                    
+
+                }else if(+dayjs().format('HH') > 12) {
+                    console.log('work2')
+                    hour === dayjs().format('hh') 
+                    ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
+                    : setFilteredMinutes(minutes)
+
+                    if(list[activeCarId-1].time < dayjs().format('hh:mm')) {
+                        setMinute(dayjs().add(30, 'minutes').format('mm'))
+                        setHour(dayjs().add(1, 'hours').format('hh'))
+                        onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('hh:mm'))
+                    }
+
+                    if(dayjs().format('mm') > '30'){
+                        isAm === 2
+                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().add(1, 'hours').format('hh') ))
+                        : setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
+                    } else {
+                        isAm === 2
+                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
+                        : setFilteredHours(hours.filter(x=> x<'13'))
+                    }
+                }
+                
+            }
             
+
+
+            // if(list[activeCarId-1].time < dayjs().format('HH:mm') && isAm === 0) {
+            //     setMinute(dayjs().add(30, 'minutes').format('mm'))
+            //     setHour(dayjs().add(1, 'hours').format('HH'))
+            //     onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
+            // } else if(list[activeCarId-1].time < dayjs().format('HH:mm a') && isAm !==0){
+            //     setMinute(dayjs().add(30, 'minutes').format('mm'))
+            //     setHour(dayjs().add(1, 'hours').format('HH'))
+
+            //     onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
+            // }
+
+            // if(dayjs().format('mm') > '30' && dayjs().format('HH') > '11' && isAm !==0 ){
+            //     console.log(+dayjs().add(1, 'hours').format('HH')-12)
+            //     setFilteredHours(
+            //         hours.filter(hour => +hour<13 )
+            //         .filter(item => +item >= +dayjs().add(1, 'hours').format('HH')-12 ))
+            // } else if(dayjs().format('mm') > '30' && dayjs().format('HH') < '11' && isAm !==0 ){
+
+            // } else if(dayjs().format('mm') > '30' && isAm === 0 ){
+            //     console.log('work 3')
+            //     setFilteredHours(
+            //         hours.filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
+            // }
+
+            if(hour===dayjs().format('HH') && isAm!==2) setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
         }
+        
         if(dayjs().format('DD/MM/YYYY') !== date) {
             setFilteredMinutes(minutes)
-            setFilteredHours(hours)
+            isAm === 0
+                ? setFilteredHours(hours)
+                : setFilteredHours(hours.filter(hour => +hour < 13))
         }
-    },[date, list[activeCarId-1].dateNow, list[activeCarId-1].date, list[activeCarId-1].time])
+    },[date, list[activeCarId-1].dateNow, list[activeCarId-1].date, list[activeCarId-1].time, isAm])
 
 
     useEffect(() => {
-        onChange((hour) + ':' + (minute))
-        if(minute && hour) {
-            setIsTime(2)
-        } else setIsTime(1)
+        
+        if(isAm>0){
+            onChange(`${( hour > '12' ? +hour-12 : hour )}:${minute}`)
+            if(minute && hour) {
+                setIsTime(2)
+            } else setIsTime(1)
+        } else {
+            onChange((hour) + ':' + (minute))
+            if(minute && hour) {
+                setIsTime(2)
+            } else setIsTime(1)
+        }
+        
     }, [hour, minute])
 
     
-
 
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
@@ -108,7 +198,7 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
             {isOpen && <div className={submenu} >
 
                 <div className="overflow-scroll border-r">
-                    {[...filteredHours,"00"].map((item, index) =>
+                    {[...filteredHours,'00'].map((item, index) =>
                             <div
                                 key={index + item}
                                 className=" px-4 cursor-pointer hover:bg-gray-100"
@@ -117,7 +207,7 @@ const TimePicker: React.FC<InputProps> = ({ style, onChange, date, time }) => {
                         )}
                 </div>
                 <div className="overflow-scroll " >
-                    {[...filteredMinutes,"00"].map((item, index) =>
+                    {[...filteredMinutes,'00'].map((item, index) =>
                         <div
                             key={index + item}
                             className=" px-4 cursor-pointer hover:bg-gray-100"
@@ -142,6 +232,6 @@ export default TimePicker;
 const input ='pr-2 py-1 text-end pr-[2px] w-[24px] outline-none'
 const input2 ='pr-2 py-1 pl-[2px] w-[35px] outline-none'
 const button ='absolute top-[130px] left-2 bg-blue-600 px-2 text-xs text-white active:bg-blue-400'
-const submenu = "absolute flex shadow top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white z-20"
+const submenu = "absolute flex shadow top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white z-30"
 
 const container = 'flex relative h-[40px] bg-white items-center border text-sm relative w-[100px] outline-none hover:border hover:border-blue-800 cursor-text rounded'

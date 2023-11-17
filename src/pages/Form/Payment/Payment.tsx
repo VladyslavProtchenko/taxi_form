@@ -28,11 +28,9 @@ const PaymentSection = ():React.ReactNode => {
                     }}/></span>
             </div>
             <div className='flex justify-between mt-4'>
-                <button className={btn} onClick={()=> setFilled(true, activeCarId)}>Order taxi</button>
-                <button className={btn2} onClick={()=> setIsSubmit(true)}>submit</button>
+                <button className={btn2} onClick={()=> setFilled(true, activeCarId)}>Order taxi</button>
+                <button className={btn} onClick={()=> setIsSubmit(true)}>View Orders</button>
             </div>
-            
-
         </section>
     );
 };

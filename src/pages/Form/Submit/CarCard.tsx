@@ -7,7 +7,7 @@ import { IoCarSportOutline, IoPhonePortraitOutline, IoTimeOutline } from "react-
 import { FiEdit } from "react-icons/fi";
 import { BsChatSquareText, BsPeople } from "react-icons/bs";
 import { TfiEmail } from "react-icons/tfi";
-import { LiaBabyCarriageSolid, LiaSkiingSolid } from "react-icons/lia";
+import { LiaSkiingSolid } from "react-icons/lia";
 import { PiCreditCard, PiSuitcaseRolling } from "react-icons/pi";
 import { MdOutlineStroller, MdPets } from "react-icons/md";
 import { GiPalmTree } from "react-icons/gi";
@@ -38,7 +38,6 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
             </div>
         </div>
         
-
         <div className={open ? " flex w-full flex-col  mt-4 ":  ' hidden '}>
             <div className='flex w-full flex-col space-y-2'>
                 <div className={item.isReturnTrip ? InfoCard : InfoCard }>
@@ -152,27 +151,15 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                             </div>}
                         </div>}
 
-                        {item.stops[1] &&
-                        <div className={contentItem}>
-                            <SlLocationPin className={stopIcon}/>
-                            <div className={nameBox}>
-                                {item.stops[1]}
+                        {Object.values(item.stops).map(item=>(
+                            <div className={contentItem + ' pl-10'}>
+                                <SlLocationPin className={stopIcon}/>
+                                <div className={nameBox}>
+                                    {item}
+                                </div>
                             </div>
-                        </div>}
-                        {(item.stops[2]) &&
-                        <div className={contentItem}>
-                            <SlLocationPin className={stopIcon}/>
-                            <div className={nameBox}>
-                                {item.stops[2]}
-                            </div>
-                        </div>}
-                        {(item.stops[3]) &&
-                        <div className={contentItem}>
-                            <SlLocationPin className={stopIcon}/>
-                            <div className={nameBox}>
-                                {item.stops[3]}, 
-                            </div>
-                        </div>}
+                        ))
+                        }
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
@@ -262,27 +249,15 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         </div>}
                     
                         
-                        {(item.stopsR[1]) &&
-                        <div className={contentItem}>
-                            <SlLocationPin className={stopIcon}/>
-                            <div className={nameBox}>
-                                {item.stopsR[1]}
+                        {Object.values(item.stopsR).map(item=>(
+                            <div className={contentItem+ ' pl-10 '}>
+                                <SlLocationPin className={stopIcon}/>
+                                <div className={nameBox}>
+                                    {item}
+                                </div>
                             </div>
-                        </div>}
-                        {(item.stopsR[2]) &&
-                        <div className={contentItem}>
-                            <SlLocationPin className={stopIcon}/>
-                            <div className={nameBox}>
-                                {item.stopsR[2]}
-                            </div>
-                        </div>}
-                        {(item.stopsR[3]) &&
-                        <div className={contentItem}>
-                            <SlLocationPin className={stopIcon}/>
-                            <div className={nameBox}>
-                                {item.stopsR[3]}, 
-                            </div>
-                        </div>}
+                        ))}
+                    
 
                         <div className={contentItem}>
                             <SlLocationPin className={locationIcon}/>
@@ -332,38 +307,30 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         </div>}
                         {item.passengers && <div className={contentItem}>
                         <BsPeople className={locationIcon}/>
-                        <span className={optionsItem}>adults: </span>
-                            {item.passengers.adults},
+                            <div className='border-r pr-1 border-black'><span className={optionsItem}>adults - </span> {item.passengers.adults}</div>
+                            {item.passengers.kids.length && <div className='px-1 border-r border-black'><span className={optionsItem}>Kids - </span> {item.passengers.kids.length}</div>}
+                            {item.passengers.babies>0 && <div className='px-1 border-r border-black'><span className={optionsItem}>Babies - </span> {item.passengers.babies}</div>}
                         </div>}
-                        {(item.passengers.kids.length> 0) && <div className={contentItem}>
-                        <span className={kidsIcon}></span>
-                        <span className={optionsItem}>Kids: </span>
-                            {item.passengers.kids.map(child => (<span className='px-1 rounded border mx-1'>{child.age} years</span>))}
-                        </div>}
-                        {item.passengers.babies>0   && <div className={contentItem}>
-                        <LiaBabyCarriageSolid className={locationIcon}/>
-                        <span className={optionsItem}>Babies: </span>
-                            {item.passengers.babies}
-                        </div>}
+
                         {item.baggage.filter(item=>item.quantity > 0).length > 0 && <div className={contentItem}>
                         <PiSuitcaseRolling className={locationIcon}/>
                         <span className={optionsItem}>Baggage: </span>
-                            {item.baggage.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))} 
+                            {item.baggage.map(item=>item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))} 
                         </div>}
                         {item.carSeats.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
                         <MdOutlineStroller className={locationIcon}/>
                         <span className={optionsItem}>Car seats: </span>
-                            {item.carSeats.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
+                            {item.carSeats.map(item=>  item.quantity>0 && (<span className='px-1 rounded border mx-1 truncate'>{item.quantity + ' x ' + item.title}</span>))}
                         </div>} 
                         {item.sport.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
                         <LiaSkiingSolid className={locationIcon}/>
                         <span className={optionsItem}>Sport attributes: </span>
-                            {item.sport.map(item=> item.isActive && item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
+                            {item.sport.map(item=>  item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
                         </div>}
                         {item.pets.filter(item=>item.isActive).length>0  && <div className={contentItem}>
                         <MdPets className={locationIcon}/>
                         <span className={optionsItem}>Pets: </span>
-                            {item.pets.map(item=> item.isActive && (<span className='px-1 rounded border mx-1'>{`${item.title} ${item.cage ? "(cage)":''}`}</span>) )}
+                            {item.pets.map(item=> (<span className='px-1 rounded border mx-1'>{`${item.title} ${item.cage ? "(cage)":''}`}</span>) )}
                         </div>}
                     </div>
                 </div>
@@ -423,4 +390,4 @@ const edit = 'absolute right-2 -top-2 text-xm text-gray-400 cursor-pointer'
 const infoContent = ' flex flex-col w-full space-y-2 text-sm'
 const InfoCard = 'flex w-full  py-4 pt-4 border-t px-2  relative text-sm'
 
-const kidsIcon ='w-4 mr-2 h-[16px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[140%]'
+// const kidsIcon ='w-4 mr-2 h-[16px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[140%]'

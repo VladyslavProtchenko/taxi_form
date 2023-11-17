@@ -14,13 +14,6 @@ const CarSeatsSelect = () => {
             key: index,
             label: (<span onClick={()=>setCarSeats(list[activeCarId-1].carSeats.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
     })
-
-    // ?<MdOutlineAirlineSeatFlatAngled className='w-6 h-6'/>
-    // :(item.title =='Umbrella stroller')
-    // ?<MdOutlineStroller className='w-6 h-6'/>
-    // :(item.title =='Regular stroller')
-    // ?<LiaBabyCarriageSolid className='w-6 h-6'/>
-    // :<div className={babiSeatIcon}/>}
     return (
         <div className={container}>
             
@@ -81,6 +74,7 @@ const CarSeatsSelect = () => {
                 </div>
             </div>
         </div>
+
         <div className={part + ' border-l-2 border-gray-600 pl-1'}>
             <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[2].title}>
                 <div className='flex items-center space-x-2'>
@@ -110,9 +104,9 @@ const CarSeatsSelect = () => {
                 </div>
             </div>
             <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[1].title}>
-                <div className='flex items-center space-x-2'>
+                <div className='flex items-center space-x-2 '>
                     <MdOutlineStroller className='w-6 h-6'/>
-                    <span className=' text-gray-400'> {list[activeCarId-1].carSeats[1].title}</span>
+                    <span className=' text-gray-400 truncate overflow-hidden w-12'> {list[activeCarId-1].carSeats[1].title}</span>
                 </div>
                 <div className={bagCount}>
                     <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[1].quantity}</div>
