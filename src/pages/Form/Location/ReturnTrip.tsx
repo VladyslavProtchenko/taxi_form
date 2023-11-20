@@ -26,6 +26,7 @@ interface IObj {[key:number]: string}
 const ReturnTrip = ():React.ReactNode  => {
     const {
         list,
+        isFrench,
         activeCarId,
         setFromR, 
         setToR, 
@@ -247,7 +248,7 @@ const ReturnTrip = ():React.ReactNode  => {
                             setFromR(e)
                             setTrigger({...trigger, 1: 0})
                         }}
-                        placeholder='Pick up location'
+                        placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
                     />
                 </div>
                 {list[activeCarId-1].icon === 1 && <div className="border flex items-center w-1/3 rounded">
@@ -266,7 +267,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         setStopTrigger(false)
                         setStopsR({...list[activeCarId-1].stopsR, 1: e})
                     }}
-                    placeholder='First Stop'
+                    placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
                 />
                     
                 <div 
@@ -297,7 +298,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         setStopTrigger(false)
                         setStopsR({...list[activeCarId-1].stopsR, 2: e})
                     }}
-                    placeholder='Second Stop'
+                    placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
                 />
             <div 
                 className={(stop === 1) ? openStop :closeStop} 
@@ -328,7 +329,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         setStopTrigger(false)
                         setStopsR({...list[activeCarId-1].stopsR, 3: e})
                     }}
-                    placeholder='Third Stop'
+                    placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
                 />
             <div 
                 className={(stop === 2) ? openStop :closeStop} 
@@ -359,7 +360,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         setStopTrigger(false)
                         setStopsR({...list[activeCarId-1].stopsR, 4: e})
                     }}
-                    placeholder='Fourth Stop'
+                    placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
                 />
             <div 
                 className={(stop === 3) ? openStop :closeStop} 
@@ -394,7 +395,7 @@ const ReturnTrip = ():React.ReactNode  => {
                             setToR(e)
                             setTrigger({...trigger, 2: 0})
                         }}
-                        placeholder='Drop off location'
+                        placeholder={isFrench? store.locationListF[1]:store.locationList[1]}
                     />
                 </div>
                 {list[activeCarId-1].icon2 === 1 && 
@@ -467,8 +468,8 @@ const ReturnTrip = ():React.ReactNode  => {
 
 
             <div className={btns}>
-                <button className={reset} onClick={resetCard}>Reset</button>
-                <button className={revert} onClick={setBackSection}>Return</button>
+                <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser': 'Reset'}</button>
+                <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
             </div>
             {list[activeCarId-1].steps=== 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>

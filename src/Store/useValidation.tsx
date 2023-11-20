@@ -19,7 +19,7 @@ export const useValidation = create<Store>((set) => ({
     validation: {
 
         isPhone: false,
-        isSubmit: false,
+        isSubmit: true,
         cars: {
             1: false,
             2: false,

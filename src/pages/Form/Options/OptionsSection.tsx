@@ -21,33 +21,26 @@ const OptionsSection = ():React.ReactNode => {
         <section className={section}>
             <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
                     {store.carList.map(item => (
-                        <div className={list[activeCarId-1].carType === item ? typeItem+' bg-green-400': item === 'limo (disabled)' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem } onClick={()=>{
-                                if(item === 'limo (disabled)') return;
+                        <div className={list[activeCarId-1].carType === item ? typeItem+' bg-green-400 text-black': item === 'limo' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem+ ' text-blue-500' } onClick={()=>{
+                                if(item === 'limo') return;
                                 setCarType(item)
                             }}>
-                            { item === 'VAN (5-7)'
-                                ? <LiaShuttleVanSolid className='w-1/4 text-sm'/>
-                                :item === 'SUV (max 4)'
-                                ?<PiJeepLight className='w-1/4 text-sm'/>
-                                :item === 'limo (disabled)'
-                                ?<AiOutlineStop className='w-1/4 text-sm'/>
-                                :<IoCarSportOutline className='w-1/4 text-sm'/> }
-                                <div className='truncate sm:ml-0 ml-1'>{item}</div>
+                            { item === 'VAN'
+                                ? <LiaShuttleVanSolid className='w-[20px] text-sm'/>
+                                :item === 'SUV'
+                                ?<PiJeepLight className='w-[20px] text-sm'/>
+                                :item === 'limo'
+                                ?<AiOutlineStop className='w-[20px] text-sm text-red-500'/>
+                                :<IoCarSportOutline className='w-[20px] text-sm'/> }
+                                <div className='truncate font-bold'>{item}</div>
                         </div>
                     ))}
             </div>
             
             <div className={content}>
-                <div className={passengersItem}>
-                    <PassengersSelect /> 
-                    <div className='flex w-1/2 flex-col'>
-                        <BagsSelect />
-                    </div>
-                </div>
-                <div className={item+ ' border-b-2 border-gray-600'}>
-                    <CarSeatSelect />
-                </div>
-                <div className={item}><SportSelect /><PetsSelect/></div>
+                <div className={contentItem}><PassengersSelect /><BagsSelect /></div>
+                <div className={contentItem}><CarSeatSelect /></div>
+                <div className={contentItem}><SportSelect /><PetsSelect/></div>
             </div>
         </section>
     );
@@ -56,11 +49,10 @@ const OptionsSection = ():React.ReactNode => {
 export default OptionsSection;
 
 
-const typeItem = 'flex items-center px-3 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/4'
-const content = 'flex flex-wrap w-full h-min '
+const typeItem = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
 
-const item = 'flex  relative  w-full   ' 
-const passengersItem = '  flex relative w-full border-b-2 border-gray-500' 
-const type = 'flex  self-center border rounded s divide-x overflow-hidden w-full mb-4'
+const contentItem = '  flex relative w-full mb-3 space-x-1' 
+const type = 'flex  self-center border border-black rounded s divide-x overflow-hidden w-full'
 
-const section = 'flex w-full flex-col p-8 flex-col max-w-[576px] py-8 px-1  '
+const content = 'flex flex-wrap w-full h-min rounded mt-6'
+const section = 'flex w-full flex-col  flex-col max-w-[576px] py-8 '

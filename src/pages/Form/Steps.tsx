@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const Steps = ():React.ReactNode => {
     
-    const { activeCarId, list, setSteps, } = useMain()
+    const { activeCarId, list, setSteps,isFrench } = useMain()
     const { validation, setIsSubmit } = useValidation()
     const [activePage, setActivePage] = useState(1)
 
@@ -61,7 +61,7 @@ const Steps = ():React.ReactNode => {
                     if(list[activeCarId-1].steps <=1 ) return setSteps(1)
                     setSteps(list[activeCarId-1].steps - 1)
                 }}
-            >back</div>}
+            >{isFrench? 'Précédent': 'Back'}</div>}
 
             {list[activeCarId-1].steps != 4 && <div 
                 className={navBtn + `${list[activeCarId-1].steps === 1? ' ml-auto': ''}`}
@@ -75,7 +75,7 @@ const Steps = ():React.ReactNode => {
                     : setSteps(list[activeCarId-1].steps) 
                     
                 }}
-            >next</div>}
+            >{isFrench? 'Suivant': 'Next'}</div>}
         </div>
     );
 };

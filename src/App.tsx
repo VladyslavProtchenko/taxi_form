@@ -31,11 +31,11 @@ function App():React.ReactNode {
             <div 
               className={isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
               onClick={()=>setIsFrench(false)}
-            >Eng</div> |
+            >EN</div> |
             <div 
               className={!isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
               onClick={()=>setIsFrench(true)}
-            >Fr</div>
+            >FR</div>
           </div>
         </div>
         

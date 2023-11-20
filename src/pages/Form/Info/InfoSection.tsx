@@ -10,6 +10,7 @@ import React from 'react';
 const InfoSection = () => {
     const { store } = useStore()
     const {
+        isFrench,
         activeCarId,
         list, 
         setTitle,
@@ -41,20 +42,22 @@ const InfoSection = () => {
 
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+    const options1 = isFrench ? store.titleListF.map(item=>({value: item, label: item })) : store.titleList.map(item=>({value: item, label: item }))
+
     return (
         <section className={section}>
             <div className={extraContainer}>
                 <div className={ (list[activeCarId-1].name.length>3 && list[activeCarId-1].title ) ? nameCard + ' ': nameCard + '  border-red-500' }>
                     <span className='icon'><BsPeople/></span>
-                    <Select allowClear value={list[activeCarId-1].title}  placeholder='title' style={{width: 118, height: 40}} onChange={setTitle} options={store.titleList.map(item=>({value: item, label: item }))}/>
-                    <Input allowClear value={list[activeCarId-1].name} placeholder='Name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{maxWidth:200, borderRadius: 5, height: 30}}/>
+                    <Select allowClear  placeholder={isFrench? store.titleListF[3]:store.titleList[3] } style={{width: 118, height: 40}} onChange={setTitle} options={options1}/>
+                    <Input allowClear value={list[activeCarId-1].name} placeholder={isFrench? store.nameListF[0]:store.nameList[0] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                 </div>
 
                 <div className={list[activeCarId-1].name.length>3 ? nameCard: 'hidden'}>
                     {!isExtraNameOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
-                        <Select value={list[activeCarId-1].title2} placeholder='title' style={{width: 118, height: 40}} onChange={setTitle2} options={store.titleList.map(item=>({value: item, label: item }))}/> 
-                        <Input value={list[activeCarId-1].name2} allowClear placeholder='Second name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
+                        <Select placeholder={isFrench? store.titleListF[3]:store.titleList[3] }style={{width: 118, height: 40}} onChange={setTitle2} options={options1}/> 
+                        <Input value={list[activeCarId-1].name2} allowClear placeholder={isFrench? store.nameListF[1]:store.nameList[1] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                         
                         <button 
                             className={(isExtraNameOpen[1]) ? extraNameClose : addExtraBtn } 
@@ -78,8 +81,8 @@ const InfoSection = () => {
                     {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) &&  <>
                         <span className='icon'><BsPeople/></span>
-                        <Select value={list[activeCarId-1].title3} placeholder='title' style={{width: 118, height: 40}} onChange={setTitle3}options={store.titleList.map(item=>({value: item, label: item }))}/> 
-                        <Input  value={list[activeCarId-1].name3 } allowClear placeholder='Third name' onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
+                        <Select placeholder={isFrench? store.titleListF[3]:store.titleList[3] } style={{width: 118, height: 40}} onChange={setTitle3}options={options1}/> 
+                        <Input  value={list[activeCarId-1].name3 } allowClear placeholder={isFrench? store.nameListF[2]:store.nameList[2] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                     </>}
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
                     && <button 
@@ -98,12 +101,12 @@ const InfoSection = () => {
 
             <div className={extraContainer}>
                 <div className={extraCard}>
-                    <MailInput value={list[activeCarId-1].email} mainMail={true} onChange={setEmail} placeholder='Set your email'/>
+                    <MailInput value={list[activeCarId-1].email} mainMail={true} onChange={setEmail} placeholder={isFrench? store.emailListF[0]:store.emailList[0] }/>
                 </div>
                 
                 <div className={pattern.test(list[activeCarId-1].email) ? extraCard: 'hidden'}>
                     {!isExtraEmailOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
-                    <MailInput value={list[activeCarId-1].email2} onChange={setEmail2} placeholder='Set second email'/>
+                    <MailInput value={list[activeCarId-1].email2} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
                     <button className={(isExtraEmailOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })}}>
                         {`${(isExtraEmailOpen[1]) ? '-' : '+'}`}
                     </button>      
@@ -112,7 +115,7 @@ const InfoSection = () => {
                 <div className={(!pattern.test(list[activeCarId-1].email2)) ? 'hidden' :(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) ? nameCard + ' border-none' : nameCard + ' border-white h-[32px]'}>
                     {!isExtraEmailOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                     {(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) &&  <>
-                    <MailInput value={list[activeCarId-1].email3} onChange={setEmail3} placeholder='Set third email'/>
+                    <MailInput value={list[activeCarId-1].email3} onChange={setEmail3}placeholder={isFrench? store.emailListF[2]:store.emailList[2] }/>
                     </>}
                     {(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) && 
                     <button className={(isExtraEmailOpen[2]) ? extraEmailClose : addExtraBtn } onClick={()=>{

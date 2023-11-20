@@ -8,6 +8,8 @@ import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
 import { useValidation } from '../../Store/useValidation';
 import React from 'react';
+import { useMain } from '../../Store/useMain';
+import { useStore } from '../../Store';
 
 const countries = [
     ["Afghanistan", "93"],
@@ -237,6 +239,8 @@ interface IPhone {
 function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     const ref = useOnclickOutside(() => setIsOpen(false));
     const {setIsPhone } = useValidation()
+    const { isFrench} = useMain()
+    const { store } = useStore()
     const [country, setCountry] = useState('')
     const [countryCode, setCountryCode] = useState(value)
     const [isOpen, setIsOpen] = useState(false)
@@ -274,11 +278,13 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >
-                {icon === 1 ? <><IoPhonePortraitOutline /><span className=' text-xs ml-1'>Mobile</span></>: icon === 2 ? <><BsTelephone /><span className=' text-xs ml-1'>Home</span></> : <><SlEarphonesAlt /><span className=' text-xs ml-1'>Work</span></>}
+                {icon === 1 ? <><IoPhonePortraitOutline /><span className=' text-xs ml-1'>
+                    {isFrench? store.phoneTitleListF[0]: store.phoneTitleList[0]}
+                    </span></>: icon === 2 ? <><BsTelephone /><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span></> : <><SlEarphonesAlt /><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></>}
                 <ul className={isOpen ?subMenu: 'hidden'} ref={ref}>
-                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className=' text-xs ml-2'>Mobile</span></li>
-                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className=' text-xs ml-2'>Home</span> </li>
-                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className=' text-xs ml-2'>Work</span></li>
+                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[0]: store.phoneTitleList[0]}</span></li>
+                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span> </li>
+                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></li>
                 </ul>
             </div>
             <Select

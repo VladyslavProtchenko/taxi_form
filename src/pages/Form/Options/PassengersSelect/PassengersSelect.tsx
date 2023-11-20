@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IoPeopleOutline, } from "react-icons/io5";
-import { LiaBabyCarriageSolid } from "react-icons/lia";
+// import { LiaBabyCarriageSolid } from "react-icons/lia";
 import { useMain } from '../../../../Store/useMain';
 import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 
@@ -34,8 +34,10 @@ const PassengersSelect = () => {
 
     return (
             <ul className={content}>
-                <div className={subItem + ' rounded-t border-b-0'}>
-                    <label className={label}><IoPeopleOutline className='w-7 h-7'/>
+
+                <div className={card}>
+                    <label className={label}>
+                        {/* <IoPeopleOutline className='w-7 h-7'/> */}
                     <span className='ml-2 text-gray-400'>Adults</span>
                     </label>
                     <div className={bagCount}>
@@ -62,8 +64,8 @@ const PassengersSelect = () => {
                     </div>
                 </div>
 
-                <div className={children.length? subItem + ' rounded-b': subItem+ ' border-b-0'} >
-                    <span className={kidsIcon}></span>
+                <div className={children.length? card : card} >
+                    {/* <span className={kidsIcon}></span> */}
                     <span className='ml-2 text-gray-400 mr-auto pt-1'>Kids</span>
                     <div className={bagCount}>
                         <div className={count}>{children.length}</div>
@@ -133,9 +135,9 @@ const PassengersSelect = () => {
                     </div>))}
                 </div>}
                 
-                <div className={children.length ? subItem+ ' rounded' : subItem +' rounded-b'}>
+                <div className={children.length ? card : card}>
                     <span className={label}>
-                        <LiaBabyCarriageSolid className='w-7 h-7'/>
+                        {/* <LiaBabyCarriageSolid className='w-7 h-7'/> */}
                         <span className='ml-2 text-gray-400 mr-auto pt-1'>Babies</span>
                     </span>
                     <div className={bagCount}>
@@ -167,6 +169,8 @@ const PassengersSelect = () => {
                 {((children.length + adults) > 5) && <div className={extraFee}>
                     <span className={fee}>You will have extra fee 5%</span>
                 </div>}
+                <div className='absolute flex -top-4 border-none left-2 z-10 bg-white px-1 items-center text-xs text-blue-500'><IoPeopleOutline className='text-xl '/></div>
+
             </ul>
     );
 };
@@ -187,6 +191,6 @@ const button = "   cursor-pointer scale-[160%]  duration-300 "
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 
-const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[130%]'
-const subItem = 'relative text-sm flex px-1 pr-4  py-2 justify-between cursor-pointer border h-[45px]'
-const content = 'flex flex-col pb-2 bg-white py-2  relative text-sm w-1/2 pr-1 '
+// const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[130%]'
+const card = 'relative text-sm flex px-1 pr-4  py-2 justify-between cursor-pointer h-[45px] border-blue-500 '
+const content = 'relative border px-1 h-min border-blue-500 rounded pt-2 divide-y flex flex-col bg-white space-y-1 relative text-sm w-1/2'

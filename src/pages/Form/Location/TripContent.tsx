@@ -22,6 +22,7 @@ import React from "react";
 interface IObj {[key:number]: string}
 const TripContent = ():React.ReactNode => {
     const {  
+        isFrench,
         activeCarId,
         list,
         setFrom, 
@@ -111,9 +112,9 @@ const TripContent = ():React.ReactNode => {
                             setDate('')
                             setTime('')
                         }}>
-                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>Now
+                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }
                     </span>
-                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>Later</span>
+                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
                     
                 </div>
                 <div className={dateRow}>
@@ -231,7 +232,7 @@ const TripContent = ():React.ReactNode => {
                         style='w-full' 
                         defaultLocation={list[activeCarId-1].from || ''} 
                         onChange={setFrom}
-                        placeholder='Pick up location'
+                        placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
                     />
                 </div>
                 {list[activeCarId-1].icon === 1 && 
@@ -257,7 +258,7 @@ const TripContent = ():React.ReactNode => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 1:e})
                     }}
-                    placeholder='First top'
+                    placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
                 />
                 <div 
                     className={(stop === 0) ? openStop :closeStop} 
@@ -286,7 +287,7 @@ const TripContent = ():React.ReactNode => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 2:e})
                     }}
-                    placeholder='Second stop'
+                    placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
                 />
                 <div 
                     className={(stop === 1) ? openStop :closeStop} 
@@ -314,7 +315,7 @@ const TripContent = ():React.ReactNode => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 3:e})
                     }}
-                    placeholder='Third stop'
+                    placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
                 />
                 <div 
                     className={(stop === 2) ? openStop :closeStop} 
@@ -342,7 +343,7 @@ const TripContent = ():React.ReactNode => {
                     onChange={(e)=>{
                         setLocalStops({...localStops, 4:e})
                     }}
-                    placeholder='Fourth stop'
+                    placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
                 />
 
                 <div 
@@ -369,7 +370,7 @@ const TripContent = ():React.ReactNode => {
                         style='w-full' 
                         defaultLocation={list[activeCarId-1].to || ''} 
                         onChange={setTo}
-                        placeholder='Drop off location'
+                        placeholder={isFrench? store.locationListF[1]:store.locationList[1]}
                     />
                 </div>
                 {list[activeCarId-1].icon2 ===1 && 
@@ -452,7 +453,7 @@ const TripContent = ():React.ReactNode => {
             </div>
 
             <div className={type + ' pt-4'}>
-                <button className={reset} onClick={resetForm}>Reset</button>
+                <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser': 'Reset'}</button>
             </div>
             {list[activeCarId-1].steps === 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>
@@ -489,7 +490,6 @@ const openStop ="absolute w-5 h-5 -right-6 bg-green-500 ml-1 border border-black
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 const dateRow = 'flex relative sm:items-start items-start w-full   justify-between'
-
 
 const dateInput = 'text-xs flex border h-[40px] relative w-[200px] max-w-[200px] w-full rounded'
 

@@ -1,21 +1,16 @@
-import type { MenuProps } from 'antd';
 import { PiDog } from "react-icons/pi";
 import { LuCat } from "react-icons/lu";
 import { MdPets } from "react-icons/md";
 import { IPet, useMain } from '../../../../Store/useMain';
 import { useState } from 'react';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 
 const PetsSelect = () => {
     const {list, activeCarId, setPets} = useMain()
     const [pet,setPet] = useState(list[activeCarId-1].pets[3].title)
 
-    const items: MenuProps['items'] = [];
-    list[activeCarId-1].pets.filter(item=>!item.isActive).map((item,index) =>{
-        items.push({
-            key: index,
-            label: (<span onClick={()=>setPets(list[activeCarId-1].pets.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
-    })
+
     function setOther(item:IPet, e:any){
         setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, title: e.target.value} : rem ))
     }
@@ -23,8 +18,8 @@ const PetsSelect = () => {
     return (
         <div className={container}>
 
-        {list[activeCarId-1].pets.map((item,index)=>(
-            <div className={ index===0?  card + ' rounded-t':index===3?  card + ' rounded-b': card} key={item.title}>
+        {list[activeCarId-1].pets.map((item)=>(
+            <div className={card} key={item.title}>
                 <div className='flex items-center space-x-2'>
                     {(item.title =='Dog')
                     ?<PiDog className='w-6 h-6'/>
@@ -36,23 +31,16 @@ const PetsSelect = () => {
                     
                 </div>
                 
-                <div className='flex items-center justify-between ml-2 w-full'>
+                <div className='flex flex-col ml-1 w-full'>
                     {item.isOther 
                         ? <input 
-                                className=' text-gray-400 w-1/2  border outline-none' 
+                                className=' text-gray-400 w-full  border outline-none' 
                                 value={pet} 
                                 onChange={(e)=>setPet(e.target.value)}
                                 onBlur={(e)=>setOther(item,e.target.value)}
                             />
                         :<span className=' text-gray-400' > {item.title}</span>}
-
-                    <div className='flex flex-col'>
-                        <div 
-                            className={item.isActive ? add + ' bg-red-500 active:bg-red-600 ' : add + ' bg-green-400 active:bg-green-300'}
-                            onClick={()=>setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, isActive:!rem.isActive} : rem ))}
-                        >{item.isActive ? '-': "+" }</div>
-                        <div className={item.isOther ? bagCount+ ' ml-0': bagCount}>
-                            <span className='text-xs'>(cage)</span>
+                        <div className='flex items-center'>
                             <input type="checkbox" 
                                 className=' -translate-y-[1px] mr-2 mt-1 ml-1'
                                 checked={item.cage} 
@@ -60,14 +48,34 @@ const PetsSelect = () => {
                                     setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, cage:!rem.cage} : rem ))
                                 }}
                             />
+                            <span className='text-xs'>(cage)</span>
+                        </div>
+                </div>
+                <div className={bagCount}>
+                        <div className='text-xl text-center w-7'>{item.quantity}</div>
+                        <div className={countBox}>
+                            <IoIosArrowUp
+                                className={button+ ' text-green-500 active:text-green-300'} 
+                                onClick={()=>{
+                                    if(item.quantity >= 4) return;
+                                    setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                                }}
+                            />
+                            <IoIosArrowDown 
+                                className={button+ ' text-red-500 active:text-red-300'} 
+                                onClick={()=>{
+                                    if(item.title === list[activeCarId-1].sport[0].title && item.quantity <= 0) return;
+                                    if(item.quantity <= 0 ) return setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
+                                    setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                                }}
+                            />
                         </div>
                     </div>
-                    
-                </div>
                 
-
             </div>
         ))}
+        <div className='absolute border-none -top-3 left-2 z-10 bg-white px-1 text-xs text-blue-500'>Pets</div>
+
     </div>
     );
 };
@@ -75,9 +83,11 @@ const PetsSelect = () => {
 
 export default PetsSelect;
 
-const add = 'self-end mr-2 border-black border px-1 justify-center  rounded w-[18px] h-[18px] items-center font-black flex cursor-pointer'
+const countBox =' flex flex-col space-y-1'
+const button = "   cursor-pointer scale-[160%] duration-300 "
+
 const rabbitIcon ='w-5 h-5 overflow-hidden bg-contain bg-[url("https://i.pinimg.com/originals/2b/21/54/2b2154655f0eedb3dd372c1301c5552f.png")] scale-[130%]'
-const bagCount ='flex  ml-auto items-end'
-const card = 'relative flex px-2 py-2 cursor-pointer text-sm w-full border h-[45px] '
-const container = 'flex w-1/2 flex-col items-center py-2 pb-2 border-l-2 pl-1 border-gray-500 '
+const bagCount ='flex  items-center'
+const card = 'relative px-1 flex border-blue-500 cursor-pointer text-sm w-full  h-[45px] '
+const container = 'relative px-1 flex w-1/2 flex-col divide-y items-center space-y-1 pt-2  border rounded border-blue-500 h-min'
 

@@ -13,7 +13,7 @@ export interface IPet {
     isOther?: boolean;
     title: string,
     cage: boolean,
-    isActive: boolean
+    quantity: number,
 }
 
 
@@ -297,7 +297,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  'sedan (max 4)',
+                carType:  'Sedan',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -315,7 +315,7 @@ export const useMain = create<IStore>()(
                         isActive: true,
                     },
                     {
-                        title: 'middle',
+                        title: 'Between',
                         quantity: 0,
                         isActive: false,
                     },
@@ -325,7 +325,7 @@ export const useMain = create<IStore>()(
                         isActive: false,
                     },
                     {
-                        title: '8.5 kg',
+                        title: '8 kg',
                         quantity: 0,
                         isActive: false,
                     }
@@ -378,23 +378,23 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: false,
+                        quantity: 0,
                     },
                     {
                         title: 'Cat',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         title: 'Rabbit',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        isActive: false
+                        quantity: 0,
                     },
                 ],
                 steps:1,
@@ -476,7 +476,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  'sedan (max 4)',
+                carType:  'Sedan',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -494,7 +494,7 @@ export const useMain = create<IStore>()(
                         isActive: true,
                     },
                     {
-                        title: 'middle',
+                        title: 'Between',
                         quantity: 0,
                         isActive: false,
                     },
@@ -504,7 +504,7 @@ export const useMain = create<IStore>()(
                         isActive: false,
                     },
                     {
-                        title: '8.5 kg',
+                        title: '8 kg',
                         quantity: 0,
                         isActive: false,
                     }
@@ -557,23 +557,23 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: false,
+                        quantity: 0,
                     },
                     {
                         title: 'Cat',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         title: 'Rabbit',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                 ],
                 steps:1,
@@ -655,7 +655,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  'sedan (max 4)',
+                carType:  'Sedan',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -673,7 +673,7 @@ export const useMain = create<IStore>()(
                         isActive: true,
                     },
                     {
-                        title: 'middle',
+                        title: 'Between',
                         quantity: 0,
                         isActive: false,
                     },
@@ -683,7 +683,7 @@ export const useMain = create<IStore>()(
                         isActive: false,
                     },
                     {
-                        title: '8.5 kg',
+                        title: '8 kg',
                         quantity: 0,
                         isActive: false,
                     }
@@ -736,23 +736,23 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: false,
+                        quantity: 0,
                     },
                     {
                         title: 'Cat',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         title: 'Rabbit',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                 ],
                 steps:1,
@@ -834,7 +834,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  'sedan (max 4)',
+                carType:  'Sedan',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -852,7 +852,7 @@ export const useMain = create<IStore>()(
                         isActive: true,
                     },
                     {
-                        title: 'middle',
+                        title: 'Between',
                         quantity: 0,
                         isActive: false,
                     },
@@ -862,7 +862,7 @@ export const useMain = create<IStore>()(
                         isActive: false,
                     },
                     {
-                        title: '8.5 kg',
+                        title: '8 kg',
                         quantity: 0,
                         isActive: false,
                     }
@@ -915,23 +915,23 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: false,
+                        quantity: 0,
                     },
                     {
                         title: 'Cat',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         title: 'Rabbit',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                 ],
                 steps:1,
@@ -1013,7 +1013,7 @@ export const useMain = create<IStore>()(
                 departure2R: '',
             
                 //options information
-                carType:  'sedan (max 4)',
+                carType:  'Sedan',
                 passengers:{
                     adults:1,
                     kids:[],
@@ -1031,7 +1031,7 @@ export const useMain = create<IStore>()(
                         isActive: true,
                     },
                     {
-                        title: 'middle',
+                        title: 'Between',
                         quantity: 0,
                         isActive: false,
                     },
@@ -1041,7 +1041,7 @@ export const useMain = create<IStore>()(
                         isActive: false,
                     },
                     {
-                        title: '8.5 kg',
+                        title: '8 kg',
                         quantity: 0,
                         isActive: false,
                     }
@@ -1094,23 +1094,23 @@ export const useMain = create<IStore>()(
                     {
                         title: 'Dog',
                         cage: false,
-                        isActive: false,
+                        quantity: 0,
                     },
                     {
                         title: 'Cat',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         title: 'Rabbit',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                     {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        isActive: false
+                        quantity: 0
                     },
                 ],
                 steps:1,
@@ -1220,7 +1220,7 @@ export const useMain = create<IStore>()(
             departure2R: '',
         
             //options information
-            carType:  '',
+            carType:  'Sedan',
             passengers:{
                 adults:1,
                 kids:[],
@@ -1238,7 +1238,7 @@ export const useMain = create<IStore>()(
                     isActive: true,
                 },
                 {
-                    title: 'middle',
+                    title: 'Between',
                     quantity: 1,
                     isActive: false,
                 },
@@ -1248,7 +1248,7 @@ export const useMain = create<IStore>()(
                     isActive: false,
                 },
                 {
-                    title: '8.5 kg',
+                    title: '8 kg',
                     quantity: 1,
                     isActive: false,
                 }
@@ -1301,23 +1301,23 @@ export const useMain = create<IStore>()(
                 {
                     title: 'Dog',
                     cage: false,
-                    isActive: true,
+                    quantity:0,
                 },
                 {
                     title: 'Cat',
                     cage: false,
-                    isActive: false
+                    quantity: 0
                 },
                 {
                     title: 'Rabbit',
                     cage: false,
-                    isActive: false
+                    quantity: 0
                 },
                 {
                     isOther: true,
                     title: 'Other',
                     cage: false,
-                    isActive: false
+                    quantity: 0
                 },
             ],
             steps:1,

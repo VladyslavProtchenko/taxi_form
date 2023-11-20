@@ -17,9 +17,10 @@ const CarSeatsSelect = () => {
     return (
         <div className={container}>
             
-        <div className={part+ ' pr-1'}>
-            <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[0].title}>
-                <div className='flex items-center space-x-2'>
+        <div className={part}>
+
+            <div className={card} key={list[activeCarId-1].carSeats[0].title}>
+                <div className={labelText}>
                     <MdOutlineAirlineSeatFlatAngled className='w-6 h-6'/>
                     <span className={text}> {list[activeCarId-1].carSeats[0].title}</span>
                 </div>
@@ -46,8 +47,8 @@ const CarSeatsSelect = () => {
                 </div>
             </div>
 
-            <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[3].title}>
-                <div className='flex items-center space-x-2'>
+            <div className={card} key={list[activeCarId-1].carSeats[3].title}>
+                <div className={labelText}>
                     <div className={babiSeatIcon}/>
                     <span className={text}> {list[activeCarId-1].carSeats[3].title}</span>
                 </div>
@@ -73,11 +74,14 @@ const CarSeatsSelect = () => {
                     </div>
                 </div>
             </div>
+            <div className='absolute border-none -top-3 left-2 z-10 bg-white px-1 text-xs text-blue-500'>Boosters</div>
+
         </div>
 
-        <div className={part + ' border-l-2 border-gray-600 pl-1'}>
+        <div className={part}>
+
             <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[2].title}>
-                <div className='flex items-center space-x-2'>
+                <div className={labelText}>
                     <LiaBabyCarriageSolid className='w-6 h-6'/>
                     <span className={text}> {list[activeCarId-1].carSeats[2].title}</span>
                 </div>
@@ -103,8 +107,8 @@ const CarSeatsSelect = () => {
                     </div>
                 </div>
             </div>
-            <div className={card + ' rounded-t'} key={list[activeCarId-1].carSeats[1].title}>
-                <div className='flex items-center space-x-2 '>
+            <div className={card} key={list[activeCarId-1].carSeats[1].title}>
+                <div className={labelText}>
                     <MdOutlineStroller className='w-6 h-6'/>
                     <span className={text}> {list[activeCarId-1].carSeats[1].title}</span>
                 </div>
@@ -130,6 +134,8 @@ const CarSeatsSelect = () => {
                     </div>
                 </div>
             </div>
+            <div className='absolute -top-3 left-2 z-10 border-none bg-white px-1 text-xs text-blue-500'>Strollers</div>
+
         </div>
 
         </div>
@@ -138,14 +144,15 @@ const CarSeatsSelect = () => {
 
 export default CarSeatsSelect;
 
-const text = ' text-gray-400 min-w-[50px] truncate'
+const labelText = 'flex  items-center w-2/3'
+const text = ' text-gray-400 w-2/3 truncate'
 
-const part = ' flex flex-col w-1/2 '
+const part = 'relative flex px-1 flex-col w-1/2 pt-2 space-y-1 border border-blue-500 rounded divide-y'
 const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-no-repeat bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
 
-const card = 'relative flex px-1 pr-4 py-2 cursor-pointer w-full text-sm border max-h-[45px]'
-const container = 'flex w-full  items-center py-2  '
+const card = 'relative flex px-1 pr-4 py-2 cursor-pointer w-full text-sm max-h-[45px] border-blue-500'
+const container = 'flex w-full items-center space-x-1'
 
