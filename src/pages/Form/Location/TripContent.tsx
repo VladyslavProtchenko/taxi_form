@@ -22,6 +22,8 @@ import React from "react";
 interface IObj {[key:number]: string}
 const TripContent = ():React.ReactNode => {
     const {  
+        type,
+        setType,
         isFrench,
         activeCarId,
         list,
@@ -100,14 +102,25 @@ const TripContent = ():React.ReactNode => {
         setStops(localStops)
     },[localStops])
 
-    useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
+    useEffect(()=>{
+        if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
+    },[type])
 
+    useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
     return (
     <div className={container}>
         <div className={content}>
-
+            <div className={mainType}>
+                {store.typeList.map((item)=>(
+                    <div 
+                        className={type === item ? typeItem +' border-b-2 border-b-green-400 text-green-500': typeItem}
+                        onClick={()=> setType(item)}
+                    >{item}</div>
+                ))}
+            </div>
             <div className={date}>
                 <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
+                            if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
                             setDateNow(!list[activeCarId-1].dateNow)
                             setDate('')
                             setTime('')
@@ -135,7 +148,7 @@ const TripContent = ():React.ReactNode => {
                                                 }
                             {' '+fullDate.format('YYYY')}
                         </div>
-                        :<div className='flex items-center'>Select trip date</div>
+                        :<div className='flex items-center'>{isFrench? 'Date Requise' :'Required date '}</div>
                         }
                         
                         
@@ -159,7 +172,7 @@ const TripContent = ():React.ReactNode => {
                 </div>
             </div>
 
-            <div className={type}>
+            <div className={iconsType}>
                 
                 <div className={icons}>
                     <span className={list[activeCarId-1].icon == 1 ? iconCard : iconCardActive}>
@@ -249,7 +262,7 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>
                 
-            <div className={extraCardStop}>
+            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={extraCardStop}>
                 {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span>  
                 <GoogleAddressInput
@@ -276,9 +289,9 @@ const TripContent = ():React.ReactNode => {
                         setStop(stop - 1)
                     }}
                     >{(stop === 0) ? '+' :'-'}</div> 
-            </div>
+            </div>}
             
-            <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
+            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
                 {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
@@ -304,37 +317,38 @@ const TripContent = ():React.ReactNode => {
                         setStop(stop - 1)
                     }}
                 >{(stop === 1) ? '+' :'-'}</div>
-            </div>
+            </div>}
 
-            <div className={(stop > 1  && list[activeCarId-1].stops[2]) ?  extraCardStop: 'hidden'}>
-                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
-                <span className='icon  text-orange-400'><SlLocationPin/></span>
-                <GoogleAddressInput
-                    style='w-full'
-                    defaultLocation={localStops[3] || ''} 
-                    onChange={(e)=>{
-                        setLocalStops({...localStops, 3:e})
-                    }}
-                    placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
-                />
-                <div 
-                    className={(stop === 2) ? openStop :closeStop} 
-                    onClick={()=>{ 
-                        if(stop===2) return setStop(3);
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setLocalStops(data)
-                        setStops(data)
-                        setStop(stop - 1)
-                    }}
-                >{(stop === 2) ? '+' :'-'}</div> 
-            </div>
+            {['Undefined', 'Trip', 'Delivery'].includes(type) &&
+                <div className={(stop > 1  && list[activeCarId-1].stops[2]) ?  extraCardStop: 'hidden'}>
+                    {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
+                    <span className='icon  text-orange-400'><SlLocationPin/></span>
+                    <GoogleAddressInput
+                        style='w-full'
+                        defaultLocation={localStops[3] || ''} 
+                        onChange={(e)=>{
+                            setLocalStops({...localStops, 3:e})
+                        }}
+                        placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
+                    />
+                    <div 
+                        className={(stop === 2) ? openStop :closeStop} 
+                        onClick={()=>{ 
+                            if(stop===2) return setStop(3);
+                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
+                            const data: IObj ={}
+                            array.map((item, index) => {
+                                const number  = index+1;
+                                data[number] = item;
+                            })
+                            setLocalStops(data)
+                            setStops(data)
+                            setStop(stop - 1)
+                        }}
+                    >{(stop === 2) ? '+' :'-'}</div> 
+                </div>}
 
-            <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
+            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
                 {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
@@ -361,9 +375,9 @@ const TripContent = ():React.ReactNode => {
                         setStop(stop - 1)
                     }}
                     >{(stop === 3) ? '+' :'-'}</div> 
-            </div>
+            </div>}
 
-            <div className={locationCard}>
+            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={locationCard}>
                 <div className={list[activeCarId-1].to ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-red-500'><SlLocationPin/></span>
                     <GoogleAddressInput
@@ -385,9 +399,9 @@ const TripContent = ():React.ReactNode => {
                     placeholder='Departure' 
                 />
                 </div>}
-            </div>
+            </div>}
 
-            <div className={type}>
+            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={iconsType}>
                 
                 <div className={icons}>           
                     <span className={list[activeCarId-1].icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
@@ -450,7 +464,7 @@ const TripContent = ():React.ReactNode => {
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}
                     />
                 </div>}
-            </div>
+            </div>}
 
             <div className={type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser': 'Reset'}</button>
@@ -467,6 +481,9 @@ export default TripContent;
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
+const typeItem = ' px-2 flex justify-center cursor-pointer flex-grow hover:text-green-700'
+const mainType = ' absolute top-4 left-0 text-[10px] justify-around divide-x flex w-full '
+
 const amText = 'px-1 border-b-2 '
 const timeToggle = ' absolute -top-6 right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
 
@@ -480,7 +497,7 @@ const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-green-400 
 const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
 const iconItem = ' '
 const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'
-const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
+const iconsType = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
 const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 
 const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"

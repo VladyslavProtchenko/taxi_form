@@ -1,5 +1,3 @@
-import type { MenuProps } from 'antd';
-// import { PiSuitcaseRolling,PiBackpackLight,PiHandbag } from "react-icons/pi";
 import { useMain } from '../../../../Store/useMain';
 import React from 'react';
 import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
@@ -8,24 +6,11 @@ import bags from '../../../../assets/bags.png'
 const BagsSelect = ():React.ReactNode => {
     const {list, activeCarId, setBaggage} = useMain()
 
-
-    const items: MenuProps['items'] = [];
-    list[activeCarId-1].baggage.filter(item=>!item.isActive).map((item,index) =>{
-        items.push({
-            key: index,
-            label: (<span onClick={()=>setBaggage(list[activeCarId-1].baggage.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
-    })
-    
     return (
         <div className={container} >
             {list[activeCarId-1].baggage.map((item)=>(
                 <div className={card} key={item.title}>
                     <div className='flex items-center'>
-                        {/* {(item.title =='32 kg' || item.title == '23 kg')
-                        ?<PiSuitcaseRolling className='w-6 h-6'/>
-                        :(item.title =='Between' || item.title == '10 kg')
-                        ?<PiBackpackLight className='w-6 h-6'/>
-                        :<PiHandbag className='w-6 h-6'/>} */}
                         <span className=' text-gray-400 ml-2'>{item.title}</span>
                     </div>
                     <div className={bagCount}>
@@ -41,9 +26,8 @@ const BagsSelect = ():React.ReactNode => {
                             <IoIosArrowDown 
                                 className={button+ ' text-red-500 active:text-red-300'} 
                                 onClick={()=>{
-                                    if(item.title === list[activeCarId-1].baggage[1].title && item.quantity <= 0) return;
-                                    if(item.quantity <= 0 ) return setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
-                                    setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                                        if(item.quantity <= 0 ) return;
+                                        setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                     }}
                                 
                             />
@@ -52,8 +36,8 @@ const BagsSelect = ():React.ReactNode => {
                     </div>
                 </div>
             ))}
-            <div style={{backgroundImage:`url(${bags})` }} className={'absolute border-none -top-5 left-2 z-10 bg-white px-1 text-xs text-blue-500 w-7 h-7 bg-contain bg-no-repeat'} >
-                
+            <div className='absolute -top-5 right-1/2 translate-x-1/2 border-none px-[2px] flex bg-white'>
+                <div style={{backgroundImage:`url(${bags})` }} className={' z-10 bg-white  text-blue-500 w-7 bg-center h-8 bg-contain bg-no-repeat'} ></div>
             </div>
             
         </div>

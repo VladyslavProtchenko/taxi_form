@@ -15,6 +15,10 @@ interface IUser {
 
     phoneTitleList:string[],
     phoneTitleListF:string[],
+
+    typeList: string[], 
+    typeListR: string[], 
+
     nowLater: string[],
     nowLaterF: string[],
 
@@ -27,6 +31,7 @@ interface IUser {
 
     seatsList: string[];
     carList:string[];
+    carListF:string[];
     bagsWeightList:string[];
     sportList: string[];
     petList: string[];
@@ -74,19 +79,23 @@ export const useStore = create<Store>(() => ({
         tripTitles: ['One-Way', 'Return'],
         tripTitlesF: ['Aller', 'Retour'],
 
+        typeList: ['Undefined', 'Trip', 'Delivery', 'Boost', 'Unlocking door'], 
+        typeListR: [], 
+
         nowLater: ['Now', 'Later'],
         nowLaterF: ['Maintenant', 'Après'],
 
         locationList: ['Pick Up','Drop Off','First Stop','Second Stop','Third Stop','Fourth Stop'],
         locationListF: ['Ramassage','Débarquement','Premier Arrêt','Deuxième Arrêt','Troisième Arrêt','Quatrième Arrêt',],
-
         
         defaultLocations: ['YUL - Montreal Airport', 'YMX - Mirabel Airport', 'YHU - Saint-Hubert Airport', 'Train - Montreal Central Station', 'Train - Dorval Central Station','Bus - Central Station( 1717 Rue Berri)'],
         
-        carList:['Sedan', 'SUV', 'VAN', 'limo'],
+        carList:['Sedan', 'SUV', 'VAN', 'Limo'],
+        carListF:['Berline', 'VUS', "VAN", "Limo"],
+
         bagsWeightList:['8 kg', '19 kg', 'Between', '23 kg', '32 kg'],
         sportList: ['Bikes', 'Skis', 'Golf', 'Surfing'],
-        seatsList:['Baby car seat','Umbrella stroller', 'Regular Stroller', 'Booster seat'],
+        seatsList:['Regular seat','Baby seat','Booster', 'Regular Stroller', 'Umbrella stroller', 'Double stroller', 'wheel chair'],
         petList: ['Dogs->(Mira, small,big)->Ch.box(in a cage)','Cat->Ch.kbox(in a cage)','Rabbit' ],
         options: ['Small stroller','Big stroller','WheelChair'],
 

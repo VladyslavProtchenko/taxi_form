@@ -594,10 +594,6 @@ video {
   top: -0.5rem;
 }
 
-.-top-3{
-  top: -0.75rem;
-}
-
 .-top-4{
   top: -1rem;
 }
@@ -839,12 +835,12 @@ video {
   height: 1.25rem;
 }
 
-.h-6{
-  height: 1.5rem;
-}
-
 .h-7{
   height: 1.75rem;
+}
+
+.h-8{
+  height: 2rem;
 }
 
 .h-\[16px\]{
@@ -928,10 +924,6 @@ video {
   width: 16.666667%;
 }
 
-.w-2\/3{
-  width: 66.666667%;
-}
-
 .w-3\/4{
   width: 75%;
 }
@@ -992,6 +984,14 @@ video {
   width: 42px;
 }
 
+.w-\[50\%\]{
+  width: 50%;
+}
+
+.w-\[60\%\]{
+  width: 60%;
+}
+
 .w-\[85\%\]{
   width: 85%;
 }
@@ -1034,6 +1034,10 @@ video {
 
 .max-w-\[80px\]{
   max-width: 80px;
+}
+
+.flex-grow{
+  flex-grow: 1;
 }
 
 .-translate-y-\[1px\]{
@@ -1111,6 +1115,10 @@ video {
 
 .justify-between{
   justify-content: space-between;
+}
+
+.justify-around{
+  justify-content: space-around;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]){
@@ -1224,11 +1232,6 @@ video {
 .rounded-r{
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
-}
-
-.rounded-t{
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
 }
 
 .rounded-t-\[30px\]{
@@ -1363,6 +1366,11 @@ video {
   border-bottom-color: rgb(243 244 246 / var(--tw-border-opacity));
 }
 
+.border-b-green-400{
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(74 222 128 / var(--tw-border-opacity));
+}
+
 .border-b-white{
   --tw-border-opacity: 1;
   border-bottom-color: rgb(255 255 255 / var(--tw-border-opacity));
@@ -1441,16 +1449,16 @@ video {
   background-image: url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png");
 }
 
-.bg-\[url\(\"https\:\/\/i\.pinimg\.com\/originals\/2b\/21\/54\/2b2154655f0eedb3dd372c1301c5552f\.png\"\)\]{
-  background-image: url("https://i.pinimg.com/originals/2b/21/54/2b2154655f0eedb3dd372c1301c5552f.png");
-}
-
 .bg-\[url\(\"https\:\/\/icons\.iconarchive\.com\/icons\/iconsmind\/outline\/512\/Girl-icon\.png\"\)\]{
   background-image: url("https://icons.iconarchive.com/icons/iconsmind/outline/512/Girl-icon.png");
 }
 
 .bg-contain{
   background-size: contain;
+}
+
+.bg-center{
+  background-position: center;
 }
 
 .bg-no-repeat{
@@ -1482,6 +1490,11 @@ video {
   padding-right: 1rem;
 }
 
+.px-\[2px\]{
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
 .py-1{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -1495,11 +1508,6 @@ video {
 .py-2{
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-}
-
-.py-3{
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
 }
 
 .py-4{
@@ -1603,6 +1611,11 @@ video {
 
 .text-end{
   text-align: end;
+}
+
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-\[10px\]{
@@ -1992,6 +2005,10 @@ select option {
   right: 2px !important;
 }
 
+.yearsSelect:where(.css-dev-only-do-not-override-amq5gd).ant-select .ant-select-arrow  {
+  inset-inline-end: 2px !important;
+}
+
 .hover\:border:hover{
   border-width: 1px;
 }
@@ -2039,6 +2056,11 @@ select option {
 .hover\:text-gray-600:hover{
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.hover\:text-green-700:hover{
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity));
 }
 
 .focus\:border-blue-800:focus{
@@ -2202,4 +2224,3 @@ select option {
     margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
   }
 }
-

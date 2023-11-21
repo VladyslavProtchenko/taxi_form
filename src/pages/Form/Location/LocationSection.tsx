@@ -8,12 +8,23 @@ import { useMain } from "../../../Store/useMain";
 const LocationSection = ():React.ReactNode => {
     const [ tabs, setTabs ] = useState(false)
     const {store} = useStore()
-    const {isFrench} = useMain()
+    const {isFrench, type } = useMain()
     return (
         <section className={section}>
             <div className={carContainer}>
-                <div className={tabs ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} onClick={()=>setTabs(false)}>{isFrench? store.tripTitlesF[0] : store.tripTitles[0]}</div>
-                <div className={!tabs ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} onClick={()=>setTabs(true)}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</div>
+                <div 
+                    className={tabs ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} 
+                    onClick={()=>{
+                        setTabs(false)
+                    }}
+                >{isFrench? store.tripTitlesF[0] : store.tripTitles[0]}</div>
+                <div 
+                    className={!tabs ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} 
+                    onClick={()=>{
+                        if(['Boost', 'Unlocking door'].includes(type)) return;
+                        setTabs(true)
+                    }}
+                >{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</div>
             </div>
             <div className='flex'>
                 <div className={!tabs ? 'flex w-full  flex-coll ' : 'hidden w-full '} >

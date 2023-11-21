@@ -10,26 +10,30 @@ import { LiaShuttleVanSolid } from "react-icons/lia";
 import { PiJeepLight } from "react-icons/pi";
 import { AiOutlineStop } from "react-icons/ai";
 import { useMain } from "../../../Store/useMain";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 
 const OptionsSection = ():React.ReactNode => {
     const { store } = useStore()
-    const {list, activeCarId, setCarType} = useMain()
+    const {list, activeCarId, setCarType, isFrench} = useMain()
+    const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
 
+    useEffect(()=>{
+        setCarList(isFrench? store.carListF: store.carList)
+    },[isFrench])
     return (
         <section className={section}>
             <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
-                    {store.carList.map(item => (
-                        <div className={list[activeCarId-1].carType === item ? typeItem+' bg-green-400 text-black': item === 'limo' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem+ ' text-blue-500' } onClick={()=>{
+                    {carList.map(item => (
+                        <div className={list[activeCarId-1].carType === item ? typeItem+' bg-green-400 text-black': item === 'Limo' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem+ ' text-blue-500' } onClick={()=>{
                                 if(item === 'limo') return;
                                 setCarType(item)
                             }}>
-                            { item === 'VAN'
+                            { (item === 'VAN') 
                                 ? <LiaShuttleVanSolid className='w-[20px] text-sm'/>
-                                :item === 'SUV'
+                                :(item === 'SUV' ||item === 'VUS')
                                 ?<PiJeepLight className='w-[20px] text-sm'/>
-                                :item === 'limo'
+                                :item === 'Limo'
                                 ?<AiOutlineStop className='w-[20px] text-sm text-red-500'/>
                                 :<IoCarSportOutline className='w-[20px] text-sm'/> }
                                 <div className='truncate font-bold'>{item}</div>

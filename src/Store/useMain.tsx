@@ -20,7 +20,6 @@ export interface IPet {
 interface IItem {
     title: string,
     quantity: number,
-    isActive: boolean
 }
 
 export interface ITaxi {
@@ -102,6 +101,7 @@ export interface ITaxi {
 }
 
 interface IStore {
+    type: string;
     isFrench: boolean;
     isCars: {
         1: boolean,
@@ -113,6 +113,7 @@ interface IStore {
     activeCarId: number;
     list: ITaxi[];
     //info methods
+    setType:(value: string) => void;
     setIsFrench:(value: boolean) => void;
     setActiveCarId: (value: number) => void;
     setFilled: (value: boolean, id: number) => void;
@@ -210,6 +211,7 @@ interface IStore {
 
 export const useMain = create<IStore>()(
     (set) => ({
+        type:'Undefined', 
         isFrench: false,
         isCars: {
             1: false,
@@ -307,71 +309,70 @@ export const useMain = create<IStore>()(
                     {
                         title: '32 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '23 kg',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Between',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '10 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '8 kg',
                         quantity: 0,
-                        isActive: false,
                     }
                 ],
                 sport:[
                     {
                         title: 'Bikes',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Skis',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Golf',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Surf',
                         quantity: 0,
-                        isActive: false,
                     },
                 ],
                 carSeats: [
                     {
-                        title: 'Baby car seat',
+                        title: 'Regular',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
-                        title: 'Umbrella stroller',
+                        title: 'Babi',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
-                        title: 'Regular stroller',
+                        title: 'Booster',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
-                        title: 'Booster seat',
+                        title: 'Regular',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Umbrella',
+                        quantity: 0,
+                    },
+                    {
+                        title: 'Double',
+                        quantity: 0,
+                    },
+                    {
+                        title: 'Wheelchair',
+                        quantity: 0,
                     },
                 ],
                 pets: [
@@ -387,6 +388,11 @@ export const useMain = create<IStore>()(
                     },
                     {
                         title: 'Rabbit',
+                        cage: false,
+                        quantity: 0
+                    },
+                    {
+                        title: 'Service dog (Mira)',
                         cage: false,
                         quantity: 0
                     },
@@ -486,71 +492,70 @@ export const useMain = create<IStore>()(
                     {
                         title: '32 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '23 kg',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Between',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '10 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '8 kg',
                         quantity: 0,
-                        isActive: false,
                     }
                 ],
                 sport:[
                     {
                         title: 'Bikes',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Skis',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Golf',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Surf',
                         quantity: 0,
-                        isActive: false,
                     },
                 ],
                 carSeats: [
                     {
-                        title: 'Baby car seat',
+                        title: 'Regular seats',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
-                        title: 'Umbrella stroller',
+                        title: 'Babi seats',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Booster',
+                        quantity: 0,
                     },
                     {
                         title: 'Regular stroller',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
-                        title: 'Booster seat',
+                        title: 'Umbrella stroller',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Double stroller',
+                        quantity: 0,
+                    },
+                    {
+                        title: 'Wheelchair',
+                        quantity: 0,
                     },
                 ],
                 pets: [
@@ -570,10 +575,15 @@ export const useMain = create<IStore>()(
                         quantity: 0
                     },
                     {
+                        title: 'Service dog (Mira)',
+                        cage: false,
+                        quantity: 0
+                    },
+                    {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        quantity: 0
+                        quantity: 0,
                     },
                 ],
                 steps:1,
@@ -665,71 +675,70 @@ export const useMain = create<IStore>()(
                     {
                         title: '32 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '23 kg',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Between',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '10 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '8 kg',
                         quantity: 0,
-                        isActive: false,
                     }
                 ],
                 sport:[
                     {
                         title: 'Bikes',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Skis',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Golf',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Surf',
                         quantity: 0,
-                        isActive: false,
                     },
                 ],
                 carSeats: [
                     {
-                        title: 'Baby car seat',
+                        title: 'Regular seats',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
-                        title: 'Umbrella stroller',
+                        title: 'Babi seats',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Booster',
+                        quantity: 0,
                     },
                     {
                         title: 'Regular stroller',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
-                        title: 'Booster seat',
+                        title: 'Umbrella stroller',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Double stroller',
+                        quantity: 0,
+                    },
+                    {
+                        title: 'Wheelchair',
+                        quantity: 0,
                     },
                 ],
                 pets: [
@@ -749,10 +758,15 @@ export const useMain = create<IStore>()(
                         quantity: 0
                     },
                     {
+                        title: 'Service dog (Mira)',
+                        cage: false,
+                        quantity: 0
+                    },
+                    {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        quantity: 0
+                        quantity: 0,
                     },
                 ],
                 steps:1,
@@ -844,71 +858,70 @@ export const useMain = create<IStore>()(
                     {
                         title: '32 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '23 kg',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Between',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '10 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '8 kg',
                         quantity: 0,
-                        isActive: false,
                     }
                 ],
                 sport:[
                     {
                         title: 'Bikes',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Skis',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Golf',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Surf',
                         quantity: 0,
-                        isActive: false,
                     },
                 ],
                 carSeats: [
                     {
-                        title: 'Baby car seat',
+                        title: 'Regular seats',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
-                        title: 'Umbrella stroller',
+                        title: 'Babi seats',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Booster',
+                        quantity: 0,
                     },
                     {
                         title: 'Regular stroller',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
-                        title: 'Booster seat',
+                        title: 'Umbrella stroller',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Double stroller',
+                        quantity: 0,
+                    },
+                    {
+                        title: 'Wheelchair',
+                        quantity: 0,
                     },
                 ],
                 pets: [
@@ -928,10 +941,15 @@ export const useMain = create<IStore>()(
                         quantity: 0
                     },
                     {
+                        title: 'Service dog (Mira)',
+                        cage: false,
+                        quantity: 0
+                    },
+                    {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        quantity: 0
+                        quantity: 0,
                     },
                 ],
                 steps:1,
@@ -1023,71 +1041,70 @@ export const useMain = create<IStore>()(
                     {
                         title: '32 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '23 kg',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Between',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '10 kg',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: '8 kg',
                         quantity: 0,
-                        isActive: false,
                     }
                 ],
                 sport:[
                     {
                         title: 'Bikes',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
                         title: 'Skis',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Golf',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
                         title: 'Surf',
                         quantity: 0,
-                        isActive: false,
                     },
                 ],
                 carSeats: [
                     {
-                        title: 'Baby car seat',
+                        title: 'Regular seats',
                         quantity: 0,
-                        isActive: true,
                     },
                     {
-                        title: 'Umbrella stroller',
+                        title: 'Babi seats',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Booster',
+                        quantity: 0,
                     },
                     {
                         title: 'Regular stroller',
                         quantity: 0,
-                        isActive: false,
                     },
                     {
-                        title: 'Booster seat',
+                        title: 'Umbrella stroller',
                         quantity: 0,
-                        isActive: false,
+                    },
+                    {
+                        title: 'Double stroller',
+                        quantity: 0,
+                    },
+                    {
+                        title: 'Wheelchair',
+                        quantity: 0,
                     },
                 ],
                 pets: [
@@ -1107,17 +1124,22 @@ export const useMain = create<IStore>()(
                         quantity: 0
                     },
                     {
+                        title: 'Service dog (Mira)',
+                        cage: false,
+                        quantity: 0
+                    },
+                    {
                         isOther: true,
                         title: 'Other',
                         cage: false,
-                        quantity: 0
+                        quantity: 0,
                     },
                 ],
                 steps:1,
             },
-
         ],
         
+        setType: (data) => set((state) =>  ({ ...state, type: data})),
         setIsFrench: (data) => set((state) =>  ({ ...state, isFrench: data})),
         setActiveCarId: (data) => set((state) =>  ({ ...state, activeCarId: data})),
         setIsCars: (data) => set((state) => ({ ...state, isCars: data })),
@@ -1277,24 +1299,33 @@ export const useMain = create<IStore>()(
             ],
             carSeats: [
                 {
-                    title: 'Baby car seat',
+                    title: 'Regular',
                     quantity: 0,
-                    isActive: true,
                 },
                 {
-                    title: 'Umbrella stroller',
-                    quantity: 1,
-                    isActive: false,
+                    title: 'Babi',
+                    quantity: 0,
                 },
                 {
-                    title: 'Regular stroller',
-                    quantity: 1,
-                    isActive: false,
+                    title: 'Booster',
+                    quantity: 0,
+                },
+                
+                {
+                    title: 'Umbrella',
+                    quantity: 0,
                 },
                 {
-                    title: 'Booster seat',
-                    quantity: 1,
-                    isActive: false,
+                    title: 'Regular ',
+                    quantity: 0,
+                },
+                {
+                    title: 'Double ',
+                    quantity: 0,
+                },
+                {
+                    title: 'Wheelchair',
+                    quantity: 0,
                 },
             ],
             pets: [
@@ -1314,11 +1345,17 @@ export const useMain = create<IStore>()(
                     quantity: 0
                 },
                 {
+                    title: 'Service dog (Mira)',
+                    cage: false,
+                    quantity: 0
+                },
+                {
                     isOther: true,
                     title: 'Other',
                     cage: false,
                     quantity: 0
                 },
+
             ],
             steps:1,
         } : item )})),

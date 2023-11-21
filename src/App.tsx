@@ -2,7 +2,8 @@ import React from "react"
 import { useMain } from "./Store/useMain"
 import Form from "./pages/Form/Form"
 import { AiOutlineInfoCircle } from "react-icons/ai";
-
+import en from './assets/english.png'
+import fr from './assets/france.png'
 
 function App():React.ReactNode {
   const {activeCarId, setActiveCarId, isCars, isFrench, setIsFrench} = useMain()
@@ -28,14 +29,23 @@ function App():React.ReactNode {
             </span>
           </div>
           <div className={lang}>
+            {!isFrench 
+              ?<div style={{backgroundImage:`url(${en})` }} className={'w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div>
+              :<div style={{backgroundImage:`url(${fr})` }} className={'w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div>
+            
+            }
             <div 
               className={isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
               onClick={()=>setIsFrench(false)}
-            >EN</div> |
+            >
+              {/* <div style={{backgroundImage:`url(${en})` }} className={'absolute opacity-50 scale-[140%]  w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div> */}
+              EN</div> |
             <div 
               className={!isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
               onClick={()=>setIsFrench(true)}
-            >FR</div>
+            >
+              {/* <div style={{backgroundImage:`url(${fr})` }} className={' absolute opacity-50 scale-[140%] w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div> */}
+              FR</div>
           </div>
         </div>
         

@@ -196,3 +196,6 @@ select option {
     right: 2px !important;
 }
 
+.yearsSelect:where(.css-dev-only-do-not-override-amq5gd).ant-select .ant-select-arrow  {
+    inset-inline-end: 2px !important;
+}

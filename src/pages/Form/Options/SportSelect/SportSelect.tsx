@@ -1,23 +1,14 @@
-import type { MenuProps } from 'antd';
-import { MdOutlineDirectionsBike } from "react-icons/md";
-import { LiaSkiingSolid } from "react-icons/lia";
-import { MdSurfing } from "react-icons/md";
-import { IoGolfOutline } from "react-icons/io5";
 import { useMain } from '../../../../Store/useMain';
 import React from 'react';
 import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
-
+import surfer from './../../../../assets/surfing.png'
+import golfer from './../../../../assets/golf.png'
+import ski from './../../../../assets/ski.png'
+import bike from './../../../../assets/bike.png'
 
 const SportsSelect = ():React.ReactNode => {
     const {list, activeCarId, setSport} = useMain()
 
-
-    const items: MenuProps['items'] = [];
-    list[activeCarId-1].sport.filter(item=>!item.isActive).map((item,index) =>{
-        items.push({
-            key: index,
-            label: (<span onClick={()=>setSport(list[activeCarId-1].sport.map(bag=>bag.title === item.title ? {...bag, isActive: true} : bag))} >{item.title}</span>),})
-    })
 
     return (
         <div className={container}>
@@ -26,17 +17,16 @@ const SportsSelect = ():React.ReactNode => {
                 <div className={card} key={item.title}>
                     <div className='flex items-center space-x-2'>
                         {(item.title =='Bikes')
-                        ?<MdOutlineDirectionsBike className='w-6 h-6'/>
+                        ?<div style={{backgroundImage:`url(${bike})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                         :(item.title =='Skis')
-                        ?<LiaSkiingSolid className='w-6 h-6'/>
+                        ?<div style={{backgroundImage:`url(${ski})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                         :(item.title =='Surf')
-                        ?<MdSurfing className='w-6 h-6'/>
-                        :<IoGolfOutline className='w-6 h-6'/>}
+                        ?<div style={{backgroundImage:`url(${surfer})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                        :<div style={{backgroundImage:`url(${golfer})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>}
                         <span className=' text-gray-400' > {item.title}</span>
                     </div>
                     <div className={bagCount}>
                         <div className='text-xl text-center w-7'>{item.quantity}</div>
-
                         <div className={countBox}>
                             <IoIosArrowUp
                                 className={button+ ' text-green-500 active:text-green-300'} 
@@ -58,7 +48,7 @@ const SportsSelect = ():React.ReactNode => {
 
                 </div>
             ))}
-            <div className='absolute -top-3 left-2 z-10 bg-white px-1 text-xs text-blue-500 border-white'>Sport</div>
+            <div className='absolute  -top-4 right-1/2 translate-x-1/2 bg-white px-1 text-blue-500 border-white'>Sport</div>
 
         </div>
     );
@@ -71,6 +61,5 @@ const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%] duration-300 "
 
 const bagCount ='flex space-x-1 ml-auto items-center'
-
 const card = 'relative flex px-1 text-sm cursor-pointer w-full h-[45px] border-blue-500'
 const container = 'relative flex px-1 w-1/2 flex-col items-center pt-2 divide-y space-y-1 border border-blue-500 rounded h-min'
