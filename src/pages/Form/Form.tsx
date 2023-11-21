@@ -11,39 +11,63 @@ import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
 
 const Form = (): React.ReactNode => {
-    const { list, activeCarId ,setIsCars, isCars} = useMain()
+    const { list, activeCarId ,setIsCars, isCars, type} = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const { validation,setIsSubmit } = useValidation()
 
     useEffect(()=>{
-        if(list[0].isReturnTrip 
-            && list[0].name.length > 3 
-            && list[0].title 
-            && pattern.test(list[0].email)
-            && list[0].phone.length >= 11
-            && list[0].isReturnTrip 
-            && list[0].dateR 
-            && list[0].timeR.length===5 
-            && list[0].fromR 
-            && list[0].toR 
+        
+        if(['Boost', 'Unlocking door'].includes(type)
             && list[0].from 
-            && list[0].to
-            && list[0].passengers.adults){
-                setIsCars({...isCars, 1: true})
-        } else if(
-            !list[0].isReturnTrip 
             && list[0].name.length > 3 
             && list[0].title 
             && pattern.test(list[0].email)
             && list[0].phone.length >= 11
-            &&  list[0].from 
-            && list[0].to
-            && list[0].passengers.adults  ){
-            setIsCars({...isCars, 1: true})
-        } else {
-            setIsCars({...isCars, 1: false})
+        ){
+            if(list[0].from 
+                && list[0].name.length > 3 
+                && list[0].title 
+                && pattern.test(list[0].email)
+                && list[0].phone.length >= 11
+            ) {
+                return setIsCars({...isCars, 1: true})
+            } else {
+                return setIsCars({...isCars, 1: false})
+            }
+            
+        } else{
+            if(list[0].isReturnTrip 
+                && list[0].name.length > 3 
+                && list[0].title 
+                && pattern.test(list[0].email)
+                && list[0].phone.length >= 11
+                && list[0].isReturnTrip 
+                && list[0].dateR 
+                && list[0].timeR.length===5 
+                && list[0].fromR 
+                && list[0].toR 
+                && list[0].from 
+                && list[0].to
+                && list[0].passengers.adults){
+                    setIsCars({...isCars, 1: true})
+            } else if(
+                !list[0].isReturnTrip 
+                && list[0].name.length > 3 
+                && list[0].title 
+                && pattern.test(list[0].email)
+                && list[0].phone.length >= 11
+                &&  list[0].from 
+                && list[0].to
+                && list[0].passengers.adults  ){
+                setIsCars({...isCars, 1: true})
+            } else {
+                setIsCars({...isCars, 1: false})
+            }
         }
+
+
+
     },[list[0]])
 
     useEffect(()=>{
@@ -187,7 +211,7 @@ const Form = (): React.ReactNode => {
             </>}
             {validation.isSubmit && <div className='flex flex-col justify-center w-full'>
                 <Submit />
-                <div onClick={()=>setIsSubmit(false)} className='flex text-white px-2 py-1 rounded bg-red-500 self-start'>
+                <div onClick={()=>setIsSubmit(false)} className='flex text-white px-2 py-1 rounded self-start'>
                     back
                 </div>
             </div>}
@@ -196,4 +220,4 @@ const Form = (): React.ReactNode => {
 };
 
 export default Form;
-const container = 'flex w-[85%] flex-col bg-white  border-none items-center '
+const container = 'flex w-[85%] flex-col  border-none items-center h-screen'

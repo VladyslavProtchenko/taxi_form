@@ -89,6 +89,6 @@ const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%] duration-300 "
 
 const bagCount ='flex  items-center'
-const card = 'relative px-1 flex border-blue-500 cursor-pointer text-sm w-full  h-[45px] '
-const container = 'relative px-1 flex w-1/2 flex-col divide-y items-center space-y-1 pt-2  border rounded border-blue-500 h-min'
+const card = 'relative flex border-blue-500 cursor-pointer text-sm w-full  h-[45px] '
+const container = 'relative px-2 flex w-1/2 flex-col divide-y items-center  pt-2  border rounded border-blue-500 h-min'
 

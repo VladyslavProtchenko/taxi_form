@@ -79,7 +79,7 @@ export const useStore = create<Store>(() => ({
         tripTitles: ['One-Way', 'Return'],
         tripTitlesF: ['Aller', 'Retour'],
 
-        typeList: ['Undefined', 'Trip', 'Delivery', 'Boost', 'Unlocking door'], 
+        typeList: ['Undefined', 'Transport', 'Delivery', 'Boost', 'Unlocking door'], 
         typeListR: [], 
 
         nowLater: ['Now', 'Later'],

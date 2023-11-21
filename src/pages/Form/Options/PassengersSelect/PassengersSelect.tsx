@@ -154,7 +154,7 @@ export default PassengersSelect;
 const fee='text-gray-400 italic text-xs'
 const extraFee =' flex px-4 py-2  justify-between '
 
-const childrenCard = 'flex border pl-3 pr-1  py-2 border-gray-400 shadow rounded-l mb-1 items-center justify-between '
+const childrenCard = 'flex border pl-2 pr-1 ml-3 py-2 border-gray-400 shadow rounded-l mb-1 items-center justify-between '
 const kidsContainer = 'flex flex-col py-2'
 
 const label = 'flex items-center'
@@ -166,5 +166,5 @@ const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 
 // const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[130%]'
-const card = 'relative text-sm flex px-1 pr-4  py-2 justify-between cursor-pointer h-[45px] border-blue-500 '
-const content = 'relative border px-1 h-min border-blue-500 rounded pt-2 divide-y flex flex-col bg-white space-y-1 relative text-sm w-1/2'
+const card = 'relative text-sm flex  pr-4  py-2 justify-between cursor-pointer h-[45px] border-blue-500 '
+const content = 'relative border px-2 h-min border-blue-500 rounded pt-2 divide-y flex flex-col bg-white relative text-sm w-1/2'

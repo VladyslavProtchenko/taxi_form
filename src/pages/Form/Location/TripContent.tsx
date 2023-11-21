@@ -8,7 +8,7 @@ import DatePicker from "../../../UI/components/DatePicker";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 import { SlLocationPin } from "react-icons/sl";
-import { PiCalendarCheckLight } from "react-icons/pi";
+import { PiCalendarCheckLight, PiJeepLight } from "react-icons/pi";
 import { FaBus } from "react-icons/fa";
 import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
@@ -18,11 +18,14 @@ import { useStore } from '../../../Store/index';
 import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
 import React from "react";
+import { LiaShuttleVanSolid } from "react-icons/lia";
+import { AiOutlineStop } from "react-icons/ai";
+import { IoCarSportOutline } from "react-icons/io5";
 
 interface IObj {[key:number]: string}
 const TripContent = ():React.ReactNode => {
     const {  
-        type,
+        type, 
         setType,
         isFrench,
         activeCarId,
@@ -41,7 +44,8 @@ const TripContent = ():React.ReactNode => {
         setIcon2,
         setAirlinesBack,
         resetForm,
-        setDateNow
+        setDateNow,
+        setCarType,
     } = useMain()
 
     const { store } = useStore()
@@ -52,6 +56,12 @@ const TripContent = ():React.ReactNode => {
     const [stop, setStop] = useState(0)
     const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
     const [ amTime, setAmTime ] = useState<number>(0)
+
+    const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
+
+    useEffect(()=>{
+        setCarList(isFrench? store.carListF: store.carList)
+    },[isFrench])
     useEffect(()=>{
         setDate(dayjs().format('DD/MM/YYYY'))
     },[])
@@ -113,7 +123,7 @@ const TripContent = ():React.ReactNode => {
             <div className={mainType}>
                 {store.typeList.map((item)=>(
                     <div 
-                        className={type === item ? typeItem +' border-b-2 border-b-green-400 text-green-500': typeItem}
+                        className={type === item ? typeItem +' bg-green-400': typeItem}
                         onClick={()=> setType(item)}
                     >{item}</div>
                 ))}
@@ -261,8 +271,30 @@ const TripContent = ():React.ReactNode => {
                     />
                 </div>}
             </div>
+            {['Boost', 'Unlocking door'].includes(type) && <div className={locationCard}>
+                <div className={extraCardPickUp}>
+                <div className={list[activeCarId-1].carType ? typeCard : typeCard + ' border-red-500'}>
+                    {carList.map(item => (
+                        <div className={list[activeCarId-1].carType === item ? typeItem2+' bg-green-400 text-black': item === 'Limo' ? typeItem2 + ' bg-gray-200  text-gray-500 cursor':typeItem2+ ' text-blue-500' } onClick={()=>{
+                                if(item === 'limo') return;
+                                setCarType(item)
+                            }}>
+                            { (item === 'VAN') 
+                                ? <LiaShuttleVanSolid className='w-[20px] text-sm'/>
+                                :(item === 'SUV' ||item === 'VUS')
+                                ?<PiJeepLight className='w-[20px] text-sm'/>
+                                :item === 'Limo'
+                                ?<AiOutlineStop className='w-[20px] text-sm text-red-500'/>
+                                :<IoCarSportOutline className='w-[20px] text-sm'/> }
+                                <div className='truncate font-bold'>{item}</div>
+                        </div>
+                    ))}
+            </div>
+                </div>
                 
-            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={extraCardStop}>
+            </div>}
+                
+            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={extraCardStop}>
                 {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon text-orange-400'><SlLocationPin/></span>  
                 <GoogleAddressInput
@@ -291,7 +323,7 @@ const TripContent = ():React.ReactNode => {
                     >{(stop === 0) ? '+' :'-'}</div> 
             </div>}
             
-            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
+            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
                 {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
@@ -319,7 +351,7 @@ const TripContent = ():React.ReactNode => {
                 >{(stop === 1) ? '+' :'-'}</div>
             </div>}
 
-            {['Undefined', 'Trip', 'Delivery'].includes(type) &&
+            {['Undefined', 'Transport', 'Delivery'].includes(type) &&
                 <div className={(stop > 1  && list[activeCarId-1].stops[2]) ?  extraCardStop: 'hidden'}>
                     {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                     <span className='icon  text-orange-400'><SlLocationPin/></span>
@@ -348,7 +380,7 @@ const TripContent = ():React.ReactNode => {
                     >{(stop === 2) ? '+' :'-'}</div> 
                 </div>}
 
-            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
+            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
                 {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
                 <span className='icon  text-orange-400'><SlLocationPin/></span>
                 <GoogleAddressInput
@@ -377,7 +409,7 @@ const TripContent = ():React.ReactNode => {
                     >{(stop === 3) ? '+' :'-'}</div> 
             </div>}
 
-            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={locationCard}>
+            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={locationCard}>
                 <div className={list[activeCarId-1].to ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-red-500'><SlLocationPin/></span>
                     <GoogleAddressInput
@@ -401,7 +433,7 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>}
 
-            {['Undefined', 'Trip', 'Delivery'].includes(type) && <div className={iconsType}>
+            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={iconsType}>
                 
                 <div className={icons}>           
                     <span className={list[activeCarId-1].icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
@@ -466,10 +498,11 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>}
 
-            <div className={type + ' pt-4'}>
+            {['Undefined', 'Transport', 'Delivery'].includes(type) &&<div className={type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser': 'Reset'}</button>
-            </div>
-            {list[activeCarId-1].steps === 2 && <div className='w-full flex justify-center'><Steps /></div>}
+            </div>}
+
+            { list[activeCarId-1].steps === 2 && <div className='w-full flex justify-center'><Steps /></div>}
         </div>
     </div>
     );
@@ -478,11 +511,13 @@ const TripContent = ():React.ReactNode => {
 export default TripContent;
 
 
+const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
+const typeCard = 'flex  self-center border border-black rounded s divide-x overflow-hidden w-full'
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
-const typeItem = ' px-2 flex justify-center cursor-pointer flex-grow hover:text-green-700'
-const mainType = ' absolute top-4 left-0 text-[10px] justify-around divide-x flex w-full '
+const typeItem = ' px-2 flex py-1 border-black justify-center cursor-pointer flex-grow hover:text-green-700'
+const mainType = ' absolute top-4 overflow-hidden w-[90%] mx-auto text-[10px] justify-around divide-x flex w-full border border-black rounded'
 
 const amText = 'px-1 border-b-2 '
 const timeToggle = ' absolute -top-6 right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'

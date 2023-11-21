@@ -233,12 +233,12 @@ export default CarSeatsSelect;
 const labelText = 'flex items-center w-[50%]'
 const text = ' text-gray-400  truncate'
 
-const part = 'relative flex px-1 flex-col w-1/2 pt-2 space-y-1 border border-blue-500 rounded divide-y'
+const part = 'relative flex px-2 flex-col w-1/2 pt-2 border border-blue-500 rounded divide-y'
 const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 // const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-no-repeat bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
 
-const card = 'relative flex px-1 pr-4 py-2 cursor-pointer w-full text-sm max-h-[45px] border-blue-500'
+const card = 'relative flex  pr-4 py-2 cursor-pointer w-full text-sm max-h-[45px] border-blue-500'
 const container = 'flex w-full items-start space-x-1'
 

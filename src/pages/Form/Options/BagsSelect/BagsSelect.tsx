@@ -48,5 +48,5 @@ export default BagsSelect;
 const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
-const card = 'relative flex px-1 pr-4 py-2 cursor-pointer border-blue-500 text-sm w-full h-[45px] '
-const container = 'relative rounded px-1 flex w-1/2 pt-2 divide-y flex-col space-y-1 items-center border border-blue-500'
+const card = 'relative flex pr-3 py-2 cursor-pointer border-blue-500 text-sm w-full h-[45px] '
+const container = 'relative rounded px-2 flex w-1/2 pt-2 divide-y flex-col items-center border border-blue-500'

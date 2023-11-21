@@ -179,5 +179,5 @@ const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounde
 const extraCard = ' flex relative items-center max-w-[400px] w-full rounded'
 const extraContainer = 'flex flex-col w-full items-start space-y-2 items-center'
 
-const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full pr-8 max-w-[576px] border-none '
+const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full pr-8 max-w-[576px] border-none'
 // const missIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://icons.iconarchive.com/icons/iconsmind/outline/512/Girl-icon.png")] bg-no-repeat scale-[130%]'

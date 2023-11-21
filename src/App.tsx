@@ -12,40 +12,30 @@ function App():React.ReactNode {
     <div className={container}>
       <div className={wrapper}>
         <div className={header}>
-        <AiOutlineInfoCircle className='cursor-pointer text-xl mr-6'/>
-
-          <div >
-            <span className={taxiLabel}>
-              {activeCarId === 1 
-              ? "1st Taxi"
-              :activeCarId === 2 
-              ? "2nd Taxi"
-              :activeCarId === 3
-              ? "3rd Taxi"
-              :activeCarId === 4 
-              ? "4th Taxi"
-              : '5th Taxi'
-              }
-            </span>
-          </div>
-          <div className={lang}>
-            {!isFrench 
-              ?<div style={{backgroundImage:`url(${en})` }} className={'w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div>
-              :<div style={{backgroundImage:`url(${fr})` }} className={'w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div>
-            
-            }
-            <div 
-              className={isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
-              onClick={()=>setIsFrench(false)}
-            >
-              {/* <div style={{backgroundImage:`url(${en})` }} className={'absolute opacity-50 scale-[140%]  w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div> */}
-              EN</div> |
-            <div 
-              className={!isFrench? langItem + ' border-white': langItem+ ' border-green-400'} 
-              onClick={()=>setIsFrench(true)}
-            >
-              {/* <div style={{backgroundImage:`url(${fr})` }} className={' absolute opacity-50 scale-[140%] w-4 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div> */}
-              FR</div>
+        <div className={lang}>
+          {isFrench 
+            ?<div style={{backgroundImage:`url(${en})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat'} ></div>
+            :<div style={{backgroundImage:`url(${fr})` }} className={'w-4 h-5 text-xs bg-center bg-cover bg-no-repeat '} ></div>
+          }
+          {isFrench 
+            ?<div className={isFrench? langItem + ' border-white': langItem+ ' border-green-400 font-bold '} onClick={()=>setIsFrench(false)}>EN</div>
+            :<div  className={!isFrench? langItem + ' border-white': langItem+ ' border-green-400 font-bold '} onClick={()=>setIsFrench(true)}>FR</div>
+          }
+        </div>
+          <div className='flex items-center'>  
+              
+              <span className={taxiLabel}>
+                {activeCarId === 1 
+                ? "1st Taxi"
+                :activeCarId === 2 
+                ? "2nd Taxi"
+                :activeCarId === 3
+                ? "3rd Taxi"
+                :activeCarId === 4 
+                ? "4th Taxi"
+                : '5th Taxi'
+                }
+              </span>
           </div>
         </div>
         
@@ -85,10 +75,8 @@ function App():React.ReactNode {
                   setActiveCarId(5)
                 }}
             >5</li>
-            <li className={activeCarId===5 ? 'h-full  rounded-tr border-r border-t ' : ' h-full border-r '}></li>
+            <li className={activeCarId===5 ? 'h-full pt-6 flex items-center w-full rounded-tr border-r border-t ' : ' pt-6 flex justify-center w-full h-full border-r '}><AiOutlineInfoCircle className='cursor-pointer text-xl'/></li>
         </ul>
-
-          
           <Form />
         </div>
       </div>
@@ -98,15 +86,15 @@ function App():React.ReactNode {
 }
 
 export default App
-const taxiLabel = 'text-gray-400'
+const taxiLabel = 'text-gray-400 mx-auto'
 const tab = 'px-4 py-2 cursor-pointer hover:bg-gray-50 text-gray-300 hover:text-gray-600  border-r box-border' 
 const activeTab = 'px-4 py-2 cursor-pointer border-t border-b border-white'
-const tabsContainer = 'flex  flex-col mr-2 font-bold h-full m-0 w-[40px] shadow'
+const tabsContainer = 'flex  flex-col mr-2 font-bold h-full m-0 w-[40px] shadow '
 
-const lang = ' flex rounded h-[20px] cursor-pointer ml-auto'
+const lang = ' flex rounded h-[20px] cursor-pointer mb-4'
 const langItem = 'text-sm px-1 border-b-2'
 
-const header = 'flex items-center w-full py-4 pt-10 px-4  shadow mb-[1px]'
+const header = 'flex flex-col w-full py-4 pt-4 px-4  shadow mb-[1px]'
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px]'
-const container = 'flex w-full min-w-screen min-h-screen justify-center'
+const container = 'flex w-full min-w-screen min-h-screen justify-center '

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const Steps = ():React.ReactNode => {
     
-    const { activeCarId, list, setSteps,isFrench } = useMain()
+    const { type, activeCarId, list, setSteps,isFrench, setFilled } = useMain()
     const { validation, setIsSubmit } = useValidation()
     const [activePage, setActivePage] = useState(1)
 
@@ -63,24 +63,37 @@ const Steps = ():React.ReactNode => {
                 }}
             >{isFrench? 'Précédent': 'Back'}</div>}
 
-            {list[activeCarId-1].steps != 4 && <div 
-                className={navBtn + `${list[activeCarId-1].steps === 1? ' ml-auto': ''}`}
-                onClick={() =>{
-                    list[activeCarId-1].steps === 1 && activePage >= 2 
-                    ? setSteps(list[activeCarId-1].steps + 1)
-                    : list[activeCarId-1].steps === 2 && activePage >= 3
-                    ? setSteps(list[activeCarId-1].steps + 1) 
-                    : list[activeCarId-1].steps === 3 && activePage >= 3
-                    ? setSteps(list[activeCarId-1].steps + 1) 
-                    : setSteps(list[activeCarId-1].steps) 
+            {list[activeCarId-1].steps != 4 && 
+                <>
+                    {['Boost', 'Unlocking door'].includes(type) && list[activeCarId-1].steps ===2
+                        ? <div 
+                            className='flex px-3 py-2 bg-yellow-300 active:bg-yellow-200 rounded cursor-pointer text-white '
+                            onClick={()=>{
+                                setFilled(true, activeCarId)
+                                setIsSubmit(true)
+                            }}
+                        >Order</div>
+                        : <div 
+                        className={navBtn + `${list[activeCarId-1].steps === 1? ' ml-auto': ''}`}
+                        onClick={() =>{
+                            list[activeCarId-1].steps === 1 && activePage >= 2 
+                            ? setSteps(list[activeCarId-1].steps + 1)
+                            : list[activeCarId-1].steps === 2 && activePage >= 3
+                            ? setSteps(list[activeCarId-1].steps + 1) 
+                            : list[activeCarId-1].steps === 3 && activePage >= 3
+                            ? setSteps(list[activeCarId-1].steps + 1) 
+                            : setSteps(list[activeCarId-1].steps) 
+                            
+                        }}
+                    >{isFrench? 'Suivant': 'Next'}</div>}
                     
-                }}
-            >{isFrench? 'Suivant': 'Next'}</div>}
+                </>
+                }
         </div>
     );
 };
 
 export default Steps;
 
-const navBtn = ' flex items-center text-xl text-white active:text-gray-500 px-4 py-1 cursor-pointer bg-green-400 active:bg-green-400 rounded'
-const buttons = 'flex  w-full justify-between px-3 mt-4 mb-4'
+const navBtn = ' flex items-center  text-white active:text-gray-500 px-3 py-2 cursor-pointer bg-green-400 active:bg-green-400 rounded'
+const buttons = 'flex  w-[450px] justify-between px-3 mt-4 mb-4 '

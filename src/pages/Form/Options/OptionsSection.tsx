@@ -54,9 +54,9 @@ export default OptionsSection;
 
 
 const typeItem = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
-
-const contentItem = '  flex relative w-full mb-3 space-x-1' 
 const type = 'flex  self-center border border-black rounded s divide-x overflow-hidden w-full'
+
+const contentItem = '  flex relative w-full mb-3 space-x-1 items-start' 
 
 const content = 'flex flex-wrap w-full h-min rounded mt-6'
 const section = 'flex w-full flex-col  flex-col max-w-[576px] py-8 '

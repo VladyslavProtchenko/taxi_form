@@ -25,6 +25,9 @@ interface IItem {
 export interface ITaxi {
     id:number;
     filled: boolean;
+    validation: {
+        [key:number]: boolean,
+    }
     name: string;
     name2: string;
     name3: string;
@@ -117,6 +120,7 @@ interface IStore {
     setIsFrench:(value: boolean) => void;
     setActiveCarId: (value: number) => void;
     setFilled: (value: boolean, id: number) => void;
+    setValidation: (value: {[key:number]: boolean}, id: number) => void;
     setIsCars: (data: {
         1: boolean,
         2: boolean,
@@ -224,6 +228,12 @@ export const useMain = create<IStore>()(
         list: [
             {
                 id:1,
+                validation:{
+                    1: false,
+                    2: false,
+                    3: true,
+                    4:false,
+                },
                 filled: false,
                 name: '',
                 name2: '',
@@ -408,6 +418,12 @@ export const useMain = create<IStore>()(
             {
                 id:2,
                 filled: false,
+                validation:{
+                    1: false,
+                    2: false,
+                    3: true,
+                    4:false,
+                },
                 name: '',
                 name2: '',
                 name3: '',
@@ -591,6 +607,12 @@ export const useMain = create<IStore>()(
             {
                 id:3,
                 filled: false,
+                validation:{
+                    1: false,
+                    2: false,
+                    3: true,
+                    4:false,
+                },
                 name: '',
                 name2: '',
                 name3: '',
@@ -774,6 +796,12 @@ export const useMain = create<IStore>()(
             {
                 id:4,
                 filled: false,
+                validation:{
+                    1: false,
+                    2: false,
+                    3: true,
+                    4:false,
+                },
                 name: '',
                 name2: '',
                 name3: '',
@@ -957,6 +985,12 @@ export const useMain = create<IStore>()(
             {
                 id:5,
                 filled: false,
+                validation:{
+                    1: false,
+                    2: false,
+                    3: true,
+                    4:false,
+                },
                 name: '',
                 name2: '',
                 name3: '',
@@ -1143,6 +1177,7 @@ export const useMain = create<IStore>()(
         setIsFrench: (data) => set((state) =>  ({ ...state, isFrench: data})),
         setActiveCarId: (data) => set((state) =>  ({ ...state, activeCarId: data})),
         setIsCars: (data) => set((state) => ({ ...state, isCars: data })),
+        setValidation: (data,id) => set((state)=>({ ...state, list: state.list.map(item => item.id === id ? {...item, validation: data} : item )})),
         setFilled: (data,id) => set((state) => ({ ...state, list: state.list.map(item => item.id === id ? {...item, filled: data} : item )})),
 
 

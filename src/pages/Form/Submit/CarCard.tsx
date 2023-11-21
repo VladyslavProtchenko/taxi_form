@@ -20,12 +20,18 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const [open, setOpen] = useState(false)
     const {store} = useStore()
     const { setFilled, isFrench } = useMain()
-
-    
+    const [openModal, setOpenModal] = useState(false)
 
     
     return (
         <div className={car}>
+        {openModal && <div className="absolute flex flex-col bg-white shadow p-4 rounded">
+            <h1>Do you want decline car?</h1>
+            <div className='flex space-x-2 self-end'>
+                <button className={bm} onClick={()=>setFilled(false, item.id)}>yes</button>
+                <button className={bm2} onClick={()=>setOpenModal(false)}>not</button>
+            </div>
+        </div>}
         <div className="flex w-full">
             <div className='flex flex-col w-1/6'>
                 <h1 className='text-sm text-gray-600 mb-0 pt-1'> {item.carType.split(' ')[0]}</h1>
@@ -42,7 +48,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                 <div className="flex px-2 text-[10px] truncate mt-1"> {item.to}</div>
             </div>
             <div className="flex flex-col ml-auto justify-between">
-                <button className={submit2} onClick={()=>setFilled(false, item.id)}>remove</button>
+                <button className={submit2} onClick={()=>setOpenModal(true)}>remove</button>
                 <button className={submit} onClick={()=>alert('taxi is ordered')}>submit</button>
             </div>
         </div>
@@ -243,6 +249,9 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
 export default CarCard;
 
+
+const bm ='text-sm bg-red-400 rounded px-2 text-white py-1 text-xs'
+const bm2 ='text-sm bg-green-400 rounded px-2 text-white py-1 text-xs'
 
 const type = 'flex border rounded border-black divide-x overflow-hidden w-full mb-4'
 const type2 = 'flex border rounded border-black divide-x overflow-hidden w-3/4 mb-4'

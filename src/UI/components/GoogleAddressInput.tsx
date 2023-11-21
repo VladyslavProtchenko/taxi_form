@@ -27,7 +27,15 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
         setValue,
         init,
         clearSuggestions,
-    } = usePlacesAutocomplete({ callbackName: "YOUR_CALLBACK_NAME", initOnMount: false, debounce: 300 });
+    } = usePlacesAutocomplete({ 
+            callbackName: "YOUR_CALLBACK_NAME", 
+            initOnMount: false, 
+            debounce: 300,
+            requestOptions: {
+                componentRestrictions: { country: ["us", "ca", 'fr'] },
+            }
+            
+        });
 
     useEffect(() => {
         if(defaultLocation) {

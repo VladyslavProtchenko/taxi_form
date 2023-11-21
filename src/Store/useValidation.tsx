@@ -17,7 +17,6 @@ interface Store {
 }
 export const useValidation = create<Store>((set) => ({
     validation: {
-
         isPhone: false,
         isSubmit: true,
         cars: {
