@@ -32,7 +32,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
             initOnMount: false, 
             debounce: 300,
             requestOptions: {
-                componentRestrictions: { country: ["us", "ca", 'fr'] },
+                componentRestrictions: { country: ["us", "ca"] },
             }
             
         });

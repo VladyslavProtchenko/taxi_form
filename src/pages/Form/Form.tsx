@@ -65,9 +65,6 @@ const Form = (): React.ReactNode => {
                 setIsCars({...isCars, 1: false})
             }
         }
-
-
-
     },[list[0]])
 
     useEffect(()=>{
@@ -209,15 +206,11 @@ const Form = (): React.ReactNode => {
                 
                 {list[activeCarId-1].steps !== 2 && <Steps/>}
             </>}
-            {validation.isSubmit && <div className='flex flex-col justify-center w-full'>
-                <Submit />
-                <div onClick={()=>setIsSubmit(false)} className='flex text-white px-2 py-1 rounded self-start'>
-                    back
-                </div>
-            </div>}
+            {validation.isSubmit && <Submit />}
         </div>
     );
 };
 
 export default Form;
-const container = 'flex w-[85%] flex-col  border-none items-center h-screen'
+
+const container = 'flex w-[85%] flex-col  border-none items-center min-h-screen '

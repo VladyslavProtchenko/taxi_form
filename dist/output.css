@@ -736,10 +736,6 @@ video {
   margin-bottom: 0.5rem;
 }
 
-.mb-20{
-  margin-bottom: 5rem;
-}
-
 .mb-3{
   margin-bottom: 0.75rem;
 }
@@ -885,10 +881,6 @@ video {
   height: min-content;
 }
 
-.h-screen{
-  height: 100vh;
-}
-
 .max-h-\[150px\]{
   max-height: 150px;
 }
@@ -969,6 +961,10 @@ video {
   width: 100px;
 }
 
+.w-\[14\%\]{
+  width: 14%;
+}
+
 .w-\[200px\]{
   width: 200px;
 }
@@ -987,14 +983,6 @@ video {
 
 .w-\[40px\]{
   width: 40px;
-}
-
-.w-\[42px\]{
-  width: 42px;
-}
-
-.w-\[450px\]{
-  width: 450px;
 }
 
 .w-\[50\%\]{
@@ -1025,6 +1013,10 @@ video {
   min-width: 22px;
 }
 
+.min-w-\[42px\]{
+  min-width: 42px;
+}
+
 .max-w-\[200px\]{
   max-width: 200px;
 }
@@ -1035,6 +1027,10 @@ video {
 
 .max-w-\[400px\]{
   max-width: 400px;
+}
+
+.max-w-\[450px\]{
+  max-width: 450px;
 }
 
 .max-w-\[55px\]{
@@ -1053,10 +1049,6 @@ video {
   max-width: 80px;
 }
 
-.flex-grow{
-  flex-grow: 1;
-}
-
 .-translate-y-\[1px\]{
   --tw-translate-y: -1px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1064,6 +1056,26 @@ video {
 
 .translate-x-1\/2{
   --tw-translate-x: 50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[100\%\]{
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[200\%\]{
+  --tw-translate-x: 200%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[300\%\]{
+  --tw-translate-x: 300%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[400\%\]{
+  --tw-translate-x: 400%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1132,10 +1144,6 @@ video {
 
 .justify-between{
   justify-content: space-between;
-}
-
-.justify-around{
-  justify-content: space-around;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]){
@@ -1368,6 +1376,11 @@ video {
   border-color: rgb(74 222 128 / var(--tw-border-opacity));
 }
 
+.border-green-500{
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity));
+}
+
 .border-red-500{
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68 / var(--tw-border-opacity));
@@ -1388,6 +1401,21 @@ video {
   border-bottom-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
+.border-l-gray-700{
+  --tw-border-opacity: 1;
+  border-left-color: rgb(55 65 81 / var(--tw-border-opacity));
+}
+
+.border-l-green-300{
+  --tw-border-opacity: 1;
+  border-left-color: rgb(134 239 172 / var(--tw-border-opacity));
+}
+
+.bg-black{
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .bg-blue-500{
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
@@ -1406,6 +1434,11 @@ video {
 .bg-gray-200{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.bg-gray-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
 .bg-green-400{
@@ -1786,6 +1819,10 @@ video {
   opacity: 0.5;
 }
 
+.opacity-70{
+  opacity: 0.7;
+}
+
 .opacity-75{
   opacity: 0.75;
 }
@@ -2115,6 +2152,11 @@ select option {
   background-color: rgb(187 247 208 / var(--tw-bg-opacity));
 }
 
+.active\:bg-green-300:active{
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
+}
+
 .active\:bg-green-400:active{
   --tw-bg-opacity: 1;
   background-color: rgb(74 222 128 / var(--tw-bg-opacity));
@@ -2128,6 +2170,11 @@ select option {
 .active\:bg-red-300:active{
   --tw-bg-opacity: 1;
   background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
+
+.active\:bg-red-400:active{
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
 .active\:bg-red-600:active{

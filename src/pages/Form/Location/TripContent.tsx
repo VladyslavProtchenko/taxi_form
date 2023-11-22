@@ -46,6 +46,7 @@ const TripContent = ():React.ReactNode => {
         resetForm,
         setDateNow,
         setCarType,
+        setTimeType,
     } = useMain()
 
     const { store } = useStore()
@@ -55,10 +56,10 @@ const TripContent = ():React.ReactNode => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
     const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
-    const [ amTime, setAmTime ] = useState<number>(0)
+    // const [ amTime, setAmTime ] = useState<number>(0)
 
     const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
-
+    const [typePos, setTypePost] = useState(1)
     useEffect(()=>{
         setCarList(isFrench? store.carListF: store.carList)
     },[isFrench])
@@ -121,23 +122,49 @@ const TripContent = ():React.ReactNode => {
     <div className={container}>
         <div className={content}>
             <div className={mainType}>
-                {store.typeList.map((item)=>(
+                {store.typeList.map((item,index)=>(
                     <div 
-                        className={type === item ? typeItem +' bg-green-400': typeItem}
-                        onClick={()=> setType(item)}
+                        className={ typeItem}
+                        onClick={()=> {
+                            console.log(index+1)
+                            setTypePost(index+1)
+                            setType(item)
+                        }}
                     >{item}</div>
                 ))}
+                <div className={trickster+ `${typePos===2? ' translate-x-[100%] ': typePos===3? ' translate-x-[200%] ': typePos===4? ' translate-x-[300%] ':  typePos===5? ' translate-x-[400%] ' : ' border-l-green-300'}`}>
+                    {
+                        typePos===1
+                            ? isFrench? 'Undefined': 'Undefined'
+                            : typePos===2
+                            ? isFrench? 'Transport': 'Transport'
+                            : typePos===3
+                            ? isFrench? 'Delivery': 'Delivery'
+                            : typePos===4
+                            ? isFrench? 'Boost': 'Boost'
+                            : isFrench? 'Unlocking door': 'Unlocking door'
+                    }
+                </div>
             </div>
             <div className={date}>
                 <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
                             if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
                             setDateNow(!list[activeCarId-1].dateNow)
-                            setDate('')
-                            setTime('')
+                            
+                            if(list[activeCarId-1].dateNow) {
+                                
+                                setTime('')
+                                setDate('')
+                            } else {
+                                (dayjs().format('mm') > '30') 
+                                    ? setTime((dayjs().add(1, 'hours').format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
+                                    : setTime((dayjs().format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
+                                setDate(dayjs().format('DD/MM/YYYY'))
+                            }
                         }}>
-                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-l' :toggleLabel+  ' rounded-l'}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }
+                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-l ' :toggleLabel+  ' rounded-l   '}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }
                     </span>
-                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-r' :toggleLabel+  '  rounded-r  pl-[7px]'}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
+                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-r ' :toggleLabel+  '  rounded-r  pl-[7px]'}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
                     
                 </div>
                 <div className={dateRow}>
@@ -146,7 +173,13 @@ const TripContent = ():React.ReactNode => {
                     <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {list[activeCarId-1].date ? <div className='flex items-center'>
-                            { fullDate.format('dddd')},  
+                            { fullDate.format('dddd')==='Monday'? 'Lundi'
+                            :fullDate.format('dddd')==='Tuesday'? 'Mardi'
+                            :fullDate.format('dddd')==='Wednesday'? 'Merceredi'
+                            :fullDate.format('dddd')==='Thursday'? 'Jeudi'
+                            :fullDate.format('dddd')==='Friday'? 'Venderdi'
+                            :fullDate.format('dddd')==='Saturday'? 'Samedi'
+                            : 'Dimanche'},  
                             {'  '+fullDate.format('MMM')}
                             { '.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
                                                     ? 'st'
@@ -173,11 +206,11 @@ const TripContent = ():React.ReactNode => {
                             </div>
                         </div>}
                     </div>
-                    <TimePicker isAm={amTime} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
+                    <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
                     <div className={timeToggle}>
-                        <div className={amTime===0 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(0)}>undefined</div>
-                        <div className={amTime===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(1)}>am</div>
-                        <div className={amTime===2 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(2)}>pm</div>    
+                        <div className={list[activeCarId-1].timeType===0 ? amText+' border-green-500 bg-gray-100 ': amText+ ' border-b-white bg-gray-100  opacity-70 '} onClick={()=>setTimeType(0)}>undefined</div>
+                        <div className={list[activeCarId-1].timeType===1 ? amText+' border-green-500 bg-blue-500 text-white ': amText+ ' border-b-white bg-blue-500 text-white  opacity-70 '} onClick={()=>setTimeType(1)}>am</div>
+                        <div className={list[activeCarId-1].timeType===2 ? amText+' border-green-500 bg-black text-white ': amText+ ' border-b-white bg-black text-white  opacity-70  '} onClick={()=>setTimeType(2)}>pm</div>    
                     </div>
                 </div>
             </div>
@@ -510,21 +543,22 @@ const TripContent = ():React.ReactNode => {
 
 export default TripContent;
 
+const trickster = "absolute flex items-center justify-center w-1/5 top-0 bottom-0 left-0 border border-green-300 border-l-gray-700 bg-green-400 duration-500"
 
 const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
 const typeCard = 'flex  self-center border border-black rounded s divide-x overflow-hidden w-full'
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
-const typeItem = ' px-2 flex py-1 border-black justify-center cursor-pointer flex-grow hover:text-green-700'
-const mainType = ' absolute top-4 overflow-hidden w-[90%] mx-auto text-[10px] justify-around divide-x flex w-full border border-black rounded'
+const typeItem = ' flex py-1 border-black justify-center cursor-pointer w-1/5 hover:text-green-700'
+const mainType = ' absolute top-4 overflow-hidden w-[90%] mx-auto text-[10px] justify-between divide-x flex  border border-black rounded'
 
 const amText = 'px-1 border-b-2 '
 const timeToggle = ' absolute -top-6 right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
 
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2' 
-const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold w-[42px] py-1'
-const toggleLabelActive ='flex w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-400'
+const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold min-w-[42px] py-1'
+const toggleLabelActive ='flex min-w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-400'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 

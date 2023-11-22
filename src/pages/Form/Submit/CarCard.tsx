@@ -22,8 +22,9 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const { setFilled, isFrench } = useMain()
     const [openModal, setOpenModal] = useState(false)
 
+    console.log(item.time, 'time')
     
-    return (
+    return ( 
         <div className={car}>
         {openModal && <div className="absolute flex flex-col bg-white shadow p-4 rounded">
             <h1>Do you want decline car?</h1>
@@ -43,13 +44,12 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
             
 
             <div className='flex flex-col w-1/2 pr-2'>
-                <div className='flex  px-2 py-1  text-[10px] border-b'>{dayjs(item.date.split('/').reverse().join('-')).format('dddd')}, {item.date}, {item.time}</div>
+                <div className='flex  px-2 py-1  text-[10px] border-b'>{dayjs(item.date.split('/').reverse().join('-')).format('dddd')}, {item.date}, {item.time}{(!item.dateNow && item.timeType===1) ? 'am': (!item.dateNow && item.timeType===2)? 'pm':''}</div>
                 <div className="flex px-2 text-[10px] truncate mt-1">{item.from} </div>
                 <div className="flex px-2 text-[10px] truncate mt-1"> {item.to}</div>
             </div>
             <div className="flex flex-col ml-auto justify-between">
-                <button className={submit2} onClick={()=>setOpenModal(true)}>remove</button>
-                <button className={submit} onClick={()=>alert('taxi is ordered')}>submit</button>
+                <button className={submit2} onClick={()=>setOpenModal(true)}>x</button>
             </div>
         </div>
         
@@ -76,9 +76,9 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
                         <div className={headItem}>
                             <div className='mb-2 '>Phones</div>
-                            {item.phone && <div className={text}>{item.phone}</div>}
-                            {item.phone2 && <div className={text}>{item.phone2}</div>}
-                            {item.phone3 && <div className={text}>{item.phone3}</div>}
+                            {item.phone && <div className={text}>+{ item.phone[0]}{item.phone[1]} {item.phone[2]} { item.phone[3]}{item.phone[4]} { item.phone[5]}{item.phone[6]} { item.phone[7]}{item.phone[8]} { item.phone[9]}{item.phone[10]} {item.phone[11]}{item.phone[12]}  {item.phone[13]}{item.phone[14]} </div>}
+                            {item.phone2 && <div className={text}>+{ item.phone2[0]}{item.phone2[1]} {item.phone2[2]} { item.phone2[3]}{item.phone2[4]} { item.phone2[5]}{item.phone2[6]} { item.phone2[7]}{item.phone2[8]} { item.phone2[9]}{item.phone2[10]} {item.phone2[11]}{item.phone2[12]}  {item.phone2[13]}{item.phone2[14]} </div>}
+                            {item.phone3 && <div className={text}>+{ item.phone3[0]}{item.phone3[1]} {item.phone3[2]} { item.phone3[3]}{item.phone3[4]} { item.phone3[5]}{item.phone3[6]} { item.phone3[7]}{item.phone3[8]} { item.phone3[9]}{item.phone3[10]} {item.phone3[11]}{item.phone3[12]}  {item.phone3[13]}{item.phone3[14]} </div>}
                         </div>
                     </div>
                 </div>
@@ -134,14 +134,15 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                                 ? <LiaShuttleVanSolid className='w-[20px] text-sm'/>
                                 :car === 'SUV'
                                 ?<PiJeepLight className='w-[20px] text-sm'/>
-                                :car === 'limo'
+                                :car === 'Limo'
                                 ?<AiOutlineStop className='w-[20px] text-sm text-red-500'/>
                                 :<IoCarSportOutline className='w-[20px] text-sm'/> }
                                 <div className='truncate flex '>{car}</div>
                             </div>
                         ))}
                     </div>
-                    <div className={type2}>
+
+                    <div className={titles}>
                         <div className={item.passengers.adults ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Adultes': 'Adults'}</div>
                         </div>
@@ -158,21 +159,87 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                             <div className={text}>{item.passengers.adults}</div>
                         </div>
                         <div className={optionItem}>
-                            {
-                                item.passengers.kids.map(kid=>(
-                                    <div className={text}>{kid.age} years</div>
+                            {item.passengers.kids.map(kid=>(
+                                <div className={text}>{kid.age} years</div>
 
-                                ))
-                            }
+                            ))}
                         </div>
                         <div className={optionItem}>
                             <div className={text}>{item.passengers.babies}</div>
                         </div>
                     </div>
+
+
+                    <div className={titles2}>
+                        {item.baggage.map(bag =>(
+                            <div className={bag.quantity> 0?'w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
+                                {bag.title}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='flex w-full divide-x'>
+                        {item.baggage.map(bag =>(
+                            <div className={'w-1/5 flex justify-center'}>
+                                {bag.quantity}
+                            </div>
+                        ))}
+                    </div>
+                    
+
+                    <div className={titles2 + ' justify-between'}>
+                        {item.carSeats.map(bag =>(
+                            <div className={bag.quantity> 0?' w-[14%] flex justify-center bg-green-400' : 'w-[14%] flex justify-center'}>
+                                {bag.title}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='flex w-full divide-x justify-between'>
+                        {item.carSeats.map(bag =>(
+                            <div className={'w-[14%] flex justify-center'}>
+                                {bag.quantity}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className={titles2 + ' justify-between'}>
+                        {item.sport.map(bag =>(
+                            <div className={bag.quantity> 0?' w-1/4 flex justify-center bg-green-400' : 'w-1/4 flex justify-center'}>
+                                {bag.title}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='flex w-full divide-x justify-between'>
+                        {item.sport.map(bag =>(
+                            <div className={'w-1/4 flex justify-center'}>
+                                {bag.quantity}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className={titles2 + ' justify-between'}>
+                        {item.pets.map(bag =>(
+                            <div className={bag.quantity> 0?' w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
+                                {bag.title}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='flex w-full divide-x justify-between'>
+                        {item.pets.map(bag =>(
+                            <div className={'w-1/5 flex justify-center'}>
+                                {bag.quantity}
+                            </div>
+                        ))}
+                    </div>
                 </div>
                     
                     
                 </div>
+
+                
 
 
             </div> 
@@ -254,7 +321,8 @@ const bm ='text-sm bg-red-400 rounded px-2 text-white py-1 text-xs'
 const bm2 ='text-sm bg-green-400 rounded px-2 text-white py-1 text-xs'
 
 const type = 'flex border rounded border-black divide-x overflow-hidden w-full mb-4'
-const type2 = 'flex border rounded border-black divide-x overflow-hidden w-3/4 mb-4'
+const titles = 'flex border rounded border-black divide-x overflow-hidden w-3/4 mb-4'
+const titles2 = 'flex border rounded border-black divide-x overflow-hidden w-ful mb-4'
 const typeItem = 'flex items-center px-2 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/4'
 const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/3'
 
@@ -271,8 +339,7 @@ const trip = 'flex space-x-1 w-full text-xs'
 const headItem = 'flex w-1/3  text-xs px-2 flex-col'
 const headers = 'flex divide-x w-full'
 
-const submit2 ='text-sm bg-red-400 rounded px-1 text-white py-[2px] text-xs'
-const submit ='text-sm bg-green-400 rounded px-1 text-white py-[2px] text-xs'
+const submit2 =' rounded px-2 text-black py-[2px] text-xl'
 const car = 'relative flex flex-col border w-full px-2 py-2 items-center '
 
 

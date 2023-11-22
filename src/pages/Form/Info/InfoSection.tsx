@@ -127,11 +127,11 @@ const InfoSection = () => {
             </div>
 
             <div className={extraContainer}>
-                <div className={list[activeCarId-1].phone.length>=11 ? extraCard +' border z-30': extraCard+ ' border border-red-500 z-30' } >
+                <div className={list[activeCarId-1].phone.length>=10 ? extraCard +' border z-30': extraCard+ ' border border-red-500 z-30' } >
                     <PhoneNumberInput type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
                 </div>
 
-                <div className={list[activeCarId-1].phone.length>=11 ? extraCard + ' border z-20' : 'hidden'}>
+                <div className={list[activeCarId-1].phone.length>=10 ? extraCard + ' border z-20' : 'hidden'}>
                     {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                         <PhoneNumberInput type={3}  value={list[activeCarId-1].phone2} onChange={setPhone2}/>
                     <button 
@@ -148,7 +148,7 @@ const InfoSection = () => {
                     > {`${(isExtraPhoneOpen[1]) ? '-' : '+'}`} </button>      
                 </div>
 
-                <div className={list[activeCarId-1].phone2.length < 11 ? 'hidden' : (isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) ? nameCard + ' ' : nameCard + ' border-white h-[32px]'}>
+                <div className={list[activeCarId-1].phone2.length < 10 ? 'hidden' : (isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) ? nameCard + ' ' : nameCard + ' border-white h-[32px]'}>
                     {!isExtraPhoneOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                     {(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) &&  <>
                         <PhoneNumberInput type={2}  value={list[activeCarId-1].phone3} onChange={setPhone3}/>

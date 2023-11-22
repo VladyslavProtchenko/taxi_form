@@ -41,8 +41,8 @@ const ReturnTrip = ():React.ReactNode  => {
         setFlight2R, 
         setAirlinesR, 
         setAirlinesBackR, 
-        setIsReturnTrip,
-        resetReturn 
+        resetReturn,
+        setTimeTypeR,
     } =useMain()
     const { store } = useStore()
     
@@ -53,7 +53,6 @@ const ReturnTrip = ():React.ReactNode  => {
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(3)
-    const [ amTime, setAmTime ] = useState<number>(0)
 
 
     useEffect(()=>{
@@ -127,10 +126,10 @@ const ReturnTrip = ():React.ReactNode  => {
     return (
     <div className={container}>
         {!list[activeCarId-1].isReturnTrip && <div className='absolute left-0 top-10 right-0 bottom-0 z-20 bg-white opacity-50'></div>}
-        <div 
+        {/* <div 
             onClick={()=>setIsReturnTrip(!list[activeCarId-1].isReturnTrip )}
             className={!list[activeCarId-1].isReturnTrip ? "absolute top-6 z-30 flex px-2 py-1 rounded text-white bg-blue-500": "absolute top-6 right-4 z-30 flex px-2 py-1 rounded text-white bg-rose-500"}
-        >{!list[activeCarId-1].isReturnTrip ? 'return trip': 'one way'}</div>
+        >{!list[activeCarId-1].isReturnTrip ? 'return trip': 'one way'}</div> */}
 
         <div className={content}>
             
@@ -161,11 +160,11 @@ const ReturnTrip = ():React.ReactNode  => {
                         </div>
                     </div>}
                 </div>
-                <TimePicker isAm={amTime} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
+                <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
                 <div className={timeToggle}>
-                    <div className={amTime===0 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(0)}>undefined</div>
-                    <div className={amTime===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(1)}>am</div>
-                    <div className={amTime===2 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setAmTime(2)}>pm</div>    
+                    <div className={list[activeCarId-1].timeTypeR===0 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(0)}>undefined</div>
+                    <div className={list[activeCarId-1].timeTypeR===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(1)}>am</div>
+                    <div className={list[activeCarId-1].timeTypeR===2 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(2)}>pm</div>    
                 </div>
             </div>
 

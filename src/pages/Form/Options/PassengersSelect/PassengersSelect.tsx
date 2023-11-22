@@ -18,7 +18,7 @@ const PassengersSelect = () => {
     },[adults,babies,children])
 
     useEffect(()=>{ 
-        if(list[activeCarId-1].carType !== 'VAN (5-7)' && (adults + children.length ) >=4) {
+        if(list[activeCarId-1].carType !== 'VAN' && (adults + children.length ) >=4) {
             setAdults((adults >= 4 ? 4: adults))
             setChildren(children.filter(( child, index)=> {
                 if(index+1 <= (4 - adults) ) return child;
@@ -28,10 +28,12 @@ const PassengersSelect = () => {
     },[list[activeCarId-1].carType])
 
     useEffect(()=>{ 
-        if(adults < babies) setBabies(adults) 
-        if(!adults) setChildren([])
-    },[adults])
 
+        if(adults===0) {
+            setChildren([])
+            setBabies(0)
+        }
+    },[adults])
 
     return (
             <ul className={content}>
@@ -46,7 +48,7 @@ const PassengersSelect = () => {
                                 <IoIosArrowUp
                                     className={button+ ' text-green-500 active:text-green-300'}
                                     onClick={()=>{
-                                        if((children.length + adults) >=4) setCarType('VAN (5-7)')
+                                        if((children.length + adults) >=4) setCarType('VAN')
                                         if((children.length + adults)  >= 7) return;
                                         setAdults(adults + 1)
                                     }}
@@ -73,7 +75,7 @@ const PassengersSelect = () => {
                                 className={button+ ' text-green-500 active:text-green-300'}
                                 onClick={()=>{
                                     if(!adults) return;
-                                    if((children.length + adults) >=4) setCarType('VAN (5-7)')
+                                    if((children.length + adults) >=4) setCarType('VAN')
     
                                     if((children.length + adults) >= 7 ) return;
                                     const newKid = {
@@ -118,8 +120,7 @@ const PassengersSelect = () => {
                             <IoIosArrowUp
                                 className={button+ ' text-green-500 active:text-green-300'}
                                 onClick={()=>{
-                                    if(babies >= adults) return;
-                                    if(babies >= 1  && list[activeCarId-1].carType !== 'VAN (5-7)') return;
+                                    if(babies >= 2 && list[activeCarId-1].carType !== 'VAN') return;
                                     if(babies >= 2) return;
                                     if(babies >= 1 && adults >5) return;
     

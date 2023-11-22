@@ -7,8 +7,10 @@ import { useMain } from "../../../Store/useMain";
 
 const LocationSection = ():React.ReactNode => {
     const [ tabs, setTabs ] = useState(false)
+    const [ need, setNeed ] = useState(false)
     const {store} = useStore()
-    const {isFrench, type } = useMain()
+    const {isFrench, type, list, setIsReturnTrip, activeCarId } = useMain()
+
     return (
         <section className={section}>
             <div className={carContainer}>
@@ -22,9 +24,41 @@ const LocationSection = ():React.ReactNode => {
                     className={!tabs ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} 
                     onClick={()=>{
                         if(['Boost', 'Unlocking door'].includes(type)) return;
-                        setTabs(true)
+                        if(need) setTabs(true)
                     }}
-                >{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</div>
+                >
+                    <div className={!list[activeCarId-1].isReturnTrip? "bg-green-400 py-1 px-3 rounded text-white": 'bg-red-500 py-1 px-3 rounded text-white'} onClick={(e)=>{
+                        e.stopPropagation()
+                        if(need && list[activeCarId-1].isReturnTrip) {
+                            setNeed(false)
+                            setTabs(false)
+                            console.log('work 1',tabs)
+
+                            return setIsReturnTrip(false)
+                        }
+
+                        if(need && !list[activeCarId-1].isReturnTrip) {
+                            console.log('work 2',tabs)
+                            setTabs(true);
+                            return setIsReturnTrip(true)
+                        };
+
+                        if(!need) {
+                            console.log('work 3',tabs)
+                            setNeed(true)
+                            setTabs(true)
+                        }
+                        
+                    }}> {
+                        !need 
+                        ? `${!isFrench? 'Need return': 'Besion Retour'}`
+                        : list[activeCarId-1].isReturnTrip
+                        ? !isFrench? 'Disable ': 'Disable'
+                        :  isFrench? 'Activate': 'Activate'
+                        }
+                    </div>
+                    {/* {isFrench? store.tripTitlesF[1] : store.tripTitles[1]} */}
+                </div>
             </div>
             <div className='flex'>
                 <div className={!tabs ? 'flex w-full  flex-coll ' : 'hidden w-full '} >
@@ -41,7 +75,7 @@ const LocationSection = ():React.ReactNode => {
 export default LocationSection;
 
 
-const carCard = 'flex w-1/2 text-gray-600 cursor-pointer justify-center  rounded-t-xl border bg-gray-200 opacity-50 py-2 '
+const carCard = 'flex w-1/2 text-gray-600 cursor-pointer justify-center  rounded-t-xl border bg-gray-50 py-2 '
 const carCardActive = 'flex w-1/2 text-black cursor-pointer justify-center rounded-t-xl border py-2'
 const carContainer = 'flex w-full  border-t-0  rounded-t-lg ' 
 

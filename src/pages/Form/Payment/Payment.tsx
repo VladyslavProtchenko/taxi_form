@@ -5,6 +5,7 @@ import { useStore } from "../../../Store";
 import React from "react";
 import { useValidation } from "../../../Store/useValidation";
 const { TextArea } = Input;
+import { MdDone } from "react-icons/md";
 
 
 const PaymentSection = ():React.ReactNode => {
@@ -28,7 +29,9 @@ const PaymentSection = ():React.ReactNode => {
                     }}/></span>
             </div>
             <div className='flex justify-between mt-4'>
-                <button className={btn2} onClick={()=> setFilled(true, activeCarId)}>Order taxi</button>
+                {list[activeCarId-1].filled 
+                    ? <div className="px-4 py-2 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>
+                    : <button className={btn2} onClick={()=> setFilled(true, activeCarId)}>Order taxi</button>}
                 <button className={btn} onClick={()=> setIsSubmit(true)}>View Orders</button>
             </div>
         </section>

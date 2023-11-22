@@ -27,13 +27,23 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
 
     const ref = useOnclickOutside(() => setIsOpen(false));
 
-    const [hour, setHour] = useState(time.replace(/:/g, '') ? time.slice(0,2) : '')
-    const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3) :  '')
+    const [hour, setHour] = useState(time.replace(/:/g, '') ? time.slice(0,2): (dayjs().format('mm') > '30') ? dayjs().add(1, 'hours').format('HH'): dayjs().format('HH'))
+    const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3): dayjs().add(30, 'minutes').format('mm'))
     const [isOpen, setIsOpen] = useState(false)
     const [isTime, setIsTime] = useState(0)
     const [filteredMinutes, setFilteredMinutes] = useState<string[]>([])
     const [filteredHours, setFilteredHours] = useState<string[]>(hours)
 
+    useEffect(()=>{
+        if(list[activeCarId-1].dateNow){
+            setHour(dayjs().format('HH'))
+            setMinute(dayjs().format('mm'))
+        } else {
+
+            setHour(time.replace(/:/g, '') ? time.slice(0,2): (dayjs().format('mm') > '30') ? dayjs().add(1, 'hours').format('HH'): dayjs().format('HH'))
+            setMinute(time.replace(/:/g, '') ? time.slice(3): dayjs().add(30, 'minutes').format('mm'))
+        }
+    },[list[activeCarId-1].dateNow])
     useEffect(()=>{
 
         if(!list[activeCarId-1].dateNow && JSON.stringify(dayjs().format('DD/MM/YYYY')) === JSON.stringify(date)) {
@@ -79,7 +89,6 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
                     
 
                 }else if(+dayjs().format('HH') > 12) {
-                    console.log('work2')
                     hour === dayjs().format('hh') 
                     ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
                     : setFilteredMinutes(minutes)
@@ -100,35 +109,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
                         : setFilteredHours(hours.filter(x=> x<'13'))
                     }
                 }
-                
             }
-            
-
-
-            // if(list[activeCarId-1].time < dayjs().format('HH:mm') && isAm === 0) {
-            //     setMinute(dayjs().add(30, 'minutes').format('mm'))
-            //     setHour(dayjs().add(1, 'hours').format('HH'))
-            //     onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
-            // } else if(list[activeCarId-1].time < dayjs().format('HH:mm a') && isAm !==0){
-            //     setMinute(dayjs().add(30, 'minutes').format('mm'))
-            //     setHour(dayjs().add(1, 'hours').format('HH'))
-
-            //     onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
-            // }
-
-            // if(dayjs().format('mm') > '30' && dayjs().format('HH') > '11' && isAm !==0 ){
-            //     console.log(+dayjs().add(1, 'hours').format('HH')-12)
-            //     setFilteredHours(
-            //         hours.filter(hour => +hour<13 )
-            //         .filter(item => +item >= +dayjs().add(1, 'hours').format('HH')-12 ))
-            // } else if(dayjs().format('mm') > '30' && dayjs().format('HH') < '11' && isAm !==0 ){
-
-            // } else if(dayjs().format('mm') > '30' && isAm === 0 ){
-            //     console.log('work 3')
-            //     setFilteredHours(
-            //         hours.filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
-            // }
-
             if(hour===dayjs().format('HH') && isAm!==2) setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
         }
         
@@ -140,9 +121,8 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
         }
     },[date, list[activeCarId-1].dateNow, list[activeCarId-1].date, list[activeCarId-1].time, isAm])
 
-
     useEffect(() => {
-        
+
         if(isAm>0){
             onChange(`${( hour > '12' ? +hour-12 : hour )}:${minute}`)
             if(minute && hour) {
@@ -157,8 +137,9 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
         
     }, [hour, minute])
 
-    
 
+    console.log(list[activeCarId-1].time,'time')
+    // console.log(minute,'ggg')
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
             <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>
