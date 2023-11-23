@@ -338,7 +338,7 @@ const headItem = 'flex w-1/3  text-xs px-2 flex-col'
 const headers = 'flex divide-x w-full'
 
 const submit2 =' rounded px-2 text-black py-[2px] text-xl'
-const car = 'relative flex flex-col border w-full px-2 py-2 items-center '
+const car = 'relative flex flex-col border w-full px-2 py-2 items-center bg-white rounded'
 
 
 const stopIcon = 'min-w-[22px] text-yellow-400'

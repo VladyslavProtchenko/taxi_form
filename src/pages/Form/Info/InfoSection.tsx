@@ -192,7 +192,7 @@ export default InfoSection;
 
 
 const warn = 'absolute -top-[13px] left-4 text-xs z-20 text-red-500'
-const nameCard = 'relative flex max-w-[400px] w-[100%] relative items-center border rounded bg-white'
+const nameCard = 'relative flex max-w-[400px] w-[100%] relative items-center border rounded bg-white '
 const addExtraBtn = "absolute w-[25%] py-1 text-white items-center flex justify-center bg-green-400 rounded text-xs cursor-pointer  left-[100%]"
 
 const extraNameClose = "absolute w-[25%] text-white py-1 items-center flex justify-center bg-red-500 rounded text-xs cursor-pointer  left-[100%]"
