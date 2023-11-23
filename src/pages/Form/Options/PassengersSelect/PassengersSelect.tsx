@@ -10,7 +10,7 @@ const PassengersSelect = () => {
     const {list, activeCarId, setPassengers,setCarType, isFrench } = useMain()
     const [adults, setAdults] = useState(list[activeCarId-1].passengers.adults)
     const [babies, setBabies] = useState(list[activeCarId-1].passengers.babies)
-    const [children, setChildren] = useState<{id:number; age:number}[]>(list[activeCarId-1].passengers.kids)
+    const [children, setChildren] = useState<{age:number}[]>(list[activeCarId-1].passengers.kids)
     const years = ['1 year','2 years','3 years','4 years','5 years','6 years','7 years','8 years']
 
     useEffect(()=>{
@@ -100,12 +100,11 @@ const PassengersSelect = () => {
                 </div>
 
                 {children.length > 0 && <div className={kidsContainer}>
-                    {children.map((item) => (
-                    <div className={childrenCard} key={item.id} onClick={(e)=> e.stopPropagation()}>
-                        <span >Kid # {item.id}</span>
+                    {children.map(( _, index) => (
+                    <div className={childrenCard} key={index} onClick={(e)=> e.stopPropagation()}>
+                        <span >Kid # {index+1}</span>
                         <div className=' flex items-center w-[60%] px-1 rounded'>
                             <Select defaultValue='0 years' style={{width:'100%', padding:0}} className='yearsSelect' options={years.map(item=>({value: item, label: item }))}/>
-
                         </div>
                     </div>))}
                 </div>}

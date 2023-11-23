@@ -138,8 +138,6 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
     }, [hour, minute])
 
 
-    console.log(list[activeCarId-1].time,'time')
-    // console.log(minute,'ggg')
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
             <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>

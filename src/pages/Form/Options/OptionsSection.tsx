@@ -59,4 +59,4 @@ const type = 'flex  self-center border border-black rounded s divide-x overflow-
 const contentItem = '  flex relative w-full mb-3 space-x-1 items-start' 
 
 const content = 'flex flex-wrap w-full h-min rounded mt-6'
-const section = 'flex w-full flex-col  flex-col max-w-[576px] py-8 '
+const section = 'flex w-full flex-col  flex-col max-w-[576px] py-8 bg-white p-1 rounded-b -translate-x-2'

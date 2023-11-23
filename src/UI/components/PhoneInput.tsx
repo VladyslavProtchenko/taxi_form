@@ -10,6 +10,7 @@ import { useValidation } from '../../Store/useValidation';
 import React from 'react';
 import { useMain } from '../../Store/useMain';
 import { useStore } from '../../Store';
+import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 
 const countries = [
     ["Afghanistan", "93"],
@@ -253,6 +254,9 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     //     }
     //     setResetPhone(false)
     // },[user.resetPhone])
+        // useEffect(()=>{
+    //     if(isClear) setCountryCode('1')
+    // },[isClear])
 
     useEffect(()=>{
         if(type===1) {
@@ -264,14 +268,13 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     useEffect(()=>{
         if(country) {
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
-            if(res) { setCountryCode(res[1]) }
+            if(res) { 
+                setCountryCode(res[1]) 
+            }
         }
     },[country])
 
-    // useEffect(()=>{
-    //     if(isClear) setCountryCode('1')
-    // },[isClear])
-    
+
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     
@@ -286,13 +289,18 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
                     <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span> </li>
                     <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></li>
                 </ul>
+                <div className={"text-xs "}>
+                    {isOpen && <IoIosArrowUp />}
+                    {!isOpen && <IoIosArrowDown />}
+
+                </div>
             </div>
             <Select
                 showSearch
                 defaultValue={'Canada'}
                 value={country || 'Canada'}
                 placeholder={country || "Canada"}
-                className=" max-w-[55px] phoneArrow  pl-[2px]"
+                className=" max-w-[55px] phoneArrow pl-[2px]"
                 style={{ width:'100%', height: 40, }}
                 onChange={setCountry}
                 filterOption={filterOption}
@@ -315,7 +323,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
                 dropdownClass='max-w-[200px] z-40'
                 priority={{ca: 1, us: 0,kz: 0, ru: 1}  }
                 country={'us'}
-                value={value || countryCode}
+                value={countryCode}
                 onChange={(e, countryName:ICountry)=>{
                     setCountry(countryName.name)
                     onChange(e)
@@ -334,7 +342,7 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
                 dropdownClass='max-w-[200px] z-40'
                 priority={{ca: 0, us: 1,kz: 0, ru: 1} }
                 country={'ca'}
-                value={value || countryCode}
+                value={countryCode}
                 onChange={(e, countryName:ICountry)=>{
                     setCountry(countryName.name)
                     onChange(e)
@@ -349,7 +357,7 @@ export default PhoneNumberInput
 
 const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
 const subItem ='flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
-const phoneLabel = ' flex relative items-center px-2 cursor-pointer hover:bg-gray-100 border-r-[1.5px] border-gray-600'
+const phoneLabel = ' flex relative items-center pl-1 h-[38px] cursor-pointer hover:bg-gray-100 border-r-[1px] border-gray-200'
 const container = 'flex items-center'
 
 

@@ -53,7 +53,9 @@ const InfoSection = () => {
                     <Input allowClear value={list[activeCarId-1].name} placeholder={isFrench? store.nameListF[0]:store.nameList[0] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                 </div>
 
-                <div className={list[activeCarId-1].name.length>3 ? nameCard: 'hidden'}>
+                <div className={list[activeCarId-1].name.length>3 ? nameCard + ' w-[80%]': 'hidden'}>
+
+                    <div className={(list[activeCarId-1].name === list[activeCarId-1].name2)? warn: 'hidden'}>name cannot be repeated</div>
                     {!isExtraNameOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
                         <Select placeholder={isFrench? store.titleListF[3]:store.titleList[3] }style={{width: 118, height: 40}} onChange={setTitle2} options={options1}/> 
@@ -73,11 +75,12 @@ const InfoSection = () => {
                                     setName2('');
                                     setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
                                 }}>
-                        {`${(isExtraNameOpen[1]) ? '-' : '+'}`}
+                        {`${(isExtraNameOpen[1]) ? isFrench?'Supprimer':'Delete' : isFrench?'Activer':'Activate'}`}
                     </button>
                 </div>
                 
-                <div className={list[activeCarId-1].name2.length<3 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard: nameCard + ' border-white h-[32px]'}>
+                <div className={list[activeCarId-1].name2.length<3 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard + ' w-[80%]' : nameCard + ' border-white h-[32px]'}>
+                    <div className={(list[activeCarId-1].name === list[activeCarId-1].name3 || list[activeCarId-1].name2 === list[activeCarId-1].name3)? warn: 'hidden'}>name cannot be repeated</div>
                     {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) &&  <>
                         <span className='icon'><BsPeople/></span>
@@ -94,7 +97,7 @@ const InfoSection = () => {
                                 }
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })
                             }}
-                        >{`${(isExtraNameOpen[2]) ? '-' : '+'}`}</button>}
+                        >{`${(isExtraNameOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'Activer':'Activate'}`}</button>}
                 </div>
 
             </div>
@@ -104,24 +107,39 @@ const InfoSection = () => {
                     <MailInput value={list[activeCarId-1].email} mainMail={true} onChange={setEmail} placeholder={isFrench? store.emailListF[0]:store.emailList[0] }/>
                 </div>
                 
-                <div className={pattern.test(list[activeCarId-1].email) ? extraCard: 'hidden'}>
+                <div className={pattern.test(list[activeCarId-1].email) ? extraCard+ ' w-[80%] ' : 'hidden'}>
+
+                <div className={(list[activeCarId-1].email === list[activeCarId-1].email2)? warn: 'hidden'}>email cannot be repeated</div>
                     {!isExtraEmailOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                     <MailInput value={list[activeCarId-1].email2} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
-                    <button className={(isExtraEmailOpen[1]) ? extraEmailClose : addExtraBtn } onClick={()=>{setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })}}>
-                        {`${(isExtraEmailOpen[1]) ? '-' : '+'}`}
+                    <button 
+                        className={(isExtraEmailOpen[1]) ? extraNameClose : addExtraBtn } 
+                        onClick={()=>{
+                            if(list[activeCarId-1].email2 && list[activeCarId-1].email3) {
+                                setEmail2(list[activeCarId-1].email3)
+                                setEmail3('')
+                                return   setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: false })
+                            }
+                            setEmail2('')
+                            setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })
+                        }}
+                    >
+                        {`${(isExtraEmailOpen[1]) ? isFrench?'Supprimer':'Delete' : isFrench?'Activer':'Activate'}`}
                     </button>      
                 </div>
                 
-                <div className={(!pattern.test(list[activeCarId-1].email2)) ? 'hidden' :(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) ? nameCard + ' border-none' : nameCard + ' border-white h-[32px]'}>
+                <div className={(!pattern.test(list[activeCarId-1].email2)) ? 'hidden' :(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) ? nameCard+ ' w-[80%]' + ' border-none' : nameCard + ' border-white h-[32px]'}>
+                    <div className={(list[activeCarId-1].email2 === list[activeCarId-1].email3 || list[activeCarId-1].email === list[activeCarId-1].email3)? warn: 'hidden'}>email cannot be repeated</div>
+
                     {!isExtraEmailOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                     {(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) &&  <>
                     <MailInput value={list[activeCarId-1].email3} onChange={setEmail3}placeholder={isFrench? store.emailListF[2]:store.emailList[2] }/>
                     </>}
                     {(isExtraEmailOpen[1] ||isExtraEmailOpen[2]) && 
-                    <button className={(isExtraEmailOpen[2]) ? extraEmailClose : addExtraBtn } onClick={()=>{
+                    <button className={(isExtraEmailOpen[2]) ? extraNameClose : addExtraBtn } onClick={()=>{
                                     setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: !isExtraEmailOpen[2] })
                                 }}>
-                        {`${(isExtraEmailOpen[2]) ? '-' : '+'}`}
+                        {`${(isExtraEmailOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'Activer':'Activate'}`}
                     </button>}
                 </div>
             </div>
@@ -131,11 +149,13 @@ const InfoSection = () => {
                     <PhoneNumberInput type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
                 </div>
 
-                <div className={list[activeCarId-1].phone.length>=10 ? extraCard + ' border z-20' : 'hidden'}>
+                <div className={list[activeCarId-1].phone.length>=10 ? extraCard + ' w-[80%] border z-20' : 'hidden'}>
+                    <div className={( list[activeCarId-1].phone === list[activeCarId-1].phone2)? warn: 'hidden'}>phone cannot be repeated</div>
+
                     {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                         <PhoneNumberInput type={3}  value={list[activeCarId-1].phone2} onChange={setPhone2}/>
                     <button 
-                        className={(isExtraPhoneOpen[1]) ? extraEmailClose : addExtraBtn } 
+                        className={(isExtraPhoneOpen[1]) ? extraNameClose : addExtraBtn } 
                         onClick={()=>{
                             if(list[activeCarId-1].phone2 && list[activeCarId-1].phone3) {
                                 setPhone2(list[activeCarId-1].phone3)
@@ -145,20 +165,22 @@ const InfoSection = () => {
                             setPhone2('')
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })
                         }}
-                    > {`${(isExtraPhoneOpen[1]) ? '-' : '+'}`} </button>      
+                    > {`${(isExtraPhoneOpen[1]) ? isFrench?'Supprimer':'Delete' : isFrench?'Activer':'Activate'}`} </button>      
                 </div>
 
-                <div className={list[activeCarId-1].phone2.length < 10 ? 'hidden' : (isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) ? nameCard + ' ' : nameCard + ' border-white h-[32px]'}>
+                <div className={list[activeCarId-1].phone2.length < 10 ? 'hidden' : (isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) ? nameCard + '  w-[80%]  ' : nameCard + ' border-white h-[32px]'}>
+                    <div className={( list[activeCarId-1].phone === list[activeCarId-1].phone3 || list[activeCarId-1].phone2 === list[activeCarId-1].phone3)? warn: 'hidden'}>phone cannot be repeated</div>
+
                     {!isExtraPhoneOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                     {(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) &&  <>
                         <PhoneNumberInput type={2}  value={list[activeCarId-1].phone3} onChange={setPhone3}/>
                     </>}
                     {(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) && 
-                    <button className={(isExtraPhoneOpen[2]) ? extraPhoneClose : addExtraBtn } onClick={()=>{
+                    <button className={(isExtraPhoneOpen[2]) ? extraNameClose : addExtraBtn } onClick={()=>{
                             setPhone3('')
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: !isExtraPhoneOpen[2] })
                                 }}>
-                        {`${(isExtraPhoneOpen[2]) ? '-' : '+'}`}
+                        {`${(isExtraPhoneOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'Activer':'Activate'}`}
                     </button>}
                 </div>
             </div>
@@ -169,15 +191,14 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-const nameCard = 'relative flex max-w-[400px] w-[100%] relative items-center border rounded'
-const addExtraBtn = "absolute w-5 h-5 flex justify-center bg-green-400 rounded text-md border border-black cursor-pointer font-bold text-black  left-[101%]"
+const warn = 'absolute -top-[13px] left-4 text-xs z-20 text-red-500'
+const nameCard = 'relative flex max-w-[400px] w-[100%] relative items-center border rounded bg-white'
+const addExtraBtn = "absolute w-[25%] py-1 text-white items-center flex justify-center bg-green-400 rounded text-xs cursor-pointer  left-[100%]"
 
-const extraNameClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded text-md border border-gray-600 cursor-pointer font-bold text-black  left-[101%]"
-const extraEmailClose = "absolute w-5 h-5 flex justify-center bg-red-500 rounded text-md border border-gray-600  right-2 cursor-pointer font-bold text-black  left-[101%]"
-const extraPhoneClose = "absolute  w-5 h-5 flex justify-center bg-red-500 rounded text-md border border-gray-600  right-2 cursor-pointer font-bold text-black left-[101%] "
+const extraNameClose = "absolute w-[25%] text-white py-1 items-center flex justify-center bg-red-500 rounded text-xs cursor-pointer  left-[100%]"
 
-const extraCard = ' flex relative items-center max-w-[400px] w-full rounded'
-const extraContainer = 'flex flex-col w-full items-start space-y-2 items-center'
+const extraCard = ' flex relative items-center max-w-[400px] rounded bg-white'
+const extraContainer = 'flex flex-col w-full  space-y-2 '
 
-const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full pr-8 max-w-[576px] border-none'
+const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full  max-w-[576px] border-none'
 // const missIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://icons.iconarchive.com/icons/iconsmind/outline/512/Girl-icon.png")] bg-no-repeat scale-[130%]'

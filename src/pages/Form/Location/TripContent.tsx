@@ -543,14 +543,14 @@ const TripContent = ():React.ReactNode => {
 
 export default TripContent;
 
-const trickster = "absolute flex items-center justify-center w-1/5 top-0 bottom-0 left-0 border border-green-300 border-l-gray-700 bg-green-400 duration-500"
+const trickster = "absolute flex pl-1 truncate items-center text-center w-1/5 top-0 bottom-0 left-0 border border-green-300 border-l-gray-700 bg-green-400 duration-500"
 
 const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
 const typeCard = 'flex  self-center border border-black rounded s divide-x overflow-hidden w-full'
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
-const typeItem = ' flex py-1 border-black justify-center cursor-pointer w-1/5 hover:text-green-700'
+const typeItem = ' flex py-1 pl-1 border-black items-center truncate  cursor-pointer w-1/5 hover:text-green-700'
 const mainType = ' absolute top-4 overflow-hidden w-[90%] mx-auto text-[10px] justify-between divide-x flex  border border-black rounded'
 
 const amText = 'px-1 border-b-2 '

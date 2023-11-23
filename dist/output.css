@@ -606,6 +606,10 @@ video {
   top: -1.5rem;
 }
 
+.-top-\[13px\]{
+  top: -13px;
+}
+
 .bottom-0{
   bottom: 0px;
 }
@@ -622,12 +626,16 @@ video {
   left: 0.75rem;
 }
 
+.left-4{
+  left: 1rem;
+}
+
 .left-6{
   left: 1.5rem;
 }
 
-.left-\[101\%\]{
-  left: 101%;
+.left-\[100\%\]{
+  left: 100%;
 }
 
 .right-0{
@@ -636,10 +644,6 @@ video {
 
 .right-1\/2{
   right: 50%;
-}
-
-.right-2{
-  right: 0.5rem;
 }
 
 .right-4{
@@ -744,10 +748,6 @@ video {
   margin-bottom: 1rem;
 }
 
-.mb-\[1px\]{
-  margin-bottom: 1px;
-}
-
 .ml-1{
   margin-left: 0.25rem;
 }
@@ -824,6 +824,10 @@ video {
   display: none;
 }
 
+.h-20{
+  height: 5rem;
+}
+
 .h-3{
   height: 0.75rem;
 }
@@ -852,6 +856,10 @@ video {
   height: 20px;
 }
 
+.h-\[27px\]{
+  height: 27px;
+}
+
 .h-\[28px\]{
   height: 28px;
 }
@@ -862,6 +870,10 @@ video {
 
 .h-\[32px\]{
   height: 32px;
+}
+
+.h-\[38px\]{
+  height: 38px;
 }
 
 .h-\[40px\]{
@@ -925,6 +937,10 @@ video {
   width: 16.666667%;
 }
 
+.w-20{
+  width: 5rem;
+}
+
 .w-3\/4{
   width: 75%;
 }
@@ -977,6 +993,10 @@ video {
   width: 24px;
 }
 
+.w-\[25\%\]{
+  width: 25%;
+}
+
 .w-\[35px\]{
   width: 35px;
 }
@@ -991,6 +1011,10 @@ video {
 
 .w-\[60\%\]{
   width: 60%;
+}
+
+.w-\[80\%\]{
+  width: 80%;
 }
 
 .w-\[85\%\]{
@@ -1049,6 +1073,11 @@ video {
   max-width: 80px;
 }
 
+.-translate-x-2{
+  --tw-translate-x: -0.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .-translate-y-\[1px\]{
   --tw-translate-y: -1px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1081,6 +1110,11 @@ video {
 
 .translate-y-\[0\.5px\]{
   --tw-translate-y: 0.5px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.rotate-45{
+  --tw-rotate: 45deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1330,8 +1364,8 @@ video {
   border-right-width: 0px;
 }
 
-.border-r-\[1\.5px\]{
-  border-right-width: 1.5px;
+.border-r-\[1px\]{
+  border-right-width: 1px;
 }
 
 .border-t{
@@ -1356,24 +1390,19 @@ video {
   border-color: rgb(59 130 246 / var(--tw-border-opacity));
 }
 
+.border-gray-200{
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
 .border-gray-400{
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
-.border-gray-600{
-  --tw-border-opacity: 1;
-  border-color: rgb(75 85 99 / var(--tw-border-opacity));
-}
-
 .border-green-300{
   --tw-border-opacity: 1;
   border-color: rgb(134 239 172 / var(--tw-border-opacity));
-}
-
-.border-green-400{
-  --tw-border-opacity: 1;
-  border-color: rgb(74 222 128 / var(--tw-border-opacity));
 }
 
 .border-green-500{
@@ -1514,6 +1543,10 @@ video {
   background-repeat: no-repeat;
 }
 
+.p-1{
+  padding: 0.25rem;
+}
+
 .p-4{
   padding: 1rem;
 }
@@ -1630,10 +1663,6 @@ video {
   padding-right: 1rem;
 }
 
-.pr-8{
-  padding-right: 2rem;
-}
-
 .pr-\[1px\]{
   padding-right: 1px;
 }
@@ -1660,10 +1689,6 @@ video {
 
 .pt-6{
   padding-top: 1.5rem;
-}
-
-.pt-\[10px\]{
-  padding-top: 10px;
 }
 
 .pt-\[46px\]{
@@ -1738,6 +1763,11 @@ video {
 .text-blue-500{
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.text-blue-700{
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
 }
 
 .text-gray-300{
@@ -1900,12 +1930,18 @@ video {
 .react-tel-input .form-control {
   text-overflow: ellipsis !important;
   overflow-x: hidden !important;
+  padding-left: 36px !important;
 }
 
 .flag-dropdown {
   background: #fff !important;
   border: none !important;
   border-right: 1px solid #ededed !important;
+  width: 30px !important;
+}
+
+.react-tel-input .selected-flag {
+  padding-left: 2px;
 }
 
 .css-4pax7l-MuiPickersLayout-root .MuiPickersLayout-actionBar {

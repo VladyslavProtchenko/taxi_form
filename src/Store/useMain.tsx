@@ -3,7 +3,6 @@ import { create } from 'zustand';
 interface IPassengers {
     adults: number;
     kids: {
-        id: number,
         age: number,
     }[],
     babies: number
@@ -209,7 +208,7 @@ interface IStore {
     setPets:(value: IPet[]) => void;
     setCarSeats:(value: IItem[]) => void;
 
-//     //steps 
+    //steps 
     setSteps:(value: number) => void;
 }
 
@@ -235,9 +234,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Mr.',
-                title2: 'Mr.',
-                title3: 'Mr.',
+                title: '',
+                title2: '',
+                title3: '',
             
                 email:'@',
                 email2: '@',
@@ -420,9 +419,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Mr.',
-                title2: 'Mr.',
-                title3: 'Mr.',
+                title: '',
+                title2: '',
+                title3: '',
             
                 email:'@',
                 email2: '@',
@@ -605,9 +604,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Mr.',
-                title2: 'Mr.',
-                title3: 'Mr.',
+                title: '',
+                title2: '',
+                title3: '',
             
                 email:'@',
                 email2: '@',
@@ -790,9 +789,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Mr.',
-                title2: 'Mr.',
-                title3: 'Mr.',
+                title: '',
+                title2: '',
+                title3: '',
             
                 email:'@',
                 email2: '@',
@@ -975,9 +974,9 @@ export const useMain = create<IStore>()(
                 name2: '',
                 name3: '',
                 
-                title: 'Mr.',
-                title2: 'Mr.',
-                title3: 'Mr.',
+                title: '',
+                title2: '',
+                title3: '',
             
                 email:'@',
                 email2: '@',

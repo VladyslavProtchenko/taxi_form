@@ -37,12 +37,16 @@
 .react-tel-input .form-control {
     text-overflow: ellipsis !important;
     overflow-x: hidden !important;
+    padding-left: 36px !important;
 }
 .flag-dropdown {
     background: #fff !important;
     border: none !important;
     border-right: 1px solid #ededed !important;
-
+    width: 30px !important;
+}
+.react-tel-input .selected-flag {
+    padding-left: 2px;
 }
 .css-4pax7l-MuiPickersLayout-root .MuiPickersLayout-actionBar {
     display: none !important;

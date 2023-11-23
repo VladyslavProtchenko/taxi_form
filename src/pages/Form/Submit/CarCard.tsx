@@ -22,8 +22,6 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const { setFilled, isFrench } = useMain()
     const [openModal, setOpenModal] = useState(false)
 
-    console.log(item.time, 'time')
-    
     return ( 
         <div className={car}>
         {openModal && <div className="absolute flex flex-col bg-white shadow p-4 rounded">

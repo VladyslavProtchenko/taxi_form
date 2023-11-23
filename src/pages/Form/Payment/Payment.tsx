@@ -48,5 +48,5 @@ const content ='flex justify-between px-2 w-full mb-4'
 
 const box ='flex border h-min pl-3 w-[100px] rounded'
 const box2 ='flex border h-min ml-4 pl-3 w-[100px] rounded'
-const textArea ='flex border h-min w-full rounded'
-const section = 'flex flex-col w-full  max-w-[576px]  border-none  py-8 px-1 pb-20'
+const textArea ='flex border h-min w-full rounded' 
+const section = 'flex flex-col w-full  max-w-[576px]  border-none  py-8 px-1 pb-20 bg-white -translate-x-2 rounded-b'
