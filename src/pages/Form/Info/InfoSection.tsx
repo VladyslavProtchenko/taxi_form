@@ -94,7 +94,7 @@ const InfoSection = () => {
                             setName2('');
                             setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
                         }}
-                    ><span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span></button>
+                    ><span className='scale-[150%] font-bold rotate-45'>+</span></button>
                 </div>
                 
                 <div className={list[activeCarId-1].name2.length<3 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard + ' w-[90%]' : nameCard + ' border-white h-[32px]'}>

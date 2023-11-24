@@ -21,7 +21,9 @@ import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
 import React from "react";
 interface IObj {[key:number]: string}
-
+import sky from './../../../assets/day.png'
+import sun from './../../../assets/sun.png'
+import stars from './../../../assets/night.jpg'
 
 const ReturnTrip = ():React.ReactNode  => {
     const {
@@ -46,7 +48,7 @@ const ReturnTrip = ():React.ReactNode  => {
     } =useMain()
     const { store } = useStore()
     
-
+    const [ day, setDay ] = useState(true)
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
     const [stopTrigger, setStopTrigger] = useState(true)
     const [fullDate, setFullDate] = useState(dayjs())
@@ -54,6 +56,16 @@ const ReturnTrip = ():React.ReactNode  => {
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(3)
 
+    useEffect(()=>{
+        if(list[activeCarId-1].timeTypeR===0){
+            setDay(list[activeCarId-1].timeR.slice(0,2)> '05' && list[activeCarId-1].timeR.slice(0,2) < '23')
+        } else if(list[activeCarId-1].timeTypeR===1) {
+            setDay(list[activeCarId-1].timeR.slice(0,2)> '05')
+        } else {
+            setDay(list[activeCarId-1].timeR.slice(0,2) < '11')
+        }
+
+    },[list, activeCarId])
 
     useEffect(()=>{
         if(trigger[1]) setFromR(list[activeCarId-1].to)
@@ -126,45 +138,48 @@ const ReturnTrip = ():React.ReactNode  => {
     return (
     <div className={container}>
         {!list[activeCarId-1].isReturnTrip && <div className='absolute left-0 top-10 right-0 bottom-0 z-20 bg-white opacity-50'></div>}
-        {/* <div 
-            onClick={()=>setIsReturnTrip(!list[activeCarId-1].isReturnTrip )}
-            className={!list[activeCarId-1].isReturnTrip ? "absolute top-6 z-30 flex px-2 py-1 rounded text-white bg-blue-500": "absolute top-6 right-4 z-30 flex px-2 py-1 rounded text-white bg-rose-500"}
-        >{!list[activeCarId-1].isReturnTrip ? 'return trip': 'one way'}</div> */}
+        
 
         <div className={content}>
             
-            <div className={date+ ' pt-[46px]'}>
-                <div className={list[activeCarId-1].dateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
-                    <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                        {list[activeCarId-1].dateR ? 
-                        <div className='flex items-center'>
-                            {fullDate.format('dddd')},  
-                            {'  '+fullDate.format('MMM')}
-                            {'.  '+fullDate.format('D')}
-                            { fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
-                                ? 'st'
-                                :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
-                                ?  'nd'
-                                :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
-                                ? 'rd'
-                                : 'th'
-                            }
-                        {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choose return date</div> }
-                    {isDateOpen && <div className={dateTimeSubmenu}>
-                        <DatePicker time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
-                        <div className="flex justify-between pl-8">
-                            <div className={setDateBtn} onClick={(e)=> {
-                                    e.stopPropagation();
-                                    setIsDateOpen(false)
-                                }}>accept</div>
-                        </div>
-                    </div>}
+            <div className={date}>
+                <div style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '11px -30px'}` }} className={day? bg +" bg-right ": bg }>
+                    {day && <div  className='absolute top-1 left-2 w-12 h-12 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
-                <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
-                <div className={timeToggle}>
-                    <div className={list[activeCarId-1].timeTypeR===0 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(0)}>undefined</div>
-                    <div className={list[activeCarId-1].timeTypeR===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(1)}>am</div>
-                    <div className={list[activeCarId-1].timeTypeR===2 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(2)}>pm</div>    
+                <div className={dateRow}>
+                    <div className={list[activeCarId-1].dateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                        <span className='icon text-xl'><PiCalendarCheckLight/></span>
+                            {list[activeCarId-1].dateR ? 
+                            <div className='flex items-center'>
+                                {fullDate.format('dddd')},  
+                                {'  '+fullDate.format('MMM')}
+                                {'.  '+fullDate.format('D')}
+                                { fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
+                                    ? 'st'
+                                    :  fullDate.format('DD') === '02' || fullDate.format('DD') === '22' || fullDate.format('DD') === '32'
+                                    ?  'nd'
+                                    :  fullDate.format('DD') === '03' || fullDate.format('DD') === '23' || fullDate.format('DD') === '33'
+                                    ? 'rd'
+                                    : 'th'
+                                }
+                            {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choose return date</div> }
+                        {isDateOpen && <div className={dateTimeSubmenu}>
+                            <DatePicker time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
+                            <div className="flex justify-between pl-8">
+                                <div className={setDateBtn} onClick={(e)=> {
+                                        e.stopPropagation();
+                                        setIsDateOpen(false)
+                                    }}>accept</div>
+                            </div>
+                        </div>}
+                    </div>
+                    <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
+                    <div className={timeToggle}>
+                        <div className={list[activeCarId-1].timeTypeR===0 ? amText+' border-green-300 bg-gray-100 ': amText+ ' bg-gray-100 border-b-white'} onClick={()=>setTimeTypeR(0)}>undefined</div>
+                        <div className={list[activeCarId-1].timeTypeR===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(1)}>am</div>
+                        <div className={list[activeCarId-1].timeTypeR===2 ? amText+' border-green-300 bg-black text-white ': amText+ ' bg-black text-white border-b-white'} onClick={()=>setTimeTypeR(2)}>pm</div>    
+                    </div>
+
                 </div>
             </div>
 
@@ -479,8 +494,10 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
+
+const bg = 'relative overflow-hidden w-full h-14 my-1 mb-10  bg-cover  rounded-xl bg-right '
 const amText = 'px-1 border-b-2 '
-const timeToggle = ' absolute top-[21px] right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
+const timeToggle = ' font-bold absolute -top-6 right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
 
 const content = ' relative flex flex-col w-full  space-y-3 py-10'
 
@@ -501,8 +518,10 @@ const openStop ="absolute w-5 h-5 -right-6 bg-green-500 ml-1 border border-black
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
 
+const dateRow = 'flex relative sm:items-start items-start w-full justify-between'
+
 const dateInput = 'text-xs flex border py-1 h-[40px] relative w-full max-w-[200px] rounded'
-const date = 'flex relative items-start mb-2  w-full justify-between border-b-2 border-black pb-6'
+const date = 'flex w-full flex-col border-b-2 border-black pb-6 '
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'

@@ -44,99 +44,64 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             setMinute(time.replace(/:/g, '') ? time.slice(3): dayjs().add(30, 'minutes').format('mm'))
         }
     },[list[activeCarId-1].dateNow])
+
     useEffect(()=>{
 
         if(!list[activeCarId-1].dateNow && JSON.stringify(dayjs().format('DD/MM/YYYY')) === JSON.stringify(date)) {
 
             //if 24 hours time 
-            if(isAm ===0 ) {
-                hour === dayjs().format('HH') 
-                    ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
-                    : setFilteredMinutes(minutes)
+            hour === dayjs().format('HH')
+                ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
+                : setFilteredMinutes(minutes)
 
-                if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
-                    setMinute(dayjs().add(30, 'minutes').format('mm'))
-                    setHour(dayjs().add(1, 'hours').format('HH'))
-                    onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
-                }
-
-                (dayjs().format('mm') > '30') 
-                ? setFilteredHours(hours.filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
-                : setFilteredHours(hours.filter(item => item >= dayjs().format('HH')))
-
-            } else  {
-                
-                if(+dayjs().format('HH') <= 12) {
-                    
-                    hour === dayjs().format('hh') 
-                    ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
-                    : setFilteredMinutes(minutes)
-
-                    if(list[activeCarId-1].time < dayjs().format('hh:mm')) {
-                        setMinute(dayjs().add(30, 'minutes').format('mm'))
-                        setHour(dayjs().add(1, 'hours').format('hh'))
-                        onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('hh:mm'))
-                    }
-                    if(dayjs().format('mm') > '30'){
-                        isAm === 1
-                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().add(1, 'hours').format('hh') ))
-                        : setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
-                    } else {
-                        isAm === 1
-                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
-                        : setFilteredHours(hours.filter(x=> x<'13'))
-                    }
-                    
-
-                }else if(+dayjs().format('HH') > 12) {
-                    hour === dayjs().format('hh') 
-                    ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
-                    : setFilteredMinutes(minutes)
-
-                    if(list[activeCarId-1].time < dayjs().format('hh:mm')) {
-                        setMinute(dayjs().add(30, 'minutes').format('mm'))
-                        setHour(dayjs().add(1, 'hours').format('hh'))
-                        onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('hh:mm'))
-                    }
-
-                    if(dayjs().format('mm') > '30'){
-                        isAm === 2
-                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().add(1, 'hours').format('hh') ))
-                        : setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
-                    } else {
-                        isAm === 2
-                        ? setFilteredHours(hours.filter(x=> x<'13').filter(item => item >= dayjs().format('hh')))
-                        : setFilteredHours(hours.filter(x=> x<'13'))
-                    }
-                }
+            if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
+                setMinute(dayjs().add(30, 'minutes').format('mm'))
+                setHour(dayjs().add(1, 'hours').format('HH'))
+                onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
             }
+
+            (dayjs().format('mm') > '30')
+            ? setFilteredHours(hours.filter(item => {
+                if(isAm === 1) return +item < 12 
+                if(isAm === 2) return +item >12
+                return item
+            }).filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
+            : setFilteredHours(hours.filter(item => {
+                if(isAm === 1) return +item < 12 
+                if(isAm === 2) return +item >12
+                return item
+            }).filter(item => item >= dayjs().format('HH')))
+
+
             if(hour===dayjs().format('HH') && isAm!==2) setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
         }
         
-        if(dayjs().format('DD/MM/YYYY') !== date) {
+        if(dayjs().format('DD/MM/YYYY') !== date ) {
             setFilteredMinutes(minutes)
-            isAm === 0
-                ? setFilteredHours(hours)
-                : setFilteredHours(hours.filter(hour => +hour < 13))
+            if(isAm !== 0) {
+                isAm === 1 
+                    ? setFilteredHours(hours.filter(item => +item < 12))
+                    : setFilteredHours(hours.filter(item => +item > 12))
+            } else {
+                setFilteredHours(hours)
+            }
+            
         }
     },[date, list[activeCarId-1].dateNow, list[activeCarId-1].date, list[activeCarId-1].time, isAm])
 
     useEffect(() => {
-
-        if(isAm>0){
-            onChange(`${( hour > '12' ? +hour-12 : hour )}:${minute}`)
-            if(minute && hour) {
-                setIsTime(2)
-            } else setIsTime(1)
-        } else {
-            onChange((hour) + ':' + (minute))
-            if(minute && hour) {
-                setIsTime(2)
-            } else setIsTime(1)
-        }
-        
+        onChange((hour) + ':' + (minute))
+        if(minute && hour) {
+            setIsTime(2)
+        } else setIsTime(1)
     }, [hour, minute])
 
+    useEffect(()=>{
+        if(isAm === 2) {
+            if(hour < '12' ) setHour(String(+hour +12))
+            onChange((hour) + ':' + (minute))
+        }
+    },[isAm])
 
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>

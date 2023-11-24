@@ -35,19 +35,13 @@ const LocationSection = ():React.ReactNode => {
                         if(need && list[activeCarId-1].isReturnTrip) {
                             setNeed(false)
                             setTabs(false)
-                            console.log('work 1',tabs)
-
                             return setIsReturnTrip(false)
                         }
-
                         if(need && !list[activeCarId-1].isReturnTrip) {
-                            console.log('work 2',tabs)
                             setTabs(true);
                             return setIsReturnTrip(true)
-                        };
-
+                        }
                         if(!need) {
-                            console.log('work 3',tabs)
                             setNeed(true)
                             setTabs(true)
                         }

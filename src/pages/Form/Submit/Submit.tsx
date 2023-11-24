@@ -15,7 +15,7 @@ const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
 const Submit = (): React.ReactNode => {
     const { list } = useMain()
     const { setIsSubmit } = useValidation()
-    const mutation: UseMutationResult<AxiosResponse<any>, unknown, ITaxi[], unknown> = useMutation(data=> sendOrder(data))
+    const mutation: UseMutationResult<AxiosResponse<unknown>, unknown, ITaxi[], unknown> = useMutation(data=> sendOrder(data))
 
     
     return (
