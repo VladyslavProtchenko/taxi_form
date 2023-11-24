@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { IoPeopleOutline, } from "react-icons/io5";
 // import { LiaBabyCarriageSolid } from "react-icons/lia";
 import { useMain } from '../../../../Store/useMain';
@@ -7,33 +7,26 @@ import { Select } from 'antd';
 
 
 const PassengersSelect = () => {
-    const {list, activeCarId, setPassengers,setCarType, isFrench } = useMain()
-    const [adults, setAdults] = useState(list[activeCarId-1].passengers.adults)
-    const [babies, setBabies] = useState(list[activeCarId-1].passengers.babies)
-    const [children, setChildren] = useState<{age:number}[]>(list[activeCarId-1].passengers.kids)
+    const {list, activeCarId, setAdults, setKids, setBabies,setCarType, isFrench } = useMain()
     const years = ['1 year','2 years','3 years','4 years','5 years','6 years','7 years','8 years']
 
-    useEffect(()=>{
-        setPassengers({adults, kids:children,babies})
-    },[adults,babies,children])
 
     useEffect(()=>{ 
-        if(list[activeCarId-1].carType !== 'VAN' && (adults + children.length ) >=4) {
-            setAdults((adults >= 4 ? 4: adults))
-            setChildren(children.filter(( child, index)=> {
-                if(index+1 <= (4 - adults) ) return child;
+        if(list[activeCarId-1].carType !== 'VAN' && (list[activeCarId-1].adults + list[activeCarId-1].kids.length ) >=4) {
+            setAdults((list[activeCarId-1].adults >= 4 ? 4: list[activeCarId-1].adults))
+            setKids(list[activeCarId-1].kids.filter(( child, index)=> {
+                if(index+1 <= (4 - list[activeCarId-1].adults) ) return child;
                 return false;
             }))
         }
     },[list[activeCarId-1].carType])
 
     useEffect(()=>{ 
-
-        if(adults===0) {
-            setChildren([])
+        if(list[activeCarId-1].adults===0) {
+            setKids([])
             setBabies(0)
         }
-    },[adults])
+    },[list[activeCarId-1].adults])
 
     return (
             <ul className={content}>
@@ -43,21 +36,21 @@ const PassengersSelect = () => {
                     <span className='ml-2 text-gray-400'>{isFrench ? 'Adultes': 'Adults'}</span>
                     </label>
                     <div className={bagCount}>
-                        <div className='text-xl text-center w-7'>{adults}</div>
+                        <div className='text-xl text-center w-7'>{list[activeCarId-1].adults}</div>
                             <div className={countBox}>
                                 <IoIosArrowUp
                                     className={button+ ' text-green-500 active:text-green-300'}
                                     onClick={()=>{
-                                        if((children.length + adults) >=4) setCarType('VAN')
-                                        if((children.length + adults)  >= 7) return;
-                                        setAdults(adults + 1)
+                                        if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType('VAN')
+                                        if((list[activeCarId-1].kids.length + list[activeCarId-1].adults)  >= 7) return;
+                                        setAdults(list[activeCarId-1].adults + 1)
                                     }}
                                 />
                                 <IoIosArrowDown 
                                     className={button+ ' text-red-500 active:text-red-300'} 
                                     onClick={()=>{
-                                        if(!adults ) return;
-                                        setAdults(adults - 1 )
+                                        if(!list[activeCarId-1].adults ) return;
+                                        setAdults(list[activeCarId-1].adults - 1 )
                                     }}
                                     
                                 />
@@ -66,31 +59,27 @@ const PassengersSelect = () => {
                     </div>
                 </div>
 
-                <div className={children.length? card : card} >
+                <div className={list[activeCarId-1].kids.length? card : card} >
                     <span className='ml-2 text-gray-400 mr-auto pt-1'>{isFrench ? 'Enfants': 'Kids'}</span>
                     <div className={bagCount}>
-                        <div className={count}>{children.length}</div>
+                        <div className={count}>{list[activeCarId-1].kids.length}</div>
                         <div className={countBox}>
                             <IoIosArrowUp
                                 className={button+ ' text-green-500 active:text-green-300'}
                                 onClick={()=>{
-                                    if(!adults) return;
-                                    if((children.length + adults) >=4) setCarType('VAN')
+                                    if(!list[activeCarId-1].adults) return;
+                                    if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType('VAN')
     
-                                    if((children.length + adults) >= 7 ) return;
-                                    const newKid = {
-                                        id: children.length +1,
-                                        age: 0
-                                    }
-                                    setChildren([...children, newKid] )
+                                    if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >= 7 ) return;
+                                    const newKid = 0
+                                    setKids([...list[activeCarId-1].kids, newKid] )
                                 }}
                             />
                             <IoIosArrowDown 
                                 className={button+ ' text-red-500 active:text-red-300'} 
                                 onClick={()=>{
-                                    if(!children.length) return;
-                                    children.pop()
-                                    setChildren([...children] )
+                                    if(!list[activeCarId-1].kids.length) return;
+                                    setKids([...list[activeCarId-1].kids] )
                                 }}
                                 
                             />
@@ -99,8 +88,8 @@ const PassengersSelect = () => {
                     </div>
                 </div>
 
-                {children.length > 0 && <div className={kidsContainer}>
-                    {children.map(( _, index) => (
+                {list[activeCarId-1].kids.length > 0 && <div className={kidsContainer}>
+                    {list[activeCarId-1].kids.map(( _, index) => (
                     <div className={childrenCard} key={index} onClick={(e)=> e.stopPropagation()}>
                         <span >Kid # {index+1}</span>
                         <div className=' flex items-center w-[60%] px-1 rounded'>
@@ -109,28 +98,28 @@ const PassengersSelect = () => {
                     </div>))}
                 </div>}
                 
-                <div className={children.length ? card : card}>
+                <div className={list[activeCarId-1].kids.length ? card : card}>
                     <span className={label}>
                         <span className='ml-2 text-gray-400 mr-auto pt-1'>{isFrench ? 'Bébés': 'Babies'}</span>
                     </span>
                     <div className={bagCount}>
-                        <div className={count}>{babies}</div>
+                        <div className={count}>{list[activeCarId-1].babies}</div>
                         <div className={countBox}>
                             <IoIosArrowUp
                                 className={button+ ' text-green-500 active:text-green-300'}
                                 onClick={()=>{
-                                    if(babies >= 2 && list[activeCarId-1].carType !== 'VAN') return;
-                                    if(babies >= 2) return;
-                                    if(babies >= 1 && adults >5) return;
+                                    if(list[activeCarId-1].babies >= 2 && list[activeCarId-1].carType !== 'VAN') return;
+                                    if(list[activeCarId-1].babies >= 2) return;
+                                    if(list[activeCarId-1].babies >= 1 && list[activeCarId-1].adults >5) return;
     
-                                    setBabies(babies + 1)
+                                    setBabies(list[activeCarId-1].babies + 1)
                                 }}
                             />
                             <IoIosArrowDown 
                                 className={button+ ' text-red-500 active:text-red-300'} 
                                 onClick={()=>{
-                                    if(!babies ) return;
-                                    setBabies(babies - 1 )
+                                    if(!list[activeCarId-1].babies ) return;
+                                    setBabies(list[activeCarId-1].babies - 1 )
                                 }}
                             />
                         </div>
@@ -138,7 +127,7 @@ const PassengersSelect = () => {
                     </div>
                 </div>
 
-                {((children.length + adults) > 5) && <div className={extraFee}>
+                {((list[activeCarId-1].kids.length + list[activeCarId-1].adults) > 5) && <div className={extraFee}>
                     <span className={fee}>You will have extra fee 5%</span>
                 </div>}
                 <div className='absolute flex -top-4 border-none right-1/2 translate-x-1/2 z-10 bg-white px-1 items-center text rounded-full'>

@@ -1,12 +1,6 @@
 import { create } from 'zustand';
 
-interface IPassengers {
-    adults: number;
-    kids: {
-        age: number,
-    }[],
-    babies: number
-}
+
 
 export interface IPet {
     isOther?: boolean;
@@ -93,7 +87,9 @@ export interface ITaxi {
 
     //options information
     carType: string;
-    passengers: IPassengers;
+    adults: number;
+    kids: number[],
+    babies: number
     baggage: IItem[];
     sport: IItem[];
     pets: IPet[];
@@ -204,7 +200,9 @@ interface IStore {
 
     //options methods
     setCarType:(value: string) => void;
-    setPassengers:(value: IPassengers) => void;
+    setAdults:(value: number) => void;
+    setKids:(value: number[]) => void;
+    setBabies:(value: number) => void;
     setBaggage:(value: IItem[]) => void;
     setSport:(value: IItem[]) => void;
     setPets:(value: IPet[]) => void;
@@ -308,11 +306,11 @@ export const useMain = create<IStore>()(
             
                 //options information
                 carType:  'Sedan',
-                passengers:{
-                    adults:1,
-                    kids:[],
-                    babies:0,
-                },
+                
+                adults:1,
+                kids:[],
+                babies:0,
+                
                 baggage: [
                     {
                         title: '32 kg',
@@ -493,11 +491,11 @@ export const useMain = create<IStore>()(
             
                 //options information
                 carType:  'Sedan',
-                passengers:{
-                    adults:1,
-                    kids:[],
-                    babies:0,
-                },
+                
+                adults:1,
+                kids:[],
+                babies:0,
+                
                 baggage: [
                     {
                         title: '32 kg',
@@ -678,11 +676,11 @@ export const useMain = create<IStore>()(
             
                 //options information
                 carType:  'Sedan',
-                passengers:{
-                    adults:1,
-                    kids:[],
-                    babies:0,
-                },
+                
+                adults:1,
+                kids:[],
+                babies:0,
+                
                 baggage: [
                     {
                         title: '32 kg',
@@ -863,11 +861,11 @@ export const useMain = create<IStore>()(
             
                 //options information
                 carType:  'Sedan',
-                passengers:{
-                    adults:1,
-                    kids:[],
-                    babies:0,
-                },
+                
+                adults:1,
+                kids:[],
+                babies:0,
+                
                 baggage: [
                     {
                         title: '32 kg',
@@ -1048,11 +1046,9 @@ export const useMain = create<IStore>()(
             
                 //options information
                 carType:  'Sedan',
-                passengers:{
-                    adults:1,
-                    kids:[],
-                    babies:0,
-                },
+                adults:1,
+                kids:[],
+                babies:0,
                 baggage: [
                     {
                         title: '32 kg',
@@ -1262,11 +1258,11 @@ export const useMain = create<IStore>()(
         
             //options information
             carType:  'Sedan',
-            passengers:{
-                adults:1,
-                kids:[],
-                babies:0,
-            },
+            
+            adults:1,
+            kids:[],
+            babies:0,
+            
             baggage: [
                 {
                     title: '32 kg',
@@ -1486,7 +1482,11 @@ export const useMain = create<IStore>()(
 
 
         setCarType: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, carType: data} : item )})),
-        setPassengers: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, passengers: data} : item )})),
+
+        setAdults: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, adults: data} : item )})),
+        setKids: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, kids: data} : item )})),
+        setBabies: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, babies: data} : item )})),
+
         setBaggage: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, baggage: data} : item )})),
         setPets: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, pets: data} : item )})),
         setSport: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, sport: data} : item )})),

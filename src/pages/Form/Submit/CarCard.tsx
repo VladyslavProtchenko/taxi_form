@@ -141,29 +141,29 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                     </div>
 
                     <div className={titles}>
-                        <div className={item.passengers.adults ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
+                        <div className={item.adults ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Adultes': 'Adults'}</div>
                         </div>
-                        <div className={item.passengers.kids.length ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
+                        <div className={item.kids.length ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Enfants': 'Kids'}</div>
                         </div>
-                        <div className={item.passengers.babies ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
+                        <div className={item.babies ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Bébés': 'Babies'}</div>
                         </div>
                     </div>
 
                     <div className='flex w-3/4 divide-x'>
                         <div className={optionItem}>
-                            <div className={text}>{item.passengers.adults}</div>
+                            <div className={text}>{item.adults}</div>
                         </div>
                         <div className={optionItem}>
-                            {item.passengers.kids.map(kid=>(
-                                <div className={text}>{kid.age} years</div>
+                            {item.kids.map(kid=>(
+                                <div className={text}>{kid} years</div>
 
                             ))}
                         </div>
                         <div className={optionItem}>
-                            <div className={text}>{item.passengers.babies}</div>
+                            <div className={text}>{item.babies}</div>
                         </div>
                     </div>
 

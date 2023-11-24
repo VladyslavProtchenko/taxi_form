@@ -44,7 +44,7 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
         <div className={(!pattern.test(list[activeCarId-1].email) && mainMail) ? container  +' border-red-500': container}>
             <span className='icon'><TfiEmail/></span>
             <Input
-                style={{width: 200,fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
+                style={{maxWidth: 200,width:'60%', fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
                 value={value.split('@')[0] || ''}
                 onChange={(v) => onChange(v.target.value+'@'+value.split('@')[1])}
                 placeholder={placeholder}
@@ -57,7 +57,7 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
                 showSearch
                 allowClear
                 value={value.split('@')[1] || null}
-                style={{minWidth:118, width:'100%', height: 40, fontWeight: 'bold', borderRadius: 5, borderLeft:'none', color: '#0066ff' }}
+                style={{minWidth:80, width:'100%', height: 40, fontWeight: 'bold', borderRadius: 5, borderLeft:'none', color: '#0066ff' }}
                 placeholder='gmail.com'
                 onSearch={(value) => {setCustomDomain( value)}}
                 onChange={(v) => onChange(value.split('@')[0]+'@'+(v || ''))}
@@ -72,7 +72,7 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
 
 export default MailInput;
 
-const domainBox = 'relative flex items-center font-bold text-[#0066ff]'
-const label = 'absolute right-[125px] font-bold text-[#0066ff] text-xl'
-const container = ' flex text-sm border items-center w-full rounded'
+const domainBox = 'relative flex w-2/5 items-center font-bold text-[#0066ff]'
+const label = 'absolute bottom-1/2 translate-y-1/2 -left-6 z-20 font-bold text-[#0066ff] text-xl'
+const container = 'relative flex text-sm border items-center rounded w-full'
 

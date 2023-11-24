@@ -13,7 +13,7 @@ import { FaBus } from "react-icons/fa";
 import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
-import { BsTrainFrontFill } from "react-icons/bs";
+import {  BsTrainFrontFill } from "react-icons/bs";
 import { useStore } from '../../../Store/index';
 import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
@@ -21,6 +21,9 @@ import React from "react";
 import { LiaShuttleVanSolid } from "react-icons/lia";
 import { AiOutlineStop } from "react-icons/ai";
 import { IoCarSportOutline } from "react-icons/io5";
+import sky from './../../../assets/day.png'
+import sun from './../../../assets/sun.png'
+import stars from './../../../assets/night.jpg'
 
 interface IObj {[key:number]: string}
 const TripContent = ():React.ReactNode => {
@@ -51,15 +54,17 @@ const TripContent = ():React.ReactNode => {
 
     const { store } = useStore()
 
+    
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
     const [ localStops, setLocalStops ] = useState<{[key:number]:string}>({})
-    // const [ amTime, setAmTime ] = useState<number>(0)
+    const [ day, setDay ] = useState(true)
 
     const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
     const [typePos, setTypePost] = useState(1)
+
     useEffect(()=>{
         setCarList(isFrench? store.carListF: store.carList)
     },[isFrench])
@@ -116,6 +121,17 @@ const TripContent = ():React.ReactNode => {
     useEffect(()=>{
         if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
     },[type])
+    
+    useEffect(()=>{
+        if(list[activeCarId-1].timeType===0){
+            setDay(list[activeCarId-1].time.slice(0,2)> '05' && list[activeCarId-1].time.slice(0,2) < '23')
+        } else if(list[activeCarId-1].timeType===1) {
+            setDay(list[activeCarId-1].time.slice(0,2)> '05')
+        } else {
+            setDay(list[activeCarId-1].time.slice(0,2) < '11')
+        }
+
+    },[list[activeCarId-1].time,list[activeCarId-1].timeType,])
 
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
     return (
@@ -146,7 +162,11 @@ const TripContent = ():React.ReactNode => {
                     }
                 </div>
             </div>
+
             <div className={date}>
+                <div style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '11px -30px'}` }} className={day? "relative overflow-hidden w-full h-14 my-1 g-no-repeat bg-cover bg-no-repeat rounded-xl bg-right ": " overflow-hidden relative w-full h-14 my-1 bg-cover  rounded-xl "}>
+                    {day && <div  className='absolute top-1 left-2 w-12 h-12 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
+                </div>
                 <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
                             if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
                             setDateNow(!list[activeCarId-1].dateNow)
@@ -543,14 +563,14 @@ const TripContent = ():React.ReactNode => {
 
 export default TripContent;
 
-const trickster = "absolute flex pl-1 truncate items-center text-center w-1/5 top-0 bottom-0 left-0 border border-green-300 border-l-gray-700 bg-green-400 duration-500"
+const trickster = "absolute flex px-1 w-1/5 justify-center text-center items-center text-center top-0 bottom-0 left-0 border border-green-300 border-l-gray-700 bg-green-400 duration-500"
 
 const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
-const typeCard = 'flex  self-center border border-black rounded s divide-x overflow-hidden w-full'
+const typeCard = 'flex  self-center border border-black rounded  divide-x overflow-hidden w-full'
 
 const content = 'flex flex-col w-full space-y-3 py-10'
 
-const typeItem = ' flex py-1 pl-1 border-black items-center truncate  cursor-pointer w-1/5 hover:text-green-700'
+const typeItem = ' flex py-1 px-1 border-black items-center text-center cursor-pointer justify-center w-1/5'
 const mainType = ' absolute top-4 overflow-hidden w-[90%] mx-auto text-[10px] justify-between divide-x flex  border border-black rounded'
 
 const amText = 'px-1 border-b-2 '
@@ -579,7 +599,7 @@ const dateRow = 'flex relative sm:items-start items-start w-full   justify-betwe
 
 const dateInput = 'text-xs flex border h-[40px] relative w-[200px] max-w-[200px] w-full rounded'
 
-const date = 'flex mt-3 mb-2 w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap flex-wrap'
+const date = 'flex w-full items-center justify-between border-b-2 border-black pb-6 xl:flex-wrap lg:flex-wrap flex-wrap'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
 const extraCardStop = 'flex relative mr-6  items-center border w-5/6 self-end  rounded'
