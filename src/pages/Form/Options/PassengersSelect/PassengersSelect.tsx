@@ -8,7 +8,7 @@ import { Select } from 'antd';
 
 const PassengersSelect = () => {
     const {list, activeCarId, setAdults, setKids, setBabies,setCarType, isFrench } = useMain()
-    const years = ['1 year','2 years','3 years','4 years','5 years','6 years','7 years','8 years']
+    const years = [1,2,3,4,5,6,7,8,]
 
 
     useEffect(()=>{ 
@@ -28,6 +28,7 @@ const PassengersSelect = () => {
         }
     },[list[activeCarId-1].adults])
 
+    console.log('kids', list[activeCarId-1].kids)
     return (
             <ul className={content}>
 
@@ -79,7 +80,9 @@ const PassengersSelect = () => {
                                 className={button+ ' text-red-500 active:text-red-300'} 
                                 onClick={()=>{
                                     if(!list[activeCarId-1].kids.length) return;
-                                    setKids([...list[activeCarId-1].kids] )
+                                    const newArray = [...list[activeCarId-1].kids]
+                                    newArray.pop()
+                                    setKids(newArray)
                                 }}
                                 
                             />
@@ -93,7 +96,15 @@ const PassengersSelect = () => {
                     <div className={childrenCard} key={index} onClick={(e)=> e.stopPropagation()}>
                         <span >Kid # {index+1}</span>
                         <div className=' flex items-center w-[60%] px-1 rounded'>
-                            <Select defaultValue='0 years' style={{width:'100%', padding:0}} className='yearsSelect' options={years.map(item=>({value: item, label: item }))}/>
+                            <Select 
+                                defaultValue='0 years' 
+                                style={{width:'100%', padding:0}} 
+                                className='yearsSelect' 
+                                options={years.map(item=>({value: item, label: `${item} years ` }))}
+                                onChange={(e)=>{
+                                    setKids(list[activeCarId-1].kids.map((child,i)=> i === index ? Number(e): child))
+                                }}
+                            />
                         </div>
                     </div>))}
                 </div>}

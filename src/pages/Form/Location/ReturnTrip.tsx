@@ -175,9 +175,10 @@ const ReturnTrip = ():React.ReactNode  => {
                     </div>
                     <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
                     <div className={timeToggle}>
-                        <div className={list[activeCarId-1].timeTypeR===0 ? amText+' border-green-300 bg-gray-100 ': amText+ ' bg-gray-100 border-b-white'} onClick={()=>setTimeTypeR(0)}>undefined</div>
-                        <div className={list[activeCarId-1].timeTypeR===1 ? amText+' border-green-300 ': amText+ ' border-b-white'} onClick={()=>setTimeTypeR(1)}>am</div>
-                        <div className={list[activeCarId-1].timeTypeR===2 ? amText+' border-green-300 bg-black text-white ': amText+ ' bg-black text-white border-b-white'} onClick={()=>setTimeTypeR(2)}>pm</div>    
+                        <div className={list[activeCarId-1].timeTypeR===0 ? amTextActive: amText} onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
+                        <div className={list[activeCarId-1].timeTypeR===1 ? pmTextActive: pmText} onClick={()=>setTimeTypeR(1)}>am</div>
+                        <div className={amDivider}></div>
+                        <div className={list[activeCarId-1].timeTypeR===2 ? selectTextActive: selectText} onClick={()=>setTimeTypeR(2)}>pm</div>    
                     </div>
 
                 </div>
@@ -187,19 +188,19 @@ const ReturnTrip = ():React.ReactNode  => {
                 <div className={icons}>
                     
                     <span className={list[activeCarId-1].icon == 1 ? iconCard : iconCardActive  }>
-                        <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' } />
+                        <MdFlightLand className={ iconItem + ' text-xl ' } />
                     </span>
                     <span className={list[activeCarId-1].icon == 2 ? iconCard : iconCardActive  }>
-                        <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
+                        <BsTrainFrontFill className={iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon == 3 ? iconCard : iconCardActive }>
-                        <FaBus className={ iconItem+ ' text-yellow-200 '} />
+                        <FaBus className={ iconItem} />
                     </span>
                     <span className={list[activeCarId-1].icon == 4 ? iconCard : iconCardActive  }>
-                        <FaSailboat className={ iconItem+ ' text-orange-300 '} />
+                        <FaSailboat className={ iconItem } />
                     </span>
                     <span className={list[activeCarId-1].icon == 5 ? iconCard : iconCardActive  }>
-                        <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
+                        <MdLocalHotel className={ iconItem }/>
                     </span>
                 </div>
 
@@ -422,19 +423,19 @@ const ReturnTrip = ():React.ReactNode  => {
                 
                 <div className={icons}>
                     <span className={list[activeCarId-1].icon2 == 1 ? iconCard : iconCardActive  }>
-                        <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl' } />
+                        <MdFlightTakeoff className={ iconItem + 'text-xl' } />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 2 ? iconCard : iconCardActive  }>
-                        <BsTrainFrontFill className={iconItem + ' text-amber-600 '} />
+                        <BsTrainFrontFill className={iconItem} />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 3 ? iconCard : iconCardActive  }>
-                        <FaBus className={ iconItem+ ' text-yellow-200 '} />
+                        <FaBus className={ iconItem} />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 4 ? iconCard : iconCardActive  }>
-                        <FaSailboat className={ iconItem+ ' text-orange-300 '} />
+                        <FaSailboat className={ iconItem} />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 5 ? iconCard : iconCardActive  }>
-                        <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
+                        <MdLocalHotel className={ iconItem}/>
                     </span>
                 </div>
 
@@ -496,7 +497,15 @@ export default ReturnTrip;
 
 
 const bg = 'relative overflow-hidden w-full h-14 my-1 mb-10  bg-cover  rounded-xl bg-right '
-const amText = 'px-1 border-b-2 '
+const amText = 'px-1 border-b-2  border-b-white bg-gray-100'
+const amTextActive = 'px-1 border-b-2 border-green-300 bg-gray-100'
+const pmText = 'px-1 border-b-2 '
+const pmTextActive = 'px-1 border-b-2 '
+const selectText = 'px-1 border-b-2 '
+const selectTextActive = 'px-1 border-b-2 '
+const amDivider = 'px-1 border-b-2 '
+
+
 const timeToggle = ' font-bold absolute -top-6 right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
 
 const content = ' relative flex flex-col w-full  space-y-3 py-10'

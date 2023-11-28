@@ -203,3 +203,6 @@ select option {
 .yearsSelect:where(.css-dev-only-do-not-override-amq5gd).ant-select .ant-select-arrow  {
     inset-inline-end: 2px !important;
 }
+.triangle {
+    clip-path: polygon(29% 0, 100% 0, 100% 100%, 0% 100%);
+} 

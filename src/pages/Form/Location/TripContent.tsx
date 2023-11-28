@@ -116,6 +116,7 @@ const TripContent = ():React.ReactNode => {
 
     useEffect(()=>{
         setStops(localStops)
+        setStop(Object.values(localStops).length)
     },[localStops])
 
     useEffect(()=>{
@@ -123,13 +124,14 @@ const TripContent = ():React.ReactNode => {
     },[type])
     
     useEffect(()=>{
+        console.log(list[activeCarId-1].time)
+        setDay(list[activeCarId-1].time.slice(0,2) > '04' && list[activeCarId-1].time.slice(0,2) < '23')
 
-        setDay(list[activeCarId-1].time.slice(0,2)> '05' && list[activeCarId-1].time.slice(0,2) < '23')
     },[list[activeCarId-1].time,list[activeCarId-1].timeType,])
 
+    
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
-    console.log(stop, 'stop')
     return (
     <div className={container}>
         <div className={content}>
@@ -223,9 +225,10 @@ const TripContent = ():React.ReactNode => {
                     </div>
                     <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
                     <div className={timeToggle}>
-                        <div className={list[activeCarId-1].timeType===0 ? amText+' border-green-500 bg-gray-100 ': amText+ ' border-b-white bg-gray-100  opacity-70 '} onClick={()=>setTimeType(0)}>undefined</div>
-                        <div className={list[activeCarId-1].timeType===1 ? amText+' border-b-green-500 ': amText+ ' border-b-white  opacity-70 '} onClick={()=>setTimeType(1)}>am</div>
-                        <div className={list[activeCarId-1].timeType===2 ? amText+' border-b-green-500 bg-black text-white ': amText+ ' border-b-white bg-black text-white  opacity-70  '} onClick={()=>setTimeType(2)}>pm</div>    
+                        <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
+                        <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
+                        {/* <div className={amDivider+ ' triangle'}>.</div> */}
+                        <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>pm</div>    
                     </div>
                 </div>
             </div>
@@ -234,19 +237,19 @@ const TripContent = ():React.ReactNode => {
                 
                 <div className={icons}>
                     <span className={list[activeCarId-1].icon == 1 ? iconCard : iconCardActive}>
-                        <MdFlightLand className={ iconItem + ' text-blue-500 text-xl ' }/>
+                        <MdFlightLand className={ iconItem + 'text-xl ' }/>
                     </span>
                     <span className={list[activeCarId-1].icon == 2 ? iconCard : iconCardActive}>
-                        <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
+                        <BsTrainFrontFill className={iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon == 3 ? iconCard: iconCardActive}>
-                        <FaBus className={ iconItem+ ' text-yellow-300 '}/>
+                        <FaBus className={ iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon == 4 ? iconCard : iconCardActive}>
-                        <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
+                        <FaSailboat className={ iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon == 5 ?iconCard : iconCardActive}>
-                        <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
+                        <MdLocalHotel className={ iconItem}/>
                     </span>
                 </div>
 
@@ -343,7 +346,7 @@ const TripContent = ():React.ReactNode => {
             </div>}
                 
             {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={extraCardStop}>
-                <div className={stop > 0 ? box: box + ' opacity-0 '}>
+                <div className={(stop > 0)? box: box + ' opacity-0 '}>
                     {/* <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div> */}
                     <span className='icon text-orange-400'><SlLocationPin/></span>  
                     <GoogleAddressInput
@@ -550,19 +553,19 @@ const TripContent = ():React.ReactNode => {
                 
                 <div className={icons}>           
                     <span className={list[activeCarId-1].icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
-                        <MdFlightTakeoff className={ iconItem + ' text-blue-500 text-xl ' } />
+                        <MdFlightTakeoff className={ iconItem + ' text-xl ' } />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 2 ? iconCard : iconCardActive}>
-                        <BsTrainFrontFill className={iconItem + ' text-amber-600 '}/>
+                        <BsTrainFrontFill className={iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon2 == 3 ?iconCard : iconCardActive}>
-                        <FaBus className={ iconItem+ ' text-yellow-200 '}/>
+                        <FaBus className={ iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon2 == 4 ?iconCard : iconCardActive}>
-                        <FaSailboat className={ iconItem+ ' text-orange-300 '}/>
+                        <FaSailboat className={ iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon2 == 5 ?iconCard+ ' rounded-r' : iconCardActive }>
-                        <MdLocalHotel className={ iconItem+ ' text-purple-500 '}/>
+                        <MdLocalHotel className={ iconItem }/>
                     </span>
                 </div>
 
@@ -623,7 +626,16 @@ const TripContent = ():React.ReactNode => {
 
 export default TripContent;
 
-const box = 'flex relative border rounded'
+const box = 'flex relative border rounded w-full'
+
+const amText = 'pl-2  border-b-2  border-b-white  '
+const amTextActive = 'pl-2 border-b-2 border-b-green-300 '
+const pmText = 'px-2 border-b-2 border-b-white text-white bg-gray-600  rounded-tl triangle'
+const pmTextActive = 'px-2  border-b-2 border-b-green-300 text-white bg-gray-600  rounded-tl triangle '
+const selectText = 'px-2 border-b-2 border-b-white bg-gray-100 '
+const selectTextActive = 'px-2 border-b-2 border-b-green-300 bg-gray-100 '
+
+const timeToggle = ' absolute -top-6 font-bold right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
 
 const trickster = "absolute flex px-1 w-1/5 justify-center text-center items-center text-center top-0 bottom-0 left-0 border border-green-300 border-l-gray-700 bg-green-400 duration-500"
 
@@ -635,8 +647,6 @@ const content = 'flex flex-col w-full space-y-3 py-10'
 const typeItem = ' flex py-1 px-1 border-black items-center text-center cursor-pointer justify-center w-1/5'
 const mainType = ' absolute top-4 overflow-hidden w-[90%] mx-auto text-[10px] justify-between divide-x flex  border border-black rounded'
 
-const amText = 'px-1 border-b-2 '
-const timeToggle = ' absolute -top-6 font-bold right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
 
 const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2' 
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold min-w-[42px] py-1'
@@ -644,14 +654,14 @@ const toggleLabelActive ='flex min-w-[42px] items-center py-1 text-xs  duration-
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 
-const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-green-400 '
+const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-sky-400 border-black'
 const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
 const iconItem = ' '
 const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'
 const iconsType = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
 const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 
-const closeStop =" my-auto w-6 h-5  bg-red-500 ml-1  rounded flex  justify-center cursor-pointer text-bold items-center"
+const closeStop =" my-auto w-5 h-5  bg-red-500 ml-1  rounded flex  justify-center cursor-pointer text-bold items-center"
 const openStop ="absolute bg-green-400 px-2 py-1 text-xs rounded flex cursor-pointer text-white "
 
 

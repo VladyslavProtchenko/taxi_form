@@ -275,7 +275,7 @@ const addExtraBtn = "absolute w-[25%] py-1 text-white flex justify-center bg-gre
 
 const extraNameClose = " my-auto ml-2 text-black w-6  h-6 border-gray-800 border  items-center flex justify-center bg-red-500 rounded cursor-pointer  left-[102%]"
 
-const extraCard = ' flex relative max-w-[400px] rounded '
-const extraContainer = 'flex flex-col w-full  space-y-4 '
+const extraCard = ' flex relative max-w-[400px] rounded w-full'
+const extraContainer = 'flex flex-col w-full  space-y-4 items-center'
 
 const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full  max-w-[576px] border-none'

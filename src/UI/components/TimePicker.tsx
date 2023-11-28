@@ -100,11 +100,28 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
         if(isAm === 2) {
             if(hour < '12' ) setHour(String(+hour +12))
             onChange((hour) + ':' + (minute))
+        } else if(isAm === 1) {
+            if(hour > '12' ){
+                const newHour = +hour - 12
+                setHour(String(newHour <10 ? '0'+String(newHour): newHour))
+            } 
+            onChange((hour) + ':' + (minute))
+        }else if(isAm === 0) {
+            console.log('workwww')
+            setHour('00')
+            setMinute('00')
+            onChange('00:00')
         }
     },[isAm])
 
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
+            <div 
+                className={isAm===0? 'absolute top-0 left-0 right-0 bottom-0 bg-white opacity-60 z-500': 'hidden'} 
+                onClick={(e)=>{
+                    e.stopPropagation(); 
+                    return
+                }}></div>
             <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>
             <input
                 className={input}
