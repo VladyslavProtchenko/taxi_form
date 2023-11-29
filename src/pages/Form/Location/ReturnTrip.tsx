@@ -12,11 +12,8 @@ import { useStore } from "../../../Store";
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { FaBus } from "react-icons/fa";
-import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
-import { BsTrainFrontFill } from "react-icons/bs";
-// import { useInfo } from "../../../Store/useInfo";
 import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
 import React from "react";
@@ -24,6 +21,8 @@ interface IObj {[key:number]: string}
 import sky from './../../../assets/day.png'
 import sun from './../../../assets/sun.png'
 import stars from './../../../assets/night.jpg'
+import train from './../../../assets/train.jpeg'
+import boat from './../../../assets/ship.png'
 
 const ReturnTrip = ():React.ReactNode  => {
     const {
@@ -57,15 +56,9 @@ const ReturnTrip = ():React.ReactNode  => {
     const [stop, setStop] = useState(3)
 
     useEffect(()=>{
-        if(list[activeCarId-1].timeTypeR===0){
-            setDay(list[activeCarId-1].timeR.slice(0,2)> '05' && list[activeCarId-1].timeR.slice(0,2) < '23')
-        } else if(list[activeCarId-1].timeTypeR===1) {
-            setDay(list[activeCarId-1].timeR.slice(0,2)> '05')
-        } else {
-            setDay(list[activeCarId-1].timeR.slice(0,2) < '11')
-        }
+        setDay(list[activeCarId-1].timeR.slice(0,2) > '04' && list[activeCarId-1].timeR.slice(0,2) < '23')
 
-    },[list, activeCarId])
+    },[list[activeCarId-1].timeR,list[activeCarId-1].timeTypeR])
 
     useEffect(()=>{
         if(trigger[1]) setFromR(list[activeCarId-1].to)
@@ -144,6 +137,12 @@ const ReturnTrip = ():React.ReactNode  => {
             
             <div className={date}>
                 <div style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '11px -30px'}` }} className={day? bg +" bg-right ": bg }>
+                    <div className="absolute -top-4 right-1/2 translate-x-1/2 border flex items-center bg-white px-4 py-1 rounded">
+                        {day
+                            ? isFrench? 'Tarification jour ': 'Day fare'
+                            : isFrench? 'Tarification nuit': 'Night fare'
+                        } 
+                    </div>
                     {day && <div  className='absolute top-1 left-2 w-12 h-12 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
                 <div className={dateRow}>
@@ -151,7 +150,13 @@ const ReturnTrip = ():React.ReactNode  => {
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                             {list[activeCarId-1].dateR ? 
                             <div className='flex items-center'>
-                                {fullDate.format('dddd')},  
+                                {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
+                                :fullDate.format('dddd')==='Tuesday'? isFrench ? 'Mardi':'Tuesday'
+                                :fullDate.format('dddd')==='Wednesday'?isFrench ? 'Merceredi':'Wednesday'
+                                :fullDate.format('dddd')==='Thursday'?isFrench ? 'Jeudi':'Thursday'
+                                :fullDate.format('dddd')==='Friday'?isFrench ? 'Venderdi':'Friday'
+                                :fullDate.format('dddd')==='Saturday'?isFrench ? 'Samedi':'Saturday'
+                                : isFrench ?'Dimanche': 'Sunday'},
                                 {'  '+fullDate.format('MMM')}
                                 {'.  '+fullDate.format('D')}
                                 { fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
@@ -174,11 +179,11 @@ const ReturnTrip = ():React.ReactNode  => {
                         </div>}
                     </div>
                     <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
-                    <div className={timeToggle}>
-                        <div className={list[activeCarId-1].timeTypeR===0 ? amTextActive: amText} onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
-                        <div className={list[activeCarId-1].timeTypeR===1 ? pmTextActive: pmText} onClick={()=>setTimeTypeR(1)}>am</div>
-                        <div className={amDivider}></div>
-                        <div className={list[activeCarId-1].timeTypeR===2 ? selectTextActive: selectText} onClick={()=>setTimeTypeR(2)}>pm</div>    
+                    <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-gray-600 ':timeToggle+ ' '}>
+                        <div className={list[activeCarId-1].timeTypeR===0 ? selectTextActive :selectText } onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
+                        <div className={list[activeCarId-1].timeTypeR===1 ? amTextActive : amText} onClick={()=>setTimeTypeR(1)}>am</div>
+                        <div className="absolute  border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
+                        <div className={list[activeCarId-1].timeTypeR===2 ? pmTextActive: pmText} onClick={()=>setTimeTypeR(2)}>PM</div>    
                     </div>
 
                 </div>
@@ -191,13 +196,13 @@ const ReturnTrip = ():React.ReactNode  => {
                         <MdFlightLand className={ iconItem + ' text-xl ' } />
                     </span>
                     <span className={list[activeCarId-1].icon == 2 ? iconCard : iconCardActive  }>
-                        <BsTrainFrontFill className={iconItem}/>
+                        <div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
                     </span>
                     <span className={list[activeCarId-1].icon == 3 ? iconCard : iconCardActive }>
                         <FaBus className={ iconItem} />
                     </span>
                     <span className={list[activeCarId-1].icon == 4 ? iconCard : iconCardActive  }>
-                        <FaSailboat className={ iconItem } />
+                        <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
                     </span>
                     <span className={list[activeCarId-1].icon == 5 ? iconCard : iconCardActive  }>
                         <MdLocalHotel className={ iconItem }/>
@@ -218,11 +223,11 @@ const ReturnTrip = ():React.ReactNode  => {
                     {list[activeCarId-1].icon === 1
                         ?<MdFlightLand className='text-xl mx-1'/>
                         :list[activeCarId-1].icon === 2
-                        ?<BsTrainFrontFill className=' mx-1'/>
+                        ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon === 3
                         ? <FaBus className=' mx-1'/>
                         :list[activeCarId-1].icon === 4
-                        ? <FaSailboat className=' mx-1'/>
+                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightLand className='text-xl mx-1'/>
@@ -426,13 +431,14 @@ const ReturnTrip = ():React.ReactNode  => {
                         <MdFlightTakeoff className={ iconItem + 'text-xl' } />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 2 ? iconCard : iconCardActive  }>
-                        <BsTrainFrontFill className={iconItem} />
+                        <div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
                     </span>
                     <span className={list[activeCarId-1].icon2 == 3 ? iconCard : iconCardActive  }>
                         <FaBus className={ iconItem} />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 4 ? iconCard : iconCardActive  }>
-                        <FaSailboat className={ iconItem} />
+                        <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+
                     </span>
                     <span className={list[activeCarId-1].icon2 == 5 ? iconCard : iconCardActive  }>
                         <MdLocalHotel className={ iconItem}/>
@@ -453,11 +459,11 @@ const ReturnTrip = ():React.ReactNode  => {
                     {list[activeCarId-1].icon2 === 1
                         ?< MdFlightLand className='text-xl mx-1'/>
                         :list[activeCarId-1].icon2 === 2
-                        ?< BsTrainFrontFill className=' mx-1'/>
+                        ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon2 === 3
                         ? <FaBus className=' mx-1'/>
                         :list[activeCarId-1].icon2 === 4
-                        ? <FaSailboat className=' mx-1'/>
+                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon2 === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightTakeoff className='text-xl mx-1'/>
@@ -496,18 +502,19 @@ const ReturnTrip = ():React.ReactNode  => {
 export default ReturnTrip;
 
 
-const bg = 'relative overflow-hidden w-full h-14 my-1 mb-10  bg-cover  rounded-xl bg-right '
-const amText = 'px-1 border-b-2  border-b-white bg-gray-100'
-const amTextActive = 'px-1 border-b-2 border-green-300 bg-gray-100'
-const pmText = 'px-1 border-b-2 '
-const pmTextActive = 'px-1 border-b-2 '
-const selectText = 'px-1 border-b-2 '
-const selectTextActive = 'px-1 border-b-2 '
-const amDivider = 'px-1 border-b-2 '
+const amText = 'pl-2  flex items-center py-1 pr-[2px] '
+const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-gray-600 text-white '
+
+const pmText = 'px-2 pl-4  triangle flex bg-white items-center py-1 '
+const pmTextActive = 'px-2 pl-4 text-white bg-gray-600 triangle flex items-center py-1 '
+
+const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
+const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 border-r border-black '
+
+const timeToggle = ' absolute -top-8 font-bold right-0 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
 
 
-const timeToggle = ' font-bold absolute -top-6 right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
-
+const bg = 'relative  w-full h-14 my-1 mb-10  bg-cover  rounded-xl bg-right '
 const content = ' relative flex flex-col w-full  space-y-3 py-10'
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '

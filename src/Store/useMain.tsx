@@ -1183,27 +1183,11 @@ export const useMain = create<IStore>()(
         setAdditionalText: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, additionalText: data} : item )})),
         resetForm: () => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { 
             ...item,
-            name: '',
-            name2: '',
-            name3: '',
-            
-            title: 'Mr.',
-            title2: 'Mr.',
-            title3: 'Mr.',
-        
-            email:'',
-            email2: '',
-            email3: '',
-        
-            phone: '',
-            phone2: '',
-            phone3: '',
-        
+
             date:'',
             time:'',
             dateNow:true,
         
-            //trip information
             from:'',
             to: '',
         
@@ -1225,10 +1209,6 @@ export const useMain = create<IStore>()(
         
             departure: '',
             departure2: '',
-            tripType:'',
-        
-            paymentMethod: '',
-            additionalText: '',
         
             //return trip information
             isReturnTrip: false,
@@ -1256,123 +1236,6 @@ export const useMain = create<IStore>()(
             departureR: '',
             departure2R: '',
         
-            //options information
-            carType:  'Sedan',
-            
-            adults:1,
-            kids:[],
-            babies:0,
-            
-            baggage: [
-                {
-                    title: '32 kg',
-                    quantity: 1,
-                    isActive: false,
-                },
-                {
-                    title: '23 kg',
-                    quantity: 0,
-                    isActive: true,
-                },
-                {
-                    title: 'Between',
-                    quantity: 1,
-                    isActive: false,
-                },
-                {
-                    title: '10 kg',
-                    quantity: 1,
-                    isActive: false,
-                },
-                {
-                    title: '8 kg',
-                    quantity: 1,
-                    isActive: false,
-                }
-            ],
-            sport:[
-                {
-                    title: 'Bikes',
-                    quantity: 0,
-                    isActive: true,
-                },
-                {
-                    title: 'Skis',
-                    quantity: 1,
-                    isActive: false,
-                },
-                {
-                    title: 'Golf',
-                    quantity: 1,
-                    isActive: false,
-                },
-                {
-                    title: 'Surf',
-                    quantity: 1,
-                    isActive: false,
-                },
-            ],
-            carSeats: [
-                {
-                    title: 'Regular',
-                    quantity: 0,
-                },
-                {
-                    title: 'Babi',
-                    quantity: 0,
-                },
-                {
-                    title: 'Booster',
-                    quantity: 0,
-                },
-                
-                {
-                    title: 'Umbrella',
-                    quantity: 0,
-                },
-                {
-                    title: 'Regular ',
-                    quantity: 0,
-                },
-                {
-                    title: 'Double ',
-                    quantity: 0,
-                },
-                {
-                    title: 'Wheelchair',
-                    quantity: 0,
-                },
-            ],
-            pets: [
-                {
-                    title: 'Dog',
-                    cage: false,
-                    quantity:0,
-                },
-                {
-                    title: 'Cat',
-                    cage: false,
-                    quantity: 0
-                },
-                {
-                    title: 'Rabbit',
-                    cage: false,
-                    quantity: 0
-                },
-                {
-                    title: 'Service dog (Mira)',
-                    cage: false,
-                    quantity: 0
-                },
-                {
-                    isOther: true,
-                    title: 'Other',
-                    cage: false,
-                    quantity: 0
-                },
-
-            ],
-            steps:1,
         } : item )})),
 
 
@@ -1475,9 +1338,7 @@ export const useMain = create<IStore>()(
             departureR: '',
             departure2R: '',
             tripTypeR:'',
-        
-            paymentMethodR: '',
-            additionalTextR: '',
+
         } : item )})),
 
 

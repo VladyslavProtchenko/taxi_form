@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { IoPeopleOutline, } from "react-icons/io5";
-// import { LiaBabyCarriageSolid } from "react-icons/lia";
 import { useMain } from '../../../../Store/useMain';
 import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 import { Select } from 'antd';
@@ -165,6 +164,5 @@ const button = "   cursor-pointer scale-[160%]  duration-300 "
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 
-// const kidsIcon ='w-8 h-[28px] overflow-hidden bg-contain bg-[url("https://cdn0.iconfinder.com/data/icons/child-1-1/70/boy-child-children-girl-512.png")] bg-no-repeat scale-[130%]'
 const card = 'relative text-sm flex  pr-4  py-2 justify-between cursor-pointer h-[45px] border-blue-500 '
 const content = 'relative border px-2 h-min border-blue-500 rounded pt-2 divide-y flex flex-col bg-white relative text-sm w-1/2'

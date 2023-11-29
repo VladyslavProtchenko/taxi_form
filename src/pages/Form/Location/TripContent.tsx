@@ -10,10 +10,8 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight, PiJeepLight } from "react-icons/pi";
 import { FaBus } from "react-icons/fa";
-import { FaSailboat } from "react-icons/fa6";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
-import {  BsTrainFrontFill } from "react-icons/bs";
 import { useStore } from '../../../Store/index';
 import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
@@ -24,6 +22,14 @@ import { IoCarSportOutline } from "react-icons/io5";
 import sky from './../../../assets/day.png'
 import sun from './../../../assets/sun.png'
 import stars from './../../../assets/night.jpg'
+import train from './../../../assets/train.jpeg'
+import boat from './../../../assets/ship.png'
+import delivery from './../../../assets/delivery.png'
+import orderTaxi from './../../../assets/taxiOrder.png'
+import carBooster from './../../../assets/carBooster.png'
+import lostKey from './../../../assets/lostKeys.png'
+
+
 
 interface IObj {[key:number]: string}
 const TripContent = ():React.ReactNode => {
@@ -124,10 +130,9 @@ const TripContent = ():React.ReactNode => {
     },[type])
     
     useEffect(()=>{
-        console.log(list[activeCarId-1].time)
         setDay(list[activeCarId-1].time.slice(0,2) > '04' && list[activeCarId-1].time.slice(0,2) < '23')
 
-    },[list[activeCarId-1].time,list[activeCarId-1].timeType,])
+    },[list[activeCarId-1].time,list[activeCarId-1].timeType])
 
     
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
@@ -135,36 +140,63 @@ const TripContent = ():React.ReactNode => {
     return (
     <div className={container}>
         <div className={content}>
+            
             <div className={mainType}>
-                {store.typeList.map((item,index)=>(
-                    <div 
-                        className={ typeItem}
-                        onClick={()=> {
-                            console.log(index+1)
-                            setTypePost(index+1)
-                            setType(item)
-                        }}
-                    >{item}</div>
-                ))}
-                <div className={trickster+ `${typePos===2? ' translate-x-[100%] ': typePos===3? ' translate-x-[200%] ': typePos===4? ' translate-x-[300%] ':  typePos===5? ' translate-x-[400%] ' : ' border-l-green-300'}`}>
-                    {
+                    {store.typeList.map((item,index)=>(
+                        <div 
+                            className={ typeItem}
+                            onClick={()=> {
+                                console.log(index+1)
+                                setTypePost(index+1)
+                                setType(item)
+                            }}
+                        >
+                            {index===0
+                                ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
+                                : index===1
+                                ? <div style={{backgroundImage:`url(${orderTaxi})`}}  className={typeIconItem}></div>
+                                : index===2
+                                ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
+                                : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
+                            }
+                            <span className='bg-white px-1'>{item}</span>
+                        </div>
+                    ))}
+                <div className={trickster+ `${typePos===2? ' translate-x-[100%] ': typePos===3? ' translate-x-[200%] ': typePos===4? ' translate-x-[300%] ' : ' border-l-green-300 '}`}>
+                        {typePos===1
+                                ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
+                                : typePos===2
+                                ? <div style={{backgroundImage:`url(${orderTaxi})`}}  className={typeIconItem}></div>
+                                : typePos===3
+                                ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
+                                : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
+                        }
+                    <span className='px-1'>
+                        {
                         typePos===1
-                            ? isFrench? 'Undefined': 'Undefined'
-                            : typePos===2
                             ? isFrench? 'Transport': 'Transport'
-                            : typePos===3
+                            : typePos===2
                             ? isFrench? 'Delivery': 'Delivery'
-                            : typePos===4
+                            : typePos===3
                             ? isFrench? 'Boost': 'Boost'
                             : isFrench? 'Unlocking door': 'Unlocking door'
-                    }
+                            
+                    }</span>
+                    
                 </div>
             </div>
 
             <div className={date}>
-                <div style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '11px -30px'}` }} className={day? "relative overflow-hidden w-full h-14 my-1 g-no-repeat bg-cover bg-no-repeat rounded-xl bg-right ": " overflow-hidden relative w-full h-14 my-1 bg-cover  rounded-xl "}>
+                <div style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '11px -30px'}` }} className={day? "relative  w-full h-14 my-1 g-no-repeat bg-cover bg-no-repeat rounded-xl bg-right ": "  relative w-full h-14 my-1 bg-cover  rounded-xl "}>
+                    <div className="absolute -top-4 right-1/2 translate-x-1/2 border flex items-center bg-white px-4 py-1 rounded">
+                        {day
+                            ? isFrench? 'Tarification jour ': 'Day fare'
+                            : isFrench? 'Tarification nuit': 'Night fare'
+                        } 
+                    </div>
                     {day && <div  className='absolute top-1 left-2 w-12 h-12 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
+
                 <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
                             if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
                             setDateNow(!list[activeCarId-1].dateNow)
@@ -179,24 +211,25 @@ const TripContent = ():React.ReactNode => {
                                 setDate(dayjs().format('DD/MM/YYYY'))
                             }
                         }}>
-                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-l ' :toggleLabel+  ' rounded-l   '}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }
+                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel+ ' bg-red-600 '}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }
                     </span>
-                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive + ' rounded-r ' :toggleLabel+  '  rounded-r  pl-[7px]'}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
+                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive   :toggleLabel+ ' bg-green-400 ' }>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
                     
                 </div>
+
                 <div className={dateRow}>
                     
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
                     <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {list[activeCarId-1].date ? <div className='flex items-center'>
-                            { fullDate.format('dddd')==='Monday'? 'Lundi'
-                            :fullDate.format('dddd')==='Tuesday'? 'Mardi'
-                            :fullDate.format('dddd')==='Wednesday'? 'Merceredi'
-                            :fullDate.format('dddd')==='Thursday'? 'Jeudi'
-                            :fullDate.format('dddd')==='Friday'? 'Venderdi'
-                            :fullDate.format('dddd')==='Saturday'? 'Samedi'
-                            : 'Dimanche'},  
+                            {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
+                            :fullDate.format('dddd')==='Tuesday'? isFrench ? 'Mardi':'Tuesday'
+                            :fullDate.format('dddd')==='Wednesday'?isFrench ? 'Merceredi':'Wednesday'
+                            :fullDate.format('dddd')==='Thursday'?isFrench ? 'Jeudi':'Thursday'
+                            :fullDate.format('dddd')==='Friday'?isFrench ? 'Venderdi':'Friday'
+                            :fullDate.format('dddd')==='Saturday'?isFrench ? 'Samedi':'Saturday'
+                            : isFrench ?'Dimanche': 'Sunday'},  
                             {'  '+fullDate.format('MMM')}
                             { '.  '+fullDate.format('D')}{ fullDate.format('DD') === '01' || fullDate.format('DD') === '21' || fullDate.format('DD') === '31'
                                                     ? 'st'
@@ -224,11 +257,11 @@ const TripContent = ():React.ReactNode => {
                         </div>}
                     </div>
                     <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
-                    <div className={timeToggle}>
+                    <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':timeToggle+ ' '}>
                         <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
                         <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
-                        {/* <div className={amDivider+ ' triangle'}>.</div> */}
-                        <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>pm</div>    
+                        <div className="absolute  border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
+                        <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
                     </div>
                 </div>
             </div>
@@ -240,13 +273,16 @@ const TripContent = ():React.ReactNode => {
                         <MdFlightLand className={ iconItem + 'text-xl ' }/>
                     </span>
                     <span className={list[activeCarId-1].icon == 2 ? iconCard : iconCardActive}>
-                        <BsTrainFrontFill className={iconItem}/>
+                        
+                        <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
                     </span>
                     <span className={list[activeCarId-1].icon == 3 ? iconCard: iconCardActive}>
                         <FaBus className={ iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon == 4 ? iconCard : iconCardActive}>
-                        <FaSailboat className={ iconItem}/>
+                        
+                        <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+
                     </span>
                     <span className={list[activeCarId-1].icon == 5 ?iconCard : iconCardActive}>
                         <MdLocalHotel className={ iconItem}/>
@@ -258,7 +294,7 @@ const TripContent = ():React.ReactNode => {
                     {list[activeCarId-1].icon === 1 && 
                     <Select 
                         className='favorite w-1/2 max-h-[30px]'
-                        style={{width: '100px', borderRadius: 5}} 
+                        style={{ borderRadius: 5}} 
                         options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
@@ -269,11 +305,11 @@ const TripContent = ():React.ReactNode => {
                     {list[activeCarId-1].icon === 1
                         ?<MdFlightLand className='text-xl mx-1 e'/>
                         :list[activeCarId-1].icon === 2
-                        ?< BsTrainFrontFill className=' mx-1 '/>
+                        ?<div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon === 3
                         ? <FaBus className=' mx-1 sm:text-sm'/>
                         :list[activeCarId-1].icon === 4
-                        ? <FaSailboat className=' mx-1'/>
+                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon === 5 
                         ?<MdLocalHotel className='mx-1 '/>
                         :<MdFlightTakeoff className='text-xl mx-1 '/>
@@ -292,8 +328,7 @@ const TripContent = ():React.ReactNode => {
                         value={list[activeCarId-1].flight}
                         maxLength={4}
                         placeholder={list[activeCarId-1].icon === 1 ?'####': list[activeCarId-1].icon === 2 ? 'Train#' : list[activeCarId-1].icon === 3 ? "Bus#" : list[activeCarId-1].icon === 4 ? 'Boat#': 'Room#'} 
-                        className={list[activeCarId-1].icon === 1 ? ' max-w-[80px]': '' } 
-                        style={{ width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                        style={{ width:65, paddingLeft:0,paddingRight:0, borderRadius: 0, height: 30}} 
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
                     />
                 </div>}
@@ -301,7 +336,7 @@ const TripContent = ():React.ReactNode => {
 
             <div className={locationCard}>
                 <div className={list[activeCarId-1].from ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
-                    <span className='icon text-green-500'><SlLocationPin/></span>
+                    <span className='icon text-green-500 '><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full' 
                         defaultLocation={list[activeCarId-1].from || ''} 
@@ -556,13 +591,15 @@ const TripContent = ():React.ReactNode => {
                         <MdFlightTakeoff className={ iconItem + ' text-xl ' } />
                     </span>
                     <span className={list[activeCarId-1].icon2 == 2 ? iconCard : iconCardActive}>
-                        <BsTrainFrontFill className={iconItem}/>
+                        <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+
                     </span>
                     <span className={list[activeCarId-1].icon2 == 3 ?iconCard : iconCardActive}>
                         <FaBus className={ iconItem}/>
                     </span>
                     <span className={list[activeCarId-1].icon2 == 4 ?iconCard : iconCardActive}>
-                        <FaSailboat className={ iconItem}/>
+                        <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+
                     </span>
                     <span className={list[activeCarId-1].icon2 == 5 ?iconCard+ ' rounded-r' : iconCardActive }>
                         <MdLocalHotel className={ iconItem }/>
@@ -584,11 +621,11 @@ const TripContent = ():React.ReactNode => {
                     {list[activeCarId-1].icon2 === 1
                         ?<MdFlightTakeoff className='text-xl mx-1'/>
                         :list[activeCarId-1].icon2 === 2
-                        ?<BsTrainFrontFill className=' mx-1'/>
+                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon2 === 3
                         ? <FaBus className=' mx-1'/>
                         :list[activeCarId-1].icon2 === 4
-                        ? <FaSailboat className=' mx-1'/>
+                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon2 === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightLand className='text-xl mx-1'/>
@@ -628,38 +665,43 @@ export default TripContent;
 
 const box = 'flex relative border rounded w-full'
 
-const amText = 'pl-2  border-b-2  border-b-white  '
-const amTextActive = 'pl-2 border-b-2 border-b-green-300 '
-const pmText = 'px-2 border-b-2 border-b-white text-white bg-gray-600  rounded-tl triangle'
-const pmTextActive = 'px-2  border-b-2 border-b-green-300 text-white bg-gray-600  rounded-tl triangle '
-const selectText = 'px-2 border-b-2 border-b-white bg-gray-100 '
-const selectTextActive = 'px-2 border-b-2 border-b-green-300 bg-gray-100 '
 
-const timeToggle = ' absolute -top-6 font-bold right-0 flex divide-x items-center text-xs  cursor-pointer  rounded overflow-hidden'
+const typeIconItem = 'w-8 h-5 bg-contain bg-no-repeat bg-center'
+const amText = 'pl-2  flex items-center py-1 pr-[2px] '
+const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-gray-600 text-white '
 
-const trickster = "absolute flex px-1 w-1/5 justify-center text-center items-center text-center top-0 bottom-0 left-0 border border-green-300 border-l-gray-700 bg-green-400 duration-500"
+const pmText = 'px-2 pl-4 rounded-tl triangle flex bg-white items-center py-1 '
+const pmTextActive = 'px-2 pl-4 text-white bg-gray-600  rounded-tl triangle flex items-center py-1 '
+
+const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
+const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 border-r border-black '
+
+const timeToggle = ' absolute -top-8 font-bold right-0 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
+
 
 const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
 const typeCard = 'flex  self-center border border-black rounded  divide-x overflow-hidden w-full'
 
-const content = 'flex flex-col w-full space-y-3 py-10'
+const content = 'flex flex-col w-full space-y-3 py-10 pt-20'
 
-const typeItem = ' flex py-1 px-1 border-black items-center text-center cursor-pointer justify-center w-1/5'
-const mainType = ' absolute top-4 overflow-hidden w-[90%] mx-auto text-[10px] justify-between divide-x flex  border border-black rounded'
+const typeItem = ' flex py-1 border-black items-center cursor-pointer w-1/4 '
+const trickster = "absolute flex border-l border-black bg-white items-center w-1/4 h-full bg-green-300 duration-500"
+const mainType = ' absolute top-4  w-[97%] -translate-x-3 text-[10px] justify-between divide-x flex border border-black '
 
 
-const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2' 
-const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2 bg-green-400  text-black font-bold min-w-[42px] py-1'
-const toggleLabelActive ='flex min-w-[42px] items-center py-1 text-xs  duration-500 transition px-2  bg-green-50 text-gray-400'
+
+const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2 overflow-hidden' 
+const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2   text-black font-bold min-w-[42px] py-1'
+const toggleLabelActive ='flex min-w-[42px] items-center py-1 text-xs  duration-500 transition px-2   opacity-25 font-bold '
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 
 const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-sky-400 border-black'
 const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
 const iconItem = ' '
-const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'
+const icons = 'flex divide-x w-1/2 border-black border rounded  overflow-hidden'
 const iconsType = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
-const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
+const flightCard = 'flex relative items-center border w-1/2 rounded '
 
 const closeStop =" my-auto w-5 h-5  bg-red-500 ml-1  rounded flex  justify-center cursor-pointer text-bold items-center"
 const openStop ="absolute bg-green-400 px-2 py-1 text-xs rounded flex cursor-pointer text-white "
@@ -671,7 +713,7 @@ const dateRow = 'flex relative sm:items-start items-start w-full   justify-betwe
 
 const dateInput = 'text-xs flex border h-[40px] relative w-[200px] max-w-[200px] w-full rounded'
 
-const date = 'flex w-full items-center justify-between border-b-2 border-black pb-6 flex-wrap'
+const date = 'flex w-full items-center justify-between border-b-2 border-black pb-6 flex-wrap pt-4'
 const locationCard = 'flex relative items-center w-full  space-x-2'
 
 const extraCardStop = 'flex relative w-5/6 self-end  rounded'

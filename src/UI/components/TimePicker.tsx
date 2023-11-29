@@ -63,12 +63,12 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             (dayjs().format('mm') > '30')
             ? setFilteredHours(hours.filter(item => {
                 if(isAm === 1) return +item < 12 
-                if(isAm === 2) return +item >12
+                if(isAm === 2) return +item >=12
                 return item
             }).filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
             : setFilteredHours(hours.filter(item => {
                 if(isAm === 1) return +item < 12 
-                if(isAm === 2) return +item >12
+                if(isAm === 2) return +item >=12
                 return item
             }).filter(item => item >= dayjs().format('HH')))
 
@@ -81,7 +81,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             if(isAm !== 0) {
                 isAm === 1 
                     ? setFilteredHours(hours.filter(item => +item < 12))
-                    : setFilteredHours(hours.filter(item => +item > 12))
+                    : setFilteredHours(hours.filter(item => +item >= 12))
             } else {
                 setFilteredHours(hours)
             }
@@ -101,7 +101,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             if(hour < '12' ) setHour(String(+hour +12))
             onChange((hour) + ':' + (minute))
         } else if(isAm === 1) {
-            if(hour > '12' ){
+            if(hour > '11' ){
                 const newHour = +hour - 12
                 setHour(String(newHour <10 ? '0'+String(newHour): newHour))
             } 
@@ -159,7 +159,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             {isOpen && <div className={submenu} >
 
                 <div className="overflow-scroll border-r">
-                    {[...filteredHours,'00'].map((item, index) =>
+                    {[...filteredHours].map((item, index) =>
                             <div
                                 key={index + item}
                                 className=" px-4 cursor-pointer hover:bg-gray-100"
@@ -168,7 +168,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
                         )}
                 </div>
                 <div className="overflow-scroll " >
-                    {[...filteredMinutes,'00'].map((item, index) =>
+                    {[...filteredMinutes].map((item, index) =>
                         <div
                             key={index + item}
                             className=" px-4 cursor-pointer hover:bg-gray-100"

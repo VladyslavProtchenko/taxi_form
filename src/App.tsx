@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
 import { useMain } from "./Store/useMain"
 import Form from "./pages/Form/Form"
-import { AiOutlineInfoCircle } from "react-icons/ai";
 import en from './assets/english.png'
 import fr from './assets/france.png'
-// import sun from './assets/sun.png'
-// import moon from './assets/moon.png'
+
+import { TiInfoLarge } from "react-icons/ti";
+
 import dayjs from "dayjs";
 
 function App():React.ReactNode {
@@ -20,8 +20,6 @@ function App():React.ReactNode {
     <div className={container} >
       <div className={wrapper}>
         <div className={header}>
-        {/* {day && <div onClick={()=>setDay(!day)} className='absolute top-1 right-5 w-16 h-16 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>} */}
-        {/* {!day && <div onClick={()=>setDay(!day)} className='absolute -top-6 -right-2 w-32 h-32 bg-center bg-contain rotate-45' style={{backgroundImage:`url(${moon})` }}></div>} */}
         <div className={lang} onClick={()=>setIsFrench(!isFrench)}>
           {isFrench 
             ?<div style={{backgroundImage:`url(${en})` }} className={'w-7 h-7 text-xs bg-center bg-cover bg-no-repeat'} ></div>
@@ -56,36 +54,41 @@ function App():React.ReactNode {
                 onClick={()=>{
                   setActiveCarId(1)
                 }}
-            >1</li>
+            >1<span className='font-light text-sm mx-[1px] w-3 text-gray-400 '>st</span></li>
             <li 
                 className={activeCarId===2 ? activeTab  : activeCarId ===3 ? tab + '  rounded-br ' : activeCarId===1 ? tab + ' rounded-tr ' : tab+ ' ' }
                 onClick={()=>{
                   if(!isCars[1]) return
                   setActiveCarId(2)
                 }}
-            >2</li>
+            >2<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>nd</span></li>
             <li 
                 className={activeCarId===3 ? activeTab  : activeCarId===4 ? tab + 'rounded-br ' : activeCarId===2 ? tab + '  rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[2] || !isCars[1]) return
                   setActiveCarId(3)
                 }}
-            >3</li>
+            >3<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>rd</span></li>
             <li 
                 className={activeCarId===4 ? activeTab  : activeCarId===5 ? tab + '  rounded-br ' : activeCarId===3 ? tab + ' rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[3] || !isCars[2] || !isCars[1]) return
                   setActiveCarId(4)
                 }}
-            >4</li>
+            >4<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>th</span></li>
             <li 
                 className={activeCarId===5 ? activeTab : activeCarId===4 ? tab + '  rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[4] || !isCars[3] || !isCars[2] || !isCars[1]) return
                   setActiveCarId(5)
                 }}
-            >5</li>
-            <li className={activeCarId===5 ? 'h-full pt-6 flex items-center w-full rounded-tr border-r  border-t ' : ' pt-6 flex border-r justify-center w-full h-full  '}><AiOutlineInfoCircle className='cursor-pointer text-xl'/></li>
+            >5<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>th</span></li>
+
+            <li className={activeCarId===5 ? 'h-full pt-6 flex items-center w-full rounded-tr border-r  border-t ' : ' pt-6 flex border-r justify-center w-full h-full  '}>
+              <div className=" flex items-center text-2xl justify-center border-2 h-min rounded-full border-orange-400 text-orange-400">
+                <TiInfoLarge className='cursor-pointer '/>
+              </div>
+            </li>
         </ul>
           <Form />
         </div>
@@ -97,8 +100,8 @@ function App():React.ReactNode {
 
 export default App
 const taxiLabel = 'text-gray-400 mx-auto'
-const tab = 'px-1 text-2xl border border-l-none text-center cursor-pointer   hover:text-gray-400  border-r box-border' 
-const activeTab = 'px-1 text-2xl border border-l-none text-center cursor-pointer border-t border-b border-white bg-white'
+const activeTab = 'px-1 flex items-center justify-end text-lg border border-l-0  cursor-pointer border-t border-b border-white bg-white'
+const tab = 'px-1 text-lg flex items-center justify-end border border-l-0  cursor-pointer border-t border-b  bg-white'
 const tabsContainer = 'flex flex-col mr-2 font-bold h-full m-0 w-[40px] '
 
 const lang = ' flex rounded h-[20px] cursor-pointer mb-4'
