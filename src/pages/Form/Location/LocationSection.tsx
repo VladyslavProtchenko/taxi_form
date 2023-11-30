@@ -9,7 +9,7 @@ const LocationSection = ():React.ReactNode => {
     const [ tabs, setTabs ] = useState(false)
     const [ need, setNeed ] = useState(false)
     const {store} = useStore()
-    const {isFrench, type, list, setIsReturnTrip, activeCarId } = useMain()
+    const {isFrench, list, setIsReturnTrip, activeCarId } = useMain()
 
     return (
         <section className={section}>
@@ -17,16 +17,14 @@ const LocationSection = ():React.ReactNode => {
                 <div className='absolute w-20 h-[27px]  bg-white bottom-0 right-1/2 translate-x-1/2'></div>
                 <div 
                     className={tabs ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} 
-                    onClick={()=>{
-                        setTabs(false)
-                    }}
+                    onClick={()=>{ setTabs(false)}}
                 >
                     {isFrench? store.tripTitlesF[0] : store.tripTitles[0]}
                 </div>
                 <div 
                     className={!tabs ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} 
                     onClick={()=>{
-                        if(['Boost', 'Unlocking door'].includes(type)) return;
+                        if(['Boost', 'Unlocking door'].includes(list[activeCarId-1].type)) return;
                         if(need) setTabs(true)
                     }}
                 >

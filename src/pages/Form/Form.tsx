@@ -11,14 +11,14 @@ import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
 
 const Form = (): React.ReactNode => {
-    const { list, activeCarId ,setIsCars, isCars, type} = useMain()
+    const { list, activeCarId ,setIsCars, isCars} = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const { validation,setIsSubmit } = useValidation()
 
     useEffect(()=>{
         
-        if(['Boost', 'Unlocking door'].includes(type)
+        if(['Boost', 'Unlocking door'].includes(list[0].type)
             && list[0].from 
             && list[0].name.length > 3 
             && list[0].title 
@@ -68,7 +68,7 @@ const Form = (): React.ReactNode => {
     },[list[0]])
 
     useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(type)
+        if(['Boost', 'Unlocking door'].includes(list[1].type)
             && list[1].from 
             && list[1].name.length > 3 
             && list[1].title 
@@ -121,7 +121,7 @@ const Form = (): React.ReactNode => {
     },[list[1]])
 
     useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(type)
+        if(['Boost', 'Unlocking door'].includes(list[2].type)
             && list[2].from 
             && list[2].name.length > 3 
             && list[2].title 
@@ -174,7 +174,7 @@ const Form = (): React.ReactNode => {
     },[list[2]])
 
     useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(type)
+        if(['Boost', 'Unlocking door'].includes(list[3].type)
             && list[3].from 
             && list[3].name.length > 3 
             && list[3].title 
@@ -227,7 +227,7 @@ const Form = (): React.ReactNode => {
     },[list[3]])
     
     useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(type)
+        if(['Boost', 'Unlocking door'].includes(list[4].type)
             && list[4].from 
             && list[4].name.length > 3 
             && list[4].title 

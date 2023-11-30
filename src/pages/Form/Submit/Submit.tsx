@@ -5,10 +5,12 @@ import CarCard from './CarCard';
 import { useValidation } from '../../../Store/useValidation';
 import axios, { AxiosResponse } from 'axios';
 import { UseMutationResult, useMutation } from 'react-query';
+import dayjs from 'dayjs';
 
 
 const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
-    return axios.post("http://localhost:7015/users",data);
+    const response = await axios.post("http://localhost:3000/order",data);
+    return response;
 };
 
 
@@ -17,7 +19,7 @@ const Submit = (): React.ReactNode => {
     const { setIsSubmit } = useValidation()
     const mutation: UseMutationResult<AxiosResponse<unknown>, unknown, ITaxi[], unknown> = useMutation(data=> sendOrder(data))
 
-    
+    console.log(list[0])
     return (
         <section className={section}>
             {list.filter(item => item.filled).map((item) => (
@@ -28,7 +30,9 @@ const Submit = (): React.ReactNode => {
                     Back
                 </div>
                 <div onClick={() => {
-                    const data = list.filter(item=>item.filled)
+                    const data = list.filter(item=>item.filled).map(car =>{
+                        return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car
+                    })
                     mutation.mutate(data)
                     alert('order sent')
                 }} className={btn2}>

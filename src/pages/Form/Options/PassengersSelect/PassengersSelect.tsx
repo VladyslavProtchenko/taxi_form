@@ -27,7 +27,6 @@ const PassengersSelect = () => {
         }
     },[list[activeCarId-1].adults])
 
-    console.log('kids', list[activeCarId-1].kids)
     return (
             <ul className={content}>
 

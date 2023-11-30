@@ -1,5 +1,5 @@
 import { IPet, useMain } from '../../../../Store/useMain';
-import { useState } from 'react';
+import {  useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import rabbit from './../../../../assets/rabbit2.png'
 import cat from './../../../../assets/cat.png'
@@ -11,8 +11,8 @@ const PetsSelect = () => {
     const {list, activeCarId, setPets} = useMain()
     const [pet,setPet] = useState(list[activeCarId-1].pets[4].title)
 
-    function setOther(item:IPet, e:any){
-        setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, title: e.target.value} : rem ))
+    function setOther(item:IPet, e:string){
+        setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, title: e} : rem ))
     }
 
     return (
@@ -40,7 +40,7 @@ const PetsSelect = () => {
                                 className=' text-gray-400 w-full  border outline-none' 
                                 value={pet} 
                                 onChange={(e)=>setPet(e.target.value)}
-                                onBlur={(e)=>setOther(item,e.target.value)}
+                                onBlur={(e)=>setOther(item, e.target.value)}
                             />
                         :<span className=' text-gray-400' > {item.title}</span>}
                         {index !==3 && <div className='flex items-center'>
@@ -89,6 +89,6 @@ const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%] duration-300 "
 
 const bagCount ='flex  items-center'
-const card = 'relative flex pr-4 border-blue-500 cursor-pointer text-sm w-full  h-[45px] '
+const card = 'relative flex  border-blue-500 cursor-pointer text-sm w-full  h-[45px] '
 const container = 'relative px-2 flex w-1/2 flex-col divide-y items-center  pt-2  border rounded border-blue-500 h-min'
 

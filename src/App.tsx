@@ -33,7 +33,8 @@ function App():React.ReactNode {
           <div className='flex items-center'>  
               
               <span className={taxiLabel}>
-                {activeCarId === 1 
+                Taxis
+                {/* {activeCarId === 1 
                 ? "1st Taxi"
                 :activeCarId === 2 
                 ? "2nd Taxi"
@@ -42,7 +43,7 @@ function App():React.ReactNode {
                 :activeCarId === 4 
                 ? "4th Taxi"
                 : '5th Taxi'
-                }
+                } */}
               </span>
           </div>
         </div>
@@ -54,35 +55,35 @@ function App():React.ReactNode {
                 onClick={()=>{
                   setActiveCarId(1)
                 }}
-            >1<span className='font-light text-sm mx-[1px] w-3 text-gray-400 '>st</span></li>
+            >1<span className='font-light text-sm mx-[1px] w-3 text-gray-400 '>{isFrench? 'er': 'st'}</span></li>
             <li 
                 className={activeCarId===2 ? activeTab  : activeCarId ===3 ? tab + '  rounded-br ' : activeCarId===1 ? tab + ' rounded-tr ' : tab+ ' ' }
                 onClick={()=>{
                   if(!isCars[1]) return
                   setActiveCarId(2)
                 }}
-            >2<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>nd</span></li>
+            >2<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'nd'}</span></li>
             <li 
                 className={activeCarId===3 ? activeTab  : activeCarId===4 ? tab + 'rounded-br ' : activeCarId===2 ? tab + '  rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[2] || !isCars[1]) return
                   setActiveCarId(3)
                 }}
-            >3<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>rd</span></li>
+            >3<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'rd'}</span></li>
             <li 
                 className={activeCarId===4 ? activeTab  : activeCarId===5 ? tab + '  rounded-br ' : activeCarId===3 ? tab + ' rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[3] || !isCars[2] || !isCars[1]) return
                   setActiveCarId(4)
                 }}
-            >4<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>th</span></li>
+            >4<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'th'}</span></li>
             <li 
                 className={activeCarId===5 ? activeTab : activeCarId===4 ? tab + '  rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[4] || !isCars[3] || !isCars[2] || !isCars[1]) return
                   setActiveCarId(5)
                 }}
-            >5<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>th</span></li>
+            >5<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'th'}</span></li>
 
             <li className={activeCarId===5 ? 'h-full pt-6 flex items-center w-full rounded-tr border-r  border-t ' : ' pt-6 flex border-r justify-center w-full h-full  '}>
               <div className=" flex items-center text-2xl justify-center border-2 h-min rounded-full border-orange-400 text-orange-400">
@@ -99,7 +100,7 @@ function App():React.ReactNode {
 }
 
 export default App
-const taxiLabel = 'text-gray-400 mx-auto'
+const taxiLabel = 'text-gray-400 -translate-x-3'
 const activeTab = 'px-1 flex items-center justify-end text-lg border border-l-0  cursor-pointer border-t border-b border-white bg-white'
 const tab = 'px-1 text-lg flex items-center justify-end border border-l-0  cursor-pointer border-t border-b  bg-white'
 const tabsContainer = 'flex flex-col mr-2 font-bold h-full m-0 w-[40px] '
@@ -107,7 +108,7 @@ const tabsContainer = 'flex flex-col mr-2 font-bold h-full m-0 w-[40px] '
 const lang = ' flex rounded h-[20px] cursor-pointer mb-4'
 const langItem = 'text-xl px-1'
 
-const header = 'flex flex-col w-full py-4 pt-4 px-4 shadow mb-[1px]'
+const header = 'flex flex-col w-full p pt-4 px-4 shadow mb-[1px]'
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px]'
 const container = 'flex w-full min-w-screen min-h-screen justify-center '

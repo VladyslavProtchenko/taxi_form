@@ -61,6 +61,9 @@ export const useStore = create<Store>(() => ({
 
         //  defaultLocations: [ 'Aéroport - Montréal ( 975 Roméo-Vachon)', 'Airport - Saint-Hubert( PASCAN AVIATION)', 'Train - Gare Centrale de Montreal(895 de la //Gauchetière Ouest)', 'Train - Dorval Station','Bus - Bus - Station Centrale d’autobus( 1717 rue Berri)',]
         // defaultLocations: ['Airport - Montreal ( 975 Roméo-Vachon)', 'Airport - Saint-Hubert( PASCAN AVIATION)', 'Train - Central Station( 895 Gauchetière Ouest)', 'Train - Dorval Station', 'Bus - Central Station( 1717 Rue Berri)',],
+        numbersList:['st', 'nd', 'rd', 'th'],
+        numbersListF:['st', 'nd', 'rd', 'th'],
+
         titleList: ['Mr.', 'Mrs.', 'Miss.', 'Undefined' ],
         titleListF: ['M.', 'Mne.', 'Mlle.', 'Indéfini' ],
 

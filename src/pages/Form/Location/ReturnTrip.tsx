@@ -84,39 +84,39 @@ const ReturnTrip = ():React.ReactNode  => {
         setIconR(0)
         setIcon2R(0)
         store.airportArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIconR(1)
+            if(list[activeCarId-1].fromR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIconR(1)
         })
         store.busArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIconR(3)
+            if(list[activeCarId-1].fromR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIconR(3)
 
         })
         store.trainArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(2)
+            if(list[activeCarId-1].fromR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(2)
         })
         store.boatArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(4)
+            if(list[activeCarId-1].fromR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(4)
         })
         store.hotelArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(5)
+            if(list[activeCarId-1].fromR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIconR(5)
         })
         store.airportArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2R(1)
+            if(list[activeCarId-1].toR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2R(1)
         })
         store.busArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2R(3)
+            if(list[activeCarId-1].toR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2R(3)
 
         })
         store.trainArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(2)
+            if(list[activeCarId-1].toR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(2)
         })
         store.boatArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(4)
+            if(list[activeCarId-1].toR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(4)
         })
         store.hotelArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(5)
+            if(list[activeCarId-1].toR.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2R(5)
         })
 
-    },[list[activeCarId-1].from, list[activeCarId-1].to])
+    },[list[activeCarId-1].from,list[activeCarId-1].fromR, list[activeCarId-1].to,list[activeCarId-1].toR])
 
     function setBackSection(){
         setTrigger({ 1: 1, 2: 1 })
@@ -169,7 +169,7 @@ const ReturnTrip = ():React.ReactNode  => {
                                 }
                             {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choose return date</div> }
                         {isDateOpen && <div className={dateTimeSubmenu}>
-                            <DatePicker time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
+                            <DatePicker isReturn={true} time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
                             <div className="flex justify-between pl-8">
                                 <div className={setDateBtn} onClick={(e)=> {
                                         e.stopPropagation();
@@ -192,25 +192,25 @@ const ReturnTrip = ():React.ReactNode  => {
             <div className={type}>
                 <div className={icons}>
                     
-                    <span className={list[activeCarId-1].icon == 1 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].iconR == 1 ? iconCard : iconCardActive  }>
                         <MdFlightLand className={ iconItem + ' text-xl ' } />
                     </span>
-                    <span className={list[activeCarId-1].icon == 2 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].iconR == 2 ? iconCard : iconCardActive  }>
                         <div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
                     </span>
-                    <span className={list[activeCarId-1].icon == 3 ? iconCard : iconCardActive }>
+                    <span className={list[activeCarId-1].iconR == 3 ? iconCard : iconCardActive }>
                         <FaBus className={ iconItem} />
                     </span>
-                    <span className={list[activeCarId-1].icon == 4 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].iconR == 4 ? iconCard : iconCardActive  }>
                         <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
                     </span>
-                    <span className={list[activeCarId-1].icon == 5 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].iconR == 5 ? iconCard : iconCardActive  }>
                         <MdLocalHotel className={ iconItem }/>
                     </span>
                 </div>
 
-                {list[activeCarId-1].icon > 0 && <div className={flightCard }>
-                    {list[activeCarId-1].icon === 1 && <Select 
+                {list[activeCarId-1].iconR > 0 && <div className={flightCard }>
+                    {list[activeCarId-1].iconR === 1 && <Select 
                         className='favorite w-1/2 max-h-[30px]'
                         style={{width: '100px', borderRadius: 5}} 
                         options={store.flights.map(item=>(
@@ -220,19 +220,19 @@ const ReturnTrip = ():React.ReactNode  => {
                         placeholder='Airlines' 
                     />}
                     
-                    {list[activeCarId-1].icon === 1
+                    {list[activeCarId-1].iconR === 1
                         ?<MdFlightLand className='text-xl mx-1'/>
-                        :list[activeCarId-1].icon === 2
+                        :list[activeCarId-1].iconR === 2
                         ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon === 3
+                        :list[activeCarId-1].iconR === 3
                         ? <FaBus className=' mx-1'/>
-                        :list[activeCarId-1].icon === 4
+                        :list[activeCarId-1].iconR === 4
                         ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon === 5 
+                        :list[activeCarId-1].iconR === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightLand className='text-xl mx-1'/>
                     }   
-                    {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                    {list[activeCarId-1].iconR === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
                         {list[activeCarId-1].airlines.toLowerCase().includes('canada') 
                             ? 'AC'
                             : list[activeCarId-1].airlines.toLowerCase().includes('transat') 
@@ -243,10 +243,10 @@ const ReturnTrip = ():React.ReactNode  => {
                         }
                     </div>}
                     <Input 
-                        value={list[activeCarId-1].flight}
+                        value={list[activeCarId-1].flightR}
                         maxLength={4}
-                        placeholder={list[activeCarId-1].icon === 1 ?'####': list[activeCarId-1].icon === 2 ? 'Train#' : list[activeCarId-1].icon === 3 ? "Bus#" : list[activeCarId-1].icon === 4 ? 'Boat#': 'Room#'} 
-                        style={{width:`${list[activeCarId-1].icon === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
+                        placeholder={list[activeCarId-1].iconR === 1 ?'####': list[activeCarId-1].iconR === 2 ? 'Train#' : list[activeCarId-1].iconR === 3 ? "Bus#" : list[activeCarId-1].iconR === 4 ? 'Boat#': 'Room#'} 
+                        style={{width:`${list[activeCarId-1].iconR === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlightR(e.target.value.replace(/\D/g, ''))}
                     />
                 </div>} 
@@ -427,26 +427,26 @@ const ReturnTrip = ():React.ReactNode  => {
             <div className={type}>
                 
                 <div className={icons}>
-                    <span className={list[activeCarId-1].icon2 == 1 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2R == 1 ? iconCard : iconCardActive  }>
                         <MdFlightTakeoff className={ iconItem + 'text-xl' } />
                     </span>
-                    <span className={list[activeCarId-1].icon2 == 2 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2R == 2 ? iconCard : iconCardActive  }>
                         <div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
                     </span>
-                    <span className={list[activeCarId-1].icon2 == 3 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2R == 3 ? iconCard : iconCardActive  }>
                         <FaBus className={ iconItem} />
                     </span>
-                    <span className={list[activeCarId-1].icon2 == 4 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2R == 4 ? iconCard : iconCardActive  }>
                         <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
 
                     </span>
-                    <span className={list[activeCarId-1].icon2 == 5 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].icon2R == 5 ? iconCard : iconCardActive  }>
                         <MdLocalHotel className={ iconItem}/>
                     </span>
                 </div>
 
-                {list[activeCarId-1].icon2>0 && <div className={flightCard }>
-                    {list[activeCarId-1].icon2 === 1 && <Select 
+                {list[activeCarId-1].icon2R>0 && <div className={flightCard }>
+                    {list[activeCarId-1].icon2R === 1 && <Select 
                         className='favorite w-1/2 max-h-[30px]'
                         style={{width: '100px', borderRadius:5}} 
                         options={store.flights.map(item=>(
@@ -456,19 +456,19 @@ const ReturnTrip = ():React.ReactNode  => {
                         placeholder='Airlines' 
                     />}
                     
-                    {list[activeCarId-1].icon2 === 1
+                    {list[activeCarId-1].icon2R === 1
                         ?< MdFlightLand className='text-xl mx-1'/>
-                        :list[activeCarId-1].icon2 === 2
+                        :list[activeCarId-1].icon2R === 2
                         ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2 === 3
+                        :list[activeCarId-1].icon2R === 3
                         ? <FaBus className=' mx-1'/>
-                        :list[activeCarId-1].icon2 === 4
+                        :list[activeCarId-1].icon2R === 4
                         ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2 === 5 
+                        :list[activeCarId-1].icon2R === 5 
                         ?<MdLocalHotel className='mx-1'/>
                         :<MdFlightTakeoff className='text-xl mx-1'/>
                     }   
-                    {list[activeCarId-1].icon2 === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                    {list[activeCarId-1].icon2R === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
                         {list[activeCarId-1].airlinesBack.toLowerCase().includes('canada') 
                             ? 'AC'
                             : list[activeCarId-1].airlinesBack.toLowerCase().includes('transat') 
@@ -479,10 +479,10 @@ const ReturnTrip = ():React.ReactNode  => {
                         }
                     </div>}
                     <Input 
-                        value={list[activeCarId-1].flight2}
+                        value={list[activeCarId-1].flight2R}
                         maxLength={4}
-                        placeholder={list[activeCarId-1].icon2 === 1 ?'####': list[activeCarId-1].icon2 === 2 ? 'Train#' : list[activeCarId-1].icon2 === 3 ? "Bus#" : list[activeCarId-1].icon2 === 4 ? 'Boat#': 'Room#'} 
-                        style={{width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
+                        placeholder={list[activeCarId-1].icon2R === 1 ?'####': list[activeCarId-1].icon2R === 2 ? 'Train#' : list[activeCarId-1].icon2R === 3 ? "Bus#" : list[activeCarId-1].icon2R === 4 ? 'Boat#': 'Room#'} 
+                        style={{width:`${list[activeCarId-1].icon2R === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2R(e.target.value.replace(/\D/g, ''))}/>
                 </div> }
             </div>
@@ -520,7 +520,7 @@ const content = ' relative flex flex-col w-full  space-y-3 py-10'
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 const revert = 'px-4 py-1 bg-orange-400 text-white rounded hover:bg-orange-300 active:bg-orange-500 '
 
-const iconCard = 'flex items-center justify-center w-1/5 h-[30px] bg-green-400'
+const iconCard = 'flex items-center justify-center w-1/5 h-[30px] bg-sky3-400'
 const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
 const iconItem = ' '
 const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'

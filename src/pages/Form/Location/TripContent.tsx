@@ -34,7 +34,6 @@ import lostKey from './../../../assets/lostKeys.png'
 interface IObj {[key:number]: string}
 const TripContent = ():React.ReactNode => {
     const {  
-        type, 
         setType,
         isFrench,
         activeCarId,
@@ -126,8 +125,8 @@ const TripContent = ():React.ReactNode => {
     },[localStops])
 
     useEffect(()=>{
-        if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
-    },[type])
+        if(list[activeCarId-1].type === 'Boost' || list[activeCarId-1].type === 'Unlocking door') return setDateNow(true);
+    },[list[activeCarId-1].type])
     
     useEffect(()=>{
         setDay(list[activeCarId-1].time.slice(0,2) > '04' && list[activeCarId-1].time.slice(0,2) < '23')
@@ -152,9 +151,9 @@ const TripContent = ():React.ReactNode => {
                             }}
                         >
                             {index===0
-                                ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
-                                : index===1
                                 ? <div style={{backgroundImage:`url(${orderTaxi})`}}  className={typeIconItem}></div>
+                                : index===1
+                                ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
                                 : index===2
                                 ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
                                 : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
@@ -162,11 +161,11 @@ const TripContent = ():React.ReactNode => {
                             <span className='bg-white px-1'>{item}</span>
                         </div>
                     ))}
-                <div className={trickster+ `${typePos===2? ' translate-x-[100%] ': typePos===3? ' translate-x-[200%] ': typePos===4? ' translate-x-[300%] ' : ' border-l-green-300 '}`}>
+                <div className={trickster+ `${typePos===2? ' translate-x-[100%] ': typePos===3? ' translate-x-[200%] ': typePos===4? ' translate-x-[300%] ' : ' border-l-green-400 '}`}>
                         {typePos===1
-                                ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
-                                : typePos===2
                                 ? <div style={{backgroundImage:`url(${orderTaxi})`}}  className={typeIconItem}></div>
+                                : typePos===2
+                                ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
                                 : typePos===3
                                 ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
                                 : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
@@ -198,7 +197,7 @@ const TripContent = ():React.ReactNode => {
                 </div>
 
                 <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
-                            if(type === 'Boost' || type === 'Unlocking door') return setDateNow(true);
+                            if(list[activeCarId-1].type === 'Boost' || list[activeCarId-1].type === 'Unlocking door') return setDateNow(true);
                             setDateNow(!list[activeCarId-1].dateNow)
                             
                             if(list[activeCarId-1].dateNow) {
@@ -357,7 +356,7 @@ const TripContent = ():React.ReactNode => {
                     />
                 </div>}
             </div>
-            {['Boost', 'Unlocking door'].includes(type) && <div className={locationCard}>
+            {['Boost', 'Unlocking door'].includes(list[activeCarId-1].type) && <div className={locationCard}>
                 <div className={extraCardPickUp}>
                 <div className={list[activeCarId-1].carType ? typeCard : typeCard + ' border-red-500'}>
                     {carList.map(item => (
@@ -380,7 +379,7 @@ const TripContent = ():React.ReactNode => {
                 
             </div>}
                 
-            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={extraCardStop}>
+            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={extraCardStop}>
                 <div className={(stop > 0)? box: box + ' opacity-0 '}>
                     {/* <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div> */}
                     <span className='icon text-orange-400'><SlLocationPin/></span>  
@@ -426,7 +425,7 @@ const TripContent = ():React.ReactNode => {
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>}
             
-            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
+            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
                 <div className={stop > 1 ? box: box + ' opacity-0 '}>
                     <span className='icon  text-orange-400'><SlLocationPin/></span>
                     <GoogleAddressInput
@@ -470,8 +469,7 @@ const TripContent = ():React.ReactNode => {
                 ><span className='scale-[150%] font-bold rotate-45'>+</span></div>
             </div>}
 
-            {['Undefined', 'Transport', 'Delivery'].includes(type) &&
-                <div className={(stop > 1  && list[activeCarId-1].stops[2]) ?  extraCardStop: 'hidden'}>
+            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={(stop > 1  && list[activeCarId-1].stops[2]) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 2 ? box : box + ' opacity-0 '}>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
@@ -513,10 +511,10 @@ const TripContent = ():React.ReactNode => {
                             setStop(stop - 1)
                         }}
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
-                </div>}
+            </div>}
 
-            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
-            <div className={stop > 3 ? box : box + ' opacity-0 '}>
+            {[ 'Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
+                <div className={stop > 3 ? box : box + ' opacity-0 '}>
                     <span className='icon  text-orange-400'><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full'
@@ -560,7 +558,7 @@ const TripContent = ():React.ReactNode => {
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>}
 
-            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={locationCard}>
+            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={locationCard}>
                 <div className={list[activeCarId-1].to ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-red-500'><SlLocationPin/></span>
                     <GoogleAddressInput
@@ -584,7 +582,7 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>}
 
-            {['Undefined', 'Transport', 'Delivery'].includes(type) && <div className={iconsType}>
+            {[ 'Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={iconsType}>
                 
                 <div className={icons}>           
                     <span className={list[activeCarId-1].icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
@@ -651,7 +649,7 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>}
 
-            {['Undefined', 'Transport', 'Delivery'].includes(type) &&<div className={type + ' pt-4'}>
+            {[ 'Transport', 'Delivery'].includes(list[activeCarId-1].type) &&<div className={list[activeCarId-1].type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser': 'Reset'}</button>
             </div>}
 
@@ -685,7 +683,7 @@ const typeCard = 'flex  self-center border border-black rounded  divide-x overfl
 const content = 'flex flex-col w-full space-y-3 py-10 pt-20'
 
 const typeItem = ' flex py-1 border-black items-center cursor-pointer w-1/4 '
-const trickster = "absolute flex border-l border-black bg-white items-center w-1/4 h-full bg-green-300 duration-500"
+const trickster = "absolute flex border-l border-black bg-green-400 items-center w-1/4 h-full bg-green-300 duration-500"
 const mainType = ' absolute top-4  w-[97%] -translate-x-3 text-[10px] justify-between divide-x flex border border-black '
 
 

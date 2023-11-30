@@ -107,10 +107,10 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             } 
             onChange((hour) + ':' + (minute))
         }else if(isAm === 0) {
-            console.log('workwww')
+            
             setHour('00')
             setMinute('00')
-            onChange('00:00')
+            onChange('')
         }
     },[isAm])
 

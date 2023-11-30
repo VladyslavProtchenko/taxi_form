@@ -4,22 +4,17 @@ import dayjs from 'dayjs';
 
 import { SlLocationPin } from "react-icons/sl";
 import { IoCarSportOutline, IoTimeOutline } from "react-icons/io5";
-// import { FiEdit } from "react-icons/fi";
-// import { BsChatSquareText, BsPeople } from "react-icons/bs";
-// import { TfiEmail } from "react-icons/tfi";
-// import { LiaShuttleVanSolid, LiaSkiingSolid } from "react-icons/lia";
-// import { PiCreditCard, PiJeepLight, PiSuitcaseRolling } from "react-icons/pi";
-// import { MdOutlineStroller, MdPets } from "react-icons/md";
-// import { GiPalmTree } from "react-icons/gi";
+import { GiPalmTree } from "react-icons/gi";
 import { useStore } from '../../../Store';
 import { AiOutlineStop } from 'react-icons/ai';
 import { LiaShuttleVanSolid } from 'react-icons/lia';
-import { PiJeepLight } from 'react-icons/pi';
+import { PiCreditCard, PiJeepLight } from 'react-icons/pi';
+import { BsChatSquareText } from 'react-icons/bs';
 
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const [open, setOpen] = useState(false)
     const {store} = useStore()
-    const { setFilled, isFrench } = useMain()
+    const {list, setFilled, isFrench } = useMain()
     const [openModal, setOpenModal] = useState(false)
 
     return ( 
@@ -99,7 +94,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                                 {Object.values(item.stops).filter(i=>i).map(item=>(
                                     <div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div>
                                 ))}
-                                <div className={text}><SlLocationPin className={icon+ ' text-red-400'}/>{item.to}</div>
+                                {item.to && <div className={text}><SlLocationPin className={icon+ ' text-red-400'}/>{item.to}</div>}
                                 
                             </div>
                         </div>
@@ -108,10 +103,17 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                             <h1 className={tripHeader}>{isFrench? store.tripTitlesF[1]: store.tripTitles[1]}</h1>
 
                             <div className={tripContent}>
-                                {<div className={text}><IoTimeOutline className={icon}/>{dayjs(item.dateR.split('/').reverse().join('-')).format('dddd')}, {item.dateR}, <span>{item.timeR}</span></div>}
+                                {<div className={'flex items-start mb-2'}><IoTimeOutline className={icon + ' mt-[2px]' }/>
+                                    <div className='flex flex-col items-start justify-start'>
+                                        <span>{dayjs(item.dateR.split('/').reverse().join('-')).format('dddd')}, </span>
+                                        <span>{item.dateR}</span>
+                                        <span className='w-full'>{item.timeR}</span> 
+                                    </div>
+                                </div>}
+                                
                                 <div className={text}><SlLocationPin className={icon+ ' text-green-400'}/>{item.fromR}</div>
                                 {Object.values(item.stopsR).map(item=>(
-                                    <div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div>
+                                    item.length> 1 ? <div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div> :<></>
                                 ))}
                                 <div className={text}><SlLocationPin className={icon+ ' text-red-400'}/>{item.toR}</div>
                                 
@@ -125,7 +127,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                 <div className={InfoCard}>
                     <div className={header}>Options</div>
                     <div className={options}>
-                    <div className={item.carType ? type : type + ' border-red-500'}>
+                    <div className={ type }>
                         {store.carList.map(car => (
                             <div className={item.carType === car ? typeItem+' bg-green-400': car === 'limo' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem } onClick={()=>{ }}>
                                 { car === 'VAN'
@@ -140,7 +142,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>
 
-                    <div className={titles}>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles}>
                         <div className={item.adults ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Adultes': 'Adults'}</div>
                         </div>
@@ -150,9 +152,9 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         <div className={item.babies ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Bébés': 'Babies'}</div>
                         </div>
-                    </div>
+                    </div>}
 
-                    <div className='flex w-3/4 divide-x'>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-3/4 divide-x'>
                         <div className={optionItem}>
                             <div className={text}>{item.adults}</div>
                         </div>
@@ -165,154 +167,118 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         <div className={optionItem}>
                             <div className={text}>{item.babies}</div>
                         </div>
-                    </div>
+                    </div>}
 
 
-                    <div className={titles2}>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2}>
                         {item.baggage.map(bag =>(
                             <div className={bag.quantity> 0?'w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
                                 {bag.title}
                             </div>
                         ))}
-                    </div>
+                    </div>}
 
-                    <div className='flex w-full divide-x'>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x'>
                         {item.baggage.map(bag =>(
                             <div className={'w-1/5 flex justify-center'}>
                                 {bag.quantity}
                             </div>
                         ))}
-                    </div>
+                    </div>}
                     
 
-                    <div className={titles2 + ' justify-between'}>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2 + ' justify-between'}>
                         {item.carSeats.map(bag =>(
-                            <div className={bag.quantity> 0?' w-[14%] flex justify-center bg-green-400' : 'w-[14%] flex justify-center'}>
+                            <div className={bag.quantity> 0?' w-[14%] flex pl-1 bg-green-400 truncate ' : ' pl-1 truncate w-[14%] flex'}>
                                 {bag.title}
                             </div>
                         ))}
-                    </div>
+                    </div>}
 
-                    <div className='flex w-full divide-x justify-between'>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x justify-between'>
                         {item.carSeats.map(bag =>(
                             <div className={'w-[14%] flex justify-center'}>
                                 {bag.quantity}
                             </div>
                         ))}
-                    </div>
+                    </div>}
 
-                    <div className={titles2 + ' justify-between'}>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2 + ' justify-between'}>
                         {item.sport.map(bag =>(
                             <div className={bag.quantity> 0?' w-1/4 flex justify-center bg-green-400' : 'w-1/4 flex justify-center'}>
                                 {bag.title}
                             </div>
                         ))}
-                    </div>
+                    </div>}
 
-                    <div className='flex w-full divide-x justify-between'>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x justify-between'>
                         {item.sport.map(bag =>(
                             <div className={'w-1/4 flex justify-center'}>
                                 {bag.quantity}
                             </div>
                         ))}
-                    </div>
+                    </div>}
 
-                    <div className={titles2 + ' justify-between'}>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2 + ' justify-between'}>
                         {item.pets.map(bag =>(
                             <div className={bag.quantity> 0?' w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
                                 {bag.title}
                             </div>
                         ))}
-                    </div>
+                    </div>}
 
-                    <div className='flex w-full divide-x justify-between'>
+                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x justify-between'>
                         {item.pets.map(bag =>(
                             <div className={'w-1/5 flex justify-center'}>
                                 {bag.quantity}
                             </div>
                         ))}
-                    </div>
+                    </div>}
                 </div>
                     
                     
                 </div>
 
-                
-
-
-            </div> 
-            
-            {/* <div className="flex w-full flex-col">
-                <div className={item.isReturnTrip ? InfoCard: InfoCard  }>
-                    <div className={header}> Options </div>
-
-                    <div className={infoContent}>
-                        
-                        {item.carType && <div className={contentItem}>
-                            <IoCarSportOutline className={locationIcon}/> <span className='text-sm text-gray-600 italic pr-2'>car type: </span>{item.carType}
-                        </div>}
-                        {item.passengers && <div className={contentItem}>
-                        <BsPeople className={locationIcon}/>
-                            <div className='border-r pr-1 border-black'><span className={optionsItem}>adults - </span> {item.passengers.adults}</div>
-                            {item.passengers.kids.length && <div className='px-1 border-r border-black'><span className={optionsItem}>Kids - </span> {item.passengers.kids.length}</div>}
-                            {item.passengers.babies>0 && <div className='px-1 border-r border-black'><span className={optionsItem}>Babies - </span> {item.passengers.babies}</div>}
-                        </div>}
-
-                        {item.baggage.filter(item=>item.quantity > 0).length > 0 && <div className={contentItem}>
-                        <PiSuitcaseRolling className={locationIcon}/>
-                        <span className={optionsItem}>Baggage: </span>
-                            {item.baggage.map(item=>item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))} 
-                        </div>}
-                        {item.carSeats.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
-                        <MdOutlineStroller className={locationIcon}/>
-                        <span className={optionsItem}>Car seats: </span>
-                            {item.carSeats.map(item=>  item.quantity>0 && (<span className='px-1 rounded border mx-1 truncate'>{item.quantity + ' x ' + item.title}</span>))}
-                        </div>} 
-                        {item.sport.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
-                        <LiaSkiingSolid className={locationIcon}/>
-                        <span className={optionsItem}>Sport attributes: </span>
-                            {item.sport.map(item=>  item.quantity>0 && (<span className='px-1 rounded border mx-1'>{item.quantity + ' x ' + item.title}</span>))}
-                        </div>}
-                        {item.pets.filter(item=>item.quantity>0).length>0  && <div className={contentItem}>
-                        <MdPets className={locationIcon}/>
-                        <span className={optionsItem}>Pets: </span>
-                            {item.pets.map(item=> (<span className='px-1 rounded border mx-1'>{`${item.title} ${item.cage ? "(cage)":''}`}</span>) )}
-                        </div>}
-                    </div>
-                </div>
-
-                <div className={item.isReturnTrip ? InfoCard: InfoCard }>
+                <div className={ InfoCard }>
                     <div className={header}> Payments </div>
 
-                    <div className={infoContent}>
+                    <div className='flex-col  w-full'>
+                        <div className="flex justify-between mb-2">
+                            {item.paymentMethod && 
+                            <div className={contentItem + ' w-1/2 '}>
+                                <PiCreditCard className={'locationIcon'}/>
+                                <span className={'optionsItem'}></span>
+                                {item.paymentMethod}
+                            </div>}
+                            {item.tripType && <div className={contentItem + ' w-1/2 '}>
+                            <GiPalmTree className={'locationIcon'}/>
+                            <span className={'optionsItem'}></span>
+                                {item.tripType}
+                            </div>}
+                        </div>
                         
-                        {item.paymentMethod && 
-                        <div className={contentItem}>
-                            <PiCreditCard className={locationIcon}/>
-                            <span className={optionsItem}>Payment method: </span>
-                            {item.paymentMethod}
-                        </div>}
-                        {item.tripType && <div className={contentItem}>
-                        <GiPalmTree className={locationIcon}/>
-                        <span className={optionsItem}>Trip type: </span>
-                            {item.tripType}
-                        </div>}
                         {item.additionalText && <div className={contentItem}>
-                        <BsChatSquareText className={locationIcon}/>
+                        <BsChatSquareText className={'locationIcon'}/>
 
-                        <span className={optionsItem}>Additional text: </span>
+                        <span className={'optionsItem'}></span>
                             {item.additionalText} 
                         </div>}
                         
                     </div>
                 </div>
-            </div>  */}
+
+            </div> 
+            
+                
+
         </div>
     </div>
     );
 };
 
 export default CarCard;
+
+const contentItem= 'flex items-center space-x-2'
 
 
 const bm ='text-sm bg-red-400 rounded px-2 text-white py-1 text-xs'

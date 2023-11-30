@@ -242,21 +242,12 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     const {setIsPhone } = useValidation()
     const { isFrench} = useMain()
     const { store } = useStore()
-    const [country, setCountry] = useState('')
+    const [country, setCountry] = useState('Canada')
     const [countryCode, setCountryCode] = useState(value)
     const [isOpen, setIsOpen] = useState(false)
     const [icon, setIcon] = useState(1)
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
-    // useEffect(()=>{
-    //     if(user.resetPhone){
-    //         setCountryCode('')
-    //     }
-    //     setResetPhone(false)
-    // },[user.resetPhone])
-        // useEffect(()=>{
-    //     if(isClear) setCountryCode('1')
-    // },[isClear])
 
     useEffect(()=>{
         if(type===1) {
@@ -267,13 +258,13 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     
     useEffect(()=>{
         if(country) {
+            console.log('work',country)
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
             if(res) { 
                 setCountryCode(res[1]) 
             }
         }
     },[country])
-
 
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());

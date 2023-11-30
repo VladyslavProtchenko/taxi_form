@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const Steps = ():React.ReactNode => {
     
-    const { type, activeCarId, list, setSteps,isFrench, setFilled } = useMain()
+    const { activeCarId, list, setSteps,isFrench, setFilled } = useMain()
     const { validation, setIsSubmit } = useValidation()
     const [activePage, setActivePage] = useState(1)
 
@@ -65,7 +65,7 @@ const Steps = ():React.ReactNode => {
 
             {list[activeCarId-1].steps != 4 && 
                 <>
-                    {['Boost', 'Unlocking door'].includes(type) && list[activeCarId-1].steps ===2
+                    {['Boost', 'Unlocking door'].includes(list[activeCarId-1].type) && list[activeCarId-1].steps ===2
                         ? <div 
                             className='flex px-3 py-2 bg-yellow-300 active:bg-yellow-200 rounded cursor-pointer text-white '
                             onClick={()=>{

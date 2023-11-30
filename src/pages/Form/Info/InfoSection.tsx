@@ -97,7 +97,7 @@ const InfoSection = () => {
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></button>
                 </div>
                 
-                <div className={list[activeCarId-1].name2.length<3 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard + ' w-[90%]' : nameCard + ' border-white h-[32px]'}>
+                <div className={list[activeCarId-1].name2.length<3 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard : nameCard + ' border-white h-[32px]'}>
                     <div className={(list[activeCarId-1].name === list[activeCarId-1].name3 || list[activeCarId-1].name2 === list[activeCarId-1].name3)? warn: 'hidden'}>name cannot be repeated</div>
                     <div className={(isExtraNameOpen[2])? box: box +' opacity-0'}>
                         {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
@@ -144,7 +144,7 @@ const InfoSection = () => {
                     <div className={isExtraEmailOpen[1] ? box + ' border-none ' : box + ' opacity-0'}>
                         <div className={(list[activeCarId-1].email === list[activeCarId-1].email2)? warn: 'hidden'}>email cannot be repeated</div>
                         {!isExtraEmailOpen[1] &&  <div className={'absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-0 rounded cursor-not-allowed'}></div>}
-                        <MailInput value={list[activeCarId-1].email2} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
+                        <MailInput value={list[activeCarId-1].email2} mainMail={true} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
                     </div>
                     <button 
                         className={(isExtraEmailOpen[1]) ? 'hidden' : addExtraBtn } 

@@ -20,6 +20,8 @@ export interface ITaxi {
     filled: boolean;
     timeType: number;
     timeTypeR: number;
+    type: string;
+
     name: string;
     name2: string;
     name3: string;
@@ -99,7 +101,6 @@ export interface ITaxi {
 
 interface IStore {
     day: boolean;
-    type: string;
     isFrench: boolean;
     isCars: {
         1: boolean,
@@ -215,7 +216,6 @@ interface IStore {
 export const useMain = create<IStore>()(
     (set) => ({
         day:true,
-        type:'Undefined', 
         isFrench: false,
         isCars: {
             1: false,
@@ -228,6 +228,7 @@ export const useMain = create<IStore>()(
         list: [
             {
                 id:1,
+                type:'Transport',
                 timeType:0,
                 timeTypeR:0,
                 filled: false,
@@ -240,8 +241,8 @@ export const useMain = create<IStore>()(
                 title3: '',
             
                 email:'@',
-                email2: '@',
-                email3: '@',
+                email2:'@',
+                email3:'@',
             
                 phone: '',
                 phone2: '',
@@ -365,7 +366,7 @@ export const useMain = create<IStore>()(
                         quantity: 0,
                     },
                     {
-                        title: 'Regular',
+                        title: 'Regular stroller',
                         quantity: 0,
                     },
                     {
@@ -413,6 +414,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:2,
+                type:'Transport',
                 filled: false,
                 timeType:0,
                 timeTypeR:0,
@@ -425,8 +427,8 @@ export const useMain = create<IStore>()(
                 title3: '',
             
                 email:'@',
-                email2: '@',
-                email3: '@',
+                email2:'@',
+                email3:'@',
             
                 phone: '',
                 phone2: '',
@@ -538,7 +540,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Regular seats',
+                        title: 'Regular',
                         quantity: 0,
                     },
                     {
@@ -598,6 +600,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:3,
+                type:'Transport',
                 filled: false,
                 timeType:0,
                 timeTypeR:0,
@@ -610,8 +613,8 @@ export const useMain = create<IStore>()(
                 title3: '',
             
                 email:'@',
-                email2: '@',
-                email3: '@',
+                email2:'@',
+                email3:'@',
             
                 phone: '',
                 phone2: '',
@@ -723,7 +726,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Regular seats',
+                        title: 'Regular',
                         quantity: 0,
                     },
                     {
@@ -783,6 +786,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:4,
+                type:'Transport',
                 filled: false,
                 timeType:0,
                 timeTypeR:0,
@@ -795,8 +799,8 @@ export const useMain = create<IStore>()(
                 title3: '',
             
                 email:'@',
-                email2: '@',
-                email3: '@',
+                email2:'@',
+                email3:'@',
             
                 phone: '',
                 phone2: '',
@@ -908,7 +912,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Regular seats',
+                        title: 'Regular',
                         quantity: 0,
                     },
                     {
@@ -968,6 +972,7 @@ export const useMain = create<IStore>()(
             },
             {
                 id:5,
+                type:'Transport',
                 filled: false,
                 timeType:0,
                 timeTypeR:0,
@@ -980,8 +985,8 @@ export const useMain = create<IStore>()(
                 title3: '',
             
                 email:'@',
-                email2: '@',
-                email3: '@',
+                email2:'@',
+                email3:'@',
             
                 phone: '',
                 phone2: '',
@@ -1091,7 +1096,7 @@ export const useMain = create<IStore>()(
                 ],
                 carSeats: [
                     {
-                        title: 'Regular seats',
+                        title: 'Regular',
                         quantity: 0,
                     },
                     {
@@ -1152,7 +1157,8 @@ export const useMain = create<IStore>()(
         ],
         
         setDay: (data) => set((state) =>  ({ ...state, day: data})),
-        setType: (data) => set((state) =>  ({ ...state, type: data})),
+        setType: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? {...item, type: data} : item )})),
+
         setIsFrench: (data) => set((state) =>  ({ ...state, isFrench: data})),
         setActiveCarId: (data) => set((state) =>  ({ ...state, activeCarId: data})),
         setIsCars: (data) => set((state) => ({ ...state, isCars: data })),

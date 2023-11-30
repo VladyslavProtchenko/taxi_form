@@ -4,21 +4,25 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import React from 'react';
+import { useMain } from '../../Store/useMain';
 interface IDate {
     onChange:(date:string) => void;
     getFullDate?: (date: dayjs.Dayjs) => void;
     time:string;
+    isReturn?:boolean;
 }
 
-export default function DatePicker({onChange, getFullDate}:IDate):React.ReactNode {
+export default function DatePicker({onChange, getFullDate, isReturn}:IDate):React.ReactNode {
     const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
+    const {list, activeCarId} = useMain()
 
     const handleDate = (date: string | number | dayjs.Dayjs | Date | null | undefined) => {
             const parsedDate = dayjs(date);
             setDate(parsedDate);
             if(getFullDate) getFullDate(parsedDate)
-            onChange(parsedDate.format('DD/MM/YYYY'))
+            onChange(parsedDate.format('MM/DD/YYYY'))
         }
+    if(isReturn) console.log(dayjs(list[activeCarId-1].date), 'date')
 
     return (
         <div className="relative" >
@@ -38,7 +42,7 @@ export default function DatePicker({onChange, getFullDate}:IDate):React.ReactNod
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <StaticDatePicker
                     className='sm:w-[280px] mt-8 '
-                    minDate={dayjs()}
+                    minDate={isReturn ? list[activeCarId-1].date ? dayjs(list[activeCarId-1].date) : dayjs(): dayjs()}
                     
                     onChange={handleDate}
                 />
