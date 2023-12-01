@@ -2,7 +2,6 @@ import React from 'react';
 import InfoSection from './Info/InfoSection';
 import AddressSection from './Location/LocationSection';
 import OptionsSection from './Options/OptionsSection';
-import Steps from './Steps';
 
 import PaymentSection from './Payment/Payment';
 import { useValidation } from '../../Store/useValidation';
@@ -291,8 +290,6 @@ const Form = (): React.ReactNode => {
                 {list[activeCarId-1].steps === 2 && <AddressSection />}
                 {list[activeCarId-1].steps === 3 && <OptionsSection />}
                 {list[activeCarId-1].steps === 4 && <PaymentSection/>}
-                
-                {list[activeCarId-1].steps !== 2 && <Steps/>}
             </>}
             {validation.isSubmit && <Submit />}
         </div>

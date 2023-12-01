@@ -2,17 +2,17 @@ import React, {  useState } from 'react';
 import { Input, Select } from 'antd';
 import 'antd/dist/reset.css';
 import { TfiEmail } from "react-icons/tfi";
-import { useMain } from '../../Store/useMain';
 
 interface InputProps {
     value:string;
     placeholder?: string;
     onChange: (value: string) => void;
     mainMail?: boolean;
+    noMail?: boolean;
 }
 
-const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMail }) => {
-    const [domains, ] = useState([
+const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMail, noMail }) => {
+    const [ domains ] = useState([
         "gmail.com",
         "outlook.com",
         "hotmail.com",
@@ -34,14 +34,12 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
         "verizon.net",
         "qq.com",
     ])
-    const {list, activeCarId} = useMain()
     const [customDomain, setCustomDomain ] = useState('')
-    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const filterOption = (input: string, option?: { label: string; value: string }) => 
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     
     return (
-        <div className={(!pattern.test(list[activeCarId-1].email) && mainMail) ? container  +' border-red-500': container}>
+        <div className={(!noMail && mainMail) ? container  +' border-red-500': container}>
             <span className='icon'><TfiEmail/></span>
             <Input
                 style={{maxWidth: 200,width:'60%', fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}

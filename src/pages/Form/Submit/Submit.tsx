@@ -9,10 +9,9 @@ import dayjs from 'dayjs';
 
 
 const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
-    const response = await axios.post("http://localhost:3000/order",data);
+    const response = await axios.post("https://taxibeckend.onrender.com/order",data);
     return response;
 };
-
 
 const Submit = (): React.ReactNode => {
     const { list } = useMain()
@@ -22,9 +21,11 @@ const Submit = (): React.ReactNode => {
     console.log(list[0])
     return (
         <section className={section}>
-            {list.filter(item => item.filled).map((item) => (
+            {list.filter(item => item.filled).length > 0 
+            ? list.filter(item => item.filled).map((item) => (
                 <CarCard item={item} />
-            ))}
+            ))
+            :<div className='w-full h-[100px] text-center'> no orders yet</div>  }
             <div className="flex justify-between">
                 <div onClick={() => setIsSubmit(false)} className={btn}>
                     Back

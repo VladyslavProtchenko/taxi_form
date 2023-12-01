@@ -9,7 +9,7 @@ import { TiInfoLarge } from "react-icons/ti";
 import dayjs from "dayjs";
 
 function App():React.ReactNode {
-  const {day, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay} = useMain()
+  const { activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay} = useMain()
 
   useEffect(()=>{
     ( dayjs().format('HH') > '05' && dayjs().format('HH') < '23') ? setDay(true): setDay(false)
@@ -22,16 +22,11 @@ function App():React.ReactNode {
         <div className={header}>
         <div className={lang} onClick={()=>setIsFrench(!isFrench)}>
           {isFrench 
-            ?<div style={{backgroundImage:`url(${en})` }} className={'w-7 h-7 text-xs bg-center bg-cover bg-no-repeat'} ></div>
-            :<div style={{backgroundImage:`url(${fr})` }} className={'w-7 h-7 text-xs bg-center bg-cover bg-no-repeat '} ></div>
-          }
-          {isFrench 
-            ?<div className={day ? langItem + ' text-blue-700 ': langItem+' text-white ' } >EN</div>
-            :<div  className={day ? langItem + ' text-blue-700 ': langItem+' text-white '  } >FR</div>
+            ?<><div style={{backgroundImage:`url(${fr})` }} className={'w-7 h-7 text-xs bg-center bg-cover bg-no-repeat'} ></div><div className={langItem} >EN</div></>
+            :<><div style={{backgroundImage:`url(${en})` }} className={'w-7 h-7 text-xs bg-center bg-cover bg-no-repeat '} ></div><div  className={langItem} >FR</div></>
           }
         </div>
           <div className='flex items-center'>  
-              
               <span className={taxiLabel}>
                 Taxis
               </span>
@@ -74,7 +69,6 @@ function App():React.ReactNode {
                   setActiveCarId(5)
                 }}
             >5<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'e': 'th'}</span></li>
-
             <li className={activeCarId===5 ? 'h-full pt-6 flex items-center w-full rounded-tr border-r  border-t ' : ' pt-6 flex border-r justify-center w-full h-full  '}>
               <div className=" flex items-center text-2xl justify-center border-2 h-min rounded-full border-orange-400 text-orange-400">
                 <TiInfoLarge className='cursor-pointer '/>
@@ -90,13 +84,13 @@ function App():React.ReactNode {
 }
 
 export default App
-const taxiLabel = 'text-gray-400 -translate-x-3'
+const taxiLabel = ' font-bold -translate-x-3 text-blue-700 '
 const activeTab = 'px-1 flex items-center justify-end text-lg border border-l-0  cursor-pointer border-t border-b border-white bg-white'
 const tab = 'px-1 text-lg flex items-center justify-end border border-l-0  cursor-pointer border-t border-b  bg-white'
 const tabsContainer = 'flex flex-col mr-2 font-bold h-full m-0 w-[40px] '
 
 const lang = ' flex rounded h-[20px] cursor-pointer mb-4 self-start'
-const langItem = 'text-xl px-1'
+const langItem = 'text-xl px-1 text-blue-700 '
 
 const header = 'flex flex-col w-full p pt-4 px-4 shadow mb-[1px]'
 

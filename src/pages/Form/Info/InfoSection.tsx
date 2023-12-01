@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PhoneNumberInput from '../../../UI/components/PhoneInput';
 import MailInput from '../../../UI/components/MailInput';
 import { Input, Select } from 'antd';
@@ -25,7 +25,16 @@ const InfoSection = () => {
         setPhone,
         setPhone2,
         setPhone3,
+        setSteps,
     } = useMain()
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const [isTitle, setIsTitle] = useState(true)
+    const [isName, setIsName] = useState(true)
+    const [isEmail, setIsEmail] = useState(true)
+    const [isPhone, setIsPhone] = useState(true)
+    const [noPhone, setNoPhone] = useState(true)
+    const [trigger, setTrigger] = useState(false)
 
     const [isExtraNameOpen, setIsExtraNameOpen] = useState({
         1:false,
@@ -40,17 +49,45 @@ const InfoSection = () => {
         2:false,
     })
 
-    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    function goNext(){
+        setTrigger(true)
+        setIsTitle(false)
+        setIsName(false)
+        setIsEmail(false)
+        setNoPhone(false)
+
+        if(list[activeCarId-1].name.length > 2) setIsName(true)
+        if(list[activeCarId-1].title) setIsTitle(true)
+        setIsEmail(pattern.test(list[activeCarId-1].email))
+        if(isPhone) setNoPhone(true)
+    
+        if(isTitle && isPhone && isEmail && noPhone) setSteps(2)
+    }
+
+    useEffect(()=>{
+        if(trigger) {
+            setIsTitle(false)
+            setIsName(false)
+            setIsEmail(false)
+            setNoPhone(false)
+    
+            if(list[activeCarId-1].name.length > 2) setIsName(true)
+            if(list[activeCarId-1].title) setIsTitle(true)
+            setIsEmail(pattern.test(list[activeCarId-1].email))
+            setNoPhone(isPhone)
+        }
+    },[list[activeCarId-1],isPhone])
+    
 
     const options1 = isFrench ? store.titleListF.map(item=>({value: item, label: item })) : store.titleList.map(item=>({value: item, label: item }))
 
     return (
         <section className={section}>
             <div className={extraContainer}>
-                <div className={ (list[activeCarId-1].name.length>3 && list[activeCarId-1].title ) ? nameCard: nameCard + '  border-red-500' }>
-                    <div className={ (list[activeCarId-1].name.length>3 && list[activeCarId-1].title ) ? box: box + '  border-red-500' }>
+                <div className={nameCard }>
+                    <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
                         <span className='icon'><BsPeople/></span>
-                        <Select allowClear  placeholder={isFrench? store.titleListF[3]:store.titleList[3] } style={{width: 118, height: 40}} onChange={setTitle} options={options1}/>
+                        <Select allowClear  placeholder={isFrench? 'Titre':'Title' } style={{width: 118, height: 40}} onChange={setTitle} options={options1}/>
                         <Input allowClear value={list[activeCarId-1].name} placeholder={isFrench? store.nameListF[0]:store.nameList[0] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                     </div>
                 </div>
@@ -60,7 +97,7 @@ const InfoSection = () => {
                         <div className={(list[activeCarId-1].name === list[activeCarId-1].name2)? warn: 'hidden'}>name cannot be repeated</div>
                         {!isExtraNameOpen[1] &&  <div className='absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-100 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
-                        <Select placeholder={isFrench? store.titleListF[3]:store.titleList[3] }style={{width: 118, height: 40}} onChange={setTitle2} options={options1}/> 
+                        <Select placeholder={isFrench? 'Titre':'Title'  }style={{width: 118, height: 40}} onChange={setTitle2} options={options1}/> 
                         <Input value={list[activeCarId-1].name2} allowClear placeholder={isFrench? store.nameListF[1]:store.nameList[1] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                         
                     </div>
@@ -102,7 +139,7 @@ const InfoSection = () => {
                     <div className={(isExtraNameOpen[2])? box: box +' opacity-0'}>
                         {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
-                        <Select placeholder={isFrench? store.titleListF[3]:store.titleList[3] } style={{width: 118, height: 40}} onChange={setTitle3}options={options1}/> 
+                        <Select placeholder={isFrench? 'Titre':'Title'  } style={{width: 118, height: 40}} onChange={setTitle3}options={options1}/> 
                         <Input  value={list[activeCarId-1].name3 } allowClear placeholder={isFrench? store.nameListF[2]:store.nameList[2] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                     </div>
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
@@ -135,7 +172,7 @@ const InfoSection = () => {
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={box +' border-none '}>
-                        <MailInput value={list[activeCarId-1].email} mainMail={true} onChange={setEmail} placeholder={isFrench? store.emailListF[0]:store.emailList[0] }/>
+                        <MailInput value={list[activeCarId-1].email} mainMail={true} noMail={isEmail} onChange={setEmail} placeholder={isFrench? store.emailListF[0]:store.emailList[0] }/>
                     </div>
                 </div>
                 
@@ -198,15 +235,15 @@ const InfoSection = () => {
             </div>
 
             <div className={extraContainer}>
-                <div className={list[activeCarId-1].phone.length>=10 ? extraCard +' border z-30': extraCard+ ' border border-red-500 z-30' } >
-                    <PhoneNumberInput type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
+                <div className={noPhone ? extraCard +' border z-30': extraCard+ ' border border-red-500 z-30' } >
+                    <PhoneNumberInput  setValidation={setIsPhone} type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
                 </div>
 
                 <div className={list[activeCarId-1].phone.length>=10 ? extraCard + ' z-20' : 'hidden'}>
                     <div className={( list[activeCarId-1].phone === list[activeCarId-1].phone2)? warn: 'hidden'}>phone cannot be repeated</div>
                     <div className={isExtraPhoneOpen[1]? box : box+ ' opacity-0 '}>
                         {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
-                        <PhoneNumberInput type={3}  value={list[activeCarId-1].phone2} onChange={setPhone2}/>
+                        <PhoneNumberInput  setValidation={setIsPhone} type={3}  value={list[activeCarId-1].phone2} onChange={setPhone2}/>
                     </div>
                     <button 
                         className={(isExtraPhoneOpen[1]) ? 'hidden' : addExtraBtn } 
@@ -243,7 +280,7 @@ const InfoSection = () => {
                     <div className={isExtraPhoneOpen[2]? box: box + ' opacity-0 '}>
                         {!isExtraPhoneOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         {(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) &&  <>
-                            <PhoneNumberInput type={2}  value={list[activeCarId-1].phone3} onChange={setPhone3}/>
+                            <PhoneNumberInput  setValidation={setIsPhone} type={2}  value={list[activeCarId-1].phone3} onChange={setPhone3}/>
                         </>}
                     </div>
                     
@@ -260,6 +297,12 @@ const InfoSection = () => {
                         <span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span>
                     </button>
                 </div>
+            </div>
+            <div className=" w-full flex justify-end max-w-[400px]">
+                <div 
+                    className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300"
+                    onClick={goNext}
+                >{isFrench? 'Suivant': 'Next'}</div>
             </div>
         </section>
     );

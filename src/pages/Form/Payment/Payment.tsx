@@ -9,7 +9,7 @@ import { MdDone } from "react-icons/md";
 
 
 const PaymentSection = ():React.ReactNode => {
-    const {list, activeCarId, setPaymentMethod,setAdditionalText,setTripType,setFilled } = useMain()
+    const {list, activeCarId, setPaymentMethod,setAdditionalText,setTripType,setFilled,setSteps,isFrench } = useMain()
     const {setIsSubmit} = useValidation()
     const { store} = useStore()
 
@@ -28,11 +28,14 @@ const PaymentSection = ():React.ReactNode => {
                         setAdditionalText(e.target.value)
                     }}/></span>
             </div>
-            <div className='flex justify-between mt-4'>
+            <div className='flex justify-end space-x-4 mt-4'>
                 {list[activeCarId-1].filled 
                     ? <div className="px-4 py-2 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>
                     : <button className={btn2} onClick={()=> setFilled(true, activeCarId)}>Order taxi</button>}
-                <button className={btn} onClick={()=> setIsSubmit(true)}>View Orders</button>
+                {list.filter(item => item.filled).length>0 &&<button className={btn} onClick={()=> setIsSubmit(true)}>View Orders</button>}
+            </div>
+            <div className="flex w-full max-w-[400px] justify-between mx-auto pt-10">
+                <div className=" bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400 " onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Back'}</div>
             </div>
         </section>
     );
@@ -41,8 +44,8 @@ const PaymentSection = ():React.ReactNode => {
 export default PaymentSection;
 
 
-const btn = 'py-2 px-4 rounded bg-yellow-300  text-white active:bg-yellow-200 self-start'
-const btn2 = 'py-2 px-4 rounded bg-green-400  text-white active:bg-green-200 self-start'
+const btn = 'py-2 px-4 rounded bg-yellow-300  text-white active:bg-yellow-200 self-start border-2 border-yellow-500'
+const btn2 = 'py-2 px-4 rounded bg-green-400  text-white active:bg-green-200 self-start border-2 border-green-500'
 const additional ='flex additional px-2 w-full '
 const content ='flex justify-between px-2 w-full mb-4'
 

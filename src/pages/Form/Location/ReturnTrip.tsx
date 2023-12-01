@@ -14,7 +14,6 @@ import { PiCalendarCheckLight } from "react-icons/pi";
 import { FaBus } from "react-icons/fa";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
-import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
 import React from "react";
 interface IObj {[key:number]: string}
@@ -44,6 +43,7 @@ const ReturnTrip = ():React.ReactNode  => {
         setAirlinesBackR, 
         resetReturn,
         setTimeTypeR,
+        setSteps,
     } =useMain()
     const { store } = useStore()
     
@@ -54,6 +54,11 @@ const ReturnTrip = ():React.ReactNode  => {
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(3)
+
+
+    const [isDateR, setIsDateR] = useState(true)
+    const [isFromR, setIsFromR] = useState(true)
+    const [isToR, setIsToR] = useState(true)
 
     useEffect(()=>{
         setDay(list[activeCarId-1].timeR.slice(0,2) > '04' && list[activeCarId-1].timeR.slice(0,2) < '23')
@@ -79,6 +84,41 @@ const ReturnTrip = ():React.ReactNode  => {
             })
         }
     },[stopTrigger, list[activeCarId-1].stops])
+
+    function goNext() {
+
+        setIsDateR(list[activeCarId-1].date.length>0)
+        setIsFromR(list[activeCarId-1].from.length>0)
+        setIsToR(list[activeCarId-1].to.length>0)
+
+        if(!list[activeCarId-1].date) return alert('need date')
+        if(!list[activeCarId-1].time && list[activeCarId-1].timeType!==0 ) return alert('need time')
+        if(!list[activeCarId-1].from) return alert('need pick up location')
+        if(!list[activeCarId-1].to) return alert('need drop of location')
+
+        if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) return setSteps(3)
+        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
+        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return alert('need return time')
+        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
+        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return alert('need return drop of location')
+        if(
+            list[activeCarId-1].date 
+            && list[activeCarId-1].from 
+            && list[activeCarId-1].to 
+            && list[activeCarId-1].isReturnTrip
+            && list[activeCarId-1].dateR
+            && list[activeCarId-1].timeR
+            && list[activeCarId-1].fromR 
+            && list[activeCarId-1].toR 
+        ) return setSteps(3)
+    }
+    useEffect(()=>{
+        if(trigger){
+            setIsDateR(list[activeCarId-1].dateR.length>0)
+            setIsFromR(list[activeCarId-1].fromR.length>0)
+            setIsToR(list[activeCarId-1].toR.length>0)
+        }
+    },[list[activeCarId-1]])
 
     useEffect(()=>{
         setIconR(0)
@@ -146,7 +186,7 @@ const ReturnTrip = ():React.ReactNode  => {
                     {day && <div  className='absolute top-1 left-2 w-12 h-12 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
                 <div className={dateRow}>
-                    <div className={list[activeCarId-1].dateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                    <div className={isDateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                             {list[activeCarId-1].dateR ? 
                             <div className='flex items-center'>
@@ -253,7 +293,7 @@ const ReturnTrip = ():React.ReactNode  => {
             </div>
 
             <div className={locationCard}>
-                <div className={list[activeCarId-1].fromR ? extraCard : extraCard + ' border-red-500'}>
+                <div className={isFromR ? extraCard : extraCard + ' border-red-500'}>
                     <span className='icon text-green-400'><SlLocationPin/></span>
                     <GoogleAddressInput 
                         style='w-full ' 
@@ -400,7 +440,7 @@ const ReturnTrip = ():React.ReactNode  => {
             </div>
 
             <div className={locationCard}>
-                <div className={list[activeCarId-1].toR ? extraCard : extraCard + ' border-red-500'}>
+                <div className={isToR ? extraCard : extraCard + ' border-red-500'}>
                     <span className='icon text-red-400'><SlLocationPin/></span>
                     <GoogleAddressInput 
                         defaultLocation={
@@ -487,12 +527,17 @@ const ReturnTrip = ():React.ReactNode  => {
                 </div> }
             </div>
 
-
             <div className={btns}>
                 <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser': 'Reset'}</button>
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
             </div>
-            {list[activeCarId-1].steps=== 2 && <div className='w-full flex justify-center'><Steps /></div>}
+            <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
+                <div className="bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400" onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div 
+                    className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300"
+                    onClick={goNext}
+                >{isFrench? 'Suivant': 'Next'}</div>
+            </div>
         </div>
     </div>
     );
@@ -517,8 +562,8 @@ const timeToggle = ' absolute -top-8 font-bold right-0 flex  items-center text-x
 const bg = 'relative  w-full h-14 my-1 mb-10  bg-cover  rounded-xl bg-right '
 const content = ' relative flex flex-col w-full  space-y-3 py-10'
 
-const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
-const revert = 'px-4 py-1 bg-orange-400 text-white rounded hover:bg-orange-300 active:bg-orange-500 '
+const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 border-2 border-red-700 '
+const revert = 'px-4 py-1 bg-orange-400 text-white rounded  active:bg-orange-300 border-2 border-orange-700'
 
 const iconCard = 'flex items-center justify-center w-8 h-8 bg-sky3-400'
 const iconCardActive = 'flex items-center justify-center  w-8 h-8 border-black'

@@ -6,7 +6,6 @@ import { IoPhonePortraitOutline } from "react-icons/io5";
 import { BsTelephone } from "react-icons/bs";
 import { SlEarphonesAlt } from "react-icons/sl";
 import { Select } from 'antd';
-import { useValidation } from '../../Store/useValidation';
 import React from 'react';
 import { useMain } from '../../Store/useMain';
 import { useStore } from '../../Store';
@@ -234,12 +233,13 @@ name:string;
 interface IPhone {
     value: string;
     type?: number;
+
     onChange: (value: string) => void;
+    setValidation:(value:boolean) => void;
 }
 
-function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
+function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone):React.ReactNode {
     const ref = useOnclickOutside(() => setIsOpen(false));
-    const {setIsPhone } = useValidation()
     const { isFrench} = useMain()
     const { store } = useStore()
     const [country, setCountry] = useState('Canada')
@@ -251,8 +251,8 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
 
     useEffect(()=>{
         if(type===1) {
-            if(val >=12) return setIsPhone(true)
-            setIsPhone(val === res)
+            if(val >=12) return setValidation(true)
+            setValidation(val === res)
         }
     },[val, res])
     
@@ -272,13 +272,13 @@ function PhoneNumberInput({ value, onChange, type }: IPhone):React.ReactNode {
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >
-                {icon === 1 ? <><IoPhonePortraitOutline /><span className=' text-xs ml-1'>
+                {icon === 1 ? <><IoPhonePortraitOutline className='text-blue-500'/><span className=' text-xs ml-1'>
                     {isFrench? store.phoneTitleListF[0]: store.phoneTitleList[0]}
-                    </span></>: icon === 2 ? <><BsTelephone /><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span></> : <><SlEarphonesAlt /><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></>}
+                    </span></>: icon === 2 ? <><BsTelephone className='text-blue-500'/><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span></> : <><SlEarphonesAlt className='text-blue-500'/><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></>}
                 <ul className={isOpen ?subMenu: 'hidden'} ref={ref}>
-                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[0]: store.phoneTitleList[0]}</span></li>
-                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span> </li>
-                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt /><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></li>
+                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline className='text-blue-500'/><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[0]: store.phoneTitleList[0]}</span></li>
+                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone className='text-blue-500'/><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span> </li>
+                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt className='text-blue-500'/><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></li>
                 </ul>
                 <div className={"text-xs "}>
                     {isOpen && <IoIosArrowUp />}

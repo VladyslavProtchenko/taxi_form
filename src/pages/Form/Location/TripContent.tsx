@@ -13,7 +13,6 @@ import { FaBus } from "react-icons/fa";
 import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 import { useStore } from '../../../Store/index';
-import Steps from "../Steps";
 import { useMain } from "../../../Store/useMain";
 import React from "react";
 import { LiaShuttleVanSolid } from "react-icons/lia";
@@ -55,6 +54,7 @@ const TripContent = ():React.ReactNode => {
         setDateNow,
         setCarType,
         setTimeType,
+        setSteps,
     } = useMain()
 
     const { store } = useStore()
@@ -69,6 +69,14 @@ const TripContent = ():React.ReactNode => {
 
     const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
     const [typePos, setTypePost] = useState(1)
+
+    const [isDate, setIsDate] = useState(true)
+    const [isFrom, setIsFrom] = useState(true)
+    const [isTo, setIsTo] = useState(true)
+    const [trigger, setTrigger] = useState(false)
+
+
+    
 
     useEffect(()=>{
         setCarList(isFrench? store.carListF: store.carList)
@@ -136,6 +144,39 @@ const TripContent = ():React.ReactNode => {
     
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
+    function goNext() {
+        setTrigger(true)
+        setIsDate(list[activeCarId-1].date.length>0)
+        setIsFrom(list[activeCarId-1].from.length>0)
+        setIsTo(list[activeCarId-1].to.length>0)
+
+        if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) return setSteps(3)
+        console.log('work 3')
+        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
+        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip) return alert('need return time')
+        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
+        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return alert('need return drop of location')
+        console.log('work 2')
+        if(
+            list[activeCarId-1].date 
+            && list[activeCarId-1].from 
+            && list[activeCarId-1].to 
+            && list[activeCarId-1].isReturnTrip
+            && list[activeCarId-1].dateR
+            && list[activeCarId-1].timeR
+            && list[activeCarId-1].fromR 
+            && list[activeCarId-1].toR 
+        ) return setSteps(3)
+    }
+
+    useEffect(()=>{
+        if(trigger){
+            setIsDate(list[activeCarId-1].date.length>0)
+            setIsFrom(list[activeCarId-1].from.length>0)
+            setIsTo(list[activeCarId-1].to.length>0)
+        }
+    },[list[activeCarId-1]])
+
     return (
     <div className={container}>
         <div className={content}>
@@ -197,7 +238,6 @@ const TripContent = ():React.ReactNode => {
                 <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
                             if(list[activeCarId-1].type === 'Boost' || list[activeCarId-1].type === 'Unlocking door') return setDateNow(true);
                             setDateNow(!list[activeCarId-1].dateNow)
-                            
                             if(list[activeCarId-1].dateNow) {
                                 setTime('')
                                 setDate('')
@@ -217,7 +257,8 @@ const TripContent = ():React.ReactNode => {
                 <div className={dateRow}>
                     
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
-                    <div className={dateInput} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+
+                    <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {list[activeCarId-1].date ? <div className='flex items-center'>
                             {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
@@ -238,8 +279,7 @@ const TripContent = ():React.ReactNode => {
                                                 }
                             {' '+fullDate.format('YYYY')}
                         </div>
-                        :<div className='flex items-center'>{isFrench? 'Date Requise' :'Required date '}</div>
-                        }
+                        :<div className='flex items-center'>{isFrench? 'Date Requise' :'Required date '}</div>}
                         
                         
 
@@ -332,7 +372,7 @@ const TripContent = ():React.ReactNode => {
             </div>
 
             <div className={locationCard}>
-                <div className={list[activeCarId-1].from ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                <div className={isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-green-500 '><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full' 
@@ -557,7 +597,7 @@ const TripContent = ():React.ReactNode => {
             </div>}
 
             {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={locationCard}>
-                <div className={list[activeCarId-1].to ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                <div className={isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-red-500'><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full' 
@@ -651,7 +691,13 @@ const TripContent = ():React.ReactNode => {
                 <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser': 'Reset'}</button>
             </div>}
 
-            { list[activeCarId-1].steps === 2 && <div className='w-full flex justify-center'><Steps /></div>}
+            <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
+                <div className="bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400" onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div 
+                    className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300"
+                    onClick={goNext}
+                >{isFrench? 'Suivant': 'Next'}</div>
+            </div>
         </div>
     </div>
     );
@@ -690,7 +736,7 @@ const toggle ='flex mr-6 relative items-center rounded border border-black durat
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2   text-black font-bold min-w-[42px] py-1'
 const toggleLabelActive ='flex min-w-[42px] items-center py-1 text-xs  duration-500 transition px-2   opacity-25 font-bold '
 
-const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
+const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 border-2 border-red-600'
 
 const iconCard = 'flex items-center justify-center w-8 h-8  bg-sky-400 border-black'
 const iconCardActive = 'flex items-center justify-center  w-8 h-8 border-black'

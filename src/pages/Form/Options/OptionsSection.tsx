@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react";
 
 const OptionsSection = ():React.ReactNode => {
     const { store } = useStore()
-    const {list, activeCarId, setCarType, isFrench} = useMain()
+    const {list, activeCarId, setCarType, isFrench,setSteps} = useMain()
     const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
 
     useEffect(()=>{
@@ -45,6 +45,10 @@ const OptionsSection = ():React.ReactNode => {
                 <div className={contentItem}><PassengersSelect /><BagsSelect /></div>
                 <div className={contentItem}><CarSeatSelect /></div>
                 <div className={contentItem}><SportSelect /><PetsSelect/></div>
+            </div>
+            <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
+                <div className="bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400" onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300" onClick={()=>(setSteps(4))}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
         </section>
     );
