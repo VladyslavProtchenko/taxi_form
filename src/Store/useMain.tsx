@@ -1,7 +1,5 @@
 import { create } from 'zustand';
 
-
-
 export interface IPet {
     isOther?: boolean;
     title: string,

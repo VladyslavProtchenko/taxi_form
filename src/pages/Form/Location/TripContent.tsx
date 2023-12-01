@@ -139,13 +139,22 @@ const TripContent = ():React.ReactNode => {
     return (
     <div className={container}>
         <div className={content}>
-            
+            <div className="flex divide-x absolute top-2 left-0 text-xs w-full justify-center border border-black border-b-0">
+                {store.typeList.map((item,index)=>(
+                    <span 
+                        className={typePos===index+1? 'bg-white text-sky-500 px-2 cursor-pointer':'bg-white px-2 cursor-pointer  ' }
+                        onClick={()=>{
+                            setTypePost(index+1)
+                            setType(item)
+                        }}
+                    >{item}</span>
+                ))}
+            </div>
             <div className={mainType}>
                     {store.typeList.map((item,index)=>(
                         <div 
                             className={ typeItem}
                             onClick={()=> {
-                                console.log(index+1)
                                 setTypePost(index+1)
                                 setType(item)
                             }}
@@ -158,7 +167,7 @@ const TripContent = ():React.ReactNode => {
                                 ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
                                 : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
                             }
-                            <span className='bg-white px-1'>{item}</span>
+                            {/* <span className='bg-white px-1'>{item}</span> */}
                         </div>
                     ))}
                 <div className={trickster+ `${typePos===2? ' translate-x-[100%] ': typePos===3? ' translate-x-[200%] ': typePos===4? ' translate-x-[300%] ' : ' border-l-green-400 '}`}>
@@ -170,7 +179,7 @@ const TripContent = ():React.ReactNode => {
                                 ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
                                 : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
                         }
-                    <span className='px-1'>
+                    {/* <span className='px-1'>
                         {
                         typePos===1
                             ? isFrench? 'Transport': 'Transport'
@@ -180,7 +189,7 @@ const TripContent = ():React.ReactNode => {
                             ? isFrench? 'Boost': 'Boost'
                             : isFrench? 'Unlocking door': 'Unlocking door'
                             
-                    }</span>
+                    }</span> */}
                     
                 </div>
             </div>
@@ -664,7 +673,7 @@ export default TripContent;
 const box = 'flex relative border rounded w-full'
 
 
-const typeIconItem = 'w-8 h-5 bg-contain bg-no-repeat bg-center'
+const typeIconItem = 'w-8 h-8 mx-auto bg-contain bg-no-repeat bg-center'
 const amText = 'pl-2  flex items-center py-1 pr-[2px] '
 const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-gray-600 text-white '
 
@@ -682,9 +691,9 @@ const typeCard = 'flex  self-center border border-black rounded  divide-x overfl
 
 const content = 'flex flex-col w-full space-y-3 py-10 pt-20'
 
-const typeItem = ' flex py-1 border-black items-center cursor-pointer w-1/4 '
-const trickster = "absolute flex border-l border-black bg-green-400 items-center w-1/4 h-full bg-green-300 duration-500"
-const mainType = ' absolute top-4  w-[97%] -translate-x-3 text-[10px] justify-between divide-x flex border border-black '
+const typeItem = ' flex py-1 border-black items-center cursor-pointer w-10 h-10'
+const trickster = "absolute flex border-l border-black bg-green-400 items-center w-10 h-10 left-0 h-full bg-green-300 duration-500"
+const mainType = ' absolute top-6  right-1/2 translate-x-1/2 justify-center -translate-x-3 text-[10px]  divide-x flex border border-black '
 
 
 
