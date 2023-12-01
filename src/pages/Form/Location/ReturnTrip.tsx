@@ -520,10 +520,10 @@ const content = ' relative flex flex-col w-full  space-y-3 py-10'
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 const revert = 'px-4 py-1 bg-orange-400 text-white rounded hover:bg-orange-300 active:bg-orange-500 '
 
-const iconCard = 'flex items-center justify-center w-1/5 h-[30px] bg-sky3-400'
-const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
+const iconCard = 'flex items-center justify-center w-8 h-8 bg-sky3-400'
+const iconCardActive = 'flex items-center justify-center  w-8 h-8 border-black'
 const iconItem = ' '
-const icons = 'flex divide-x lg:w-1/3 xl:w-1/3 2xl:w-1/3 j sm:w-2/5 border-black border rounded  overflow-hidden'
+const icons = 'flex divide-x  border-black border rounded  overflow-hidden'
 const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
 const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 

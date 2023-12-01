@@ -78,7 +78,7 @@ const InfoSection = () => {
                                 setName2('');
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
                             }}>
-                        {`${ isFrench?'Activer':'Add name'}`}
+                        {`${ isFrench?'Ajouter nom':'Add name'}`}
                     </button>
                     <button 
                         className={(isExtraNameOpen[1]) ? extraNameClose : 'hidden' } 
@@ -115,7 +115,7 @@ const InfoSection = () => {
                                 }
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })
                             }}
-                        >{`${(isExtraNameOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'Activer':'Add name'}`}</button>}
+                        >{`${(isExtraNameOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'Ajouter nom':'Add name'}`}</button>}
 
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
                     && <button 
@@ -158,7 +158,7 @@ const InfoSection = () => {
                             setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })
                         }}
                     >
-                        {isFrench?'Activer':'Add email'}
+                        {isFrench?'Ajouter courrier':'Add email'}
                     </button>
                     <button 
                         className={(isExtraEmailOpen[1]) ? extraNameClose : 'hidden' } 
@@ -187,7 +187,7 @@ const InfoSection = () => {
                     <button className={(isExtraEmailOpen[2]) ? ' hidden ' : addExtraBtn } onClick={()=>{
                                     setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: !isExtraEmailOpen[2] })
                                 }}>
-                        {isFrench?'Activer':'Add email'}
+                        {isFrench?'Ajouter courrier':'Add email'}
                     </button>
                     <button className={(isExtraEmailOpen[2]) ? extraNameClose : ' hidden ' } onClick={()=>{
                                     setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: !isExtraEmailOpen[2] })
@@ -220,7 +220,7 @@ const InfoSection = () => {
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })
                         }}
                     > 
-                        {isFrench?'Activer':'Add phone'} 
+                        {isFrench?'Ajouter téléphone':'Add phone'} 
                     </button>
                     <button 
                         className={(isExtraPhoneOpen[1]) ? extraNameClose : 'hidden ' } 
@@ -251,7 +251,7 @@ const InfoSection = () => {
                             setPhone3('')
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: !isExtraPhoneOpen[2] })
                                 }}>
-                        {isFrench?'Activer':'Add phone'}
+                        {isFrench?'Ajouter téléphone':'Add phone'}
                     </button>
                     <button className={(isExtraPhoneOpen[2]) ? extraNameClose : 'hidden' } onClick={()=>{
                             setPhone3('')
@@ -271,7 +271,7 @@ export default InfoSection;
 const box = ' border rounded bg-white flex items-center w-full '
 const warn = 'absolute -top-[15px] left-4 text-xs z-20 text-red-500'
 const nameCard = 'relative flex max-w-[400px] w-[100%] relative'
-const addExtraBtn = "absolute w-[25%] py-1 text-white flex justify-center bg-green-400 rounded text-xs cursor-pointer left-0"
+const addExtraBtn = "absolute w-[25%] py-1 flex justify-center border border-gray-500 bg-green-400 rounded text-xs cursor-pointer left-0"
 
 const extraNameClose = " my-auto ml-2 text-black w-6  h-6 border-gray-800 border  items-center flex justify-center bg-red-500 rounded cursor-pointer  left-[102%]"
 

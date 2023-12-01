@@ -139,26 +139,16 @@ const TripContent = ():React.ReactNode => {
     return (
     <div className={container}>
         <div className={content}>
-            <div className="flex divide-x absolute top-2 left-0 text-xs w-full justify-center border border-black border-b-0">
-                {store.typeList.map((item,index)=>(
-                    <span 
-                        className={typePos===index+1? 'bg-white text-sky-500 px-2 cursor-pointer':'bg-white px-2 cursor-pointer  ' }
-                        onClick={()=>{
-                            setTypePost(index+1)
-                            setType(item)
-                        }}
-                    >{item}</span>
-                ))}
-            </div>
             <div className={mainType}>
                     {store.typeList.map((item,index)=>(
                         <div 
-                            className={ typeItem}
+                            className={typeItem}
                             onClick={()=> {
                                 setTypePost(index+1)
                                 setType(item)
                             }}
                         >
+                            <span className=' px-1 border-b h-6 flex items-center border-black w-full '><span>{item}</span></span>
                             {index===0
                                 ? <div style={{backgroundImage:`url(${orderTaxi})`}}  className={typeIconItem}></div>
                                 : index===1
@@ -167,29 +157,28 @@ const TripContent = ():React.ReactNode => {
                                 ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
                                 : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
                             }
-                            {/* <span className='bg-white px-1'>{item}</span> */}
                         </div>
                     ))}
                 <div className={trickster+ `${typePos===2? ' translate-x-[100%] ': typePos===3? ' translate-x-[200%] ': typePos===4? ' translate-x-[300%] ' : ' border-l-green-400 '}`}>
+                    <span className=' px-1 border-b h-6 flex items-center border-black w-full '>
                         {typePos===1
-                                ? <div style={{backgroundImage:`url(${orderTaxi})`}}  className={typeIconItem}></div>
-                                : typePos===2
-                                ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
-                                : typePos===3
-                                ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
-                                : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
-                        }
-                    {/* <span className='px-1'>
-                        {
-                        typePos===1
                             ? isFrench? 'Transport': 'Transport'
                             : typePos===2
                             ? isFrench? 'Delivery': 'Delivery'
                             : typePos===3
                             ? isFrench? 'Boost': 'Boost'
                             : isFrench? 'Unlocking door': 'Unlocking door'
-                            
-                    }</span> */}
+                        }
+                    </span>
+                    {typePos===1
+                            ? <div style={{backgroundImage:`url(${orderTaxi})`}}  className={typeIconItem}></div>
+                            : typePos===2
+                            ? <div style={{backgroundImage:`url(${delivery})`}}  className={typeIconItem}></div>
+                            : typePos===3
+                            ? <div style={{backgroundImage:`url(${carBooster})`}}  className={typeIconItem}></div>
+                            : <div style={{backgroundImage:`url(${lostKey})`}}  className={typeIconItem}></div>
+                    }
+                    
                     
                 </div>
             </div>
@@ -691,8 +680,8 @@ const typeCard = 'flex  self-center border border-black rounded  divide-x overfl
 
 const content = 'flex flex-col w-full space-y-3 py-10 pt-20'
 
-const typeItem = ' flex py-1 border-black items-center cursor-pointer w-10 h-10'
-const trickster = "absolute flex border-l border-black bg-green-400 items-center w-10 h-10 left-0 h-full bg-green-300 duration-500"
+const typeItem = ' flex flex-col  border-black items-center justify-between cursor-pointer w-12 h-15'
+const trickster = "absolute flex flex-col justify-between border-l border-black bg-green-400 items-center w-12  left-0 h-full bg-green-300 duration-500"
 const mainType = ' absolute top-6  right-1/2 translate-x-1/2 justify-center -translate-x-3 text-[10px]  divide-x flex border border-black '
 
 
@@ -703,10 +692,10 @@ const toggleLabelActive ='flex min-w-[42px] items-center py-1 text-xs  duration-
 
 const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 '
 
-const iconCard = 'flex items-center justify-center w-1/5 h-[30px]  bg-sky-400 border-black'
-const iconCardActive = 'flex items-center justify-center  w-1/5 h-[30px] border-black'
+const iconCard = 'flex items-center justify-center w-8 h-8  bg-sky-400 border-black'
+const iconCardActive = 'flex items-center justify-center  w-8 h-8 border-black'
 const iconItem = ' '
-const icons = 'flex divide-x w-1/2 border-black border rounded  overflow-hidden'
+const icons = 'flex divide-x  border-black border rounded  overflow-hidden'
 const iconsType = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
 const flightCard = 'flex relative items-center border w-1/2 rounded '
 

@@ -34,16 +34,6 @@ function App():React.ReactNode {
               
               <span className={taxiLabel}>
                 Taxis
-                {/* {activeCarId === 1 
-                ? "1st Taxi"
-                :activeCarId === 2 
-                ? "2nd Taxi"
-                :activeCarId === 3
-                ? "3rd Taxi"
-                :activeCarId === 4 
-                ? "4th Taxi"
-                : '5th Taxi'
-                } */}
               </span>
           </div>
         </div>
@@ -55,35 +45,35 @@ function App():React.ReactNode {
                 onClick={()=>{
                   setActiveCarId(1)
                 }}
-            >1<span className='font-light text-sm mx-[1px] w-3 text-gray-400 '>{isFrench? 'er': 'st'}</span></li>
+            >1<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'er': 'st'}</span></li>
             <li 
                 className={activeCarId===2 ? activeTab  : activeCarId ===3 ? tab + '  rounded-br ' : activeCarId===1 ? tab + ' rounded-tr ' : tab+ ' ' }
                 onClick={()=>{
                   if(!isCars[1]) return
                   setActiveCarId(2)
                 }}
-            >2<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'nd'}</span></li>
+            >2<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'e': 'nd'}</span></li>
             <li 
                 className={activeCarId===3 ? activeTab  : activeCarId===4 ? tab + 'rounded-br ' : activeCarId===2 ? tab + '  rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[2] || !isCars[1]) return
                   setActiveCarId(3)
                 }}
-            >3<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'rd'}</span></li>
+            >3<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'e': 'rd'}</span></li>
             <li 
                 className={activeCarId===4 ? activeTab  : activeCarId===5 ? tab + '  rounded-br ' : activeCarId===3 ? tab + ' rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[3] || !isCars[2] || !isCars[1]) return
                   setActiveCarId(4)
                 }}
-            >4<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'th'}</span></li>
+            >4<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'e': 'th'}</span></li>
             <li 
                 className={activeCarId===5 ? activeTab : activeCarId===4 ? tab + '  rounded-tr': tab + ' '}
                 onClick={()=>{
                   if(!isCars[4] || !isCars[3] || !isCars[2] || !isCars[1]) return
                   setActiveCarId(5)
                 }}
-            >5<span className='font-light text-sm mx-[1px] w-3 text-gray-400  '>{isFrench? 'e': 'th'}</span></li>
+            >5<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'e': 'th'}</span></li>
 
             <li className={activeCarId===5 ? 'h-full pt-6 flex items-center w-full rounded-tr border-r  border-t ' : ' pt-6 flex border-r justify-center w-full h-full  '}>
               <div className=" flex items-center text-2xl justify-center border-2 h-min rounded-full border-orange-400 text-orange-400">
