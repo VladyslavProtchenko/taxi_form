@@ -95,7 +95,7 @@ const activeTab = 'px-1 flex items-center justify-end text-lg border border-l-0 
 const tab = 'px-1 text-lg flex items-center justify-end border border-l-0  cursor-pointer border-t border-b  bg-white'
 const tabsContainer = 'flex flex-col mr-2 font-bold h-full m-0 w-[40px] '
 
-const lang = ' flex rounded h-[20px] cursor-pointer mb-4'
+const lang = ' flex rounded h-[20px] cursor-pointer mb-4 self-start'
 const langItem = 'text-xl px-1'
 
 const header = 'flex flex-col w-full p pt-4 px-4 shadow mb-[1px]'
