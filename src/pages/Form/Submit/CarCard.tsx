@@ -22,8 +22,11 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
         {openModal && <div className="absolute flex flex-col bg-white shadow p-4 rounded">
             <h1>Do you want decline car?</h1>
             <div className='flex space-x-2 self-end'>
-                <button className={bm} onClick={()=>setFilled(false, item.id)}>yes</button>
-                <button className={bm2} onClick={()=>setOpenModal(false)}>not</button>
+                <button className={bm2} onClick={()=>{
+                    setFilled(false, item.id)
+                    setOpenModal(false)
+                    }}>yes</button>
+                <button className={bm} onClick={()=>setOpenModal(false)}>not</button>
             </div>
         </div>}
         <div className="flex w-full">
@@ -91,11 +94,20 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                                     </div>
                                 </div>}
                                 <div className={text}><SlLocationPin className={icon+ ' text-green-400'}/>{item.from}</div>
+                                <div className='flex'>
+                                    <div className='px-1'>{item.flight.title}</div>
+                                    <div className='px-1'>{item.flight.prefix}</div>
+                                    <div className='px-1 '>{item.flightR.number? '#'+item.flightR.number : ''}</div>
+                                </div>
                                 {Object.values(item.stops).filter(i=>i).map(item=>(
                                     <div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div>
                                 ))}
                                 {item.to && <div className={text}><SlLocationPin className={icon+ ' text-red-400'}/>{item.to}</div>}
-                                
+                                <div className='flex'>
+                                    <div className='px-1'>{item.flight2.title}</div>
+                                    <div className='px-1'>{item.flight2.prefix}</div>
+                                    <div className='px-1 '>{item.flight2.number? '#'+item.flight2.number : ''}</div>
+                                </div>
                             </div>
                         </div>
 
@@ -112,10 +124,20 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                                 </div>}
                                 
                                 <div className={text}><SlLocationPin className={icon+ ' text-green-400'}/>{item.fromR}</div>
+                                <div className='flex'>
+                                    <div className='px-1'>{item.flightR.title}</div>
+                                    <div className='px-1'>{item.flightR.prefix}</div>
+                                    <div className='px-1 '>{item.flightR.number? '#'+item.flightR.number : ''}</div>
+                                </div>
                                 {Object.values(item.stopsR).map(item=>(
                                     item.length> 1 ? <div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div> :<></>
                                 ))}
                                 <div className={text}><SlLocationPin className={icon+ ' text-red-400'}/>{item.toR}</div>
+                                <div className='flex'>
+                                    <div className='px-1'>{item.flight2R.title}</div>
+                                    <div className='px-1'>{item.flight2R.prefix}</div>
+                                    <div className='px-1 '>{item.flight2R.number? '#'+item.flight2R.number : ''}</div>
+                                </div>
                                 
                             </div>
                         </div>}

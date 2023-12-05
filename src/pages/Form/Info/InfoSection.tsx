@@ -49,6 +49,12 @@ const InfoSection = () => {
         2:false,
     })
 
+    useEffect(()=>{
+        setIsExtraNameOpen({ 1:list[activeCarId-1].name2.length>0 , 2:list[activeCarId-1].name3.length>0})
+        setIsExtraEmailOpen({ 1:list[activeCarId-1].email2.length>1 , 2:list[activeCarId-1].email3.length>1})
+        setIsExtraPhoneOpen({ 1:list[activeCarId-1].phone2.length>0 , 2:list[activeCarId-1].phone3.length>0})
+    },[])
+
     function goNext(){
         setTrigger(true)
         setIsTitle(false)
@@ -56,10 +62,10 @@ const InfoSection = () => {
         setIsEmail(false)
         setNoPhone(false)
 
-        if(list[activeCarId-1].name.length > 2) setIsName(true)
-        if(list[activeCarId-1].title) setIsTitle(true)
+        setIsName(list[activeCarId-1].name.length > 2)
+        setIsTitle(list[activeCarId-1].title.length>1)
         setIsEmail(pattern.test(list[activeCarId-1].email))
-        if(isPhone) setNoPhone(true)
+        setNoPhone(isPhone)
     
         if(isTitle && isPhone && isEmail && noPhone) setSteps(2)
     }
@@ -71,8 +77,8 @@ const InfoSection = () => {
             setIsEmail(false)
             setNoPhone(false)
     
-            if(list[activeCarId-1].name.length > 2) setIsName(true)
-            if(list[activeCarId-1].title) setIsTitle(true)
+            setIsName(list[activeCarId-1].name.length > 2)
+            setIsTitle(list[activeCarId-1].title.length>1)
             setIsEmail(pattern.test(list[activeCarId-1].email))
             setNoPhone(isPhone)
         }
@@ -87,17 +93,17 @@ const InfoSection = () => {
                 <div className={nameCard }>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
                         <span className='icon'><BsPeople/></span>
-                        <Select allowClear  placeholder={isFrench? 'Titre':'Title' } style={{width: 118, height: 40}} onChange={setTitle} options={options1}/>
+                        <Select allowClear  placeholder={isFrench? 'Titre':'Title' } style={{width: 118, height: 40}} onChange={setTitle} options={options1} value={list[activeCarId-1].title || null} />
                         <Input allowClear value={list[activeCarId-1].name} placeholder={isFrench? store.nameListF[0]:store.nameList[0] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                     </div>
                 </div>
 
-                <div className={list[activeCarId-1].name.length>3 ? nameCard : 'hidden'}>
+                <div className={list[activeCarId-1].name.length>2 ? nameCard : 'hidden'}>
                     <div className={isExtraNameOpen[1] ? box : box + ' opacity-0'}>
                         <div className={(list[activeCarId-1].name === list[activeCarId-1].name2)? warn: 'hidden'}>name cannot be repeated</div>
                         {!isExtraNameOpen[1] &&  <div className='absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-100 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
-                        <Select placeholder={isFrench? 'Titre':'Title'  }style={{width: 118, height: 40}} onChange={setTitle2} options={options1}/> 
+                        <Select placeholder={isFrench? 'Titre':'Title'  }style={{width: 118, height: 40}} onChange={setTitle2} options={options1} value={list[activeCarId-1].title2 || null}/> 
                         <Input value={list[activeCarId-1].name2} allowClear placeholder={isFrench? store.nameListF[1]:store.nameList[1] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                         
                     </div>
@@ -134,12 +140,12 @@ const InfoSection = () => {
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></button>
                 </div>
                 
-                <div className={list[activeCarId-1].name2.length<3 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard : nameCard + ' border-white h-[32px]'}>
+                <div className={list[activeCarId-1].name2.length<2 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard : nameCard + ' border-white h-[32px]'}>
                     <div className={(list[activeCarId-1].name === list[activeCarId-1].name3 || list[activeCarId-1].name2 === list[activeCarId-1].name3)? warn: 'hidden'}>name cannot be repeated</div>
                     <div className={(isExtraNameOpen[2])? box: box +' opacity-0'}>
                         {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon'><BsPeople/></span>
-                        <Select placeholder={isFrench? 'Titre':'Title'  } style={{width: 118, height: 40}} onChange={setTitle3}options={options1}/> 
+                        <Select placeholder={isFrench? 'Titre':'Title'  } style={{width: 118, height: 40}} onChange={setTitle3}options={options1} value={list[activeCarId-1].title3 || null}/> 
                         <Input  value={list[activeCarId-1].name3 } allowClear placeholder={isFrench? store.nameListF[2]:store.nameList[2] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{maxWidth:200, borderRadius: 5, height: 30}}/>
                     </div>
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
@@ -166,13 +172,18 @@ const InfoSection = () => {
                             }}
                         ><span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span></button>}
                 </div>
-
             </div>
 
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={box +' border-none '}>
-                        <MailInput value={list[activeCarId-1].email} mainMail={true} noMail={isEmail} onChange={setEmail} placeholder={isFrench? store.emailListF[0]:store.emailList[0] }/>
+                        <MailInput 
+                            value={list[activeCarId-1].email} 
+                            mainMail={true} 
+                            noMail={isEmail} 
+                            onChange={setEmail} 
+                            placeholder={isFrench? store.emailListF[0]:store.emailList[0] }
+                        />
                     </div>
                 </div>
                 
@@ -181,32 +192,21 @@ const InfoSection = () => {
                     <div className={isExtraEmailOpen[1] ? box + ' border-none ' : box + ' opacity-0'}>
                         <div className={(list[activeCarId-1].email === list[activeCarId-1].email2)? warn: 'hidden'}>email cannot be repeated</div>
                         {!isExtraEmailOpen[1] &&  <div className={'absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-0 rounded cursor-not-allowed'}></div>}
-                        <MailInput value={list[activeCarId-1].email2} mainMail={true} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
+                        <MailInput value={list[activeCarId-1].email2} mainMail={false} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
                     </div>
-                    <button 
-                        className={(isExtraEmailOpen[1]) ? 'hidden' : addExtraBtn } 
-                        onClick={()=>{
-                            if(list[activeCarId-1].email2 && list[activeCarId-1].email3) {
-                                setEmail2(list[activeCarId-1].email3)
-                                setEmail3('')
-                                return   setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: false })
-                            }
-                            setEmail2('')
-                            setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })
-                        }}
-                    >
+                    <button className={(isExtraEmailOpen[1]) ? 'hidden' : addExtraBtn } onClick={()=> setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: true })}>
                         {isFrench?'Ajouter courrier':'Add email'}
                     </button>
                     <button 
                         className={(isExtraEmailOpen[1]) ? extraNameClose : 'hidden' } 
                         onClick={()=>{
-                            if(list[activeCarId-1].email2 && list[activeCarId-1].email3) {
+                            if(list[activeCarId-1].email2.length>1 && list[activeCarId-1].email3.length>1) {
                                 setEmail2(list[activeCarId-1].email3)
-                                setEmail3('')
+                                setEmail3('@')
                                 return   setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: false })
                             }
-                            setEmail2('')
-                            setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: !isExtraEmailOpen[1] })
+                            setEmail2('@')
+                            setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: false })
                         }}
                     >
                         <span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span>
@@ -221,15 +221,14 @@ const InfoSection = () => {
                         <MailInput value={list[activeCarId-1].email3} onChange={setEmail3}placeholder={isFrench? store.emailListF[2]:store.emailList[2] }/>
                     </div>
                     
-                    <button className={(isExtraEmailOpen[2]) ? ' hidden ' : addExtraBtn } onClick={()=>{
-                                    setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: !isExtraEmailOpen[2] })
-                                }}>
+                    <button className={(isExtraEmailOpen[2]) ? ' hidden ' : addExtraBtn } onClick={()=>{setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: true })}}>
                         {isFrench?'Ajouter courrier':'Add email'}
                     </button>
                     <button className={(isExtraEmailOpen[2]) ? extraNameClose : ' hidden ' } onClick={()=>{
-                                    setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: !isExtraEmailOpen[2] })
+                                    setEmail3('@')
+                                    setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: false })
                                 }}>
-                        <span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span>
+                        <span className='scale-[150%] font-bold rotate-45'>+</span>
                     </button>
                 </div>
             </div>

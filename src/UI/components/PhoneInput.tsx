@@ -258,7 +258,6 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone):Reac
     
     useEffect(()=>{
         if(country) {
-            console.log('work',country)
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
             if(res) { 
                 setCountryCode(res[1]) 
@@ -314,7 +313,7 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone):Reac
                 dropdownClass='max-w-[200px] z-40'
                 priority={{ca: 1, us: 0,kz: 0, ru: 1}  }
                 country={'us'}
-                value={countryCode}
+                value={value || countryCode}
                 onChange={(e, countryName:ICountry)=>{
                     setCountry(countryName.name)
                     onChange(e)
@@ -333,7 +332,7 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone):Reac
                 dropdownClass='max-w-[200px] z-40'
                 priority={{ca: 0, us: 1,kz: 0, ru: 1} }
                 country={'ca'}
-                value={countryCode}
+                value={value || countryCode}
                 onChange={(e, countryName:ICountry)=>{
                     setCountry(countryName.name)
                     onChange(e)

@@ -10,9 +10,10 @@ interface IDate {
     getFullDate?: (date: dayjs.Dayjs) => void;
     time:string;
     isReturn?:boolean;
+    value:string;
 }
 
-export default function DatePicker({onChange, getFullDate, isReturn}:IDate):React.ReactNode {
+export default function DatePicker({onChange, getFullDate, isReturn, value}:IDate):React.ReactNode {
     const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
     const {list, activeCarId} = useMain()
 
@@ -21,9 +22,8 @@ export default function DatePicker({onChange, getFullDate, isReturn}:IDate):Reac
             setDate(parsedDate);
             if(getFullDate) getFullDate(parsedDate)
             onChange(parsedDate.format('MM/DD/YYYY'))
-        }
-    if(isReturn) console.log(dayjs(list[activeCarId-1].date), 'date')
-
+    }
+console.log(dayjs(list[activeCarId-1].date))
     return (
         <div className="relative" >
             <div className={pickUpTime}>
@@ -43,7 +43,7 @@ export default function DatePicker({onChange, getFullDate, isReturn}:IDate):Reac
                 <StaticDatePicker
                     className='sm:w-[280px] mt-8 '
                     minDate={isReturn ? list[activeCarId-1].date ? dayjs(list[activeCarId-1].date) : dayjs(): dayjs()}
-                    
+                    value={dayjs(value)}
                     onChange={handleDate}
                 />
             </LocalizationProvider>

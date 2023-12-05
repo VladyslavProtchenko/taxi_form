@@ -23,6 +23,8 @@ import stars from './../../../assets/night.jpg'
 import train from './../../../assets/train.jpeg'
 import boat from './../../../assets/ship.png'
 
+
+
 const ReturnTrip = ():React.ReactNode  => {
     const {
         list,
@@ -39,8 +41,6 @@ const ReturnTrip = ():React.ReactNode  => {
         setDeparture2R,
         setFlightR,
         setFlight2R, 
-        setAirlinesR, 
-        setAirlinesBackR, 
         resetReturn,
         setTimeTypeR,
         setSteps,
@@ -54,22 +54,52 @@ const ReturnTrip = ():React.ReactNode  => {
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(3)
-
-
     const [isDateR, setIsDateR] = useState(true)
     const [isFromR, setIsFromR] = useState(true)
     const [isToR, setIsToR] = useState(true)
 
+    const prefixes:{[key:string]:string} = {
+        'AIR CANADA': "AC",
+        'Air Transat': "AT",
+        'PAL airlines':"PA",
+        'Air Inuit':"AI",
+        'Porter':"PO",
+        'UNITED': "UN",
+        'CANADIAN NORTH':"CN",
+        'American Airlines':"AA",
+        'Emirates':"EM",
+        'arajet':"AR",
+        'DELTA':"DE",
+        'flair':"FL",
+        'AIR ALGERIE':"AL",
+        'TUNISAIR':"TU",
+        'SWISS':"SW",
+        'Austrian':"AU",
+        'Air Saint-Pierre':"SP",
+        'AIRFRANCE':"AF",
+        'KLM':"KLM",
+        'Lufthansa':"LU",
+        'Royal Air MAroc(RAM)':"MA",
+        'BRITISH AIRWAYS':"BA",
+        'AeroMexico':"AM",
+        'CopaAirlines':"CO",
+        'Lynx':"LY",
+        'SUNWING':"SNW",
+        'QATAR':"QT",
+        'RAM':"RAM",
+        'Another':"",
+        "":'',
+    }
+
+
     useEffect(()=>{
         setDay(list[activeCarId-1].timeR.slice(0,2) > '04' && list[activeCarId-1].timeR.slice(0,2) < '23')
-
     },[list[activeCarId-1].timeR,list[activeCarId-1].timeTypeR])
 
     useEffect(()=>{
         if(trigger[1]) setFromR(list[activeCarId-1].to)
         if(trigger[2]) setToR(list[activeCarId-1].from)
     },[trigger,list[activeCarId-1].to, list[activeCarId-1].from])
-
 
     useEffect(()=>{
         //I get all stops revert it ans complete in new array, I want to display stops order without holes im order! so we need make a sort every time when stops changes
@@ -85,33 +115,6 @@ const ReturnTrip = ():React.ReactNode  => {
         }
     },[stopTrigger, list[activeCarId-1].stops])
 
-    function goNext() {
-
-        setIsDateR(list[activeCarId-1].date.length>0)
-        setIsFromR(list[activeCarId-1].from.length>0)
-        setIsToR(list[activeCarId-1].to.length>0)
-
-        if(!list[activeCarId-1].date) return alert('need date')
-        if(!list[activeCarId-1].time && list[activeCarId-1].timeType!==0 ) return alert('need time')
-        if(!list[activeCarId-1].from) return alert('need pick up location')
-        if(!list[activeCarId-1].to) return alert('need drop of location')
-
-        if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) return setSteps(3)
-        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
-        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return alert('need return time')
-        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
-        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return alert('need return drop of location')
-        if(
-            list[activeCarId-1].date 
-            && list[activeCarId-1].from 
-            && list[activeCarId-1].to 
-            && list[activeCarId-1].isReturnTrip
-            && list[activeCarId-1].dateR
-            && list[activeCarId-1].timeR
-            && list[activeCarId-1].fromR 
-            && list[activeCarId-1].toR 
-        ) return setSteps(3)
-    }
     useEffect(()=>{
         if(trigger){
             setIsDateR(list[activeCarId-1].dateR.length>0)
@@ -158,6 +161,35 @@ const ReturnTrip = ():React.ReactNode  => {
 
     },[list[activeCarId-1].from,list[activeCarId-1].fromR, list[activeCarId-1].to,list[activeCarId-1].toR])
 
+
+
+    function goNext() {
+
+        setIsDateR(list[activeCarId-1].date.length>0)
+        setIsFromR(list[activeCarId-1].from.length>0)
+        setIsToR(list[activeCarId-1].to.length>0)
+
+        if(!list[activeCarId-1].date) return alert('need date')
+        if(!list[activeCarId-1].time && list[activeCarId-1].timeType!==0 ) return alert('need time')
+        if(!list[activeCarId-1].from) return alert('need pick up location')
+        if(!list[activeCarId-1].to) return alert('need drop of location')
+
+        if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) return setSteps(3)
+        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
+        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return alert('need return time')
+        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
+        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return alert('need return drop of location')
+        if(
+            list[activeCarId-1].date 
+            && list[activeCarId-1].from 
+            && list[activeCarId-1].to 
+            && list[activeCarId-1].isReturnTrip
+            && list[activeCarId-1].dateR
+            && list[activeCarId-1].timeR
+            && list[activeCarId-1].fromR 
+            && list[activeCarId-1].toR 
+        ) return setSteps(3)
+    }
     function setBackSection(){
         setTrigger({ 1: 1, 2: 1 })
         setStopTrigger(true)
@@ -171,8 +203,6 @@ const ReturnTrip = ():React.ReactNode  => {
     return (
     <div className={container}>
         {!list[activeCarId-1].isReturnTrip && <div className='absolute left-0 top-10 right-0 bottom-0 z-20 bg-white opacity-50'></div>}
-        
-
         <div className={content}>
             
             <div className={date}>
@@ -209,7 +239,7 @@ const ReturnTrip = ():React.ReactNode  => {
                                 }
                             {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choose return date</div> }
                         {isDateOpen && <div className={dateTimeSubmenu}>
-                            <DatePicker isReturn={true} time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
+                            <DatePicker value={list[activeCarId-1].dateR} isReturn={true} time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
                             <div className="flex justify-between pl-8">
                                 <div className={setDateBtn} onClick={(e)=> {
                                         e.stopPropagation();
@@ -250,13 +280,12 @@ const ReturnTrip = ():React.ReactNode  => {
                 </div>
 
                 {list[activeCarId-1].iconR > 0 && <div className={flightCard }>
-                    {list[activeCarId-1].iconR === 1 && <Select 
+                    {list[activeCarId-1].iconR === 1 && 
+                    <Select 
                         className='favorite w-1/2 max-h-[30px]'
                         style={{width: '100px', borderRadius: 5}} 
-                        options={store.flights.map(item=>(
-                            {value: item, label: item}
-                        ))} 
-                        onChange={setAirlinesR} 
+                        options={store.flights.map(item=>({value: item, label: item}))} 
+                        onChange={(e)=>{setFlightR({...list[activeCarId-1].flightR, title: e})}}
                         placeholder='Airlines' 
                     />}
                     
@@ -273,22 +302,19 @@ const ReturnTrip = ():React.ReactNode  => {
                         :<MdFlightLand className='text-xl mx-1'/>
                     }   
                     {list[activeCarId-1].iconR === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {list[activeCarId-1].airlines.toLowerCase().includes('canada') 
-                            ? 'AC'
-                            : list[activeCarId-1].airlines.toLowerCase().includes('transat') 
-                            ? 'TS'
-                            : list[activeCarId-1].airlines.toLowerCase().includes('quatar') 
-                            ? 'QR'
-                            : ''
-                        }
+                        { prefixes[list[activeCarId-1].flightR.title]}
                     </div>}
                     <Input 
-                        value={list[activeCarId-1].flightR}
+                        value={list[activeCarId-1].flightR.number}
                         maxLength={4}
                         placeholder={list[activeCarId-1].iconR === 1 ?'####': list[activeCarId-1].iconR === 2 ? 'Train#' : list[activeCarId-1].iconR === 3 ? "Bus#" : list[activeCarId-1].iconR === 4 ? 'Boat#': 'Room#'} 
                         style={{width:`${list[activeCarId-1].iconR === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlightR(e.target.value.replace(/\D/g, ''))}
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                            setFlightR({...list[activeCarId-1].flightR, number: e.target.value.replace(/\D/g, '')})
+                        }}
                     />
+                    {list[activeCarId-1].flightR.number.length<3 && list[activeCarId-1].flightR.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+
                 </div>} 
             </div>
 
@@ -318,20 +344,20 @@ const ReturnTrip = ():React.ReactNode  => {
 
             
             <div className={extraCardStop}>
-                {stop === 0 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
-                <span className='icon text-orange-400'><SlLocationPin/></span> 
-                <GoogleAddressInput
-                    style='w-full'
-                    defaultLocation={list[activeCarId-1].stopsR[1]} 
-                    onChange={(e)=>{
-                        setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stopsR, 1: e})
-                    }}
-                    placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
-                />
-                    
+                <div className={(stop > 0)? box: box + ' opacity-0 '}>
+                    <span className='icon text-orange-400'><SlLocationPin/></span> 
+                    <GoogleAddressInput
+                        style='w-full'
+                        defaultLocation={list[activeCarId-1].stopsR[1]} 
+                        onChange={(e)=>{
+                            setStopTrigger(false)
+                            setStopsR({...list[activeCarId-1].stopsR, 1: e})
+                        }}
+                        placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
+                    />
+                </div>
                 <div 
-                    className={(stop === 0) ? openStop :closeStop} 
+                    className={(stop === 0) ? openStop : 'hidden'} 
                     onClick={()=>{ 
                         if(stop===0) return setStop(1);
                         const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 0)
@@ -344,99 +370,120 @@ const ReturnTrip = ():React.ReactNode  => {
                         setStopsR(data)
                         setStop(stop - 1)
                     }}
-                    >{(stop === 0) ? '+' :'-'}</div> 
-            </div>
-
-            
-            <div className={(stop > 0 && list[activeCarId-1].stopsR[1]) ?  extraCardStop: 'hidden'}>
-                {stop === 1 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
-                <span className='icon text-orange-400'><SlLocationPin/></span>
-                <GoogleAddressInput 
-                    style='w-full'
-                    defaultLocation={list[activeCarId-1].stopsR[2]} 
-                    onChange={(e)=>{
-                        setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stopsR, 2: e})
-                    }}
-                    placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
-                />
-            <div 
-                className={(stop === 1) ? openStop :closeStop} 
-                onClick={()=>{
-                        if(stop===1) return setStop(2) 
-                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 1)
+                >Add stop</div>
+                <div 
+                    className={(stop > 0) ? closeStop : 'hidden'} 
+                    onClick={()=>{ 
+                        if(stop===0) return setStop(1);
+                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 0)
                         const data: IObj ={}
                         array.map((item, index) => {
                             const number  = index+1;
                             data[number] = item;
                         })
-                        setStopTrigger(false)
                         setStopsR(data)
-                        setStop(stop -1)
+                        setStop(stop - 1)
                     }}
-                >{(stop === 1) ? '+' :'-'}</div> 
+                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
+
             </div>
 
             
-            <div className={(stop > 1 && list[activeCarId-1].stopsR[2]) ?  extraCardStop: 'hidden'}>
-                {stop === 2 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
+            <div className={(stop > 0 ) ?  extraCardStop: 'hidden'}>
+                <div className={stop > 1 ? box: box + ' opacity-0 '}>
+                    <span className='icon text-orange-400'><SlLocationPin/></span>
+                    <GoogleAddressInput 
+                        style='w-full'
+                        defaultLocation={list[activeCarId-1].stopsR[2]} 
+                        onChange={(e)=>{
+                            setStopTrigger(false)
+                            setStopsR({...list[activeCarId-1].stopsR, 2: e})
+                        }}
+                        placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
+                    />
+                </div>
+                    <div  className={(stop === 1) ? openStop :'hidden'} onClick={()=> setStop(2)} >Add stop</div> 
 
-                <span className='icon text-orange-400'><SlLocationPin/></span>
-                <GoogleAddressInput 
-                    style='w-full'
-                    defaultLocation={list[activeCarId-1].stopsR[3]} 
-                    onChange={(e)=>{
-                        setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stopsR, 3: e})
-                    }}
-                    placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
-                />
-            <div 
-                className={(stop === 2) ? openStop :closeStop} 
-                onClick={()=>{ 
-                        if(stop===2) return setStop(3)
-                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 2)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setStopTrigger(false)
-                        setStopsR(data)
-                        setStop(stop -1) 
-                    }}
-                    >{(stop === 2) ? '+' :'-'}</div> 
+                    <div 
+                        className={(stop > 1) ? closeStop : 'hidden'} 
+                        onClick={()=>{
+                                if(stop===1) return setStop(2) 
+                                const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 1)
+                                const data: IObj ={}
+                                array.map((item, index) => {
+                                    const number  = index+1;
+                                    data[number] = item;
+                                })
+                                setStopTrigger(false)
+                                setStopsR(data)
+                                setStop(stop -1)
+                            }}
+                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div>  
             </div>
 
             
-            <div className={(stop > 2  && list[activeCarId-1].stopsR[3]) ?  extraCardStop: 'hidden'}>
-                {stop === 3 && <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div>}
+            <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
+                <div className={stop > 2 ? box : box + ' opacity-0 '}>
+                    <span className='icon text-orange-400'><SlLocationPin/></span>
+                    <GoogleAddressInput 
+                        style='w-full'
+                        defaultLocation={list[activeCarId-1].stopsR[3]} 
+                        onChange={(e)=>{
+                            setStopTrigger(false)
+                            setStopsR({...list[activeCarId-1].stopsR, 3: e})
+                        }}
+                        placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
+                    />
+                </div>
+                <div className={(stop === 2) ? openStop :'hidden'} onClick={()=> setStop(3)}>Add stop</div> 
+                <div 
+                    className={(stop > 2) ? closeStop :'hidden'} 
+                    onClick={()=>{ 
+                            if(stop===2) return setStop(3)
+                            const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 2)
+                            const data: IObj ={}
+                            array.map((item, index) => {
+                                const number  = index+1;
+                                data[number] = item;
+                            })
+                            setStopTrigger(false)
+                            setStopsR(data)
+                            setStop(stop -1) 
+                        }}
+                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
+            </div>
 
-                <span className='icon text-orange-400'><SlLocationPin/></span>
-                <GoogleAddressInput 
-                    style='w-full '
-                    defaultLocation={list[activeCarId-1].stopsR[4]} 
-                    onChange={(e)=>{
-                        setStopTrigger(false)
-                        setStopsR({...list[activeCarId-1].stopsR, 4: e})
-                    }}
-                    placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
-                />
-            <div 
-                className={(stop === 3) ? openStop :closeStop} 
-                onClick={()=>{ 
-                    if(stop===3) return setStop(4)
-                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 3)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setStopTrigger(false)
-                        setStopsR(data)
-                        setStop(stop -1) 
-                    }}
-                >{(stop === 3) ? '+' :'-'}</div> 
+            
+            <div className={(stop > 2  ) ?  extraCardStop: 'hidden'}>
+                <div className={stop > 3 ? box : box + ' opacity-0 '}>
+
+                    <span className='icon text-orange-400'><SlLocationPin/></span>
+                    <GoogleAddressInput 
+                        style='w-full '
+                        defaultLocation={list[activeCarId-1].stopsR[4]} 
+                        onChange={(e)=>{
+                            setStopTrigger(false)
+                            setStopsR({...list[activeCarId-1].stopsR, 4: e})
+                        }}
+                        placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
+                    />
+                </div>
+                <div className={(stop === 3) ? openStop :'hidden'}onClick={()=>setStop(4)} >Add stop</div> 
+                <div 
+                    className={(stop > 3) ? closeStop :'hidden'} 
+                    onClick={()=>{ 
+                        if(stop===3) return setStop(4)
+                            const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 3)
+                            const data: IObj ={}
+                            array.map((item, index) => {
+                                const number  = index+1;
+                                data[number] = item;
+                            })
+                            setStopTrigger(false)
+                            setStopsR(data)
+                            setStop(stop -1) 
+                        }}
+                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>
 
             <div className={locationCard}>
@@ -492,12 +539,14 @@ const ReturnTrip = ():React.ReactNode  => {
                         options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
-                        onChange={setAirlinesBackR} 
+                        onChange={(e)=>{
+                            setFlight2R({...list[activeCarId-1].flight2R, title: e})
+                        }} 
                         placeholder='Airlines' 
                     />}
                     
                     {list[activeCarId-1].icon2R === 1
-                        ?< MdFlightLand className='text-xl mx-1'/>
+                        ?< MdFlightTakeoff className='text-xl mx-1'/>
                         :list[activeCarId-1].icon2R === 2
                         ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon2R === 3
@@ -506,24 +555,23 @@ const ReturnTrip = ():React.ReactNode  => {
                         ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
                         :list[activeCarId-1].icon2R === 5 
                         ?<MdLocalHotel className='mx-1'/>
-                        :<MdFlightTakeoff className='text-xl mx-1'/>
+                        :<MdFlightLand className='text-xl mx-1'/>
                     }   
                     {list[activeCarId-1].icon2R === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {list[activeCarId-1].airlinesBack.toLowerCase().includes('canada') 
-                            ? 'AC'
-                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('transat') 
-                            ? 'TS'
-                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('quatar') 
-                            ? 'QR'
-                            : ''
-                        }
+                        {prefixes[list[activeCarId-1].flight2R.title]}
                     </div>}
                     <Input 
-                        value={list[activeCarId-1].flight2R}
+                        value={list[activeCarId-1].flight2R.number}
                         maxLength={4}
                         placeholder={list[activeCarId-1].icon2R === 1 ?'####': list[activeCarId-1].icon2R === 2 ? 'Train#' : list[activeCarId-1].icon2R === 3 ? "Bus#" : list[activeCarId-1].icon2R === 4 ? 'Boat#': 'Room#'} 
                         style={{width:`${list[activeCarId-1].icon2R === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2R(e.target.value.replace(/\D/g, ''))}/>
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                            setFlight2R({...list[activeCarId-1].flight2R, number: e.target.value.replace(/\D/g, '')})
+
+                        }
+                    }/>
+                    {list[activeCarId-1].flight2R.number.length<3 && list[activeCarId-1].flight2R.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+
                 </div> }
             </div>
 
@@ -546,6 +594,8 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
+
+const box = 'flex relative border rounded w-full'
 
 const amText = 'pl-2  flex items-center py-1 pr-[2px] '
 const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-gray-600 text-white '
@@ -573,8 +623,11 @@ const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4
 const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
 
 const btns = 'flex items-center  w-full  space-x-4 pt-4'
-const closeStop ="absolute w-5 h-5 -right-6 bg-red-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
-const openStop ="absolute w-5 h-5 -right-6 bg-green-500 ml-1 border border-black rounded flex  justify-center cursor-pointer text-bold  items-center"
+
+const closeStop =" my-auto w-5 h-5  bg-red-500 ml-1  rounded flex  justify-center cursor-pointer text-bold items-center"
+const openStop ="absolute bg-green-400 px-2 py-1 text-xs rounded flex cursor-pointer text-white"
+
+
 
 const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
@@ -586,7 +639,7 @@ const date = 'flex w-full flex-col border-b-2 border-black pb-6 '
 
 const locationCard = 'flex relative items-center w-full  space-x-2'
 const extraCard = 'flex relative items-center border w-full rounded'
-const extraCardStop = 'flex relative mr-6  items-center border w-5/6 self-end  rounded'
+const extraCardStop = 'flex relative w-5/6 self-end  rounded'
 
 const container = 'flex relative  px-4  w-full rounded-b relative border shadow-xl border-t-0'
 

@@ -26,20 +26,16 @@ function App():React.ReactNode {
             :<><div style={{backgroundImage:`url(${en})` }} className={'w-7 h-7 text-xs bg-center bg-cover bg-no-repeat '} ></div><div  className={langItem} >FR</div></>
           }
         </div>
-          <div className='flex items-center'>  
-              <span className={taxiLabel}>
-                Taxis
-              </span>
-          </div>
+            <span className={taxiLabel}>
+              Taxis
+            </span>
         </div>
         
         <div className="flex h-full">
         <ul className={tabsContainer}>
             <li 
                 className={activeCarId ===1  ? activeTab : activeCarId == 2 ? tab + ' rounded-br border-t  ' :  tab +"  rounded-tr border-b-gray-100" }
-                onClick={()=>{
-                  setActiveCarId(1)
-                }}
+                onClick={()=> setActiveCarId(1) }
             >1<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'er': 'st'}</span></li>
             <li 
                 className={activeCarId===2 ? activeTab  : activeCarId ===3 ? tab + '  rounded-br ' : activeCarId===1 ? tab + ' rounded-tr ' : tab+ ' ' }
@@ -69,7 +65,7 @@ function App():React.ReactNode {
                   setActiveCarId(5)
                 }}
             >5<span className={isFrench?'font-light text-sm mx-[1px] w-3 text-gray-400 -translate-y-[6px] ':'font-light text-sm mx-[1px] w-3 text-gray-400 '}>{isFrench? 'e': 'th'}</span></li>
-            <li className={activeCarId===5 ? 'h-full pt-6 flex items-center w-full rounded-tr border-r  border-t ' : ' pt-6 flex border-r justify-center w-full h-full  '}>
+            <li className={activeCarId===5 ? 'h-full pt-6 flex w-full justify-center rounded-tr border-r  border-t ' : ' pt-6 flex border-r justify-center w-full h-full  '}>
               <div className=" flex items-center text-2xl justify-center border-2 h-min rounded-full border-orange-400 text-orange-400">
                 <TiInfoLarge className='cursor-pointer '/>
               </div>
@@ -82,8 +78,10 @@ function App():React.ReactNode {
     </div>
   )
 }
-
 export default App
+
+
+
 const taxiLabel = ' font-bold -translate-x-3 text-blue-700 '
 const activeTab = 'px-1 flex items-center justify-end text-lg border border-l-0  cursor-pointer border-t border-b border-white bg-white'
 const tab = 'px-1 text-lg flex items-center justify-end border border-l-0  cursor-pointer border-t border-b  bg-white'

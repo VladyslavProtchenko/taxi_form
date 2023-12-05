@@ -1,13 +1,13 @@
 import { Select } from 'antd';
 
 interface SelectProps {
-    value?: string;
-    onChange: (value: string) => void;
-    source: string[];
-    placeholder: string;
-    style?: string;
-    subStyle?: string
-    width?: number;
+    value   ?   : string;
+    onChange    : (value: string) => void;
+    source      : string[];
+    placeholder : string;
+    style   ?   : string;
+    subStyle?   : string;
+    width   ?   : number;
 }
 
 

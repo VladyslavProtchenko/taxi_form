@@ -11,16 +11,48 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query'
+import Dashboard from './pages/dashboard/Dashboard.tsx';
+import Orders from './pages/dashboard/Orders.tsx';
+import Calendar from './pages/dashboard/Calendar.tsx';
+import Customers from './pages/dashboard/Customers.tsx';
+import Drivers from './pages/dashboard/Drivers.tsx';
+import Prices from './pages/dashboard/Prices.tsx';
+import Settings from './pages/dashboard/Settings.tsx';
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
     children:[
       {
-        path: "/success",
-        element: <App />,
+        path: "calendar",
+        element: <Calendar />,
+      },
+      {
+        path: "Customers",
+        element: <Customers />,
+      },
+
+      {
+        path: "orders",
+        element: <Orders />,
+      },
+      {
+        path: "drivers",
+        element: <Drivers />,
+      },
+      {
+        path: "prices",
+        element: <Prices />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
       },
     ]
   },

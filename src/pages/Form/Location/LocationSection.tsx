@@ -1,16 +1,20 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
-import { useStore } from "../../../Store";
 import { useMain } from "../../../Store/useMain";
+import { useStore } from "../../../Store";
 
 const LocationSection = ():React.ReactNode => {
     const [ tabs, setTabs ] = useState(false)
-    const [ need, setNeed ] = useState(false)
     const {store} = useStore()
-    const {isFrench, list, setIsReturnTrip, activeCarId } = useMain()
-
+    const {isFrench, list,setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    useEffect(()=>{
+        if(['Boost', 'Unlocking door'].includes(list[activeCarId-1].type)) {
+            setIsReturnTrip(false)
+            setIsReturnStatus(false)
+        }
+    },[])
     return (
         <section className={section}>
             <div className={carContainer}>
@@ -25,34 +29,31 @@ const LocationSection = ():React.ReactNode => {
                     className={!tabs ? carCard + ' rounded-bl-[50px]  rounded-t-[30px] border-l ': carCardActive +' border-b-0 rounded-tl-[20px] border-l-0'} 
                     onClick={()=>{
                         if(['Boost', 'Unlocking door'].includes(list[activeCarId-1].type)) return;
-                        if(need) setTabs(true)
+                        if(list[activeCarId-1].isReturnStatus) setTabs(true)
                     }}
                 >
                     <div className={!list[activeCarId-1].isReturnTrip? "bg-green-400 py-1 px-3 rounded text-white border-2 border-green-500 active:bg-green-300 ": 'bg-red-500 border-2 border-red-700 active:bg-red-400  py-1 px-3 rounded text-white'} onClick={(e)=>{
                         e.stopPropagation()
-                        if(need && list[activeCarId-1].isReturnTrip) {
-                            setNeed(false)
+                        if(list[activeCarId-1].isReturnStatus && list[activeCarId-1].isReturnTrip) {
+                            setIsReturnStatus(false)
                             setTabs(false)
                             return setIsReturnTrip(false)
                         }
-                        if(need && !list[activeCarId-1].isReturnTrip) {
+                        if(list[activeCarId-1].isReturnStatus && !list[activeCarId-1].isReturnTrip) {
                             setTabs(true);
                             return setIsReturnTrip(true)
                         }
-                        if(!need) {
-                            setNeed(true)
+                        if(!list[activeCarId-1].isReturnStatus) {
+                            setIsReturnStatus(true)
                             setTabs(true)
                         }
                         
-                    }}> {
-                        !need 
-                        ? `${!isFrench? 'Need return': 'Besion Retour'}`
-                        : list[activeCarId-1].isReturnTrip
-                        ? !isFrench? 'Disable ': 'Disable'
-                        :  isFrench? 'Activate': 'Activate'
+                    }}> 
+                        {!list[activeCarId-1].isReturnStatus ? `${!isFrench? 'Need return': 'Besion Retour'}` : list[activeCarId-1].isReturnTrip
+                            ?!isFrench   ? 'Disable ': 'Désactiver'
+                            :!isFrench    ? 'Activate': 'Activer'
                         }
                     </div>
-                    {/* {isFrench? store.tripTitlesF[1] : store.tripTitles[1]} */}
                 </div>
             </div>
             <div className='flex bg-white'>

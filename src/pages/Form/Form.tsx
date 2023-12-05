@@ -10,278 +10,82 @@ import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
 
 const Form = (): React.ReactNode => {
-    const { list, activeCarId ,setIsCars, isCars} = useMain()
+    const { list, activeCarId ,setIsCars } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const { validation,setIsSubmit } = useValidation()
 
-    useEffect(()=>{
-        
-        if(['Boost', 'Unlocking door'].includes(list[0].type)
-            && list[0].from 
-            && list[0].name.length > 3 
-            && list[0].title 
-            && pattern.test(list[0].email)
-            && list[0].phone.length >= 11
-        ){
-            if(list[0].from 
-                && list[0].name.length > 3 
-                && list[0].title 
-                && pattern.test(list[0].email)
-                && list[0].phone.length >= 11
-            ) {
-                return setIsCars({...isCars, 1: true})
-            } else {
-                return setIsCars({...isCars, 1: false})
-            }
-            
-        } else{
-            if(list[0].isReturnTrip 
-                && list[0].name.length > 3 
-                && list[0].title 
-                && pattern.test(list[0].email)
-                && list[0].phone.length >= 11
-                && list[0].isReturnTrip 
-                && list[0].dateR 
-                && list[0].timeR.length===5 
-                && list[0].fromR 
-                && list[0].toR 
-                && list[0].from 
-                && list[0].to
-                && list[0].adults){
-                    setIsCars({...isCars, 1: true})
-            } else if(
-                !list[0].isReturnTrip 
-                && list[0].name.length > 3 
-                && list[0].title 
-                && pattern.test(list[0].email)
-                && list[0].phone.length >= 11
-                &&  list[0].from 
-                && list[0].to
-                && list[0].adults  ){
-                setIsCars({...isCars, 1: true})
-            } else {
-                setIsCars({...isCars, 1: false})
-            }
-        }
-    },[list[0]])
+    // const [cars, setCars] = useState(isCars)
 
     useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(list[1].type)
-            && list[1].from 
-            && list[1].name.length > 3 
-            && list[1].title 
-            && pattern.test(list[1].email)
-            && list[1].phone.length >= 11
-        ){
-            if(list[1].from 
-                && list[1].name.length > 3 
-                && list[1].title 
-                && pattern.test(list[1].email)
-                && list[1].phone.length >= 11
-            ) {
-                return setIsCars({...isCars, 1: true})
-            } else {
-                return setIsCars({...isCars, 1: false})
-            }
-        } else{
-            if(list[1].isReturnTrip 
-                && list[1].name.length > 3 
-                && list[1].title 
-                && pattern.test(list[1].email)
-                && list[1].phone.length >= 11
-                && list[1].isReturnTrip 
-                && list[1].dateR 
-                && list[1].timeR 
-                && list[1].fromR 
-                && list[1].toR 
-                && list[1].from 
-                && list[1].to
-                && isCars[1]
-                && list[1].adults
+
+        let cars = {
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+            5: false,
+        }
+        list.map((item,index)=>{
+
+            if(['Boost', 'Unlocking door'].includes(item.type)
+                && item.from 
+                && item.name.length > 3 
+                && item.title 
+                && pattern.test(item.email)
+                && item.phone.length >= 11
             ){
-                    setIsCars({...isCars, 1: true, 2:true})
-
-            } else if(
-                !list[1].isReturnTrip 
-                && list[1].name.length > 3 
-                && list[1].title 
-                && pattern.test(list[1].email)
-                && list[1].phone.length >= 11
-                &&  list[1].from 
-                && list[1].to
-                && isCars[1]
-                && list[1].adults){
-                setIsCars({...isCars, 1: true, 2:true})
-            }else {
-                setIsCars({...isCars, 2: false})
-            }
-        }
-    },[list[1]])
-
-    useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(list[2].type)
-            && list[2].from 
-            && list[2].name.length > 3 
-            && list[2].title 
-            && pattern.test(list[2].email)
-            && list[2].phone.length >= 11
-        ){
-            if(list[2].from 
-                && list[2].name.length > 3 
-                && list[2].title 
-                && pattern.test(list[2].email)
-                && list[2].phone.length >= 11
-            ) {
-                return setIsCars({...isCars, 1: true})
-            } else {
-                return setIsCars({...isCars, 1: false})
-            }
-            
-        } else{
-            if(list[2].isReturnTrip 
-                && list[2].name.length > 3 
-                && list[2].title 
-                && pattern.test(list[2].email)
-                && list[2].phone.length >= 11
-                && list[2].isReturnTrip 
-                && list[2].dateR 
-                && list[2].timeR 
-                && list[2].fromR 
-                && list[2].toR 
-                && list[2].from 
-                && list[2].to
-                && isCars[2]
-                && list[2].adults){
-                    setIsCars({...isCars, 3:true})
-
-            } else if(
-                !list[2].isReturnTrip 
-                && list[2].name.length > 3 
-                && list[2].title 
-                && pattern.test(list[2].email)
-                && list[2].phone.length >= 11
-                &&  list[2].from 
-                && list[2].to
-                && isCars[2]
-                && list[2].adults){
-                setIsCars({...isCars,  3:true})
-            }else {
-                setIsCars({...isCars, 3: false})
-            }
-        }
-    },[list[2]])
-
-    useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(list[3].type)
-            && list[3].from 
-            && list[3].name.length > 3 
-            && list[3].title 
-            && pattern.test(list[3].email)
-            && list[3].phone.length >= 11
-        ){
-            if(list[3].from 
-                && list[3].name.length > 3 
-                && list[3].title 
-                && pattern.test(list[3].email)
-                && list[3].phone.length >= 11
-            ) {
-                return setIsCars({...isCars, 1: true})
-            } else {
-                return setIsCars({...isCars, 1: false})
-            }
-            
-        } else{
-            if(list[3].isReturnTrip 
-                && list[3].name.length > 3 
-                && list[3].title 
-                && pattern.test(list[3].email)
-                && list[3].phone.length >= 11
-                && list[3].isReturnTrip 
-                && list[3].dateR 
-                && list[3].timeR 
-                && list[3].fromR 
-                && list[3].toR 
-                && list[3].from 
-                && list[3].to
-                && isCars[3]
-                && list[3].adults){
-                    setIsCars({...isCars, 4:true})
-
-            } else if(
-                !list[3].isReturnTrip 
-                && list[3].name.length > 3 
-                && list[3].title 
-                && pattern.test(list[3].email)
-                && list[3].phone.length >= 11
-                &&  list[3].from 
-                && list[3].to
-                && isCars[3]
-                && list[3].adults){
-                setIsCars({...isCars,  4:true})
-            }else {
-                setIsCars({...isCars, 4: false})
-            }
-        }
-    },[list[3]])
-    
-    useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(list[4].type)
-            && list[4].from 
-            && list[4].name.length > 3 
-            && list[4].title 
-            && pattern.test(list[4].email)
-            && list[4].phone.length >= 11
-        ){
-            if(list[4].from 
-                && list[4].name.length > 3 
-                && list[4].title 
-                && pattern.test(list[4].email)
-                && list[4].phone.length >= 11
-            ) {
-                return setIsCars({...isCars, 1: true})
-            } else {
-                return setIsCars({...isCars, 1: false})
-            }
-            
-        } else{
-            if(list[4].isReturnTrip 
-                && list[4].name.length > 3 
-                && list[4].title 
-                && pattern.test(list[4].email)
-                && list[4].phone.length >= 11
-                && list[4].isReturnTrip 
-                && list[4].dateR 
-                && list[4].timeR 
-                && list[4].fromR 
-                && list[4].toR 
-                && list[4].from 
-                && list[4].to
-                && isCars[4]
-                && list[4].adults){
-                    setIsCars({...isCars, 5:true})
-
+                if(item.from 
+                    && item.name.length > 3 
+                    && item.title 
+                    && pattern.test(item.email)
+                    && item.phone.length >= 11
+                ) {
+                    return cars = {...cars, [index+1]: true}
+                } else {
+                    return cars = {...cars, [index+1]: false}
+                }
+            } else{
+                if(item.isReturnTrip 
+                    && item.name.length > 3 
+                    && item.title 
+                    && pattern.test(item.email)
+                    && item.phone.length >= 11
+                    && item.isReturnTrip 
+                    && item.dateR 
+                    && item.timeR.length===5 
+                    && item.fromR 
+                    && item.toR 
+                    && item.from 
+                    && item.to
+                    && item.adults){
+                        return cars = {...cars, [index+1]: true}
                 } else if(
-                !list[4].isReturnTrip 
-                && list[4].name.length > 3 
-                && list[4].title 
-                && pattern.test(list[4].email)
-                && list[4].phone.length >= 11
-                &&  list[4].from 
-                && list[4].to
-                && isCars[4]
-                && list[4].adults){
-                setIsCars({...isCars,  5:true})
-            }else {
-            
-                setIsCars({...isCars, 5: false})
+                    !item.isReturnTrip 
+                    && item.name.length > 2 
+                    && item.title 
+                    && pattern.test(item.email)
+                    && item.phone.length >= 11
+                    && item.from 
+                    && item.to
+                    && item.adults  ){
+                        
+                    return cars = {...cars, [index+1]: true}
+                } else {
+                    
+                    cars = {...cars, [index+1]: false}
+                }
             }
-        }
-    },[list[4]])
+        })
+        setIsCars(cars)
+    },[list])
+
+
 
     useEffect(()=>{
         setIsSubmit(false)
     },[activeCarId])
+    
     return (
         <div  className={container}>
             {!validation.isSubmit &&

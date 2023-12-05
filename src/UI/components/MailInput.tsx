@@ -44,7 +44,7 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
             <Input
                 style={{maxWidth: 200,width:'60%', fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
                 value={value.split('@')[0] || ''}
-                onChange={(v) => onChange(v.target.value+'@'+value.split('@')[1])}
+                onChange={(v) => onChange(v.target.value+'@'+(value.split('@')[1] || ''))}
                 placeholder={placeholder}
             />
 
@@ -66,7 +66,6 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
         </div>
     );
 };
-
 
 export default MailInput;
 

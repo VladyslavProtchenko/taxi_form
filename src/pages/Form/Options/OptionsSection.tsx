@@ -25,8 +25,19 @@ const OptionsSection = ():React.ReactNode => {
         <section className={section}>
             <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
                     {carList.map(item => (
-                        <div className={list[activeCarId-1].carType === item ? typeItem+' bg-green-400 text-black': item === 'Limo' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem+ ' text-blue-500' } onClick={()=>{
-                                if(item === 'limo') return;
+                        <div         
+                            className={
+                                    item === 'Limo' 
+                                    ? typeItem + ' bg-gray-200  text-gray-500 cursor'
+                                    :(list[activeCarId-1].carType === 'Sedan' && item === 'Berline') 
+                                    || (list[activeCarId-1].carType === 'Berline' && item === 'Sedan') 
+                                    || (list[activeCarId-1].carType === 'SUV' && item === 'VUS') 
+                                    || (list[activeCarId-1].carType === 'VUS' && item === 'SUV') 
+                                    || list[activeCarId-1].carType ===  item 
+                                    ? typeItem+' bg-green-400 text-black'
+                                    :typeItem+ ' text-blue-500' 
+                                } onClick={()=>{
+                                if(item === 'Limo') return;
                                 setCarType(item)
                             }}>
                             { (item === 'VAN') 

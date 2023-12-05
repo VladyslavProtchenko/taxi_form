@@ -9,7 +9,8 @@ import dayjs from 'dayjs';
 
 
 const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
-    const response = await axios.post("https://taxibeckend.onrender.com/order",data);
+    const response = await axios.post("https://taxibeckend.onrender.com/order",data)
+    console.log(response, 'response from server')
     return response;
 };
 
@@ -18,7 +19,6 @@ const Submit = (): React.ReactNode => {
     const { setIsSubmit } = useValidation()
     const mutation: UseMutationResult<AxiosResponse<unknown>, unknown, ITaxi[], unknown> = useMutation(data=> sendOrder(data))
 
-    console.log(list[0])
     return (
         <section className={section}>
             {list.filter(item => item.filled).length > 0 
@@ -27,20 +27,13 @@ const Submit = (): React.ReactNode => {
             ))
             :<div className='w-full h-[100px] text-center'> no orders yet</div>  }
             <div className="flex justify-between">
-                <div onClick={() => setIsSubmit(false)} className={btn}>
-                    Back
-                </div>
+                <div onClick={() => setIsSubmit(false)} className={btn}> Back </div>
                 <div onClick={() => {
-                    const data = list.filter(item=>item.filled).map(car =>{
-                        return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car
-                    })
+                    const data = list.filter(item=>item.filled).map(car =>{return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car})
                     mutation.mutate(data)
                     alert('order sent')
-                }} className={btn2}>
-                    Submit
-                </div>
+                }} className={btn2}>Submit</div>
             </div>
-
         </section>
     );
 };

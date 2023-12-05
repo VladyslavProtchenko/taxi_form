@@ -29,7 +29,6 @@ import carBooster from './../../../assets/carBooster.png'
 import lostKey from './../../../assets/lostKeys.png'
 
 
-
 interface IObj {[key:number]: string}
 const TripContent = ():React.ReactNode => {
     const {  
@@ -46,10 +45,8 @@ const TripContent = ():React.ReactNode => {
         setDeparture2,
         setFlight,
         setFlight2,
-        setAirlines,
         setIcon,
         setIcon2,
-        setAirlinesBack,
         resetForm,
         setDateNow,
         setCarType,
@@ -58,7 +55,6 @@ const TripContent = ():React.ReactNode => {
     } = useMain()
 
     const { store } = useStore()
-
     
     const [fullDate, setFullDate] = useState(dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
@@ -75,14 +71,47 @@ const TripContent = ():React.ReactNode => {
     const [isTo, setIsTo] = useState(true)
     const [trigger, setTrigger] = useState(false)
 
+    const prefixes:{[key:string]:string} = {
+        'AIR CANADA': "AC",
+        'Air Transat': "AT",
+        'PAL airlines':"PA",
+        'Air Inuit':"AI",
+        'Porter':"PO",
+        'UNITED': "UN",
+        'CANADIAN NORTH':"CN",
+        'American Airlines':"AA",
+        'Emirates':"EM",
+        'arajet':"AR",
+        'DELTA':"DE",
+        'flair':"FL",
+        'AIR ALGERIE':"AL",
+        'TUNISAIR':"TU",
+        'SWISS':"SW",
+        'Austrian':"AU",
+        'Air Saint-Pierre':"SP",
+        'AIRFRANCE':"AF",
+        'KLM':"KLM",
+        'Lufthansa':"LU",
+        'Royal Air MAroc(RAM)':"MA",
+        'BRITISH AIRWAYS':"BA",
+        'AeroMexico':"AM",
+        'CopaAirlines':"CO",
+        'Lynx':"LY",
+        'SUNWING':"SNW",
+        'QATAR':"QT",
+        'RAM':"RAM",
+        'Another':"",
+        "":'',
+    }
 
-    
+
+
 
     useEffect(()=>{
         setCarList(isFrench? store.carListF: store.carList)
     },[isFrench])
     useEffect(()=>{
-        setDate(dayjs().format('DD/MM/YYYY'))
+        setDate(dayjs().format('MM/DD/YYYY'))
     },[])
 
     useEffect(()=>{
@@ -92,6 +121,8 @@ const TripContent = ():React.ReactNode => {
 
         setIcon(0)
         setIcon2(0)
+        setFlight({title:'', prefix:'',number:'' })
+        setFlight2({title:'', prefix:'',number:'' })
         //we try to find word airport|bus|room|train and set Icon
         store.airportArray.map(item =>{
             if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
@@ -129,7 +160,7 @@ const TripContent = ():React.ReactNode => {
 
     useEffect(()=>{
         setStops(localStops)
-        setStop(Object.values(localStops).length)
+
     },[localStops])
 
     useEffect(()=>{
@@ -138,10 +169,8 @@ const TripContent = ():React.ReactNode => {
     
     useEffect(()=>{
         setDay(list[activeCarId-1].time.slice(0,2) > '04' && list[activeCarId-1].time.slice(0,2) < '23')
-
     },[list[activeCarId-1].time,list[activeCarId-1].timeType])
 
-    
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
     function goNext() {
@@ -151,12 +180,10 @@ const TripContent = ():React.ReactNode => {
         setIsTo(list[activeCarId-1].to.length>0)
 
         if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) return setSteps(3)
-        console.log('work 3')
         if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
         if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip) return alert('need return time')
         if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
         if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return alert('need return drop of location')
-        console.log('work 2')
         if(
             list[activeCarId-1].date 
             && list[activeCarId-1].from 
@@ -284,7 +311,7 @@ const TripContent = ():React.ReactNode => {
                         
 
                         {isDateOpen && <div className={dateTimeSubmenu}>
-                            <DatePicker time={list[activeCarId-1].time} onChange={setDate} getFullDate={setFullDate}/>
+                            <DatePicker value={list[activeCarId-1].date || ''}  time={list[activeCarId-1].time} onChange={setDate} getFullDate={setFullDate}/>
                             <div className="flex justify-between pl-8">
                                 <div className={setDateBtn} onClick={(e)=> {
                                         e.stopPropagation();
@@ -294,12 +321,12 @@ const TripContent = ():React.ReactNode => {
                         </div>}
                     </div>
                     <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
-                    <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':timeToggle+ ' '}>
+                    {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':timeToggle+ ' '}>
                         <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
                         <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
                         <div className="absolute  border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
                         <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
-                    </div>
+                    </div>}
                 </div>
             </div>
 
@@ -335,7 +362,9 @@ const TripContent = ():React.ReactNode => {
                         options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
-                        onChange={setAirlines} 
+                        onChange={(e)=>{
+                            setFlight({...list[activeCarId-1].flight, title: e})
+                        }} 
                         placeholder='Airlines'
                     />}
                     
@@ -352,22 +381,18 @@ const TripContent = ():React.ReactNode => {
                         :<MdFlightTakeoff className='text-xl mx-1 '/>
                     }   
                     {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {list[activeCarId-1].airlines.toLowerCase().includes('canada') 
-                            ? 'AC'
-                            : list[activeCarId-1].airlines.toLowerCase().includes('transat') 
-                            ? 'TS'
-                            : list[activeCarId-1].airlines.toLowerCase().includes('quatar') 
-                            ? 'QR'
-                            : ''
-                        }
+                        { prefixes[list[activeCarId-1].flight.title]}
                     </div>}
                     <Input
-                        value={list[activeCarId-1].flight}
+                        value={list[activeCarId-1].flight.number}
                         maxLength={4}
                         placeholder={list[activeCarId-1].icon === 1 ?'####': list[activeCarId-1].icon === 2 ? 'Train#' : list[activeCarId-1].icon === 3 ? "Bus#" : list[activeCarId-1].icon === 4 ? 'Boat#': 'Room#'} 
                         style={{ width:65, paddingLeft:0,paddingRight:0, borderRadius: 0, height: 30}} 
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight(e.target.value.replace(/\D/g, ''))}
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                            setFlight({...list[activeCarId-1].flight, number: e.target.value.replace(/\D/g, '')})
+                        }}
                     />
+                    {list[activeCarId-1].flight.number.length<3 && list[activeCarId-1].flight.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
                 </div>}
             </div>
 
@@ -416,22 +441,20 @@ const TripContent = ():React.ReactNode => {
                 </div>
                 
             </div>}
-                
+        
             {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={extraCardStop}>
                 <div className={(stop > 0)? box: box + ' opacity-0 '}>
-                    {/* <div className="absolute top-0 left-0 right-0 bottom-0 opacity-50 bg-white z-20"></div> */}
                     <span className='icon text-orange-400'><SlLocationPin/></span>  
                     <GoogleAddressInput
                         style='w-full'
                         defaultLocation={localStops[1] || ''} 
-                        onChange={(e)=>{
-                            setLocalStops({...localStops, 1:e})
-                        }}
+                        onChange={(e)=>setLocalStops({...localStops, 1:e})}
                         placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
                     />
                 </div>
+                <div className={(stop === 0) ? openStop :'hidden'} onClick={()=>setStop(1)}>Add stop</div> 
                 <div 
-                    className={(stop === 0) ? openStop :'hidden'} 
+                    className={(stop > 0) ? closeStop : 'hidden'} 
                     onClick={()=>{ 
                         if(stop===0) return setStop(1);
                         const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 0)
@@ -440,56 +463,26 @@ const TripContent = ():React.ReactNode => {
                             const number  = index+1;
                             data[number] = item;
                         })
+                        
                         setLocalStops(data)
                         setStops(data)
                         setStop(stop - 1)
                     }}
-                    >Add stop</div> 
-                    <div 
-                        className={(stop > 0) ? closeStop : 'hidden'} 
-                        onClick={()=>{ 
-                            if(stop===0) return setStop(1);
-                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 0)
-                            const data: IObj ={}
-                            array.map((item, index) => {
-                                const number  = index+1;
-                                data[number] = item;
-                            })
-                            
-                            setLocalStops(data)
-                            setStops(data)
-                            setStop(stop - 1)
-                        }}
-                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
+                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>}
             
-            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={(stop > 0 && list[activeCarId-1].stops[1]) ?  extraCardStop: 'hidden'}>
+            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && 
+            <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
                 <div className={stop > 1 ? box: box + ' opacity-0 '}>
                     <span className='icon  text-orange-400'><SlLocationPin/></span>
                     <GoogleAddressInput
                         style='w-full'
                         defaultLocation={localStops[2] || ''} 
-                        onChange={(e)=>{
-                            setLocalStops({...localStops, 2:e})
-                        }}
+                        onChange={(e)=>{setLocalStops({...localStops, 2:e})}}
                         placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
                     />
                 </div>
-                <div 
-                    className={(stop === 1) ? openStop : 'hidden'} 
-                    onClick={()=>{ 
-                        if(stop===1) return setStop(2);
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 1)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setLocalStops(data)
-                        setStops(data)
-                        setStop(stop - 1)
-                    }}
-                >Add stop</div>
+                <div className={(stop === 1) ? openStop : 'hidden'} onClick={()=> setStop(2)} >Add stop</div>
                 <div 
                     className={(stop > 1) ? closeStop : 'hidden'} 
                     onClick={()=>{ 
@@ -507,7 +500,8 @@ const TripContent = ():React.ReactNode => {
                 ><span className='scale-[150%] font-bold rotate-45'>+</span></div>
             </div>}
 
-            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={(stop > 1  && list[activeCarId-1].stops[2]) ?  extraCardStop: 'hidden'}>
+            {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && 
+            <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 2 ? box : box + ' opacity-0 '}>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
@@ -519,21 +513,7 @@ const TripContent = ():React.ReactNode => {
                             placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
                         />
                     </div>
-                    <div 
-                        className={(stop === 2) ? openStop :' hidden '} 
-                        onClick={()=>{ 
-                            if(stop===2) return setStop(3);
-                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
-                            const data: IObj ={}
-                            array.map((item, index) => {
-                                const number  = index+1;
-                                data[number] = item;
-                            })
-                            setLocalStops(data)
-                            setStops(data)
-                            setStop(stop - 1)
-                        }}
-                    >Add stop</div> 
+                    <div  className={(stop === 2) ? openStop :' hidden '} onClick={()=>setStop(3)} >Add stop</div> 
                     <div 
                         className={(stop > 2) ? closeStop :'hidden'} 
                         onClick={()=>{ 
@@ -551,7 +531,8 @@ const TripContent = ():React.ReactNode => {
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>}
 
-            {[ 'Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={(stop > 2 && list[activeCarId-1].stops[3]) ?  extraCardStop: 'hidden'}>
+            {[ 'Transport', 'Delivery'].includes(list[activeCarId-1].type) && 
+            <div className={(stop > 2 ) ?  extraCardStop: 'hidden'}>
                 <div className={stop > 3 ? box : box + ' opacity-0 '}>
                     <span className='icon  text-orange-400'><SlLocationPin/></span>
                     <GoogleAddressInput
@@ -564,8 +545,9 @@ const TripContent = ():React.ReactNode => {
                     />
                 </div>
 
+                <div className={(stop === 3) ? openStop :'hidden'} onClick={()=>setStop(4)}>Add stop</div> 
                 <div 
-                    className={(stop === 3) ? openStop :'hidden'} 
+                    className={(stop > 3) ? closeStop :'hidden'} 
                     onClick={()=>{ 
                         if(stop===3) return setStop(4);
                         const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 3)
@@ -578,23 +560,10 @@ const TripContent = ():React.ReactNode => {
                         setStops(data)
                         setStop(stop - 1)
                     }}
-                    >Add stop</div> 
-                    <div 
-                        className={(stop > 3) ? closeStop :'hidden'} 
-                        onClick={()=>{ 
-                            if(stop===3) return setStop(4);
-                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 3)
-                            const data: IObj ={}
-                            array.map((item, index) => {
-                                const number  = index+1;
-                                data[number] = item;
-                            })
-                            setLocalStops(data)
-                            setStops(data)
-                            setStop(stop - 1)
-                        }}
-                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
+                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>}
+
+
 
             {['Transport', 'Delivery'].includes(list[activeCarId-1].type) && <div className={locationCard}>
                 <div className={isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
@@ -650,7 +619,7 @@ const TripContent = ():React.ReactNode => {
                         options={store.flights.map(item=>(
                             {value: item, label: item}
                         ))} 
-                        onChange={setAirlinesBack} 
+                        onChange={(e)=>{setFlight2({...list[activeCarId-1].flight2, title: e})}}
                         placeholder='Airlines' 
                     />}
                     
@@ -667,23 +636,20 @@ const TripContent = ():React.ReactNode => {
                         :<MdFlightLand className='text-xl mx-1'/>
                     }
                     {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {list[activeCarId-1].airlinesBack.toLowerCase().includes('canada') 
-                            ? 'AC'
-                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('transat') 
-                            ? 'TS'
-                            : list[activeCarId-1].airlinesBack.toLowerCase().includes('quatar') 
-                            ? 'QR'
-                            : ''
-                        }
+                        { prefixes[list[activeCarId-1].flight2.title]}
                     </div>}
                     <Input 
-                        value={list[activeCarId-1].flight2}
+                        value={list[activeCarId-1].flight2.number}
                         maxLength={4}
                         placeholder={list[activeCarId-1].icon2 === 1 ?'####': list[activeCarId-1].icon2 === 2 ? 'Train#' : list[activeCarId-1].icon2 === 3 ? "Bus#" : list[activeCarId-1].icon2 === 4 ? 'Boat#': 'Room#'} 
                         className={list[activeCarId-1].icon === 1 ? ' max-w-[80px]': '' } 
                         style={{ width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>setFlight2(e.target.value.replace(/\D/g, ''))}
+                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                            setFlight2({...list[activeCarId-1].flight2, number: e.target.value.replace(/\D/g, '')})
+                        }}
                     />
+                    {list[activeCarId-1].flight2.number.length<3 && list[activeCarId-1].flight2.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+
                 </div>}
             </div>}
 
@@ -705,7 +671,9 @@ const TripContent = ():React.ReactNode => {
 
 export default TripContent;
 
-const box = 'flex relative border rounded w-full'
+
+
+const box = 'flex relative border  rounded w-full'
 
 
 const typeIconItem = 'w-8 h-8 mx-auto bg-contain bg-no-repeat bg-center'

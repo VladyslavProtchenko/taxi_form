@@ -3,12 +3,12 @@ import { Select } from 'antd';
 
 
 interface SelectProps {
-    value?: string;
-    onChange: (value: string) => void;
-    source: string[];
-    placeholder: string;
-    style?:string;
-    width?:number;
+    value   ?   :   string;
+    onChange    :   (value: string) => void;
+    source      :   string[];
+    placeholder :   string;
+    style   ?   :   string;
+    width   ?   :   number;
 }
 
 const SelectInput: React.FC<SelectProps>= ({width, onChange, source, placeholder }) => {
