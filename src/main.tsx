@@ -11,13 +11,17 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query'
-import Dashboard from './pages/dashboard/Dashboard.tsx';
-import Orders from './pages/dashboard/Orders.tsx';
-import Calendar from './pages/dashboard/Calendar.tsx';
-import Customers from './pages/dashboard/Customers.tsx';
-import Drivers from './pages/dashboard/Drivers.tsx';
-import Prices from './pages/dashboard/Prices.tsx';
-import Settings from './pages/dashboard/Settings.tsx';
+import Dashboard from './pages/Dashboard/Dashboard.tsx';
+import Orders from './pages/Dashboard/Orders.tsx';
+import Calendar from './pages/Dashboard/Calendar.tsx';
+import Customers from './pages/Dashboard/Customers.tsx';
+import Drivers from './pages/Dashboard/Drivers.tsx';
+import Prices from './pages/Dashboard/Prices.tsx';
+import Settings from './pages/Dashboard/Settings.tsx';
+import Confirm from './pages/Dashboard/Links/Confirm.tsx';
+import Cancel from './pages/Dashboard/Links/Cancel.tsx';
+import Pending from './pages/Dashboard/Links/Pending.tsx';
+import Edit from './pages/Dashboard/Links/Edit.tsx';
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -55,6 +59,22 @@ const router = createBrowserRouter([
         element: <Settings />,
       },
     ]
+  },
+  {
+    path: "/confirm/:id",
+    element: <Confirm />,
+  },
+  {
+    path: "/cancel/:id",
+    element: <Cancel />,
+  },
+  {
+    path: "/pending/:id",
+    element: <Pending />,
+  },
+  {
+    path: "/editOrder/:id",
+    element: <Edit />,
   },
 ]);
 

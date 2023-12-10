@@ -62,12 +62,12 @@ const InfoSection = () => {
         setIsEmail(false)
         setNoPhone(false)
 
-        setIsName(list[activeCarId-1].name.length > 2)
-        setIsTitle(list[activeCarId-1].title.length>1)
-        setIsEmail(pattern.test(list[activeCarId-1].email))
-        setNoPhone(isPhone)
+        if(list[activeCarId-1].name.length > 2) setIsName(true)
+        if(list[activeCarId-1].title.length>1) setIsTitle(true)
+        if(pattern.test(list[activeCarId-1].email)) setIsEmail(true)
+        if(isPhone) setNoPhone(true)
     
-        if(isTitle && isPhone && isEmail && noPhone) setSteps(2)
+        if(isTitle && isName &&  isPhone && isEmail && noPhone) setSteps(2)
     }
 
     useEffect(()=>{
@@ -82,9 +82,8 @@ const InfoSection = () => {
             setIsEmail(pattern.test(list[activeCarId-1].email))
             setNoPhone(isPhone)
         }
-    },[list[activeCarId-1],isPhone])
+    },[list[activeCarId-1], isPhone])
     
-
     const options1 = isFrench ? store.titleListF.map(item=>({value: item, label: item })) : store.titleList.map(item=>({value: item, label: item }))
 
     return (

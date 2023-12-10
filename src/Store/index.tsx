@@ -17,7 +17,7 @@ interface IUser {
     phoneTitleListF: string[],
 
     typeList: string[],
-    typeListR: string[],
+    typeListF: string[],
 
     nowLater: string[],
     nowLaterF: string[],
@@ -73,8 +73,8 @@ export const useStore = create<Store>(() => ({
         tripTitles: ['One-Way', 'Return'],
         tripTitlesF: ['Aller', 'Retour'],
 
-        typeList: ['Transport', 'Delivery', 'Boost', 'Unlocking door'],
-        typeListR: ['Transport', 'Livraison', 'Survoltage', 'Débarrage de portes'],
+        typeList: ['Transport', 'Delivery', 'Boost', 'Unlocking doors'],
+        typeListF: ['Transport', 'Livraison', 'Survoltage', 'Débarrage de portes'],
 
         nowLater: ['Now', 'Later'],
         nowLaterF: ['Maintenant', 'Après'],

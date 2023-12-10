@@ -10,12 +10,10 @@ import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
 
 const Form = (): React.ReactNode => {
-    const { list, activeCarId ,setIsCars } = useMain()
+    const { list, activeCarId ,setIsCars, setFilled } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const { validation,setIsSubmit } = useValidation()
-
-    // const [cars, setCars] = useState(isCars)
 
     useEffect(()=>{
 
@@ -26,6 +24,7 @@ const Form = (): React.ReactNode => {
             4: false,
             5: false,
         }
+
         list.map((item,index)=>{
 
             if(['Boost', 'Unlocking door'].includes(item.type)
@@ -35,6 +34,7 @@ const Form = (): React.ReactNode => {
                 && pattern.test(item.email)
                 && item.phone.length >= 11
             ){
+                
                 if(item.from 
                     && item.name.length > 3 
                     && item.title 
@@ -46,6 +46,7 @@ const Form = (): React.ReactNode => {
                     return cars = {...cars, [index+1]: false}
                 }
             } else{
+                
                 if(item.isReturnTrip 
                     && item.name.length > 3 
                     && item.title 
@@ -58,7 +59,8 @@ const Form = (): React.ReactNode => {
                     && item.toR 
                     && item.from 
                     && item.to
-                    && item.adults){
+                    && (item.adults>0 || (!item.adults && ['Delivery', 'Livraison',].includes(list[activeCarId-1].type)))
+                ){
                         return cars = {...cars, [index+1]: true}
                 } else if(
                     !item.isReturnTrip 
@@ -68,12 +70,14 @@ const Form = (): React.ReactNode => {
                     && item.phone.length >= 11
                     && item.from 
                     && item.to
-                    && item.adults  ){
-                        
+                    && (item.adults>0 || (!item.adults && ['Delivery', 'Livraison',].includes(list[activeCarId-1].type)))
+                ){
+
                     return cars = {...cars, [index+1]: true}
                 } else {
-                    
+                    if(item.filled) setFilled(false, item.id)
                     cars = {...cars, [index+1]: false}
+                    
                 }
             }
         })

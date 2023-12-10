@@ -12,7 +12,7 @@ const PaymentSection = ():React.ReactNode => {
     const {list, activeCarId, setPaymentMethod,setAdditionalText,setTripType,setFilled,setSteps,isFrench } = useMain()
     const {setIsSubmit} = useValidation()
     const { store} = useStore()
-
+    console.log(list[activeCarId-1].filled , 'filled')
     return (
         <section className={section}>
             <div className={content}>

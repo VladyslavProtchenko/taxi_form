@@ -25,7 +25,8 @@ const OptionsSection = ():React.ReactNode => {
         <section className={section}>
             <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
                     {carList.map(item => (
-                        <div         
+                        <div      
+                            key={item}
                             className={
                                     item === 'Limo' 
                                     ? typeItem + ' bg-gray-200  text-gray-500 cursor'
@@ -59,7 +60,11 @@ const OptionsSection = ():React.ReactNode => {
             </div>
             <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
                 <div className="bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400" onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Back'}</div>
-                <div className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300" onClick={()=>(setSteps(4))}>{isFrench? 'Suivant': 'Next'}</div>
+                <div className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300" onClick={()=>{
+                    (list[activeCarId-1].adults === 0  && !['Delivery', 'Livraison',].includes(list[activeCarId-1].type))
+                    ? alert('need adults')
+                    : setSteps(4)
+                }}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
         </section>
     );
