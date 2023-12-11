@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@types/antd": "^1.0.0",
     "@types/axios": "^0.14.0",
+    "@types/react-router-dom": "^5.3.3",
     "antd": "^5.10.0",
     "axios": "^1.6.2",
     "dayjs": "^1.11.10",
