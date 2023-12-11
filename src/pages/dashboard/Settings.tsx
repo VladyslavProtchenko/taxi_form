@@ -1,5 +1,6 @@
+import React from "react";
 
-const Settings = () => {
+const Settings = ():React.ReactNode => {
     return (
         <div>
             Settings

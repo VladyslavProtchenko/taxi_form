@@ -7,10 +7,11 @@ import { PiTaxiThin } from "react-icons/pi";
 import { CiEdit } from "react-icons/ci";
 import { IoCashOutline } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
+import React from "react";
 
 
 
-const Dashboard = () => {
+const Dashboard = ():React.ReactNode => {
     const {isFrench } = useDashboard()
     
     return (

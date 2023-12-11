@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
+import React from "react";
 
-const Cancel = () => {
+const Cancel = ():React.ReactNode => {
 
 
     return (

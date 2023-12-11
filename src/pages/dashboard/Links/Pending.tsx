@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
+import React from "react";
 
-const Pending = () => {
-
+const Pending = ():React.ReactNode => {
 
     return (
         <div className='w-screen h-screen flex flex-col items-center justify-center'>

@@ -1,5 +1,7 @@
+import React from "react";
 
-const Prices = () => {
+
+const Prices = ():React.ReactNode => {
     return (
         <div>
             Prices

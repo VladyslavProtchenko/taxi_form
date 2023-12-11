@@ -11,7 +11,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query'
-import Dashboard from './pages/Dashboard/Dashboard.tsx';
+import Dashboard from './pages/Dashboard/Dashboard';
 import Calendar from './pages/Dashboard/Calendar.tsx';
 import Customers from './pages/Dashboard/Customers.tsx';
 import Orders from './pages/Dashboard/Orders.tsx';

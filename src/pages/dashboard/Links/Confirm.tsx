@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useEffect } from "react";
+import React,{ useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-const Confirm = () => {
+const Confirm = ():React.ReactNode => {
 
     useEffect(()=>{
         axios.patch('http://localhost:3000/order/status',{status: 'confirmed'})
