@@ -200,6 +200,7 @@ const ReturnTrip = ():React.ReactNode  => {
         resetReturn();
     }
 
+    
     return (
     <div className={container}>
         {!list[activeCarId-1].isReturnTrip && <div className='absolute left-0 top-10 right-0 bottom-0 z-20 bg-white opacity-50'></div>}
@@ -259,10 +260,10 @@ const ReturnTrip = ():React.ReactNode  => {
                 </div>
             </div>
 
-            <div className={type}>
+            {list[activeCarId-1].iconR>0 && <div className={type}>
                 <div className={icons}>
                     
-                    <span className={list[activeCarId-1].iconR == 1 ? iconCard : iconCardActive  }>
+                    <span className={list[activeCarId-1].iconR == 1 ?  iconCard : iconCardActive  }>
                         <MdFlightLand className={ iconItem + ' text-xl ' } />
                     </span>
                     <span className={list[activeCarId-1].iconR == 2 ? iconCard : iconCardActive  }>
@@ -316,7 +317,7 @@ const ReturnTrip = ():React.ReactNode  => {
                     {list[activeCarId-1].flightR.number.length<3 && list[activeCarId-1].flightR.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
 
                 </div>} 
-            </div>
+            </div>}
 
             <div className={locationCard}>
                 <div className={isFromR ? extraCard : extraCard + ' border-red-500'}>
@@ -337,7 +338,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
                     />
                 </div>
-                {list[activeCarId-1].icon === 1 && <div className="border flex items-center w-1/3 rounded">
+                {list[activeCarId-1].icon === 1 && <div className="border flex items-center w-1/3 rounded py-1">
                     <Select placeholder='Departure' className='favorite' style={{ height: 30, borderRadius: 5}}onChange={setDepartureR}options={store.departureSections.map(item=>({value: item, label: item}))}/>
                 </div>}
             </div>
@@ -370,7 +371,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         setStopsR(data)
                         setStop(stop - 1)
                     }}
-                >Add stop</div>
+                >+ stop</div>
                 <div 
                     className={(stop > 0) ? closeStop : 'hidden'} 
                     onClick={()=>{ 
@@ -402,7 +403,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
                     />
                 </div>
-                    <div  className={(stop === 1) ? openStop :'hidden'} onClick={()=> setStop(2)} >Add stop</div> 
+                    <div  className={(stop === 1) ? openStop :'hidden'} onClick={()=> setStop(2)} >+ stop</div> 
 
                     <div 
                         className={(stop > 1) ? closeStop : 'hidden'} 
@@ -435,7 +436,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
                     />
                 </div>
-                <div className={(stop === 2) ? openStop :'hidden'} onClick={()=> setStop(3)}>Add stop</div> 
+                <div className={(stop === 2) ? openStop :'hidden'} onClick={()=> setStop(3)}>+ stop</div> 
                 <div 
                     className={(stop > 2) ? closeStop :'hidden'} 
                     onClick={()=>{ 
@@ -468,7 +469,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
                     />
                 </div>
-                <div className={(stop === 3) ? openStop :'hidden'}onClick={()=>setStop(4)} >Add stop</div> 
+                <div className={(stop === 3) ? openStop :'hidden'}onClick={()=>setStop(4)} >+ stop</div> 
                 <div 
                     className={(stop > 3) ? closeStop :'hidden'} 
                     onClick={()=>{ 
@@ -580,9 +581,9 @@ const ReturnTrip = ():React.ReactNode  => {
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
             </div>
             <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
-                <div className="bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400" onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className="flex items-center bg-red-500 p-2 px-3 rounded-full text-white cursor-pointer border border-black active:bg-red-400" onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
                 <div 
-                    className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300"
+                    className="bg-green-400 p-2 px-3 rounded-full cursor-pointer border border-black active:bg-green-300"
                     onClick={goNext}
                 >{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -612,20 +613,20 @@ const timeToggle = ' absolute -top-8 font-bold right-0 flex  items-center text-x
 const bg = 'relative  w-full h-14 my-1 mb-10  bg-cover  rounded-xl bg-right '
 const content = ' relative flex flex-col w-full  space-y-3 py-10'
 
-const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 border-2 border-red-700 '
-const revert = 'px-4 py-1 bg-orange-400 text-white rounded  active:bg-orange-300 border-2 border-orange-700'
+const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 border border-black '
+const revert = 'px-4 py-1 bg-orange-400 text-white rounded  active:bg-orange-300 border border-black'
 
-const iconCard = 'flex items-center justify-center w-8 h-8 bg-sky3-400'
+const iconCard = 'flex items-center justify-center w-8 h-8 bg-sky-400'
 const iconCardActive = 'flex items-center justify-center  w-8 h-8 border-black'
 const iconItem = ' '
 const icons = 'flex divide-x  border-black border rounded  overflow-hidden'
 const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
-const flightCard = 'flex relative items-center border xl:w-1/2 2xl:w-1/2 lg:w-3/5 rounded sm:w-3/5'
+const flightCard = 'flex relative items-center border w-1/2 py-1 rounded '
 
 const btns = 'flex items-center  w-full  space-x-4 pt-4'
 
 const closeStop =" my-auto w-5 h-5  bg-red-500 ml-1  rounded flex  justify-center cursor-pointer text-bold items-center"
-const openStop ="absolute bg-green-400 px-2 py-1 text-xs rounded flex cursor-pointer text-white"
+const openStop ="absolute bg-green-400 px-2 py-1 text-xs rounded flex cursor-pointer border border-black text-black"
 
 
 

@@ -20,7 +20,7 @@ import { AiOutlineStop } from "react-icons/ai";
 import { IoCarSportOutline } from "react-icons/io5";
 import sky from './../../../assets/day.png'
 import sun from './../../../assets/sun.png'
-import stars from './../../../assets/night.jpg'
+import stars from './../../../assets/stars.jpg'
 import train from './../../../assets/train.jpeg'
 import boat from './../../../assets/ship.png'
 import delivery from './../../../assets/delivery.png'
@@ -275,40 +275,37 @@ const TripContent = ():React.ReactNode => {
             </div>
 
             <div className={date}>
-                <div style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '11px -30px'}` }} className={day? "relative  w-full h-14 my-1 g-no-repeat bg-cover bg-no-repeat rounded-xl bg-right ": "  relative w-full h-14 my-1 bg-cover  rounded-xl "}>
-                    <div className="absolute -top-4 right-1/2 translate-x-1/2 border flex items-center bg-white px-4 py-1 rounded">
+                <div style={{}} className={day? "relative  w-full my-1 g-no-repeat bg-cover bg-no-repeat rounded-xl bg-right ": "  relative w-full  my-1 bg-cover  rounded-xl "}>
+                    <div className="absolute -top-4 right-1/2 translate-x-1/2 flex items-center bg-white px-4 py-1 rounded">
                         {day
                             ? isFrench? 'Tarification jour ': 'Day fare'
                             : isFrench? 'Tarification nuit': 'Night fare'
                         } 
                     </div>
-                    {day && <div  className='absolute top-1 left-2 w-12 h-12 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
 
-                <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
-                            if(['Boost', 'Unlocking door','Survoltage', 'Débarrage de portes'].includes(list[activeCarId-1].type)) return setDateNow(true);
-                            setDateNow(!list[activeCarId-1].dateNow)
-                            if(list[activeCarId-1].dateNow) {
-                                setTime('')
-                                setDate('')
-                            } else {
-                                (dayjs().format('mm') > '30') 
-                                    ? setTime((dayjs().add(1, 'hours').format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
-                                    : setTime((dayjs().format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
-                                setDate(dayjs().format('DD/MM/YYYY'))
-                            }
-                        }}>
-                    <span className={!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel+ ' bg-red-600 '}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }
-                    </span>
-                    <span className={list[activeCarId-1].dateNow ? toggleLabelActive   :toggleLabel+ ' bg-green-400 ' }>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
-                    
-                </div>
+
 
                 <div className={dateRow}>
-                    
-                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-0 left-0 right-0 bottom-0 bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
-
-                    <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                    <div className='flex flex-col w-1/2 '>
+                        <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
+                                    if(['Boost', 'Unlocking door','Survoltage', 'Débarrage de portes'].includes(list[activeCarId-1].type)) return setDateNow(true);
+                                    setDateNow(!list[activeCarId-1].dateNow)
+                                    if(list[activeCarId-1].dateNow) {
+                                        setTime('')
+                                        setDate('')
+                                    } else {
+                                        (dayjs().format('mm') > '30') 
+                                            ? setTime((dayjs().add(1, 'hours').format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
+                                            : setTime((dayjs().format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
+                                        setDate(dayjs().format('DD/MM/YYYY'))
+                                    }
+                                }}>
+                            <span className={!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel+ ' bg-red-600 '}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }
+                            </span>
+                            <span className={list[activeCarId-1].dateNow ? toggleLabelActive   :toggleLabel+ ' bg-green-400 ' }>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
+                        </div>
+                        <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                         {list[activeCarId-1].date ? <div className='flex items-center'>
                             {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
@@ -343,17 +340,23 @@ const TripContent = ():React.ReactNode => {
                             </div>
                         </div>}
                     </div>
-                    <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
-                    {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':timeToggle+ ' '}>
-                        <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
-                        <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
-                        <div className="absolute border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
-                        <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
-                    </div>}
+                    </div>
+                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[30px] left-0 right-1/2 bottom-0  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
+                    <div className='flex flex-col relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                        <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
+                        {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':timeToggle+ ' '}>
+                            <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
+                            <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
+                            <div className="absolute border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
+                            <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
+                        </div>}
+                        {day && <div  className='absolute top-8 left-2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
+
+                    </div>
                 </div>
             </div>
 
-            <div className={iconsType}>
+            {list[activeCarId-1].icon>0 && <div className={iconsType}>
                 
                 <div className={icons}>
                     <span className={list[activeCarId-1].icon == 1 ? iconCard : iconCardActive}>
@@ -417,7 +420,7 @@ const TripContent = ():React.ReactNode => {
                     />
                     {list[activeCarId-1].flight.number.length<3 && list[activeCarId-1].flight.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
                 </div>}
-            </div>
+            </div>}
 
             <div className={locationCard}>
                 <div className={isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
@@ -430,7 +433,7 @@ const TripContent = ():React.ReactNode => {
                     />
                 </div>
                 {list[activeCarId-1].icon === 1 && 
-                <div className="border flex items-center w-1/3 rounded">
+                <div className="border flex items-center w-1/3 rounded py-1">
                     <Select 
                         className='favorite truncate'
                         style={{borderRadius: 5}} 
@@ -476,7 +479,7 @@ const TripContent = ():React.ReactNode => {
                         placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
                     />
                 </div>
-                <div className={(stop === 0) ? openStop :'hidden'} onClick={()=>setStop(1)}>Add stop</div> 
+                <div className={(stop === 0) ? openStop :'hidden'} onClick={()=>setStop(1)}>+ stop</div> 
                 <div 
                     className={(stop > 0 ) ? closeStop : 'hidden'} 
                     onClick={()=>{
@@ -495,8 +498,7 @@ const TripContent = ():React.ReactNode => {
                 ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>}
             
-            {['Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && 
-            <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
+            {['Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
                 <div className={stop > 1 ? box: box + ' opacity-0 '}>
                     <span className='icon  text-orange-400'><SlLocationPin/></span>
                     <GoogleAddressInput
@@ -506,7 +508,7 @@ const TripContent = ():React.ReactNode => {
                         placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
                     />
                 </div>
-                <div className={(stop === 1) ? openStop : 'hidden'} onClick={()=> setStop(2)} >Add stop</div>
+                <div className={(stop === 1) ? openStop : 'hidden'} onClick={()=> setStop(2)} >+ stop</div>
                 <div 
                     className={(stop > 1) ? closeStop : 'hidden'} 
                     onClick={()=>{ 
@@ -524,8 +526,7 @@ const TripContent = ():React.ReactNode => {
                 ><span className='scale-[150%] font-bold rotate-45'>+</span></div>
             </div>}
 
-            {['Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && 
-            <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
+            {['Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 2 ? box : box + ' opacity-0 '}>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
@@ -537,7 +538,7 @@ const TripContent = ():React.ReactNode => {
                             placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
                         />
                     </div>
-                    <div  className={(stop === 2) ? openStop :' hidden '} onClick={()=>setStop(3)} >Add stop</div> 
+                    <div  className={(stop === 2) ? openStop :' hidden '} onClick={()=>setStop(3)} >+ stop</div> 
                     <div 
                         className={(stop > 2) ? closeStop :'hidden'} 
                         onClick={()=>{ 
@@ -555,8 +556,7 @@ const TripContent = ():React.ReactNode => {
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
             </div>}
 
-            {[ 'Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && 
-            <div className={(stop > 2 ) ?  extraCardStop: 'hidden'}>
+            {[ 'Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && <div className={(stop > 2 ) ?  extraCardStop: 'hidden'}>
                 <div className={stop > 3 ? box : box + ' opacity-0 '}>
                     <span className='icon  text-orange-400'><SlLocationPin/></span>
                     <GoogleAddressInput
@@ -569,7 +569,7 @@ const TripContent = ():React.ReactNode => {
                     />
                 </div>
 
-                <div className={(stop === 3) ? openStop :'hidden'} onClick={()=>setStop(4)}>Add stop</div> 
+                <div className={(stop === 3) ? openStop :'hidden'} onClick={()=>setStop(4)}>+ stop</div> 
                 <div 
                     className={(stop > 3) ? closeStop :'hidden'} 
                     onClick={()=>{ 
@@ -599,7 +599,7 @@ const TripContent = ():React.ReactNode => {
                     />
                 </div>
                 {list[activeCarId-1].icon2 ===1 && 
-                <div className="border flex items-center w-1/3 rounded ">
+                <div className="border flex items-center w-1/3 rounded py-1">
                 <Select 
                     style={{borderRadius: 5}}
                     className='favorite truncate '
@@ -612,7 +612,7 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>}
 
-            {[ 'Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && <div className={iconsType}>
+            {[ 'Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && list[activeCarId-1].icon2>0 &&  <div className={iconsType}>
                 
                 <div className={icons}>           
                     <span className={list[activeCarId-1].icon2 == 1 ? iconCard + ' rounded-l' : iconCardActive}>
@@ -682,9 +682,9 @@ const TripContent = ():React.ReactNode => {
 
             {['Transport', 'Delivery','Transport', 'Livraison',].includes(list[activeCarId-1].type) && 
             <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
-                <div className="bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400" onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className="bg-red-500 p-2 px-3 rounded-full text-white cursor-pointer border border-black active:bg-red-400" onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
                 <div 
-                    className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300"
+                    className="bg-green-400 p-2 px-3 rounded-full cursor-pointer border border-black text-white flex items-center active:bg-green-300"
                     onClick={goNext}
                 >{isFrench? 'Suivant': 'Next'}</div>
             </div>}
@@ -743,7 +743,7 @@ const pmTextActive = 'px-2 pl-4 text-white bg-gray-600  rounded-tl triangle flex
 const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
 const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 border-r border-black '
 
-const timeToggle = ' absolute -top-8 font-bold right-0 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
+const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
 
 
 const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
@@ -757,26 +757,26 @@ const mainType = ' absolute top-6  right-1/2 translate-x-1/2 justify-center -tra
 
 
 
-const toggle ='flex mr-6 relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2 overflow-hidden' 
+const toggle ='flex self-start relative items-center rounded border border-black duration-500 transition cursor-pointer mb-2 overflow-hidden' 
 const toggleLabel ='flex  items-center  text-xs  duration-500 transition px-2   text-black font-bold min-w-[42px] py-1'
 const toggleLabelActive ='flex min-w-[42px] items-center py-1 text-xs  duration-500 transition px-2   opacity-25 font-bold '
 
-const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 border-2 border-red-600'
+const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 border border-black'
 
 const iconCard = 'flex items-center justify-center w-8 h-8  bg-sky-400 border-black'
 const iconCardActive = 'flex items-center justify-center  w-8 h-8 border-black'
 const iconItem = ' '
 const icons = 'flex divide-x  border-black border rounded  overflow-hidden'
 const iconsType = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
-const flightCard = 'flex relative items-center border w-1/2 rounded '
+const flightCard = 'flex relative items-center border w-1/2 rounded py-1'
 
 const closeStop =" my-auto w-5 h-5  bg-red-500 ml-1  rounded flex  justify-center cursor-pointer text-bold items-center"
-const openStop ="absolute bg-green-400 px-2 py-1 text-xs rounded flex cursor-pointer text-white "
+const openStop ="absolute bg-green-400 px-2 py-1 text-xs  text-gray-700 rounded flex cursor-pointer border border-gray-800"
 
 
 const setDateBtn = ' border bg-sky-500 hover:bg-sky-400 active:bg-sky-600 shadow cursor-pointer rounded px-3 py-2 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl rounded-xl sm:-left-[10px]'
-const dateRow = 'flex relative sm:items-start items-start w-full   justify-between'
+const dateRow = 'flex relative   w-full   justify-between'
 
 const dateInput = 'text-xs flex border cursor-pointer h-[40px] relative w-[200px] max-w-[200px] w-full rounded'
 

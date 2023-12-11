@@ -35,7 +35,7 @@ const PaymentSection = ():React.ReactNode => {
                 {list.filter(item => item.filled).length>0 &&<button className={btn} onClick={()=> setIsSubmit(true)}>View Orders</button>}
             </div>
             <div className="flex w-full max-w-[400px] justify-between mx-auto pt-10">
-                <div className=" bg-red-500 p-2 px-3 rounded text-white cursor-pointer border-2 border-red-600 active:bg-red-400 " onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className=" bg-red-500 p-2 px-3 rounded text-white cursor-pointer border border-black active:bg-red-400 " onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Back'}</div>
             </div>
         </section>
     );
@@ -44,8 +44,8 @@ const PaymentSection = ():React.ReactNode => {
 export default PaymentSection;
 
 
-const btn = 'py-2 px-4 rounded bg-yellow-300  text-white active:bg-yellow-200 self-start border-2 border-yellow-500'
-const btn2 = 'py-2 px-4 rounded bg-green-400  text-white active:bg-green-200 self-start border-2 border-green-500'
+const btn = 'py-2 px-4 rounded bg-yellow-300  text-white active:bg-yellow-200 self-start border border-black'
+const btn2 = 'py-2 px-4 rounded bg-green-400  text-white active:bg-green-200 self-start border border-black'
 const additional ='flex additional px-2 w-full '
 const content ='flex justify-between px-2 w-full mb-4'
 

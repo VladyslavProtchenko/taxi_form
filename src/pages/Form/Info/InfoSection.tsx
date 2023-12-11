@@ -120,7 +120,7 @@ const InfoSection = () => {
                                 setName2('');
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
                             }}>
-                        {`${ isFrench?'Ajouter nom':'Add name'}`}
+                        {`${ isFrench?'+ nom':'+ name'}`}
                     </button>
                     <button 
                         className={(isExtraNameOpen[1]) ? extraNameClose : 'hidden' } 
@@ -157,7 +157,7 @@ const InfoSection = () => {
                                 }
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })
                             }}
-                        >{`${(isExtraNameOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'Ajouter nom':'Add name'}`}</button>}
+                        >{`${(isExtraNameOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'+ nom':'+ name'}`}</button>}
 
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
                     && <button 
@@ -194,7 +194,7 @@ const InfoSection = () => {
                         <MailInput value={list[activeCarId-1].email2} mainMail={false} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
                     </div>
                     <button className={(isExtraEmailOpen[1]) ? 'hidden' : addExtraBtn } onClick={()=> setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: true })}>
-                        {isFrench?'Ajouter courrier':'Add email'}
+                        {isFrench?'+ courrier':'+ email'}
                     </button>
                     <button 
                         className={(isExtraEmailOpen[1]) ? extraNameClose : 'hidden' } 
@@ -221,7 +221,7 @@ const InfoSection = () => {
                     </div>
                     
                     <button className={(isExtraEmailOpen[2]) ? ' hidden ' : addExtraBtn } onClick={()=>{setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: true })}}>
-                        {isFrench?'Ajouter courrier':'Add email'}
+                        {isFrench?'+ courrier':'+ email'}
                     </button>
                     <button className={(isExtraEmailOpen[2]) ? extraNameClose : ' hidden ' } onClick={()=>{
                                     setEmail3('@')
@@ -255,7 +255,7 @@ const InfoSection = () => {
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })
                         }}
                     > 
-                        {isFrench?'Ajouter téléphone':'Add phone'} 
+                        {isFrench?'+ téléphone':'+ phone'} 
                     </button>
                     <button 
                         className={(isExtraPhoneOpen[1]) ? extraNameClose : 'hidden ' } 
@@ -286,7 +286,7 @@ const InfoSection = () => {
                             setPhone3('')
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: !isExtraPhoneOpen[2] })
                                 }}>
-                        {isFrench?'Ajouter téléphone':'Add phone'}
+                        {isFrench?'+ téléphone':'+ phone'}
                     </button>
                     <button className={(isExtraPhoneOpen[2]) ? extraNameClose : 'hidden' } onClick={()=>{
                             setPhone3('')
@@ -298,7 +298,7 @@ const InfoSection = () => {
             </div>
             <div className=" w-full flex justify-end max-w-[400px]">
                 <div 
-                    className="bg-green-400 p-2 px-3 rounded text-white cursor-pointer border-2 border-green-500 active:bg-green-300"
+                    className="bg-green-400 p-2 px-3 rounded-full cursor-pointer border text-white border-black active:bg-green-300"
                     onClick={goNext}
                 >{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -312,7 +312,7 @@ export default InfoSection;
 const box = ' border rounded bg-white flex items-center w-full '
 const warn = 'absolute -top-[15px] left-4 text-xs z-20 text-red-500'
 const nameCard = 'relative flex max-w-[400px] w-[100%] relative'
-const addExtraBtn = "absolute w-[25%] py-1 flex justify-center border border-gray-500 bg-green-400 rounded text-xs cursor-pointer left-0"
+const addExtraBtn = "absolute p-2 py-1 flex justify-center border border-gray-500 bg-green-400 rounded text-xs cursor-pointer left-0"
 
 const extraNameClose = " my-auto ml-2 text-black w-6  h-6 border-gray-800 border  items-center flex justify-center bg-red-500 rounded cursor-pointer  left-[102%]"
 

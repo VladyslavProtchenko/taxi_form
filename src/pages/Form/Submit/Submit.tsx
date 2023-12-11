@@ -42,8 +42,8 @@ const Submit = (): React.ReactNode => {
 
 export default Submit;
 
-const btn = 'flex text-black px-2 py-2 rounded self-start bg-red-500 active:bg-red-400 cursor-pointer text-white'
-const btn2 = 'flex text-black px-2 py-2 rounded self-start bg-green-400 active:bg-green-300 cursor-pointer text-white'
+const btn = 'flex border border-black px-2 py-2 rounded self-start bg-red-500 active:bg-red-400 cursor-pointer text-white'
+const btn2 = 'flex text-black border-black border px-2 py-2 rounded self-start bg-green-400 active:bg-green-300 cursor-pointer text-white'
 
 const section = 'flex w-full space-y-4  flex-col max-w-[576px] border-none   py-8 px-1'
 

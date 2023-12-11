@@ -32,7 +32,7 @@ const LocationSection = ():React.ReactNode => {
                         if(list[activeCarId-1].isReturnStatus) setTabs(true)
                     }}
                 >
-                    <div className={!list[activeCarId-1].isReturnTrip? "bg-green-400 py-1 px-3 rounded text-white border-2 border-green-500 active:bg-green-300 ": 'bg-red-500 border-2 border-red-700 active:bg-red-400  py-1 px-3 rounded text-white'} onClick={(e)=>{
+                    <div className={!list[activeCarId-1].isReturnTrip? "bg-green-400 py-1 px-3 rounded text-white border border-black active:bg-green-300 ": 'bg-red-500 border border-black active:bg-red-400  py-1 px-3 rounded text-white'} onClick={(e)=>{
                         e.stopPropagation()
                         if(list[activeCarId-1].isReturnStatus && list[activeCarId-1].isReturnTrip) {
                             setIsReturnStatus(false)
