@@ -121,9 +121,9 @@ const tabsContainer = 'flex mt-10 items-center bg-white text-xs mx-10 rounded-xl
 const lang = 'flex cursor-pointer items-center  mt-10 ml-10'
 const langItem = ' px-1 text-gray-600 font-thin'
 
-const footer = 'flex justify-around border-t bg-white px-3 py-2 '
-const content =  'flex flex-1 w-full justify-center'
+const footer = 'flex justify-around border-t bg-white px-3 py-2 fixed bottom-0 left-0 right-0 '
+const content =  'flex flex-1 w-full justify-center pb-[60px]'
 const header = 'flex flex-col w-full'
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px] h-screen'
-const container = 'flex w-full min-w-screen min-h-screen justify-center bg-gray-50'
+const container = 'flex w-full min-w-screen min-h-screen justify-center bg-gray-50 text-xs'

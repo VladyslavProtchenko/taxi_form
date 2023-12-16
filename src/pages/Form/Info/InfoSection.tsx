@@ -233,7 +233,7 @@ const InfoSection = () => {
             </div>
 
             <div className={extraContainer}>
-                <div className={noPhone ? nameCard +'  z-30': nameCard+ ' border border-red-500 z-30' } >
+                <div className={nameCard} >
                     <div className={noPhone ? box: box + ' border-red-500 z-30'}>
                         <PhoneNumberInput  setValidation={setIsPhone} type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
                     </div>
@@ -321,4 +321,4 @@ const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-f
 const nameCard = 'relative flex  w-full px-10'
 const extraContainer = 'flex flex-col w-full space-y-4 items-center'
 
-const section = 'flex flex-col space-y-6 items-center  w-full  max-w-[576px]'
+const section = 'flex flex-col space-y-6 items-center  w-full  max-w-[576px] pt-6'

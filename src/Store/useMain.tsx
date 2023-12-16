@@ -18,7 +18,7 @@ export interface ITaxi {
     filled: boolean;
     timeType: number;
     timeTypeR: number;
-    type: string;
+    type: number;
 
     name: string;
     name2: string;
@@ -128,7 +128,7 @@ interface IStore {
     list: ITaxi[];
     //info methods
     setDay: (value: boolean) => void;
-    setType: (value: string) => void;
+    setType: (value: number) => void;
     setIsFrench: (value: boolean) => void;
     setActiveCarId: (value: number) => void;
     setFilled: (value: boolean, id: number) => void;
@@ -256,7 +256,7 @@ export const useMain = create<IStore>()(
         list: [
             {
                 id: 1,
-                type: 'Transport',
+                type: 1,
                 timeType: 0,
                 timeTypeR: 0,
                 filled: false,
@@ -389,7 +389,7 @@ export const useMain = create<IStore>()(
                 steps: 1,
             },
             {
-                id: 2, type: 'Transport', filled: false,
+                id: 2, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
 
                 title: '', title2: '', title3: '',
@@ -496,7 +496,7 @@ export const useMain = create<IStore>()(
                 steps: 1,
             },
             {
-                id: 3, type: 'Transport', filled: false,
+                id: 3, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
 
                 title: '', title2: '', title3: '',
@@ -596,7 +596,7 @@ export const useMain = create<IStore>()(
                 steps: 1,
             },
             {
-                id: 4, type: 'Transport', filled: false,
+                id: 4, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
 
                 title: '', title2: '', title3: '',
@@ -699,7 +699,7 @@ export const useMain = create<IStore>()(
                 steps: 1,
             },
             {
-                id: 5, type: 'Transport', filled: false,
+                id: 5, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
 
                 title: '', title2: '', title3: '',

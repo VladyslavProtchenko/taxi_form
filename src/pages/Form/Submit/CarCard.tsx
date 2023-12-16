@@ -164,7 +164,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles}>
+                    {(list[item.id-1].type<3) && <div className={titles}>
                         <div className={item.adults ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Adultes': 'Adults'}</div>
                         </div>
@@ -176,7 +176,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         </div>
                     </div>}
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-3/4 divide-x'>
+                    {(list[item.id-1].type<3) && <div className='flex w-3/4 divide-x'>
                         <div className={optionItem}>
                             <div className={text}>{item.adults}</div>
                         </div>
@@ -192,7 +192,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                     </div>}
 
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2}>
+                    {(list[item.id-1].type<3) && <div className={titles2}>
                         {item.baggage.map(bag =>(
                             <div className={bag.quantity> 0?'w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
                                 {bag.title}
@@ -200,7 +200,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>}
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x'>
+                    {(list[item.id-1].type<3) && <div className='flex w-full divide-x'>
                         {item.baggage.map(bag =>(
                             <div className={'w-1/5 flex justify-center'}>
                                 {bag.quantity}
@@ -209,7 +209,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                     </div>}
                     
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2 + ' justify-between'}>
+                    {(list[item.id-1].type<3) && <div className={titles2 + ' justify-between'}>
                         {item.carSeats.map(bag =>(
                             <div className={bag.quantity> 0?' w-[14%] flex pl-1 bg-green-400 truncate ' : ' pl-1 truncate w-[14%] flex'}>
                                 {bag.title}
@@ -217,7 +217,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>}
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x justify-between'>
+                    {(list[item.id-1].type<3) && <div className='flex w-full divide-x justify-between'>
                         {item.carSeats.map(bag =>(
                             <div className={'w-[14%] flex justify-center'}>
                                 {bag.quantity}
@@ -225,7 +225,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>}
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2 + ' justify-between'}>
+                    {(list[item.id-1].type<3) && <div className={titles2 + ' justify-between'}>
                         {item.sport.map(bag =>(
                             <div className={bag.quantity> 0?' w-1/4 flex justify-center bg-green-400' : 'w-1/4 flex justify-center'}>
                                 {bag.title}
@@ -233,7 +233,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>}
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x justify-between'>
+                    {(list[item.id-1].type<3) && <div className='flex w-full divide-x justify-between'>
                         {item.sport.map(bag =>(
                             <div className={'w-1/4 flex justify-center'}>
                                 {bag.quantity}
@@ -241,7 +241,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>}
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className={titles2 + ' justify-between'}>
+                    {(list[item.id-1].type<3) && <div className={titles2 + ' justify-between'}>
                         {item.pets.map(bag =>(
                             <div className={bag.quantity> 0?' w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
                                 {bag.title}
@@ -249,7 +249,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         ))}
                     </div>}
 
-                    {['Transport', 'Delivery'].includes(list[item.id-1].type) && <div className='flex w-full divide-x justify-between'>
+                    {(list[item.id-1].type<3) && <div className='flex w-full divide-x justify-between'>
                         {item.pets.map(bag =>(
                             <div className={'w-1/5 flex justify-center'}>
                                 {bag.quantity}

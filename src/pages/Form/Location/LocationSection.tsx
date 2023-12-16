@@ -1,77 +1,87 @@
 
 import React, { useEffect, useState } from "react";
-import ReturnTrip from "./ReturnTrip";
+// import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 import { useMain } from "../../../Store/useMain";
-import { useStore } from "../../../Store";
+// import BoostTrip from "./BoostTrip";
 
 const LocationSection = ():React.ReactNode => {
-    const [ tabs, setTabs ] = useState(false)
-    const {store} = useStore()
-    const {isFrench, list,setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    const [ returnCard, setReturnCard ] = useState(false)
+    const { list,setType, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
     useEffect(()=>{
-        if(['Boost', 'Unlocking door'].includes(list[activeCarId-1].type)) {
+        if(list[activeCarId-1].type>2) {
             setIsReturnTrip(false)
             setIsReturnStatus(false)
         }
     },[])
     return (
         <section className={section}>
-            <div className={tabsContainer}>
-                <div 
-                    className={tabs ? tab  : tabActive} 
-                    onClick={()=>{ setTabs(false)}}
-                >
-                    {isFrench? store.tripTitlesF[0] : store.tripTitles[0]}
-                </div>
-                <div 
-                    className={!tabs ? tab : tabActive } 
-                    onClick={()=>{
-                        if(['Boost', 'Unlocking door'].includes(list[activeCarId-1].type)) return;
-                        if(list[activeCarId-1].isReturnStatus) setTabs(true)
-                    }}
-                >
-                    <div className={!list[activeCarId-1].isReturnTrip? "bg-green-400 py-1 px-3 rounded text-white border border-black active:bg-green-300 ": 'bg-red-500 border border-black active:bg-red-400  py-1 px-3 rounded text-white'} onClick={(e)=>{
-                        e.stopPropagation()
-                        if(list[activeCarId-1].isReturnStatus && list[activeCarId-1].isReturnTrip) {
-                            setIsReturnStatus(false)
-                            setTabs(false)
-                            return setIsReturnTrip(false)
-                        }
-                        if(list[activeCarId-1].isReturnStatus && !list[activeCarId-1].isReturnTrip) {
-                            setTabs(true);
-                            return setIsReturnTrip(true)
-                        }
-                        if(!list[activeCarId-1].isReturnStatus) {
-                            setIsReturnStatus(true)
-                            setTabs(true)
-                        }
-                        
-                    }}> 
-                        {!list[activeCarId-1].isReturnStatus ? `${!isFrench? 'Need return': 'Besion Retour'}` : list[activeCarId-1].isReturnTrip
-                            ?!isFrench   ? 'Disable ': 'Désactiver'
-                            :!isFrench    ? 'Activate': 'Activer'
-                        }
-                    </div>
-                </div>
+            <div className={typeContainer}>
+                <div className={typeTab} onClick={()=>setType(1)}>Transport</div>
+                <div className={typeTab} onClick={()=>setType(2)}>Delivery</div>
+                <div className={typeTab} onClick={()=>setType(3)}>Boost</div>
+                <div className={typeTab} onClick={()=>setType(4)}>Unlocking door</div>
+                <div className={tabLine}><div className={
+                    list[activeCarId-1].type===1 
+                    ? line
+                    :list[activeCarId-1].type===2 
+                    ? line + ' translate-x-[100%]'
+                    :list[activeCarId-1].type===3 
+                    ? line + ' translate-x-[200%]'
+                    : line + ' translate-x-[300%]'
+                }></div></div>
             </div>
-            <div className='flex bg-white'>
-                <div className={!tabs ? 'flex w-full  flex-coll ' : 'hidden w-full '} >
-                <TripContent />
-                </div>
-                <div className={tabs ? 'flex w-full flex-col' : 'hidden w-full '} >
-                <ReturnTrip />
-                </div>
+            
+            <div className='flex w-full px-10 mt-4'>
+                {list[activeCarId-1].isReturnTrip && <div className={returnTabsActive}>
+                    <div 
+                        className={returnCard ? returnTab : returnTabActive }
+                        onClick={()=>setReturnCard(false)}
+                    >One-Way</div>
+
+                    {list[activeCarId-1].isReturnTrip &&<div 
+                        className={returnCard ? returnTabActive : returnTab}
+                        onClick={()=>setReturnCard(true)}
+                    >Return</div>}
+
+                    <div className={ returnCard ? returnTabBg+ ' translate-x-full':returnTabBg  }></div>
+                </div> }
+
+                {!list[activeCarId-1].isReturnTrip &&
+                    <div className='flex w-full '>
+                    <div className={returnTabActiveOne}>One-Way</div>
+                        <div className={activeReturnTripBtn} onClick={()=>setIsReturnTrip(true)}>+ Return</div>
+                    </div>}
             </div>
+            
+            
+            <TripContent />
+            {/* <ReturnTrip />
+            <BoostTrip /> */}
         </section>
     );
 };
 
 export default LocationSection;
 
+const activeReturnTripBtn = 'w-1/2 text-center py-2 cursor-pointer active:bg-white text-purple-700 rounded-lg hover:shadow-xl '
+const returnTabBg = 'absolute w-1/2 bg-purple-500 top-0 bottom-0 rounded-lg duration-300'
+const returnTab = 'w-1/2 text-center z-10 duration-500'
+const returnTabActive = 'w-1/2 text-center z-10 text-white duration-500' 
+const returnTabActiveOne = 'w-1/2 items-center justify-center z-10 text-white bg-purple-500 rounded-lg flex shadow-xl' 
+const returnTabsActive = 'relative flex bg-white  shadow-xl py-2 rounded-lg w-full cursor-pointer'
 
-const tab = 'flex w-1/2  cursor-pointer justify-center '
-const tabActive = 'flex w-1/2 cursor-pointer justify-center'
-const tabsContainer = 'relative flex w-full text-xs text-gray-800 border px-10' 
+const tabLine = 'absolute w-full px-10 top-full left-0'
+const line = ' w-1/4 border-b border-purple-500 duration-500'
+const typeTab = 'w-1/4 py-1 text-center'
+const typeContainer = 'flex relative w-full text-[10px] px-10'
+
+
+// const needReturn = 'text-purple-700'
+// const line = 'border-purple-700 border-b w-[15%] duration-500 '
+// const activeTabLine = 'absolute left-0 flex w-full top-full px-10'
+// const tab = 'flex w-1/2  cursor-pointer justify-center py-1'
+// const tabActive = 'flex w-1/2  cursor-pointer justify-center py-1 text-gray-500'
+// const tabsContainer = 'relative flex w-full items-center text-xs text-gray-800 px-10 mb-4' 
 
 const section = 'flex flex-col w-full  max-w-[576px]'
