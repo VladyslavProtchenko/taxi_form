@@ -311,7 +311,7 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-const warn = 'absolute -top-[15px] left-4 text-xs z-20 text-red-500'
+const warn = 'absolute -top-[15px] left-12 text-xs z-20 text-red-500'
 
 const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-1 text-sm cursor-pointer "
 const extraNameClose = " my-auto ml-2 text-white px-2 py-1 items-center flex justify-center bg-rose-500 rounded-full cursor-pointer  left-[102%]"
