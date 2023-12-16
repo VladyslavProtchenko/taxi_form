@@ -84,16 +84,13 @@ const Form = (): React.ReactNode => {
         setIsCars(cars)
     },[list])
 
-
-
     useEffect(()=>{
         setIsSubmit(false)
     },[activeCarId])
     
     return (
         <div  className={container}>
-            {!validation.isSubmit &&
-            <>
+            {!validation.isSubmit && <>
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
                 {list[activeCarId-1].steps === 2 && <AddressSection />}
                 {list[activeCarId-1].steps === 3 && <OptionsSection />}
@@ -106,4 +103,4 @@ const Form = (): React.ReactNode => {
 
 export default Form;
 
-const container = 'flex w-[85%] flex-col  border-none items-center min-h-screen '
+const container = 'flex flex-col items-center w-full pt-10'

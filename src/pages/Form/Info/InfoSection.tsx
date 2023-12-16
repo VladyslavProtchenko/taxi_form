@@ -89,7 +89,7 @@ const InfoSection = () => {
     return (
         <section className={section}>
             <div className={extraContainer}>
-                <div className={nameCard }>
+                <div className={nameCard}>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
                         <span className='icon'><BsPeople/></span>
                         <Select allowClear  placeholder={isFrench? 'Titre':'Title' } style={{width: 118, height: 40}} onChange={setTitle} options={options1} value={list[activeCarId-1].title || null} />
@@ -233,11 +233,13 @@ const InfoSection = () => {
             </div>
 
             <div className={extraContainer}>
-                <div className={noPhone ? extraCard +' border z-30': extraCard+ ' border border-red-500 z-30' } >
-                    <PhoneNumberInput  setValidation={setIsPhone} type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
+                <div className={noPhone ? nameCard +'  z-30': nameCard+ ' border border-red-500 z-30' } >
+                    <div className={noPhone ? box: box + ' border-red-500 z-30'}>
+                        <PhoneNumberInput  setValidation={setIsPhone} type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
+                    </div>
                 </div>
 
-                <div className={list[activeCarId-1].phone.length>=10 ? extraCard + ' z-20' : 'hidden'}>
+                <div className={list[activeCarId-1].phone.length>=10 ? nameCard + ' z-20' : 'hidden'}>
                     <div className={( list[activeCarId-1].phone === list[activeCarId-1].phone2)? warn: 'hidden'}>phone cannot be repeated</div>
                     <div className={isExtraPhoneOpen[1]? box : box+ ' opacity-0 '}>
                         {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
@@ -296,9 +298,9 @@ const InfoSection = () => {
                     </button>
                 </div>
             </div>
-            <div className=" w-full flex justify-end max-w-[400px]">
+            <div className="w-full px-10">
                 <div 
-                    className="bg-green-400 p-2 px-3 rounded-full cursor-pointer border text-white border-black active:bg-green-300"
+                    className="bg-purple-500 py-3 text-center px-3 rounded-full cursor-pointer border-purple-700  text-white active:bg-purple-400"
                     onClick={goNext}
                 >{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -309,14 +311,14 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-const box = ' border rounded bg-white flex items-center w-full '
 const warn = 'absolute -top-[15px] left-4 text-xs z-20 text-red-500'
-const nameCard = 'relative flex max-w-[400px] w-[100%] relative'
-const addExtraBtn = "absolute p-2 py-1 flex justify-center border border-gray-500 bg-green-400 rounded text-xs cursor-pointer left-0"
 
-const extraNameClose = " my-auto ml-2 text-black w-6  h-6 border-gray-800 border  items-center flex justify-center bg-red-500 rounded cursor-pointer  left-[102%]"
+const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-3 text-sm cursor-pointer "
+const extraNameClose = " my-auto ml-2 text-white px-2 py-1 items-center flex justify-center bg-rose-500 rounded-full cursor-pointer  left-[102%]"
 
-const extraCard = ' flex relative max-w-[400px] rounded w-full'
+const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-full '
+
+const nameCard = 'relative flex  w-full px-4'
 const extraContainer = 'flex flex-col w-full  space-y-4 items-center'
 
-const section = 'flex flex-col pt-10 space-y-6 items-center justify-between w-full  max-w-[576px] border-none'
+const section = 'flex flex-col space-y-6 items-center  w-full  max-w-[576px]'
