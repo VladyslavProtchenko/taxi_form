@@ -313,12 +313,12 @@ export default InfoSection;
 
 const warn = 'absolute -top-[15px] left-4 text-xs z-20 text-red-500'
 
-const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-3 text-sm cursor-pointer "
+const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-1 text-sm cursor-pointer "
 const extraNameClose = " my-auto ml-2 text-white px-2 py-1 items-center flex justify-center bg-rose-500 rounded-full cursor-pointer  left-[102%]"
 
 const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-full '
 
-const nameCard = 'relative flex  w-full px-4'
-const extraContainer = 'flex flex-col w-full  space-y-4 items-center'
+const nameCard = 'relative flex  w-full px-10'
+const extraContainer = 'flex flex-col w-full space-y-4 items-center'
 
 const section = 'flex flex-col space-y-6 items-center  w-full  max-w-[576px]'

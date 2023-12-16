@@ -18,7 +18,6 @@ const LocationSection = ():React.ReactNode => {
     return (
         <section className={section}>
             <div className={carContainer}>
-                <div className='absolute w-20 h-[27px]  bg-white bottom-0 right-1/2 translate-x-1/2'></div>
                 <div 
                     className={tabs ? carCard + ' rounded-br-[50px] rounded-t-[30px] border-r' : carCardActive +' border-b-0 rounded-tr-[20px] border-r-0'} 
                     onClick={()=>{ setTabs(false)}}
@@ -73,6 +72,6 @@ export default LocationSection;
 
 const carCard = 'flex w-1/2 text-gray-600 z-10 cursor-pointer justify-center  rounded-t-xl border bg-gray-50 py-2 '
 const carCardActive = 'flex w-1/2 text-black z-10 cursor-pointer justify-center rounded-t-xl border py-2 bg-white'
-const carContainer = 'relative flex w-full  border-t-0  rounded-t-lg ' 
+const carContainer = 'relative flex w-full ' 
 
-const section = 'flex flex-col w-full justify-between py-8 px-1 max-w-[576px] flex-col '
+const section = 'flex flex-col w-full   max-w-[576px]'
