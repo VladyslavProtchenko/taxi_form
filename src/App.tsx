@@ -116,14 +116,14 @@ const footerTabActive = 'flex flex-col items-center  px-3 py-1 font-bold text-pu
 
 const activeTab = 'px-1 flex items-center px-3 py-1 bg-purple-500 text-white bg-gray-100'
 const tab = ' flex items-center cursor-pointer px-3 py-1'
-const tabsContainer = 'flex mt-10 items-center bg-white text-xs mx-10 rounded-xl shadow shadow-purple-500 overflow-hidden'
+const tabsContainer = 'flex mt-2 items-center text-xs mb-0 shadow-lg rounded-lg overflow-hidden'
 
-const lang = 'flex cursor-pointer items-center  mt-10 ml-10'
+const lang = 'flex cursor-pointer items-center  mt-8 mb-2 '
 const langItem = ' px-1 text-gray-600 font-thin'
 
 const footer = 'flex justify-around border-t bg-white px-3 py-2 fixed bottom-0 left-0 right-0 '
 const content =  'flex flex-1 w-full justify-center pb-[60px]'
-const header = 'flex flex-col w-full'
+const header = 'flex flex-col px-5 w-full  '
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px] h-screen'
 const container = 'flex w-full min-w-screen min-h-screen justify-center bg-gray-50 text-xs'
