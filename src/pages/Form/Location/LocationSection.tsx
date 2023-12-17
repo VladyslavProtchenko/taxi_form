@@ -73,8 +73,8 @@ const returnTabsActive = 'relative flex bg-white  shadow-xl py-2 rounded-lg w-fu
 
 const tabLine = 'absolute w-full px-10 top-full left-0'
 const line = ' w-1/4 border-b-2 border-purple-500 duration-500'
-const typeTab = 'w-1/4 py-1 text-center cursor-pointer text-gray-600'
-const typeTabActive = 'w-1/4 py-1 text-center cursor-pointer '
+const typeTab = 'w-1/4 py-1 text-center cursor-pointer text-gray-400 font-bold'
+const typeTabActive = 'w-1/4 py-1 text-center cursor-pointer font-bold'
 const typeContainer = 'flex relative w-full text-[11px] px-10 mb-10 mt-5'
 
 
