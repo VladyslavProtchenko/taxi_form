@@ -16,7 +16,7 @@ import { TiInfoLarge } from "react-icons/ti";
 import dayjs from "dayjs";
 
 function App():React.ReactNode {
-  const { activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay} = useMain()
+  const { list, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
 
   useEffect(()=>{
     ( dayjs().format('HH') > '05' && dayjs().format('HH') < '23') ? setDay(true): setDay(false)
@@ -82,23 +82,23 @@ function App():React.ReactNode {
         </div>
 
         <div className={footer}>
-          <span className={footerTabActive}>
+          <span className={list[activeCarId-1].steps===1?footerTabActive: footerTab} onClick={()=>setSteps(1)}>
             <PiUserListLight className={footerIcon}/>
             <span className={footerTabText}>Info</span>
           </span>
-          <span className={footerTab}>
+          <span className={list[activeCarId-1].steps===2?footerTabActive: footerTab} onClick={()=>setSteps(2)}>
             <CiLocationOn className={footerIcon} />
             <span className={footerTabText}>Locations</span>
           </span>
-          <span className={footerTab}>
+          <span className={list[activeCarId-1].steps===3?footerTabActive: footerTab} onClick={()=>setSteps(3)}>
             <CiBoxList  className={footerIcon}/>
             <span className={footerTabText}>Options</span>
           </span>
-          <span className={footerTab}>
+          <span className={list[activeCarId-1].steps===4?footerTabActive: footerTab} onClick={()=>setSteps(4)}>
             <CiMoneyCheck1 className={footerIcon} />
             <span className={footerTabText}>Payment</span>
           </span>
-          <span className={footerTab}>
+          <span className={list[activeCarId-1].steps===5?footerTabActive: footerTab} onClick={()=>setSteps(5)}>
             <IoCheckmarkDone className={footerIcon} />
             <span className={footerTabText}>Conirm</span>
           </span>
@@ -111,8 +111,8 @@ export default App
 
 const footerIcon = 'text-lg'
 const footerTabText = 'text-[10px]'
-const footerTab = 'flex flex-col items-center  px-3 py-1 text-gray-500'
-const footerTabActive = 'flex flex-col items-center  px-3 py-1 font-bold text-purple-500 rounded-xl  '
+const footerTab = 'flex flex-col items-center  px-3 py-1 text-gray-500 cursor-pointer'
+const footerTabActive = 'flex flex-col items-center  px-3 py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
 
 const activeTab = 'px-1 flex items-center px-3 py-1 bg-purple-500 text-white bg-gray-100'
 const tab = ' flex items-center cursor-pointer px-3 py-1'

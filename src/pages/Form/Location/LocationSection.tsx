@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-// import ReturnTrip from "./ReturnTrip";
+import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 import { useMain } from "../../../Store/useMain";
 // import BoostTrip from "./BoostTrip";
@@ -55,9 +55,9 @@ const LocationSection = ():React.ReactNode => {
             </div>
             
             
-            <TripContent />
-            {/* <ReturnTrip />
-            <BoostTrip /> */}
+            {!returnCard && (list[activeCarId-1].type<3) && <TripContent />}
+            {returnCard  && (list[activeCarId-1].type<3)  && <ReturnTrip />}
+            {/* {(list[activeCarId-1].type>2) &&<BoostTrip />} */}
         </section>
     );
 };
