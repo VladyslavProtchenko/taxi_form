@@ -17,10 +17,10 @@ const LocationSection = ():React.ReactNode => {
     return (
         <section className={section}>
             <div className={typeContainer}>
-                <div className={typeTab} onClick={()=>setType(1)}>Transport</div>
-                <div className={typeTab} onClick={()=>setType(2)}>Delivery</div>
-                <div className={typeTab} onClick={()=>setType(3)}>Boost</div>
-                <div className={typeTab} onClick={()=>setType(4)}>Unlocking door</div>
+                <div className={list[activeCarId-1].type===1 ?typeTabActive: typeTab} onClick={()=>setType(1)}>Transport</div>
+                <div className={list[activeCarId-1].type===2 ?typeTabActive: typeTab} onClick={()=>setType(2)}>Delivery</div>
+                <div className={list[activeCarId-1].type===3 ?typeTabActive: typeTab} onClick={()=>setType(3)}>Boost</div>
+                <div className={list[activeCarId-1].type===4 ?typeTabActive: typeTab} onClick={()=>setType(4)}>Unlocking door</div>
                 <div className={tabLine}><div className={
                     list[activeCarId-1].type===1 
                     ? line
@@ -72,8 +72,9 @@ const returnTabActiveOne = 'w-1/2 items-center justify-center z-10 text-white bg
 const returnTabsActive = 'relative flex bg-white  shadow-xl py-2 rounded-lg w-full cursor-pointer'
 
 const tabLine = 'absolute w-full px-10 top-full left-0'
-const line = ' w-1/4 border-b border-purple-500 duration-500'
+const line = ' w-1/4 border-b-2 border-purple-500 duration-500'
 const typeTab = 'w-1/4 py-1 text-center cursor-pointer text-gray-600'
+const typeTabActive = 'w-1/4 py-1 text-center cursor-pointer '
 const typeContainer = 'flex relative w-full text-[11px] px-10 mb-10 mt-5'
 
 

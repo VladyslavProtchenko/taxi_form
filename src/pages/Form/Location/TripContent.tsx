@@ -274,8 +274,8 @@ const TripContent = ():React.ReactNode => {
                     </div>
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[30px] left-0 right-1/2 bottom-0  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
 
-                    <div className='  flex flex-col h-[85px] relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
-                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[37px]  right-2 left-[40%] bottom-2  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
+                    <div className='flex flex-col h-[85px] z-10 relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                    {list[activeCarId-1].dateNow && <div className="absolute z-10 top-[37px]  right-2 w-[100px] rounded-lg bottom-2  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
                         <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
                         {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                             <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
@@ -645,9 +645,9 @@ const TripContent = ():React.ReactNode => {
 export default TripContent;
 
 
-const backBtn = 'w-full bg-rose-500 text-center py-3 rounded-full text-white'
-const nextBtn = 'w-full bg-purple-500 text-center py-3 rounded-full text-white'
-const box = 'flex relative border border-purple-500  bg-white rounded-xl w-full'
+const backBtn = 'w-full bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
+const nextBtn = 'w-full bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
+const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
 
 
 const amText = 'pl-2 flex items-center py-1 pr-[2px] '
