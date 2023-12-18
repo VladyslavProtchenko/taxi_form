@@ -10,7 +10,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import { SlLocationPin } from "react-icons/sl";
 import { PiCalendarCheckLight, PiJeepLight } from "react-icons/pi";
 import { FaBus } from "react-icons/fa";
-import { MdFlightTakeoff, MdFlightLand, MdDone } from "react-icons/md";
+import { MdFlightTakeoff, MdFlightLand } from "react-icons/md";
 import { MdLocalHotel } from "react-icons/md";
 import { useStore } from '../../../Store/index';
 import { useMain } from "../../../Store/useMain";
@@ -23,8 +23,6 @@ import sun from './../../../assets/sun.png'
 import stars from './../../../assets/stars.jpg'
 import train from './../../../assets/train.jpeg'
 import boat from './../../../assets/ship.png'
-
-import { useValidation } from "../../../Store/useValidation";
 
 
 interface IObj {[key:number]: string}
@@ -49,9 +47,9 @@ const TripContent = ():React.ReactNode => {
         setCarType,
         setTimeType,
         setSteps,
-        setFilled,
+        
     } = useMain()
-    const {setIsSubmit} = useValidation()
+    
     const { store } = useStore()
     
     const [fullDate, setFullDate] = useState(dayjs())
@@ -600,44 +598,13 @@ const TripContent = ():React.ReactNode => {
             </div>}
 
             {(list[activeCarId-1].type<3) && 
-            <div className='w-full flex flex-col space-y-4 mt-20'>
+            <div className='w-full flex flex-col space-y-4 mt-6 mb-10'>
                 
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
                 <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
             </div>}
 
-            {(list[activeCarId-1].type > 3) && 
-            <div className='flex pt-10'> 
-                {
-                    list[activeCarId-1].filled 
-                    ?<>
-                        <div className="px-4 py-2 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>
-                        <div   
-                            className='bg-yellow-200 px-3  self-start py-2 rounded cursor-pointer text-center border border-yellow-500 active:bg-yellow-100' 
-                            onClick={()=> {
-                                setIsSubmit(true)
-                            }}
-                        > View orders</div>
-                    
-                    </>
-                    :<div 
-                        className='bg-green-400 px-3  self-start py-2 rounded cursor-pointer text-center text-white border-2 border-green-500 active:bg-green-300'
-                        onClick={()=>{
-                            if(list[activeCarId-1].timeType && !list[activeCarId-1].time)return alert('You need choose time')
-                            if(list[activeCarId-1].timeType && !list[activeCarId-1].date)return alert('You need choose date')
-                            if(!list[activeCarId-1].from){
-                                setIsFrom(false)
-                                return alert('need address')
-                            }
-                            setIsFrom(true)
-                            setFilled(true, activeCarId)
-                        }}
-                    >
-                        order car
-                    </div>
-                }
-            </div>
-            }
+
     </div>
     );
 };
