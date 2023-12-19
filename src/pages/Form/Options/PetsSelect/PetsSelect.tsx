@@ -76,7 +76,7 @@ const PetsSelect = () => {
                 
             </div>
         ))}
-        <div className='absolute border-none  -top-4 right-1/2 translate-x-1/2 bg-white px-1  text-blue-500'>Pets</div>
+            <div className='absolute border-none -top-2 right-1/2 translate-x-1/2 bg-gray-50 px-1 text-purple-500'>Pets</div>
 
     </div>
     );
@@ -89,6 +89,6 @@ const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%] duration-300 "
 
 const bagCount ='flex  items-center'
-const card = 'relative flex  border-blue-500 cursor-pointer text-sm w-full  h-[45px] '
-const container = 'relative px-2 flex w-1/2 flex-col divide-y items-center  pt-2  border rounded border-blue-500 h-min'
+const card = 'relative flex  border-purple-500 cursor-pointer text-sm w-full  h-[45px] '
+const container = 'relative px-2 flex w-1/2 flex-col divide-y items-center  pt-2  border rounded-xl border-purple-500 '
 

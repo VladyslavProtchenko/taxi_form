@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 import { useMain } from "../../../Store/useMain";
-// import BoostTrip from "./BoostTrip";
+import Boost from "./Boost";
 
 const LocationSection = ():React.ReactNode => {
     const [ returnCard, setReturnCard ] = useState(false)
@@ -32,7 +32,7 @@ const LocationSection = ():React.ReactNode => {
                 }></div></div>
             </div>
             
-            <div className='flex w-full px-10 mt-4'>
+            <div className={(list[activeCarId-1].type<3)?'flex w-full px-10 mt-4': 'hidden'}>
                 {list[activeCarId-1].isReturnTrip && <div className={returnTabsActive}>
                     <div 
                         className={returnCard ? returnTab : returnTabActive }
@@ -55,9 +55,9 @@ const LocationSection = ():React.ReactNode => {
             </div>
             
             
-            {!returnCard && (list[activeCarId-1].type<3) && <TripContent />}
-            {returnCard  && (list[activeCarId-1].type<3)  && <ReturnTrip />}
-            {/* {(list[activeCarId-1].type>2) &&<BoostTrip />} */}
+            <div className={(!returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><TripContent /></div>
+            <div className={(returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><ReturnTrip /></div>
+            <div className={( (list[activeCarId-1].type>2))? '': 'hidden'} ><Boost /></div>
         </section>
     );
 };
@@ -66,23 +66,15 @@ export default LocationSection;
 
 const activeReturnTripBtn = 'w-1/2 text-center py-2 cursor-pointer active:bg-white text-purple-700 rounded-lg hover:shadow-xl '
 const returnTabBg = 'absolute w-1/2 bg-purple-500 top-0 bottom-0 rounded-lg duration-300'
-const returnTab = 'w-1/2 text-center z-10 duration-500'
-const returnTabActive = 'w-1/2 text-center z-10 text-white duration-500' 
+const returnTab = 'w-1/2 text-center z-10 duration-500  py-2'
+const returnTabActive = 'w-1/2 text-center z-10 text-white duration-500 py-2' 
 const returnTabActiveOne = 'w-1/2 items-center justify-center z-10 text-white bg-purple-500 rounded-lg flex shadow-xl' 
-const returnTabsActive = 'relative flex bg-white  shadow-xl py-2 rounded-lg w-full cursor-pointer'
+const returnTabsActive = 'relative flex bg-white  shadow-xl  rounded-lg w-full cursor-pointer'
 
 const tabLine = 'absolute w-full px-10 top-full left-0'
 const line = ' w-1/4 border-b-2 border-purple-500 duration-500'
 const typeTab = 'w-1/4 py-1 text-center cursor-pointer text-gray-400 font-bold'
 const typeTabActive = 'w-1/4 py-1 text-center cursor-pointer font-bold'
 const typeContainer = 'flex relative w-full text-[11px] px-10 mb-10 mt-5'
-
-
-// const needReturn = 'text-purple-700'
-// const line = 'border-purple-700 border-b w-[15%] duration-500 '
-// const activeTabLine = 'absolute left-0 flex w-full top-full px-10'
-// const tab = 'flex w-1/2  cursor-pointer justify-center py-1'
-// const tabActive = 'flex w-1/2  cursor-pointer justify-center py-1 text-gray-500'
-// const tabsContainer = 'relative flex w-full items-center text-xs text-gray-800 px-10 mb-4' 
 
 const section = 'flex flex-col w-full  max-w-[576px]'

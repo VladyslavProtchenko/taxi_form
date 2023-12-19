@@ -19,6 +19,7 @@ export interface ITaxi {
     timeType: number;
     timeTypeR: number;
     type: number;
+    validation:number;
 
     name: string;
     name2: string;
@@ -103,7 +104,7 @@ export interface ITaxi {
     departure2R: string;
 
     //options information
-    carType: string;
+    carType: number;
     adults: number;
     kids: number[],
     babies: number
@@ -117,6 +118,8 @@ export interface ITaxi {
 interface IStore {
     day: boolean;
     isFrench: boolean;
+    submit: boolean;
+
     isCars: {
         1: boolean,
         2: boolean,
@@ -141,7 +144,8 @@ interface IStore {
         4: boolean,
         5: boolean
     }) => void;
-
+    setSubmit: (value: boolean) => void;
+    setValidation: (value: number) => void;
     setTitle: (value: string) => void;
     setTitle2: (value: string) => void;
     setTitle3: (value: string) => void;
@@ -231,7 +235,7 @@ interface IStore {
     resetReturn: () => void;
 
     //options methods
-    setCarType: (value: string) => void;
+    setCarType: (value: number) => void;
     setAdults: (value: number) => void;
     setKids: (value: number[]) => void;
     setBabies: (value: number) => void;
@@ -253,6 +257,7 @@ export const useMain = create<IStore>()(
             1: false, 2: false, 3: false, 4: false, 5: false,
         },
         activeCarId: 1,
+        submit: false,
         list: [
             {
                 id: 1,
@@ -260,6 +265,7 @@ export const useMain = create<IStore>()(
                 timeType: 0,
                 timeTypeR: 0,
                 filled: false,
+                validation:0,
                 name: '',
                 name2: '',
                 name3: '',
@@ -332,7 +338,7 @@ export const useMain = create<IStore>()(
                 departureR: '', departure2R: '',
 
                 //options information
-                carType: 'Sedan',
+                carType: 1,
 
                 adults: 1, kids: [], babies: 0,
 
@@ -391,6 +397,7 @@ export const useMain = create<IStore>()(
             {
                 id: 2, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
+                validation:0,
 
                 title: '', title2: '', title3: '',
                 name: '', name2: '', name3: '',
@@ -460,7 +467,7 @@ export const useMain = create<IStore>()(
                 departureR: '', departure2R: '',
 
                 //options information
-                carType: 'Sedan',
+                carType: 1,
 
                 adults: 1, kids: [], babies: 0,
 
@@ -498,6 +505,7 @@ export const useMain = create<IStore>()(
             {
                 id: 3, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
+                validation:0,
 
                 title: '', title2: '', title3: '',
                 name: '', name2: '', name3: '',
@@ -560,7 +568,7 @@ export const useMain = create<IStore>()(
                 departureR: '', departure2R: '',
 
                 //options information
-                carType: 'Sedan',
+                carType: 1,
 
                 adults: 1, kids: [], babies: 0,
 
@@ -598,6 +606,7 @@ export const useMain = create<IStore>()(
             {
                 id: 4, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
+                validation:0,
 
                 title: '', title2: '', title3: '',
                 name: '', name2: '', name3: '',
@@ -663,7 +672,7 @@ export const useMain = create<IStore>()(
                 departureR: '', departure2R: '',
 
                 //options information
-                carType: 'Sedan',
+                carType: 1,
 
                 adults: 1, kids: [], babies: 0,
 
@@ -701,6 +710,7 @@ export const useMain = create<IStore>()(
             {
                 id: 5, type: 1, filled: false,
                 timeType: 0, timeTypeR: 0,
+                validation:0,
 
                 title: '', title2: '', title3: '',
                 name: '', name2: '', name3: '',
@@ -762,7 +772,7 @@ export const useMain = create<IStore>()(
                 departureR: '', departure2R: '',
 
                 //options information
-                carType: 'Sedan',
+                carType: 1,
                 adults: 1,
                 kids: [],
                 babies: 0,
@@ -798,9 +808,10 @@ export const useMain = create<IStore>()(
                 steps: 1,
             },
         ],
-
         setDay: (data) => set((state) => ({ ...state, day: data })),
+        setSubmit: (data) => set((state) => ({ ...state, submit: data })),
         setType: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, type: data } : item) })),
+        setValidation: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, validation: data } : item) })),
 
         setIsFrench: (data) => set((state) => ({ ...state, isFrench: data })),
         setActiveCarId: (data) => set((state) => ({ ...state, activeCarId: data })),
@@ -833,7 +844,7 @@ export const useMain = create<IStore>()(
         resetForm: () => set((state) => ({
             ...state, list: state.list.map(item => item.id === state.activeCarId ? {
                 ...item,
-
+                validation:0,
                 date: '', time: '', dateNow: true,
                 from: '', to: '',
 

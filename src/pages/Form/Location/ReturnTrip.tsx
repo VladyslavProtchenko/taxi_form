@@ -19,7 +19,7 @@ import React from "react";
 interface IObj {[key:number]: string}
 import sky from './../../../assets/day.png'
 import sun from './../../../assets/sun.png'
-import stars from './../../../assets/night.jpg'
+import stars from './../../../assets/stars.jpg'
 import train from './../../../assets/train.jpeg'
 import boat from './../../../assets/ship.png'
 
@@ -97,9 +97,11 @@ const ReturnTrip = ():React.ReactNode  => {
     },[list[activeCarId-1].timeR,list[activeCarId-1].timeTypeR])
 
     useEffect(()=>{
-        if(trigger[1]) setFromR(list[activeCarId-1].to)
-        if(trigger[2]) setToR(list[activeCarId-1].from)
+        if(trigger[1] ) setFromR(list[activeCarId-1].to)
+        if(trigger[2] ) setToR(list[activeCarId-1].from)
     },[trigger,list[activeCarId-1].to, list[activeCarId-1].from])
+
+    console.log(trigger, 'trigger')
 
     useEffect(()=>{
         //I get all stops revert it ans complete in new array, I want to display stops order without holes im order! so we need make a sort every time when stops changes
@@ -123,6 +125,7 @@ const ReturnTrip = ():React.ReactNode  => {
         }
     },[list[activeCarId-1]])
 
+    console.log(list[0].fromR)
     useEffect(()=>{
         setIconR(0)
         setIcon2R(0)
@@ -200,23 +203,16 @@ const ReturnTrip = ():React.ReactNode  => {
         resetReturn();
     }
 
-    
     return (
     <div className={container}>
-        {!list[activeCarId-1].isReturnTrip && <div className='absolute left-0 top-10 right-0 bottom-0 z-20 bg-white opacity-50'></div>}
-        <div className={content}>
+
             
             <div className={date}>
-                <div style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '11px -30px'}` }} className={day? bg +" bg-right ": bg }>
-                    <div className="absolute -top-4 right-1/2 translate-x-1/2 border flex items-center bg-white px-4 py-1 rounded">
-                        {day
-                            ? isFrench? 'Tarification jour ': 'Day fare'
-                            : isFrench? 'Tarification nuit': 'Night fare'
-                        } 
-                    </div>
-                    {day && <div  className='absolute top-1 left-2 w-12 h-12 bg-no-repeat bg-center bg-contain rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
-                </div>
-                <div className={dateRow}>
+            <div className={fare}>{day ? isFrench? 'Tarification jour ': 'Day fare': isFrench? 'Tarification nuit': 'Night fare'} </div>
+
+            <div className={dateRow}>
+                <div className="flex pb-3 w-1/2 items-end">
+
                     <div className={isDateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='icon text-xl'><PiCalendarCheckLight/></span>
                             {list[activeCarId-1].dateR ? 
@@ -249,36 +245,36 @@ const ReturnTrip = ():React.ReactNode  => {
                             </div>
                         </div>}
                     </div>
-                    <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].timeR} onChange={setTimeR} date={list[activeCarId-1].dateR}/>
-                    <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-gray-600 ':timeToggle+ ' '}>
+                </div>
+
+                <div className='flex flex-col h-[85px] z-10 relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                    <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].timeR}  onChange={setTimeR} date={list[activeCarId-1].dateR}/> 
+                    {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-gray-600 ':list[activeCarId-1].timeTypeR===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                         <div className={list[activeCarId-1].timeTypeR===0 ? selectTextActive :selectText } onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
                         <div className={list[activeCarId-1].timeTypeR===1 ? amTextActive : amText} onClick={()=>setTimeTypeR(1)}>am</div>
-                        <div className="absolute  border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
+                        <div className="absolute border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
                         <div className={list[activeCarId-1].timeTypeR===2 ? pmTextActive: pmText} onClick={()=>setTimeTypeR(2)}>PM</div>    
-                    </div>
-
+                    </div>}
+                    {day && <div  className='absolute top-8 left-2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
+
+            </div>
             </div>
 
             {list[activeCarId-1].iconR>0 && <div className={type}>
-                <div className={icons}>
-                    
-                    <span className={list[activeCarId-1].iconR == 1 ?  iconCard : iconCardActive  }>
-                        <MdFlightLand className={ iconItem + ' text-xl ' } />
-                    </span>
-                    <span className={list[activeCarId-1].iconR == 2 ? iconCard : iconCardActive  }>
-                        <div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                    </span>
-                    <span className={list[activeCarId-1].iconR == 3 ? iconCard : iconCardActive }>
-                        <FaBus className={ iconItem} />
-                    </span>
-                    <span className={list[activeCarId-1].iconR == 4 ? iconCard : iconCardActive  }>
-                        <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                    </span>
-                    <span className={list[activeCarId-1].iconR == 5 ? iconCard : iconCardActive  }>
-                        <MdLocalHotel className={ iconItem }/>
-                    </span>
-                </div>
+                <span className={iconCard}>
+                    {   
+                        list[activeCarId-1].iconR == 1
+                        ? <MdFlightLand className={ 'text-xl ' }/>
+                        :list[activeCarId-1].iconR == 2
+                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                        :list[activeCarId-1].iconR == 3
+                        ? <FaBus />
+                        :list[activeCarId-1].iconR == 4
+                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                        :<MdLocalHotel className={' text-base'}/>
+                    }
+                </span>
 
                 {list[activeCarId-1].iconR > 0 && <div className={flightCard }>
                     {list[activeCarId-1].iconR === 1 && 
@@ -338,7 +334,7 @@ const ReturnTrip = ():React.ReactNode  => {
                         placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
                     />
                 </div>
-                {list[activeCarId-1].icon === 1 && <div className="border flex items-center w-1/3 rounded py-1">
+                {list[activeCarId-1].iconR === 1 && <div className={departureBox}>
                     <Select placeholder='Departure' className='favorite' style={{ height: 30, borderRadius: 5}}onChange={setDepartureR}options={store.departureSections.map(item=>({value: item, label: item}))}/>
                 </div>}
             </div>
@@ -507,31 +503,26 @@ const ReturnTrip = ():React.ReactNode  => {
                     />
                 </div>
                 {list[activeCarId-1].icon2 === 1 && 
-                <div className="border flex items-center w-1/3 rounded">
+                <div className={departureBox}>
                     <Select placeholder='Departure' className='favorite ' style={{ height: 30, borderRadius: 5}}onChange={setDeparture2R}options={store.departureSections.map(item=>({value: item, label: item}))}/>
                 </div>}
             </div>
 
-            <div className={type}>
+            {(list[activeCarId-1].icon2R >0) &&<div className={type}>
                 
-                <div className={icons}>
-                    <span className={list[activeCarId-1].icon2R == 1 ? iconCard : iconCardActive  }>
-                        <MdFlightTakeoff className={ iconItem + 'text-xl' } />
-                    </span>
-                    <span className={list[activeCarId-1].icon2R == 2 ? iconCard : iconCardActive  }>
-                        <div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                    </span>
-                    <span className={list[activeCarId-1].icon2R == 3 ? iconCard : iconCardActive  }>
-                        <FaBus className={ iconItem} />
-                    </span>
-                    <span className={list[activeCarId-1].icon2R == 4 ? iconCard : iconCardActive  }>
-                        <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-
-                    </span>
-                    <span className={list[activeCarId-1].icon2R == 5 ? iconCard : iconCardActive  }>
-                        <MdLocalHotel className={ iconItem}/>
-                    </span>
-                </div>
+                <span className={iconCard}>
+                    {   
+                        list[activeCarId-1].icon2R == 1
+                        ? <MdFlightTakeoff className={ 'text-xl ' }/>
+                        :list[activeCarId-1].icon2R == 2
+                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                        :list[activeCarId-1].icon2R == 3
+                        ? <FaBus />
+                        :list[activeCarId-1].icon2R == 4
+                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                        :<MdLocalHotel className={' text-base'}/>
+                    }
+                </span>
 
                 {list[activeCarId-1].icon2R>0 && <div className={flightCard }>
                     {list[activeCarId-1].icon2R === 1 && <Select 
@@ -574,20 +565,16 @@ const ReturnTrip = ():React.ReactNode  => {
                     {list[activeCarId-1].flight2R.number.length<3 && list[activeCarId-1].flight2R.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
 
                 </div> }
-            </div>
+            </div>}
 
             <div className={btns}>
                 <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser': 'Reset'}</button>
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
             </div>
-            <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
-                <div className="flex items-center bg-red-500 p-2 px-3 rounded-full text-white cursor-pointer border border-black active:bg-red-400" onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
-                <div 
-                    className="bg-green-400 p-2 px-3 rounded-full cursor-pointer border border-black active:bg-green-300"
-                    onClick={goNext}
-                >{isFrench? 'Suivant': 'Next'}</div>
+            <div className='w-full flex justify-between  pt-10'>
+                <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className={nextBtn} onClick={goNext}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
-        </div>
     </div>
     );
 };
@@ -596,52 +583,56 @@ const ReturnTrip = ():React.ReactNode  => {
 export default ReturnTrip;
 
 
-const box = 'flex relative border rounded w-full'
 
-const amText = 'pl-2  flex items-center py-1 pr-[2px] '
+
+const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
+
+const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
+
+const btns = 'flex items-center  w-full  space-x-4 pt-4'
+
+
+const extraCard = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
+
+const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
+
+const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
+const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
+const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
+
+
+const amText = 'pl-2 flex items-center py-1 pr-[2px] '
 const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-gray-600 text-white '
 
-const pmText = 'px-2 pl-4  triangle flex bg-white items-center py-1 '
-const pmTextActive = 'px-2 pl-4 text-white bg-gray-600 triangle flex items-center py-1 '
+const pmText = 'px-2 pl-4 rounded-tl triangle flex bg-white items-center py-1 '
+const pmTextActive = 'px-2 pl-4 text-white bg-gray-600  rounded-tl triangle flex items-center py-1 '
 
 const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
 const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 border-r border-black '
 
-const timeToggle = ' absolute -top-8 font-bold right-0 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
+const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
+
+const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500'
+
+const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-purple-500 shadow-lg'
+
+const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
+
+const closeStop =" my-auto px-2 py-1 text-center bg-rose-500 ml-1 rounded-full flex justify-center items-center cursor-pointer text-bold text-white"
+const openStop ="absolute top-2 text-purple-500 text-gray-700 rounded flex cursor-pointer"
 
 
-const bg = 'relative  w-full h-14 my-1 mb-10  bg-cover  rounded-xl bg-right '
-const content = ' relative flex flex-col w-full  space-y-3 py-10'
+const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
+const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
+const dateRow = 'flex relative w-full justify-between'
 
-const reset = 'px-4 py-1 bg-red-500 text-white rounded hover:bg-red-400 active:bg-red-600 border border-black '
-const revert = 'px-4 py-1 bg-orange-400 text-white rounded  active:bg-orange-300 border border-black'
+const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-[200px] max-w-[200px] w-full rounded-xl'
 
-const iconCard = 'flex items-center justify-center w-8 h-8 bg-sky-400'
-const iconCardActive = 'flex items-center justify-center  w-8 h-8 border-black'
-const iconItem = ' '
-const icons = 'flex divide-x  border-black border rounded  overflow-hidden'
-const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
-const flightCard = 'flex relative items-center border w-1/2 py-1 rounded '
+const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 
-const btns = 'flex items-center  w-full  space-x-4 pt-4'
+const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 
-const closeStop =" my-auto w-5 h-5  bg-red-500 ml-1  rounded flex  justify-center cursor-pointer text-bold items-center"
-const openStop ="absolute bg-green-400 px-2 py-1 text-xs rounded flex cursor-pointer border border-black text-black"
+const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 
-
-
-const setDateBtn = ' border bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer px-2 py-1 flex text-white items-center'
-const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow sm:-left-[10px]'
-
-const dateRow = 'flex relative sm:items-start items-start w-full justify-between'
-
-const dateInput = 'text-xs flex border py-1 h-[40px] relative w-full max-w-[200px] rounded'
-const date = 'flex w-full flex-col border-b-2 border-black pb-6 '
-
-const locationCard = 'flex relative items-center w-full  space-x-2'
-const extraCard = 'flex relative items-center border w-full rounded'
-const extraCardStop = 'flex relative w-5/6 self-end  rounded'
-
-const container = 'flex relative  px-4  w-full rounded-b relative border shadow-xl border-t-0'
-
-// const label = 'absolute -top-2 right-1/2 translate-x-1/2 bg-white px-4 text-gray-400 font-bold sm:hidden'
+const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-4 border-b pb-4'
+const container = 'flex flex-col relative w-full px-10 text-xs'

@@ -26,6 +26,7 @@ const InfoSection = () => {
         setPhone2,
         setPhone3,
         setSteps,
+        setValidation,
     } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -61,13 +62,17 @@ const InfoSection = () => {
         setIsName(false)
         setIsEmail(false)
         setNoPhone(false)
+        setValidation(0)
 
         if(list[activeCarId-1].name.length > 2) setIsName(true)
         if(list[activeCarId-1].title.length>1) setIsTitle(true)
         if(pattern.test(list[activeCarId-1].email)) setIsEmail(true)
         if(isPhone) setNoPhone(true)
     
-        if(isTitle && isName &&  isPhone && isEmail && noPhone) setSteps(2)
+        if(isTitle && isName &&  isPhone && isEmail && noPhone) {
+            setValidation(1)
+            setSteps(2)
+        }
     }
 
     useEffect(()=>{

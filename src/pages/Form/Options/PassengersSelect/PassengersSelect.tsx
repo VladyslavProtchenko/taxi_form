@@ -11,7 +11,7 @@ const PassengersSelect = () => {
 
 
     useEffect(()=>{ 
-        if(list[activeCarId-1].carType !== 'VAN' && (list[activeCarId-1].adults + list[activeCarId-1].kids.length ) >=4) {
+        if(list[activeCarId-1].carType !== 3 && (list[activeCarId-1].adults + list[activeCarId-1].kids.length ) >=4) {
             setAdults((list[activeCarId-1].adults >= 4 ? 4: list[activeCarId-1].adults))
             setKids(list[activeCarId-1].kids.filter(( child, index)=> {
                 if(index+1 <= (4 - list[activeCarId-1].adults) ) return child;
@@ -40,7 +40,7 @@ const PassengersSelect = () => {
                                 <IoIosArrowUp
                                     className={button+ ' text-green-500 active:text-green-300'}
                                     onClick={()=>{
-                                        if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType('VAN')
+                                        if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType(3)
                                         if((list[activeCarId-1].kids.length + list[activeCarId-1].adults)  >= 7) return;
                                         setAdults(list[activeCarId-1].adults + 1)
                                     }}
@@ -67,7 +67,7 @@ const PassengersSelect = () => {
                                 className={button+ ' text-green-500 active:text-green-300'}
                                 onClick={()=>{
                                     if(!list[activeCarId-1].adults) return;
-                                    if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType('VAN')
+                                    if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType(3)
     
                                     if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >= 7 ) return;
                                     const newKid = 0
@@ -117,7 +117,7 @@ const PassengersSelect = () => {
                             <IoIosArrowUp
                                 className={button+ ' text-green-500 active:text-green-300'}
                                 onClick={()=>{
-                                    if(list[activeCarId-1].babies >= 2 && list[activeCarId-1].carType !== 'VAN') return;
+                                    if(list[activeCarId-1].babies >= 2 && list[activeCarId-1].carType !== 3) return;
                                     if(list[activeCarId-1].babies >= 2) return;
                                     if(list[activeCarId-1].babies >= 1 && list[activeCarId-1].adults >5) return;
     
@@ -152,7 +152,7 @@ export default PassengersSelect;
 const fee='text-gray-400 italic text-xs'
 const extraFee =' flex px-4 py-2  justify-between '
 
-const childrenCard = 'flex border pl-2 pr-1 ml-3 py-2 border-gray-400 shadow rounded-l mb-1 items-center justify-between '
+const childrenCard = 'flex pl-2 pr-1 ml-3  border-gray-400 shadow-xl bg-white rounded-xl mb-2 items-center justify-between '
 const kidsContainer = 'flex flex-col py-2'
 
 const label = 'flex items-center'
@@ -163,5 +163,5 @@ const button = "   cursor-pointer scale-[160%]  duration-300 "
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 
-const card = 'relative text-sm flex  pr-4  py-2 justify-between cursor-pointer h-[45px] border-blue-500 '
-const content = 'relative border px-2 h-min border-blue-500 rounded pt-2 divide-y flex flex-col bg-white relative text-sm w-1/2'
+const card = 'relative text-sm flex  pr-4  py-2 justify-between cursor-pointer h-[45px] border-purple-500 '
+const content = 'relative border px-2 h-min border-purple-500 rounded-xl pt-2 divide-y flex flex-col bg-white relative text-sm w-1/2'

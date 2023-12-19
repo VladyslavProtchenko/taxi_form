@@ -4,16 +4,13 @@ import AddressSection from './Location/LocationSection';
 import OptionsSection from './Options/OptionsSection';
 
 import PaymentSection from './Payment/Payment';
-import { useValidation } from '../../Store/useValidation';
 import { useEffect } from 'react';
 import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
 
 const Form = (): React.ReactNode => {
-    const { list, activeCarId ,setIsCars, setFilled } = useMain()
+    const { list,submit, setSubmit, activeCarId ,setIsCars, setFilled } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    const { validation,setIsSubmit } = useValidation()
 
     useEffect(()=>{
 
@@ -85,18 +82,18 @@ const Form = (): React.ReactNode => {
     },[list])
 
     useEffect(()=>{
-        setIsSubmit(false)
+        setSubmit(false)
     },[activeCarId])
-    
+    console.log(submit)
     return (
         <div  className={container}>
-            {!validation.isSubmit && <>
+            {!submit ? <>
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
                 {list[activeCarId-1].steps === 2 && <AddressSection />}
                 {list[activeCarId-1].steps === 3 && <OptionsSection />}
                 {list[activeCarId-1].steps === 4 && <PaymentSection/>}
-            </>}
-            {validation.isSubmit && <Submit />}
+            </> : <Submit/>}
+
         </div>
     );
 };
