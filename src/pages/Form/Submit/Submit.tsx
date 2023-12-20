@@ -3,8 +3,8 @@ import { ITaxi, useMain } from '../../../Store/useMain';
 import React from 'react';
 import CarCard from './CarCard';
 import axios, { AxiosResponse } from 'axios';
-import { UseMutationResult, useMutation } from 'react-query';
 import dayjs from 'dayjs';
+import {  useNavigate } from 'react-router-dom';
 
 
 const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
@@ -12,13 +12,14 @@ const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
     // const response = await axios.post("http://localhost:7013/order",data)
     const response = await axios.post("https://taxibeckend.onrender.com/order",data)
     console.log(response, 'response from server')
+    
     return response;
 };
 
 const Submit = (): React.ReactNode => {
     const { list,setSubmit } = useMain()
-    const mutation: UseMutationResult<AxiosResponse<unknown>, unknown, ITaxi[], unknown> = useMutation(data=> sendOrder(data))
-
+    const navigate = useNavigate()
+    
     return (
         <section className={section}>
             {list.filter(item => item.filled).length > 0 
@@ -29,10 +30,10 @@ const Submit = (): React.ReactNode => {
 
             <div className="flex justify-between mt-20">
                 <div onClick={() => setSubmit(false)} className={backBtn}> Back </div>
-                <div onClick={() => {
+                <div onClick={async () => {
                     const data = list.filter(item=>item.filled).map(car =>{return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car})
-                    mutation.mutate(data)
-                    alert('order sent')
+                    await sendOrder(data)
+                    navigate('success')
                 }} className={greenBtn}>Submit</div>
             </div>
         </section>
