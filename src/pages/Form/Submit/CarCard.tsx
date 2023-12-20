@@ -45,7 +45,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                 <div className="flex flex-col items-center justify-around ml-2 mr-1 w-1  my-2 mt-[12px] border border-r-white border-purple-500 ">
                     
                 </div>
-                <div className="flex flex-col mb-2">
+                <div className="flex flex-col mb-1">
                     <div className="flex truncate mt-1">{item.from} </div>
                     <div className="flex  truncate mt-1"> {item.to}</div>
 
