@@ -9,8 +9,8 @@ import {  useNavigate } from 'react-router-dom';
 
 const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
     console.log(data, 'data')
-    const response = await axios.post("http://localhost:7013/order",data)
-    // const response = await axios.post("https://taxibeckend.onrender.com/order",data)
+    // const response = await axios.post("http://localhost:7013/order",data)
+    const response = await axios.post("https://taxibeckend.onrender.com/order",data)
     console.log(response, 'response from server')
     
     return response;

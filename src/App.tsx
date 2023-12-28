@@ -131,7 +131,7 @@ const tabsContainer = 'bg-white flex mt-2 items-center text-xs mb-0 shadow-lg ro
 const lang = 'flex cursor-pointer items-center  mt-8 mb-2 '
 const langItem = ' px-1 text-gray-600 font-thin'
 
-const footer = 'flex justify-around border-t bg-white px-3 py-2 fixed bottom-0 left-0 right-0 z-20'
+const footer = 'flex justify-around border-t bg-white px-3 py-2 fixed bottom-0 left-0 right-0 z-20 '
 const content =  'flex flex-1 w-full justify-center pb-[60px]'
 const header = 'flex flex-col px-10 w-full  '
 
