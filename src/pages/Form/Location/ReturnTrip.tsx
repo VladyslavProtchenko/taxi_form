@@ -50,7 +50,7 @@ const ReturnTrip = ():React.ReactNode  => {
     const [ day, setDay ] = useState(true)
     const [trigger, setTrigger] = useState({ 1: 1, 2: 1 })
     const [stopTrigger, setStopTrigger] = useState(true)
-    const [fullDate, setFullDate] = useState(dayjs())
+    const [fullDate, setFullDate] = useState(list[activeCarId -1].dateR ? dayjs(list[activeCarId -1].dateR) : dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(3)

@@ -7,23 +7,23 @@ import React from 'react';
 import { useMain } from '../../Store/useMain';
 interface IDate {
     onChange:(date:string) => void;
-    getFullDate?: (date: dayjs.Dayjs) => void;
+    getFullDate: (date: dayjs.Dayjs) => void;
     time:string;
     isReturn?:boolean;
     value:string;
 }
 
 export default function DatePicker({onChange, getFullDate, isReturn, value}:IDate):React.ReactNode {
-    const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
+    const [date, setDate] = useState<dayjs.Dayjs>(value? dayjs(value, 'MM/DD/YYYY') : dayjs());
     const {list, activeCarId} = useMain()
 
     const handleDate = (date: string | number | dayjs.Dayjs | Date | null | undefined) => {
             const parsedDate = dayjs(date);
             setDate(parsedDate);
-            if(getFullDate) getFullDate(parsedDate)
+            getFullDate(parsedDate)
             onChange(parsedDate.format('MM/DD/YYYY'))
     }
-console.log(dayjs(list[activeCarId-1].date))
+    console.log(dayjs(value))
     return (
         <div className="relative" >
             <div className={pickUpTime}>
@@ -43,7 +43,7 @@ console.log(dayjs(list[activeCarId-1].date))
                 <StaticDatePicker
                     className='sm:w-[280px] mt-8 '
                     minDate={isReturn ? list[activeCarId-1].date ? dayjs(list[activeCarId-1].date) : dayjs(): dayjs()}
-                    value={dayjs(value)}
+                    value={date}
                     onChange={handleDate}
                 />
             </LocalizationProvider>

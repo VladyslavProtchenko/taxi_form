@@ -48,7 +48,7 @@ const TripContent = ():React.ReactNode => {
     
     const { store } = useStore()
     
-    const [fullDate, setFullDate] = useState(dayjs())
+    const [fullDate, setFullDate] = useState(list[activeCarId -1].date ? dayjs(list[activeCarId -1].date) : dayjs())
     const [isDateOpen, setIsDateOpen] = useState(false)
     const ref = useOnclickOutside(() => setIsDateOpen(false));
     const [stop, setStop] = useState(0)
@@ -101,7 +101,7 @@ const TripContent = ():React.ReactNode => {
 
 
     useEffect(()=>{
-        setDate(dayjs().format('MM/DD/YYYY'))
+        setDate(list[activeCarId-1].date ? list[activeCarId-1].date : dayjs().format('MM/DD/YYYY'))
     },[])
 
     useEffect(()=>{

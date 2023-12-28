@@ -84,7 +84,7 @@ const Form = (): React.ReactNode => {
     useEffect(()=>{
         setSubmit(false)
     },[activeCarId])
-    console.log(submit)
+    
     return (
         <div  className={container}>
             {!submit ? <>
