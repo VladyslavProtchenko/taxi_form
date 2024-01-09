@@ -8,9 +8,9 @@ const GoogleMaps = () => {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: 'AIzaSyAVbNNSBv8rX8ftQkneIxpdVcGy-bdhUvw' || ''
+        googleMapsApiKey: 'AIzaSyDZSJU-7hNrlEm5XURbccqdUdj1kvlHjBc' || ''
     })
-
+    
     const defaultOptions = {
         panControl: true,
         zoomControl:true,

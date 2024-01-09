@@ -3,12 +3,12 @@ import { ITaxi, useMain } from '../../../Store/useMain';
 import dayjs from 'dayjs';
 
 import { SlLocationPin } from "react-icons/sl";
-import {  IoTimeOutline } from "react-icons/io5";
+import {  IoCarSportOutline, IoTimeOutline } from "react-icons/io5";
 import { GiPalmTree } from "react-icons/gi";
 import { useStore } from '../../../Store';
-// import { AiOutlineStop } from 'react-icons/ai';
-// import { LiaShuttleVanSolid } from 'react-icons/lia';
-import { PiCreditCard } from 'react-icons/pi';
+import { AiOutlineStop } from 'react-icons/ai';
+import { LiaShuttleVanSolid } from 'react-icons/lia';
+import { PiCreditCard, PiJeepLight } from 'react-icons/pi';
 import { BsChatSquareText } from 'react-icons/bs';
 
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
@@ -39,16 +39,11 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
             <h1 className='text-sm mb-0 pt-1 roboto w-full '>{dayjs(item.date.split('/').reverse().join('-')).format('dddd')}, {item.date}, {item.time}{(!item.dateNow && item.timeType===1) ? 'am': (!item.dateNow && item.timeType===2)? 'pm':''} </h1>
             <div className='flex  px-2  text-gray-500 italic text-[10px] '>{carTypes[item.carType]}</div>
             
-            
-
-            <div className='flex  '>
-                <div className="flex flex-col items-center justify-around ml-2 mr-1 w-1  my-2 mt-[12px] border border-r-white border-purple-500 ">
-                    
-                </div>
+            <div className='flex '>
+                <div className="flex flex-col items-center justify-around ml-2 mr-1 w-1  my-2 mt-[12px] border border-r-white border-purple-500 "></div>
                 <div className="flex flex-col mb-1">
                     <div className="flex truncate mt-1">{item.from} </div>
                     <div className="flex  truncate mt-1"> {item.to}</div>
-
                 </div>
             </div>
             <div className="flex flex-col ml-auto justify-between">
@@ -70,21 +65,21 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                     </div>
                     <div className={headers}>
                         <div className={headItem}>
-                            <div className='mb-2 '>Names</div>
+                            <div className='mb-2 text-purple-500'>Names</div>
                             {item.name.length>3 && <div className={text}>{item.name}</div>}
                             {item.name2.length>3 && <div className={text}>{item.name2}</div>}
                             {item.name3.length>3 && <div className={text}>{item.name3}</div>}
                         </div>
 
                         <div className={headItem}>
-                            <div className='mb-2 '>E-mails</div>
+                            <div className='mb-2 text-purple-500'>E-mails</div>
                             {item.email.length>6 && <div className={text}>{item.email}</div>}
                             {item.email2.length>6 && <div className={text}>{item.email2}</div>}
                             {item.email3.length>6 && <div className={text}>{item.email3}</div>}
                         </div>
 
                         <div className={headItem}>
-                            <div className='mb-2 '>Phones</div>
+                            <div className='mb-2 text-purple-500'>Phones</div>
                             {item.phone && <div className={text}>+{ item.phone[0]}{item.phone[1]} {item.phone[2]} { item.phone[3]}{item.phone[4]} { item.phone[5]}{item.phone[6]} { item.phone[7]}{item.phone[8]} { item.phone[9]}{item.phone[10]} {item.phone[11]}{item.phone[12]}  {item.phone[13]}{item.phone[14]} </div>}
                             {item.phone2 && <div className={text}>+{ item.phone2[0]}{item.phone2[1]} {item.phone2[2]} { item.phone2[3]}{item.phone2[4]} { item.phone2[5]}{item.phone2[6]} { item.phone2[7]}{item.phone2[8]} { item.phone2[9]}{item.phone2[10]} {item.phone2[11]}{item.phone2[12]}  {item.phone2[13]}{item.phone2[14]} </div>}
                             {item.phone3 && <div className={text}>+{ item.phone3[0]}{item.phone3[1]} {item.phone3[2]} { item.phone3[3]}{item.phone3[4]} { item.phone3[5]}{item.phone3[6]} { item.phone3[7]}{item.phone3[8]} { item.phone3[9]}{item.phone3[10]} {item.phone3[11]}{item.phone3[12]}  {item.phone3[13]}{item.phone3[14]} </div>}
@@ -112,9 +107,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                                     <div className='px-1'>{item.flight.prefix}</div>
                                     <div className='px-1 '>{item.flightR.number? '#'+item.flightR.number : ''}</div>
                                 </div>
-                                {Object.values(item.stops).filter(i=>i).map(item=>(
-                                    <div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div>
-                                ))}
+                                {Object.values(item.stops).filter(i=>i).map(item=>(<div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div>))}
                                 {item.to && <div className={text}><SlLocationPin className={icon+ ' text-red-400'}/>{item.to}</div>}
                                 <div className='flex'>
                                     <div className='px-1'>{item.flight2.title}</div>
@@ -163,28 +156,28 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                     <div className={header}>Options</div>
                     <div className={options}>
                     <div className={ type }>
-                        {/* {store.carList.map(car => (
-                            <div className={item.carType === car ? typeItem+' bg-green-400': car === 'limo' ? typeItem + ' bg-gray-200  text-gray-500 cursor':typeItem } onClick={()=>{ }}>
-                                { car === 'VAN'
+                        {store.carList.map((car,index) => (
+                            <div className={item.carType === (index+1) ? typeItem + ' bg-purple-500 text-white': index === 3 ? typeItem + ' bg-gray-200  text-gray-500 cursor': typeItem }>
+                                { index === 2
                                 ? <LiaShuttleVanSolid className='w-[20px] text-sm'/>
-                                :car === 'SUV'
+                                : index === 1
                                 ?<PiJeepLight className='w-[20px] text-sm'/>
-                                :car === 'Limo'
+                                : index=== 3
                                 ?<AiOutlineStop className='w-[20px] text-sm text-red-500'/>
                                 :<IoCarSportOutline className='w-[20px] text-sm'/> }
                                 <div className='truncate flex '>{car}</div>
                             </div>
-                        ))} */}
+                        ))}
                     </div>
 
                     {(list[item.id-1].type<3) && <div className={titles}>
-                        <div className={item.adults ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
+                        <div className={item.adults ? typeItem2 + ' bg-purple-500 text-white': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Adultes': 'Adults'}</div>
                         </div>
-                        <div className={item.kids.length ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
+                        <div className={item.kids.length ? typeItem2 + ' bg-purple-500 text-white': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Enfants': 'Kids'}</div>
                         </div>
-                        <div className={item.babies ? typeItem2 + ' bg-green-400': typeItem2 } onClick={()=>{ }}>
+                        <div className={item.babies ? typeItem2 + ' bg-purple-500 text-white': typeItem2 } onClick={()=>{ }}>
                             <div className='truncate flex justify-center w-full'>{isFrench? 'Bébés': 'Babies'}</div>
                         </div>
                     </div>}
@@ -194,10 +187,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                             <div className={text}>{item.adults}</div>
                         </div>
                         <div className={optionItem}>
-                            {item.kids.map(kid=>(
-                                <div className={text}>{kid} years</div>
-
-                            ))}
+                            {item.kids.map(kid=>( <div className={text}>{kid} years</div> ))}
                         </div>
                         <div className={optionItem}>
                             <div className={text}>{item.babies}</div>
@@ -206,25 +196,17 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
 
                     {(list[item.id-1].type<3) && <div className={titles2}>
-                        {item.baggage.map(bag =>(
-                            <div className={bag.quantity> 0?'w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
-                                {bag.title}
-                            </div>
-                        ))}
+                        {item.baggage.map(bag =>( <div className={bag.quantity> 0?'w-1/5 flex justify-center bg-purple-500 text-white' : 'w-1/5 flex justify-center'}>{bag.title}</div> ))}
                     </div>}
 
                     {(list[item.id-1].type<3) && <div className='flex w-full divide-x'>
-                        {item.baggage.map(bag =>(
-                            <div className={'w-1/5 flex justify-center'}>
-                                {bag.quantity}
-                            </div>
-                        ))}
+                        {item.baggage.map(bag =>(<div className={'w-1/5 flex justify-center'}>{bag.quantity} </div>))}
                     </div>}
                     
 
                     {(list[item.id-1].type<3) && <div className={titles2 + ' justify-between'}>
                         {item.carSeats.map(bag =>(
-                            <div className={bag.quantity> 0?' w-[14%] flex pl-1 bg-green-400 truncate ' : ' pl-1 truncate w-[14%] flex'}>
+                            <div className={bag.quantity> 0?' w-[14%] flex pl-1 bg-purple-500 text-white truncate ' : ' pl-1 truncate w-[14%] flex'}>
                                 {bag.title}
                             </div>
                         ))}
@@ -240,7 +222,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
                     {(list[item.id-1].type<3) && <div className={titles2 + ' justify-between'}>
                         {item.sport.map(bag =>(
-                            <div className={bag.quantity> 0?' w-1/4 flex justify-center bg-green-400' : 'w-1/4 flex justify-center'}>
+                            <div className={bag.quantity> 0?' w-1/4 flex justify-center bg-purple-500 text-white' : 'w-1/4 flex justify-center'}>
                                 {bag.title}
                             </div>
                         ))}
@@ -256,7 +238,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
                     {(list[item.id-1].type<3) && <div className={titles2 + ' justify-between'}>
                         {item.pets.map(bag =>(
-                            <div className={bag.quantity> 0?' w-1/5 flex justify-center bg-green-400' : 'w-1/5 flex justify-center'}>
+                            <div className={bag.quantity> 0?' w-1/5 flex justify-center bg-purple-500 text-white' : 'w-1/5 flex justify-center'}>
                                 {bag.title}
                             </div>
                         ))}
@@ -320,7 +302,7 @@ const green ='text-sm border-2 border-green-500 rounded-full px-3 text-green-500
 const type = 'flex border rounded border-black divide-x overflow-hidden w-full mb-4'
 const titles = 'flex border rounded border-black divide-x overflow-hidden w-3/4 mb-4'
 const titles2 = 'flex border rounded border-black divide-x overflow-hidden w-ful mb-4'
-// const typeItem = 'flex items-center px-2 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/4'
+const typeItem = 'flex items-center px-2 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/4'
 const typeItem2 = 'flex items-center px-2 py-1 cursor-pointer text-sm sm:text-[10px] px-0 w-1/3'
 
 const optionItem = 'flex w-1/3 flex-col items-center'

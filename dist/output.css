@@ -815,6 +815,10 @@ video {
   margin-right: 0.5rem;
 }
 
+.mr-6{
+  margin-right: 1.5rem;
+}
+
 .mr-auto{
   margin-right: auto;
 }

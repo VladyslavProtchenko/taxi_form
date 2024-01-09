@@ -17,7 +17,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: 'AIzaSyAVbNNSBv8rX8ftQkneIxpdVcGy-bdhUvw' || ''
+        googleMapsApiKey: 'AIzaSyDZSJU-7hNrlEm5XURbccqdUdj1kvlHjBc' || ''
     })
 
     const {
@@ -79,6 +79,7 @@ const GoogleAddressInput = ({ placeholder, onChange, defaultLocation, style }:IL
                 value={value}
                 onChange={(e)=>{
                     if(!e.target.value) onChange('')
+                    onChange(e.target.value)
                     setValue(e.target.value)
                 }}
                 disabled={!ready}

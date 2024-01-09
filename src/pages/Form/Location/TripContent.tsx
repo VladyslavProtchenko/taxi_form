@@ -99,7 +99,6 @@ const TripContent = ():React.ReactNode => {
         "":'',
     }
 
-
     useEffect(()=>{
         setDate(list[activeCarId-1].date ? list[activeCarId-1].date : dayjs().format('MM/DD/YYYY'))
     },[])
@@ -228,7 +227,7 @@ const TripContent = ():React.ReactNode => {
                                 }}>
                             <span className={list[activeCarId-1].dateNow ? toggleLabelActive :toggleLabel}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</span>
                             <span className={!list[activeCarId-1].dateNow ? toggleLabelActive :toggleLabel}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
-                            <div className={list[activeCarId-1].dateNow ? toggleBg :toggleBg + ' translate-x-full' }></div>
+                            <div className={list[activeCarId-1].dateNow ? toggleBg + ' bg-green-400 ' :toggleBg + ' translate-x-full bg-rose-500' }></div>
                         </div>
 
                         <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
@@ -254,8 +253,6 @@ const TripContent = ():React.ReactNode => {
                             </div>
                             :<div className='flex items-center'>{isFrench? 'Date Requise' :'Required date '}</div>}
                             
-                            
-
                             {isDateOpen && <div className={dateTimeSubmenu}>
                                 <DatePicker value={list[activeCarId-1].date || ''}  time={list[activeCarId-1].time} onChange={setDate} getFullDate={setFullDate}/>
                                 <div className="flex justify-between pl-8">
@@ -624,7 +621,7 @@ const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 const extraCardPickUp = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
 
 
-const toggleBg = 'absolute bg-purple-500 top-0 bottom-0 w-1/2 duration-300'
+const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300'
 const toggle ='relative flex self-start  items-center rounded-lg border border-purple-500 duration-500 transition cursor-pointer mb-2 overflow-hidden' 
 
 const toggleLabel ='flex  items-center text-xs duration-500 px-2 min-w-[42px] py-1 duration-1000'

@@ -68,8 +68,8 @@ function App():React.ReactNode {
                 }}
             >+5<span className={isFrench?'font-light  mx-[1px] w-3  -translate-y-[6px] ':'font-light t mx-[1px] w-3  '}>{isFrench? 'e': 'th'}</span></li>
 
-            <li className={activeCarId===5 ? '':''}>
-              <div className=" flex items-center  justify-center border-2  rounded-full border-orange-400 text-orange-400">
+            <li className={activeCarId===5 ? 'ml-auto':'ml-auto mr-6'}>
+              <div className=" flex items-center  justify-center border-2  rounded-full border-orange-400 text-orange-400 ml-auto">
                 <TiInfoLarge className='cursor-pointer '/>
               </div>
             </li>
