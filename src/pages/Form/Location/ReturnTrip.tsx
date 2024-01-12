@@ -25,7 +25,7 @@ import boat from './../../../assets/ship.png'
 
 
 
-const ReturnTrip = ():React.ReactNode  => {
+const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):React.ReactNode  => {
     const {
         list,
         isFrench,
@@ -44,6 +44,7 @@ const ReturnTrip = ():React.ReactNode  => {
         resetReturn,
         setTimeTypeR,
         setSteps,
+        setIsReturnTrip,
     } =useMain()
     const { store } = useStore()
     
@@ -101,7 +102,6 @@ const ReturnTrip = ():React.ReactNode  => {
         if(trigger[2] ) setToR(list[activeCarId-1].from)
     },[trigger,list[activeCarId-1].to, list[activeCarId-1].from])
 
-    console.log(trigger, 'trigger')
 
     useEffect(()=>{
         //I get all stops revert it ans complete in new array, I want to display stops order without holes im order! so we need make a sort every time when stops changes
@@ -125,7 +125,6 @@ const ReturnTrip = ():React.ReactNode  => {
         }
     },[list[activeCarId-1]])
 
-    console.log(list[0].fromR)
     useEffect(()=>{
         setIconR(0)
         setIcon2R(0)
@@ -570,6 +569,10 @@ const ReturnTrip = ():React.ReactNode  => {
             <div className={btns}>
                 <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser': 'Reset'}</button>
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
+                <button className={cancelReturn} onClick={()=>{
+                    setReturnCard(false)
+                    setIsReturnTrip(false)
+                }}>Cancel return</button>
             </div>
             <div className='w-full flex justify-between  pt-10'>
                 <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
@@ -589,7 +592,7 @@ const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-ful
 
 const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
 
-const btns = 'flex items-center  w-full  space-x-4 pt-4'
+const btns = 'flex items-center  w-full  pt-4'
 
 
 const extraCard = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
@@ -612,7 +615,8 @@ const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 bo
 
 const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
 
-const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500'
+const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500 mr-4'
+const cancelReturn = 'px-4 py-1 self-end text-rose-500 rounded-full font-bold  border-2 border-rose-500 ml-auto'
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-purple-500 shadow-lg'
 

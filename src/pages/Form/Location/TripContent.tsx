@@ -212,7 +212,7 @@ const TripContent = ():React.ReactNode => {
 
                 <div className={dateRow}>
                     <div className='flex flex-col w-1/2'>
-                        <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
+                        <div className={!list[activeCarId-1].dateNow ? toggle + ' ' : toggle +' bg-white'} onClick={()=>{
                                     if((list[activeCarId-1].type>2)) return setDateNow(true);
                                     setDateNow(!list[activeCarId-1].dateNow)
                                     if(list[activeCarId-1].dateNow) {
@@ -225,8 +225,8 @@ const TripContent = ():React.ReactNode => {
                                         setDate(dayjs().format('DD/MM/YYYY'))
                                     }
                                 }}>
-                            <span className={list[activeCarId-1].dateNow ? toggleLabelActive :toggleLabel}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</span>
-                            <span className={!list[activeCarId-1].dateNow ? toggleLabelActive :toggleLabel}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
+                            <div style={{width: isFrench? 80: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
+                            <div  style={{width:isFrench? 80: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
                             <div className={list[activeCarId-1].dateNow ? toggleBg + ' bg-green-400 ' :toggleBg + ' translate-x-full bg-rose-500' }></div>
                         </div>
 
@@ -621,11 +621,13 @@ const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 const extraCardPickUp = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
 
 
-const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300'
-const toggle ='relative flex self-start  items-center rounded-lg border border-purple-500 duration-500 transition cursor-pointer mb-2 overflow-hidden' 
+const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300 justify-center'
+const toggle ='relative flex self-start rounded-lg border border-purple-500 duration-500 transition cursor-pointer mb-2 overflow-hidden' 
 
-const toggleLabel ='flex  items-center text-xs duration-500 px-2 min-w-[42px] py-1 duration-1000'
-const toggleLabelActive ='flex min-w-[42px] z-20 items-center py-1 text-xs  duration-500 duration-1000 px-2 text-white font-bold '
+const toggleLabel ='flex text-xs duration-500 justify-center px-2 py-1 duration-1000 '
+const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-500 duration-1000 px-2 text-white font-bold 	'
+
+
 
 const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 

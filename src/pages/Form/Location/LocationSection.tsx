@@ -7,7 +7,7 @@ import Boost from "./Boost";
 
 const LocationSection = ():React.ReactNode => {
     const [ returnCard, setReturnCard ] = useState(false)
-    const { list,setType, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    const { list, setType, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
     useEffect(()=>{
         if(list[activeCarId-1].type>2) {
             setIsReturnTrip(false)
@@ -56,7 +56,7 @@ const LocationSection = ():React.ReactNode => {
             
             
             <div className={(!returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><TripContent /></div>
-            <div className={(returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><ReturnTrip /></div>
+            <div className={(returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><ReturnTrip setReturnCard={setReturnCard}/></div>
             <div className={( (list[activeCarId-1].type>2))? '': 'hidden'} ><Boost /></div>
         </section>
     );
