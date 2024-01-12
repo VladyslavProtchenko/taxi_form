@@ -570,8 +570,9 @@ const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):Reac
                 <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser': 'Reset'}</button>
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
                 <button className={cancelReturn} onClick={()=>{
-                    setReturnCard(false)
                     setIsReturnTrip(false)
+                    setReturnCard(false)
+                    
                 }}>Cancel return</button>
             </div>
             <div className='w-full flex justify-between  pt-10'>

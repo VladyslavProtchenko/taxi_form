@@ -1,6 +1,6 @@
 
 import { ITaxi, useMain } from '../../../Store/useMain';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CarCard from './CarCard';
 import axios, { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
@@ -8,8 +8,8 @@ import {  useNavigate } from 'react-router-dom';
 
 
 const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
-    // const response = await axios.post("http://localhost:7010/order",data)
-    const response = await axios.post("https://taxibeckend.onrender.com/order",data)
+    const response = await axios.post("http://localhost:7010/order",data)
+    // const response = await axios.post("https://taxibeckend.onrender.com/order",data)
     console.log(response, 'response from server')
     
     return response;
@@ -18,6 +18,7 @@ const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
 const Submit = (): React.ReactNode => {
     const { list,setSubmit } = useMain()
     const navigate = useNavigate()
+    useEffect(()=>{},[list])
     
     return (
         <section className={section}>

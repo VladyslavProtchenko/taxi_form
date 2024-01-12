@@ -21,7 +21,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
         2: 'SUV',
         3: "VAN",
     }
-
+    console.log(item, 'item')
     return ( 
     <div className={container}>
         {/* __________________________________CLOSE_MODAL---------------------------------- */}
