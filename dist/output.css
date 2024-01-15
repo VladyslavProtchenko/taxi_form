@@ -1084,6 +1084,10 @@ video {
   min-width: 42px;
 }
 
+.max-w-\[180px\]{
+  max-width: 180px;
+}
+
 .max-w-\[200px\]{
   max-width: 200px;
 }
@@ -1094,10 +1098,6 @@ video {
 
 .max-w-\[400px\]{
   max-width: 400px;
-}
-
-.max-w-\[55px\]{
-  max-width: 55px;
 }
 
 .max-w-\[576px\]{
@@ -1556,6 +1556,10 @@ video {
   background-repeat: no-repeat;
 }
 
+.p-0{
+  padding: 0px;
+}
+
 .p-2{
   padding: 0.5rem;
 }
@@ -1985,13 +1989,12 @@ video {
   overflow-x: hidden;
 }
 
-.react-tel-input .form-control {
-  text-overflow: ellipsis !important;
-  overflow-x: hidden !important;
-  padding-left: 36px !important;
+.react-tel-input .form-control  {
+  padding-left: 4px;
 }
 
 .flag-dropdown {
+  display:none;
   background: #fff !important;
   border: none !important;
   border-right: 1px solid #ededed !important;
@@ -2178,6 +2181,48 @@ select option {
           clip-path: polygon(29% 0, 100% 0, 100% 100%, 0% 100%);
 }
 
+:where(.css-dev-only-do-not-override-amq5gd).ant-select-single.ant-select-show-arrow .ant-select-selection-item, :where(.css-dev-only-do-not-override-amq5gd).ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder  {
+  -webkit-padding-end: 6px;
+          padding-inline-end: 6px;
+}
+
+.ReactFlagsSelect-module_selectBtn__19wW7{
+  border: none !important;
+  padding: 0 !important;
+  align-items:center;
+  max-width: 92px;
+}
+
+.ReactFlagsSelect-module_flagsSelect__2pfa2 {
+  padding-bottom: 0 !important;
+}
+
+.ReactFlagsSelect-module_selectValue__152eS {
+  padding: 0 2px !important;
+  width: 92px;
+  text-overflow: ellipsis;
+  font-size: 14px !important;
+}
+
+.ReactFlagsSelect-module_fullWidthOptions__1XeR6 {
+  min-width: 200px;
+  font-size: 12px !important;
+}
+
+.ReactFlagsSelect-module_selectBtn__19wW7:after, .ReactFlagsSelect-module_selectBtn__19wW7[aria-expanded="true"]:after {
+  position: absolute;
+  right: 0;
+  margin-left: 0px !important;
+}
+
+.ReactFlagsSelect-module_flagsSelect__2pfa2{
+  width: 100px !important;
+}
+
+:where(.css-dev-only-do-not-override-amq5gd).ant-select .ant-select-clear {
+  inset-inline-end: 22px !important;
+}
+
 .hover\:bg-blue-50:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(239 246 255 / var(--tw-bg-opacity));
@@ -2294,6 +2339,11 @@ select option {
     margin-left: calc(0px * calc(1 - var(--tw-space-x-reverse)));
   }
 
+  .sm\:px-2{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
   .sm\:text-\[10px\]{
     font-size: 10px;
   }
@@ -2326,4 +2376,4 @@ select option {
     margin-right: calc(1rem * var(--tw-space-x-reverse));
     margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
   }
-} 
+}

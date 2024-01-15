@@ -5,12 +5,11 @@ import { useEffect, useState } from 'react';
 import { IoPhonePortraitOutline } from "react-icons/io5";
 import { BsTelephone } from "react-icons/bs";
 import { SlEarphonesAlt } from "react-icons/sl";
-import { Select } from 'antd';
 import React from 'react';
 import { useMain } from '../../Store/useMain';
 import { useStore } from '../../Store';
-import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
-
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import ReactFlagsSelect from "react-flags-select";
 const countries = [
     ["Afghanistan", "93"],
     ["Albania", "355"],
@@ -224,23 +223,246 @@ const countries = [
     ["Zimbabwe", "263"],
 ];
 
+const flags: { [key: string]: string } = {
+    AF: "Afghanistan",
+    AL: "Albania",
+    DZ: "Algeria",
+    AS: "American Samoa",
+    AD: "Andorra",
+    AO: "Angola",
+    AI: "Anguilla",
+    AG: "Antigua and Barbuda",
+    AR: "Argentina",
+    AM: "Armenia",
+    AW: "Aruba",
+    AU: "Australia",
+    AT: "Austria",
+    AZ: "Azerbaijan",
+    BS: "Bahamas",
+    BH: "Bahrain",
+    BD: "Bangladesh",
+    BB: "Barbados",
+    BY: "Belarus",
+    BE: "Belgium",
+    BZ: "Belize",
+    BJ: "Benin",
+    BM: "Bermuda",
+    BT: "Bhutan",
+    BO: "Bolivia, Plurinational State of",
+    BA: "Bosnia and Herzegovina",
+    BW: "Botswana",
+    BR: "Brazil",
+    IO: "British Indian Ocean Territory",
+    BG: "Bulgaria",
+    BF: "Burkina Faso",
+    BI: "Burundi",
+    KH: "Cambodia",
+    CM: "Cameroon",
+    CA: "Canada",
+    CV: "Cape Verde",
+    KY: "Cayman Islands",
+    CF: "Central African Republic",
+    TD: "Chad",
+    CL: "Chile",
+    CN: "China",
+    CO: "Colombia",
+    KM: "Comoros",
+    CG: "Congo",
+    CD: "Democratic Republic of the Congo",
+    CK: "Cook Islands",
+    CR: "Costa Rica",
+    CI: "Côte d'Ivoire",
+    HR: "Croatia",
+    CU: "Cuba",
+    CW: "Curaçao",
+    CY: "Cyprus",
+    CZ: "Czech Republic",
+    DK: "Denmark",
+    DJ: "Djibouti",
+    DM: "Dominica",
+    DO: "Dominican Republic",
+    EC: "Ecuador",
+    EG: "Egypt",
+    SV: "El Salvador",
+    GQ: "Equatorial Guinea",
+    ER: "Eritrea",
+    EE: "Estonia",
+    ET: "Ethiopia",
+    FK: "Falkland Islands (Malvinas)",
+    FO: "Faroe Islands",
+    FJ: "Fiji",
+    FI: "Finland",
+    FR: "France",
+    PF: "French Polynesia",
+    GA: "Gabon",
+    GM: "Gambia",
+    GE: "Georgia",
+    DE: "Germany",
+    GH: "Ghana",
+    GI: "Gibraltar",
+    GR: "Greece",
+    GL: "Greenland",
+    GD: "Grenada",
+    GU: "Guam",
+    GT: "Guatemala",
+    GG: "Guernsey",
+    GN: "Guinea",
+    GW: "Guinea-Bissau",
+    HT: "Haiti",
+    HN: "Honduras",
+    HK: "Hong Kong",
+    HU: "Hungary",
+    IS: "Iceland",
+    IN: "India",
+    ID: "Indonesia",
+    IR: "Iran, Islamic Republic of",
+    IQ: "Iraq",
+    IE: "Ireland",
+    IM: "Isle of Man",
+    IL: "Israel",
+    IT: "Italy",
+    JM: "Jamaica",
+    JP: "Japan",
+    JE: "Jersey",
+    JO: "Jordan",
+    KZ: "Kazakhstan",
+    KE: "Kenya",
+    KI: "Kiribati",
+    KP: "North Korea",
+    KR: "South Korea",
+    KW: "Kuwait",
+    KG: "Kyrgyzstan",
+    LA: "Lao People's Democratic Republic",
+    LV: "Latvia",
+    LB: "Lebanon",
+    LS: "Lesotho",
+    LR: "Liberia",
+    LY: "Libya",
+    LI: "Liechtenstein",
+    LT: "Lithuania",
+    LU: "Luxembourg",
+    MO: "Macao",
+    MK: "Republic of Macedonia",
+    MG: "Madagascar",
+    MW: "Malawi",
+    MY: "Malaysia",
+    MV: "Maldives",
+    ML: "Mali",
+    MT: "Malta",
+    MH: "Marshall Islands",
+    MQ: "Martinique",
+    MR: "Mauritania",
+    MU: "Mauritius",
+    MX: "Mexico",
+    FM: "Micronesia, Federated States of",
+    MD: "Republic of Moldova",
+    MC: "Monaco",
+    MN: "Mongolia",
+    ME: "Montenegro",
+    MS: "Montserrat",
+    MA: "Morocco",
+    MZ: "Mozambique",
+    MM: "Myanmar",
+    NA: "Namibia",
+    NR: "Nauru",
+    NP: "Nepal",
+    NL: "Netherlands",
+    NZ: "New Zealand",
+    NI: "Nicaragua",
+    NE: "Niger",
+    NG: "Nigeria",
+    NU: "Niue",
+    NF: "Norfolk Island",
+    MP: "Northern Mariana Islands",
+    NO: "Norway",
+    OM: "Oman",
+    PK: "Pakistan",
+    PW: "Palau",
+    PS: "Palestinian Territory",
+    PA: "Panama",
+    PG: "Papua New Guinea",
+    PY: "Paraguay",
+    PE: "Peru",
+    PH: "Philippines",
+    PN: "Pitcairn",
+    PL: "Poland",
+    PT: "Portugal",
+    PR: "Puerto Rico",
+    QA: "Qatar",
+    RO: "Romania",
+    RU: "Russia",
+    RW: "Rwanda",
+    KN: "Saint Kitts and Nevis",
+    LC: "Saint Lucia",
+    WS: "Samoa",
+    SM: "San Marino",
+    ST: "Sao Tome and Principe",
+    SA: "Saudi Arabia",
+    SN: "Senegal",
+    RS: "Serbia",
+    SC: "Seychelles",
+    SL: "Sierra Leone",
+    SG: "Singapore",
+    SX: "Sint Maarten",
+    SK: "Slovakia",
+    SI: "Slovenia",
+    SB: "Solomon Islands",
+    SO: "Somalia",
+    ZA: "South Africa",
+    SS: "South Sudan",
+    ES: "Spain",
+    LK: "Sri Lanka",
+    SD: "Sudan",
+    SR: "Suriname",
+    SZ: "Swaziland",
+    SE: "Sweden",
+    CH: "Switzerland",
+    SY: "Syria",
+    TW: "Taiwan",
+    TJ: "Tajikistan",
+    TZ: "Tanzania",
+    TH: "Thailand",
+    TG: "Togo",
+    TK: "Tokelau",
+    TO: "Tonga",
+    TT: "Trinidad and Tobago",
+    TN: "Tunisia",
+    TR: "Turkey",
+    TM: "Turkmenistan",
+    TC: "Turks and Caicos Islands",
+    TV: "Tuvalu",
+    UG: "Uganda",
+    UA: "Ukraine",
+    AE: "United Arab Emirates",
+    GB: "United Kingdom",
+    US: "United States",
+    UY: "Uruguay",
+    UZ: "Uzbekistan",
+    VU: "Vanuatu",
+    VE: "Venezuela, Bolivarian Republic of",
+    VN: "Viet Nam",
+    VI: "Virgin Islands",
+    YE: "Yemen",
+    ZM: "Zambia",
+    ZW: "Zimbabwe",
+};
 interface ICountry {
-countryCode:string;
-dialCode:string;
-format:string;
-name:string;
+    countryCode: string;
+    dialCode: string;
+    format: string;
+    name: string;
 }
 interface IPhone {
     value: string;
     type?: number;
 
     onChange: (value: string) => void;
-    setValidation:(value:boolean) => void;
+    setValidation: (value: boolean) => void;
 }
 
-function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone):React.ReactNode {
+function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): React.ReactNode {
     const ref = useOnclickOutside(() => setIsOpen(false));
-    const { isFrench} = useMain()
+    const { isFrench } = useMain()
     const { store } = useStore()
     const [country, setCountry] = useState('Canada')
     const [countryCode, setCountryCode] = useState(value)
@@ -248,96 +470,101 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone):Reac
     const [icon, setIcon] = useState(1)
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
+    const [selected, setSelected] = useState('CA')
 
-    useEffect(()=>{
-        if(type===1) {
-            if(val >=12) return setValidation(true)
+    useEffect(() => {
+        if (type === 1) {
+            if (val >= 12) return setValidation(true)
             setValidation(val === res)
         }
-    },[val, res])
-    
-    useEffect(()=>{
-        if(country) {
+    }, [val, res])
+
+    useEffect(() => {
+        if (country) {
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
-            if(res) { 
-                setCountryCode(res[1]) 
+            if (res) {
+                setCountryCode(res[1])
             }
         }
-    },[country])
+    }, [country])
 
-    const filterOption = (input: string, option?: { label: string; value: string }) => 
-    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
-    
+    const handleCountryCode = (data: string) => {
+        setSelected(data)
+        setCountry(flags[data])
+    }
+
     return (
         <section className={container}>
-            <div className={phoneLabel} onClick={()=>setIsOpen(!isOpen)} >
-                {icon === 1 ? <><IoPhonePortraitOutline className='text-blue-500'/><span className=' text-xs ml-1'>
-                    {isFrench? store.phoneTitleListF[0]: store.phoneTitleList[0]}
-                    </span></>: icon === 2 ? <><BsTelephone className='text-blue-500'/><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span></> : <><SlEarphonesAlt className='text-blue-500'/><span className=' text-xs ml-1'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></>}
-                <ul className={isOpen ?subMenu: 'hidden'} ref={ref}>
-                    <li className={icon===1 ? 'bg-gray-100 ' +subItem :subItem } onClick={()=>setIcon(1)}><IoPhonePortraitOutline className='text-blue-500'/><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[0]: store.phoneTitleList[0]}</span></li>
-                    <li className={icon===2 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(2)}> <BsTelephone className='text-blue-500'/><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[1]: store.phoneTitleList[1]}</span> </li>
-                    <li className={icon===3 ? 'bg-gray-100 ' +subItem :subItem} onClick={()=>setIcon(3)}><SlEarphonesAlt className='text-blue-500'/><span className=' text-xs ml-2'>{isFrench? store.phoneTitleListF[2]: store.phoneTitleList[2]}</span></li>
+            <div className={phoneLabel} onClick={() => setIsOpen(!isOpen)} >
+                {icon === 1 ? <><IoPhonePortraitOutline className='text-blue-500' /><span className=' text-xs ml-1'>
+                    {isFrench ? store.phoneTitleListF[0] : store.phoneTitleList[0]}
+                </span></> : icon === 2 ? <><BsTelephone className='text-blue-500' /><span className=' text-xs ml-1'>{isFrench ? store.phoneTitleListF[1] : store.phoneTitleList[1]}</span></> : <><SlEarphonesAlt className='text-blue-500' /><span className=' text-xs ml-1'>{isFrench ? store.phoneTitleListF[2] : store.phoneTitleList[2]}</span></>}
+                <ul className={isOpen ? subMenu : 'hidden'} ref={ref}>
+                    <li className={icon === 1 ? 'bg-gray-100 ' + subItem : subItem} onClick={() => setIcon(1)}><IoPhonePortraitOutline className='text-blue-500' /><span className=' text-xs ml-2'>{isFrench ? store.phoneTitleListF[0] : store.phoneTitleList[0]}</span></li>
+                    <li className={icon === 2 ? 'bg-gray-100 ' + subItem : subItem} onClick={() => setIcon(2)}> <BsTelephone className='text-blue-500' /><span className=' text-xs ml-2'>{isFrench ? store.phoneTitleListF[1] : store.phoneTitleList[1]}</span> </li>
+                    <li className={icon === 3 ? 'bg-gray-100 ' + subItem : subItem} onClick={() => setIcon(3)}><SlEarphonesAlt className='text-blue-500' /><span className=' text-xs ml-2'>{isFrench ? store.phoneTitleListF[2] : store.phoneTitleList[2]}</span></li>
                 </ul>
                 <div className={"text-xs "}>
                     {isOpen && <IoIosArrowUp />}
                     {!isOpen && <IoIosArrowDown />}
-
                 </div>
             </div>
-            <Select
-                showSearch
-                defaultValue={'Canada'}
-                value={country || 'Canada'}
-                placeholder={country || "Canada"}
-                className=" max-w-[55px] phoneArrow pl-[2px]"
-                style={{ width:'100%', height: 40,borderRadius: 20, }}
-                onChange={setCountry}
-                filterOption={filterOption}
-                options={countries.map((item)=>(
-                    {
-                        value: item[0],
-                        label: item[0],
-                    }
-                ))}
+            <ReactFlagsSelect
+                selected={selected}
+                searchable
+                className='p-0'
+                onSelect={handleCountryCode}
             />
-            {(country==='USA' || country.toLowerCase() ==="united states") && 
+
+            {(country === 'USA' || country.toLowerCase() === "united states") &&
                 <PhoneInput
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                isValid={(value, country:any,) => {
-                    const res = country.format.split(".").length-1;
-                    setVal(value.length)
-                    setRes(res)
-                    return true
-                }}
-                dropdownClass='max-w-[200px] z-40'
-                priority={{ca: 1, us: 0,kz: 0, ru: 1}  }
-                country={'us'}
-                value={value || countryCode}
-                onChange={(e, countryName:ICountry)=>{
-                    setCountry(countryName.name)
-                    onChange(e)
-                }}
-            />}
-            {(country !=='USA' && country.toLowerCase() !== "united states") &&
-            <PhoneInput
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                isValid={(value, country:any,) => {
-                    const res = country.format.split(".").length-1;
-                    setVal(value.length)
-                    setRes(res)
-                    return true
-                }}
-                
-                dropdownClass='max-w-[200px] z-40'
-                priority={{ca: 0, us: 1,kz: 0, ru: 1} }
-                country={'ca'}
-                value={value || countryCode}
-                onChange={(e, countryName:ICountry)=>{
-                    setCountry(countryName.name)
-                    onChange(e)
-                }}
-            />
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    isValid={(value, country: any,) => {
+                        const res = country.format.split(".").length - 1;
+                        setVal(value.length)
+                        setRes(res)
+                        return true
+                    }}
+
+                    dropdownClass='max-w-[180px] z-40'
+                    priority={{ ca: 1, us: 0, kz: 0, ru: 1 }}
+                    country={'us'}
+                    value={value || countryCode}
+                    onChange={(e, countryName: ICountry) => {
+                        setCountryCode('')
+                        for (const key in flags) {
+                            if (flags[key] === countryName.name) setSelected(key)
+                        }
+                        onChange(e)
+                    }}
+                />}
+
+            {(country !== 'USA' && country.toLowerCase() !== "united states") &&
+                <PhoneInput
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    isValid={(value, country: any,) => {
+                        const res = country.format.split(".").length - 1;
+                        setVal(value.length)
+                        setRes(res)
+                        return true
+                    }}
+
+                    dropdownClass='max-w-[180px] z-40'
+                    priority={{ ca: 0, us: 1, kz: 0, ru: 1 }}
+                    country={'ca'}
+                    value={value || countryCode}
+                    onChange={(e, countryName: ICountry) => {
+                        setCountryCode('')
+                        for (const key in flags) {
+
+                            if (flags[key] === countryName.name) {
+                                setSelected(key)
+                            }
+
+                        }
+                        onChange(e)
+                    }}
+                />
             }
         </section>
     )
@@ -345,8 +572,8 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone):Reac
 
 export default PhoneNumberInput
 
-const subMenu ='absolute bg-white z-20 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
-const subItem ='flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
+const subMenu = 'absolute bg-white z-30 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
+const subItem = 'flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
 const phoneLabel = ' flex rounded-l-xl relative items-center pl-1 h-[38px] cursor-pointer hover:bg-gray-100 border-r-[1px] border-gray-200'
 const container = 'flex items-center bg-white rounded-xl w-full'
 

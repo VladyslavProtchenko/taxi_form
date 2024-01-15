@@ -26,11 +26,16 @@ function App():React.ReactNode {
     <div className={container} >
       <div className={wrapper}>
         <div className={header}>
-          <div className={lang} onClick={()=>setIsFrench(!isFrench)}>
-            {isFrench 
-              ?<><div style={{backgroundImage:`url(${fr})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat'} ></div><div className={langItem} >EN</div></>
-              :<><div style={{backgroundImage:`url(${en})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat '} ></div><div  className={langItem} >FR</div></>
-            }
+          <div className='flex items-center'>
+            <div className={lang} onClick={()=>setIsFrench(!isFrench)}>
+              {isFrench 
+                ?<><div style={{backgroundImage:`url(${fr})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat'} ></div><div className={langItem} >EN</div></>
+                :<><div style={{backgroundImage:`url(${en})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat '} ></div><div  className={langItem} >FR</div></>
+              }
+            </div>
+            <div className=" flex items-center mt-8 mb-2 justify-center border-2  rounded-full border-orange-400 text-orange-400 ml-auto">
+                  <TiInfoLarge className='cursor-pointer '/>
+            </div>
           </div>
 
           <ul className={tabsContainer}>
@@ -67,12 +72,12 @@ function App():React.ReactNode {
                   setActiveCarId(5)
                 }}
             >+5<span className={isFrench?'font-light  mx-[1px] w-3  -translate-y-[6px] ':'font-light t mx-[1px] w-3  '}>{isFrench? 'e': 'th'}</span></li>
-
+{/* 
             <li className={activeCarId===5 ? 'ml-auto':'ml-auto mr-6'}>
               <div className=" flex items-center  justify-center border-2  rounded-full border-orange-400 text-orange-400 ml-auto">
                 <TiInfoLarge className='cursor-pointer '/>
               </div>
-            </li>
+            </li> */}
           </ul> 
         </div>
         
@@ -127,8 +132,8 @@ const footerTabText = 'text-[10px]'
 const footerTab = 'flex flex-col items-center  px-3 py-1 text-gray-500 cursor-pointer'
 const footerTabActive = 'flex flex-col items-center  px-3 py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
 
-const activeTab = 'px-1 flex items-center px-3 py-1 bg-purple-500 text-white bg-gray-100'
-const tab = ' flex items-center cursor-pointer px-3 py-1'
+const activeTab = 'px-1 flex items-center px-3 py-1 sm:px-2 bg-purple-500 text-white bg-gray-100'
+const tab = ' flex items-center cursor-pointer px-3 sm:px-2 py-1'
 const tabsContainer = 'bg-white flex mt-2 items-center text-xs mb-0 shadow-lg rounded-lg overflow-hidden'
 
 const lang = 'flex cursor-pointer items-center  mt-8 mb-2 '

@@ -34,12 +34,12 @@
     text-overflow: ellipsis !important;
     overflow-x: hidden;
 }
-.react-tel-input .form-control {
-    text-overflow: ellipsis !important;
-    overflow-x: hidden !important;
-    padding-left: 36px !important;
+.react-tel-input .form-control  {
+    padding-left: 4px;
 }
+
 .flag-dropdown {
+    display:none;
     background: #fff !important;
     border: none !important;
     border-right: 1px solid #ededed !important;
@@ -47,6 +47,7 @@
 }
 .react-tel-input .selected-flag {
     padding-left: 2px;
+
 }
 .css-4pax7l-MuiPickersLayout-root .MuiPickersLayout-actionBar {
     display: none !important;
@@ -207,3 +208,45 @@ select option {
 .triangle {
     clip-path: polygon(29% 0, 100% 0, 100% 100%, 0% 100%);
 } 
+
+
+
+:where(.css-dev-only-do-not-override-amq5gd).ant-select-single.ant-select-show-arrow .ant-select-selection-item, :where(.css-dev-only-do-not-override-amq5gd).ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder  {
+    padding-inline-end: 6px;
+}
+.ReactFlagsSelect-module_selectBtn__19wW7{
+    border: none !important;
+    padding: 0 !important;
+    align-items:center;
+    max-width: 92px;
+    
+}
+
+.ReactFlagsSelect-module_flagsSelect__2pfa2 {
+    padding-bottom: 0 !important;
+}
+
+.ReactFlagsSelect-module_selectValue__152eS {
+    padding: 0 2px !important; 
+    width: 92px;
+    text-overflow: ellipsis;
+    font-size: 14px !important;
+
+}
+.ReactFlagsSelect-module_fullWidthOptions__1XeR6 {
+    min-width: 200px;
+    font-size: 12px !important;
+
+}
+
+.ReactFlagsSelect-module_selectBtn__19wW7:after, .ReactFlagsSelect-module_selectBtn__19wW7[aria-expanded="true"]:after {
+    position: absolute;
+    right: 0;
+    margin-left: 0px !important;
+}
+.ReactFlagsSelect-module_flagsSelect__2pfa2{
+    width: 100px !important;
+}
+:where(.css-dev-only-do-not-override-amq5gd).ant-select .ant-select-clear {
+    inset-inline-end: 22px !important;
+}

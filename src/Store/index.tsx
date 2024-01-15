@@ -55,8 +55,8 @@ export const useStore = create<Store>(() => ({
         numbersList: ['st', 'nd', 'rd', 'th'],
         numbersListF: ['st', 'nd', 'rd', 'th'],
 
-        titleList: ['Mr.', 'Mrs.', 'Miss.', 'Nothing'],
-        titleListF: ['M.', 'Mme.', 'Mlle.', 'Aucun'],
+        titleList: ['Mr.', 'Mrs.', 'Miss.', 'Prefer Not To say'],
+        titleListF: ['M.', 'Mme.', 'Mlle.', 'Préfère ne pas dire'],
 
         nameList: ['Your name', 'Second name', 'Third name'],
         nameListF: ['Votre nom', 'Deuxième nom', 'Troisième nom'],
