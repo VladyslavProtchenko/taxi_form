@@ -4,10 +4,14 @@ import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 import { useMain } from "../../../Store/useMain";
 import Boost from "./Boost";
+import { useStore } from '../../../Store/index';
+
 
 const LocationSection = ():React.ReactNode => {
     const [ returnCard, setReturnCard ] = useState(false)
-    const { list, setType, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    const { list,isFrench, setType, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    const { store} = useStore()
+
     useEffect(()=>{
         if(list[activeCarId-1].type>2) {
             setIsReturnTrip(false)
@@ -17,10 +21,11 @@ const LocationSection = ():React.ReactNode => {
     return (
         <section className={section}>
             <div className={typeContainer}>
-                <div className={list[activeCarId-1].type===1 ?typeTabActive: typeTab} onClick={()=>setType(1)}>Transport</div>
-                <div className={list[activeCarId-1].type===2 ?typeTabActive: typeTab} onClick={()=>setType(2)}>Delivery</div>
-                <div className={list[activeCarId-1].type===3 ?typeTabActive: typeTab} onClick={()=>setType(3)}>Boost</div>
-                <div className={list[activeCarId-1].type===4 ?typeTabActive: typeTab} onClick={()=>setType(4)}>Unlocking door</div>
+                {
+                    (isFrench ? store.typeListF: store.typeList ).map((item, index) => (
+                        <div className={list[activeCarId-1].type===(index+1) ?typeTabActive: typeTab} onClick={()=>setType((index+1))}>{item}</div>
+                    ))
+                }
                 <div className={tabLine}><div className={
                     list[activeCarId-1].type===1 
                     ? line

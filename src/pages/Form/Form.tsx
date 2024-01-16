@@ -7,6 +7,7 @@ import PaymentSection from './Payment/Payment';
 import { useEffect } from 'react';
 import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
+import Type from './Type/TypeSection';
 
 const Form = (): React.ReactNode => {
     const { list,submit, setSubmit, activeCarId ,setIsCars, setFilled } = useMain()
@@ -88,6 +89,7 @@ const Form = (): React.ReactNode => {
     return (
         <div  className={container}>
             {!submit ? <>
+                {list[activeCarId-1].steps === 0 && <Type />}
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
                 {list[activeCarId-1].steps === 2 && <AddressSection />}
                 {list[activeCarId-1].steps === 3 && <OptionsSection />}

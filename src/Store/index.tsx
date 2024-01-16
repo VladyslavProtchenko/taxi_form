@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface IUser {
+interface IStore {
     titleList: string[];
     titleListF: string[];
 
@@ -42,16 +42,22 @@ interface IUser {
     boatArray: string[];
     hotelArray: string[];
 
+    menuTabs: string[];
+    menuTabsF: string[];
+
 
 }
 interface Store {
-    store: IUser;
+    store: IStore;
 
 }
 export const useStore = create<Store>(() => ({
     store: {
         //  defaultLocations: [ 'Aéroport - Montréal ( 975 Roméo-Vachon)', 'Airport - Saint-Hubert( PASCAN AVIATION)', 'Train - Gare Centrale de Montreal(895 de la //Gauchetière Ouest)', 'Train - Dorval Station','Bus - Bus - Station Centrale d’autobus( 1717 rue Berri)',]
         // defaultLocations: ['Airport - Montreal ( 975 Roméo-Vachon)', 'Airport - Saint-Hubert( PASCAN AVIATION)', 'Train - Central Station( 895 Gauchetière Ouest)', 'Train - Dorval Station', 'Bus - Central Station( 1717 Rue Berri)',],
+
+        menuTabs: ['Service Type' , 'Contacts' ,  'Locations' , 'Passengers' , 'Car Type', 'Payment' , 'Confirmation'],
+        menuTabsF: ['Type Service', 'Contacts',  'Adresses', 'Passagers', 'Type Véhicule', 'Paiement', 'Confirmation'],
         numbersList: ['st', 'nd', 'rd', 'th'],
         numbersListF: ['st', 'nd', 'rd', 'th'],
 

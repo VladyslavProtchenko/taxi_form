@@ -8,15 +8,19 @@ import { PiUserListLight } from "react-icons/pi";
 import { CiLocationOn } from "react-icons/ci";
 import { CiBoxList } from "react-icons/ci";
 import { CiMoneyCheck1 } from "react-icons/ci";
+import { MdOutlineModeOfTravel } from "react-icons/md";
 
 import { IoCheckmarkDone } from "react-icons/io5";
+import { IoCarSportOutline } from "react-icons/io5";
 
 import { TiInfoLarge } from "react-icons/ti";
 
 import dayjs from "dayjs";
+import { useStore } from './Store/index';
 
 function App():React.ReactNode {
   const { list,submit, setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
+  const { store } = useStore()
 
   useEffect(()=>{
     ( dayjs().format('HH') > '05' && dayjs().format('HH') < '23') ? setDay(true): setDay(false)
@@ -72,12 +76,6 @@ function App():React.ReactNode {
                   setActiveCarId(5)
                 }}
             >+5<span className={isFrench?'font-light  mx-[1px] w-3  -translate-y-[6px] ':'font-light t mx-[1px] w-3  '}>{isFrench? 'e': 'th'}</span></li>
-{/* 
-            <li className={activeCarId===5 ? 'ml-auto':'ml-auto mr-6'}>
-              <div className=" flex items-center  justify-center border-2  rounded-full border-orange-400 text-orange-400 ml-auto">
-                <TiInfoLarge className='cursor-pointer '/>
-              </div>
-            </li> */}
           </ul> 
         </div>
         
@@ -87,36 +85,47 @@ function App():React.ReactNode {
 
         <div className={footer}>
           <div className={footerWrapper}>
+          <span className={list[activeCarId-1].steps===0?footerTabActive: footerTab} onClick={()=>{setSubmit(false); setSteps(0)}}>
+              <MdOutlineModeOfTravel  className={footerIcon}/>
+              <span className={footerTabText}>{isFrench? store.menuTabsF[0] : store.menuTabs[0] }</span>
+            </span>
             <span className={list[activeCarId-1].steps===1?footerTabActive: footerTab} onClick={()=>{setSubmit(false); setSteps(1)}}>
               <PiUserListLight className={footerIcon}/>
-              <span className={footerTabText}>Info</span>
+              <span className={footerTabText}>{isFrench? store.menuTabsF[1] : store.menuTabs[1] }</span>
             </span>
             <span className={list[activeCarId-1].steps===2?footerTabActive: footerTab} onClick={()=>{
               setSubmit(false);
                 if(list[activeCarId-1].validation>0) setSteps(2)
               }}>
               <CiLocationOn className={footerIcon} />
-              <span className={footerTabText}>Locations</span>
+              <span className={footerTabText}>{isFrench? store.menuTabsF[2] : store.menuTabs[2] }</span>
             </span>
             <span className={list[activeCarId-1].steps===3?footerTabActive: footerTab} onClick={()=>{
               setSubmit(false);
               if(list[activeCarId-1].validation>1) setSteps(3)
             }}>
               <CiBoxList  className={footerIcon}/>
-              <span className={footerTabText}>Options</span>
+              <span className={footerTabText}>{isFrench? store.menuTabsF[3] : store.menuTabs[3] }</span>
             </span>
+
             <span className={list[activeCarId-1].steps===4?footerTabActive: footerTab} onClick={()=>{
               setSubmit(false);
               if(list[activeCarId-1].validation>1) setSteps(4)
             }}>
-              <CiMoneyCheck1 className={footerIcon} />
-              <span className={footerTabText}>Payment</span>
+              <IoCarSportOutline className={footerIcon} />
+              <span className={footerTabText}>{isFrench? store.menuTabsF[4] : store.menuTabs[4] }</span>
             </span>
+
+            <span className={ footerTab} onClick={()=>{}}>
+              <CiMoneyCheck1 className={footerIcon} />
+              <span className={footerTabText}>{isFrench? store.menuTabsF[5] : store.menuTabs[5] }</span>
+            </span>
+
             <span className={submit?footerTabActive: footerTab} onClick={()=>{
                 setSubmit(true)
             }}>
               <IoCheckmarkDone className={footerIcon} />
-              <span className={footerTabText}>Conirm</span>
+              <span className={footerTabText}>{isFrench? store.menuTabsF[6] : store.menuTabs[6] }</span>
             </span>
           </div>
         </div>
