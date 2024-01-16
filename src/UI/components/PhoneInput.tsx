@@ -435,7 +435,7 @@ const flags: { [key: string]: string } = {
     UA: "Ukraine",
     AE: "United Arab Emirates",
     GB: "United Kingdom",
-    US: "United States",
+    US: "(USA) United States",
     UY: "Uruguay",
     UZ: "Uzbekistan",
     VU: "Vanuatu",
@@ -493,6 +493,7 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
         setCountry(flags[data])
     }
 
+
     return (
         <section className={container}>
             <div className={phoneLabel} onClick={() => setIsOpen(!isOpen)} >
@@ -512,6 +513,7 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
             <ReactFlagsSelect
                 selected={selected}
                 searchable
+                customLabels={{"US":"USA"}}
                 className='p-0'
                 onSelect={handleCountryCode}
             />

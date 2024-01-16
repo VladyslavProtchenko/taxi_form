@@ -96,6 +96,7 @@ const InfoSection = () => {
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
+                        {isExtraNameOpen[1] && <div className={number}>1</div>}
                         <span className='icon ml-1'><BsPeople/></span>
                         <Select allowClear className='arrow-right'  placeholder={isFrench? 'Titre':'Title' } style={{width: 118, height: 40}} onChange={setTitle} options={options1} value={list[activeCarId-1].title || null} />
                         <Input allowClear value={list[activeCarId-1].name} placeholder={isFrench? store.nameListF[0]:store.nameList[0] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{maxWidth:200, borderRadius: 5, height: 30}}/>
@@ -104,6 +105,7 @@ const InfoSection = () => {
 
                 <div className={list[activeCarId-1].name.length>2 ? nameCard : 'hidden'}>
                     <div className={isExtraNameOpen[1] ? box : box + ' opacity-0'}>
+                        <div className={number}>2</div>
                         <div className={(list[activeCarId-1].name === list[activeCarId-1].name2)? warn: 'hidden'}>name cannot be repeated</div>
                         {!isExtraNameOpen[1] &&  <div className='absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-100 rounded cursor-not-allowed'></div>}
                         <span className='icon ml-1'><BsPeople/></span>
@@ -147,6 +149,7 @@ const InfoSection = () => {
                 <div className={list[activeCarId-1].name2.length<2 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard : nameCard + ' border-white h-[32px]'}>
                     <div className={(list[activeCarId-1].name === list[activeCarId-1].name3 || list[activeCarId-1].name2 === list[activeCarId-1].name3)? warn: 'hidden'}>name cannot be repeated</div>
                     <div className={(isExtraNameOpen[2])? box: box +' opacity-0'}>
+                        <div className={number}>3</div>
                         {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon  ml-1'><BsPeople/></span>
                         <Select placeholder={isFrench? 'Titre':'Title'  }  className=' arrow-right ' style={{width: 118, height: 40}} onChange={setTitle3}options={options1} value={list[activeCarId-1].title3 || null}/> 
@@ -181,6 +184,7 @@ const InfoSection = () => {
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={box +' border-none '}>
+                    {isExtraEmailOpen[1] && <div className={number}>1</div>}
                         <MailInput 
                             value={list[activeCarId-1].email} 
                             mainMail={true} 
@@ -194,6 +198,7 @@ const InfoSection = () => {
                 <div className={pattern.test(list[activeCarId-1].email) ? nameCard : 'hidden'}>
 
                     <div className={isExtraEmailOpen[1] ? box + ' border-none ' : box + ' opacity-0'}>
+                        <div className={number}>2</div>
                         <div className={(list[activeCarId-1].email === list[activeCarId-1].email2)? warn: 'hidden'}>email cannot be repeated</div>
                         {!isExtraEmailOpen[1] &&  <div className={'absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-0 rounded cursor-not-allowed'}></div>}
                         <MailInput value={list[activeCarId-1].email2} mainMail={false} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
@@ -218,7 +223,8 @@ const InfoSection = () => {
                 </div>
                 
                 <div className={(!pattern.test(list[activeCarId-1].email2)) ? 'hidden' : nameCard + ' border-none'}>
-                    <div className={isExtraEmailOpen[2] ? box +' border-none ': box + ' opacity-0 '}>    
+                    <div className={isExtraEmailOpen[2] ? box +' border-none ': box + ' opacity-0 '}>
+                        <div className={number}>3</div>    
                         <div className={(list[activeCarId-1].email2 === list[activeCarId-1].email3 || list[activeCarId-1].email === list[activeCarId-1].email3)? warn: 'hidden'}>email cannot be repeated</div>
                         <div className={isExtraEmailOpen[2]? 'hidden':'absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'}></div>
                         
@@ -240,6 +246,7 @@ const InfoSection = () => {
             <div className={extraContainer}>
                 <div className={nameCard} >
                     <div className={noPhone ? box: box + ' border-red-500 z-30'}>
+                        {isExtraPhoneOpen[1] && <div className={number}>1</div>}
                         <PhoneNumberInput  setValidation={setIsPhone} type={1} value={list[activeCarId-1].phone} onChange={setPhone}/>
                     </div>
                 </div>
@@ -247,6 +254,7 @@ const InfoSection = () => {
                 <div className={list[activeCarId-1].phone.length>=10 ? nameCard + ' z-20' : 'hidden'}>
                     <div className={( list[activeCarId-1].phone === list[activeCarId-1].phone2)? warn: 'hidden'}>phone cannot be repeated</div>
                     <div className={isExtraPhoneOpen[1]? box : box+ ' opacity-0 '}>
+                        <div className={number}>2</div>
                         {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                         <PhoneNumberInput  setValidation={setIsPhone} type={3}  value={list[activeCarId-1].phone2} onChange={setPhone2}/>
                     </div>
@@ -283,6 +291,7 @@ const InfoSection = () => {
                 <div className={list[activeCarId-1].phone2.length < 10 ? 'hidden' : nameCard}>
                     <div className={( list[activeCarId-1].phone === list[activeCarId-1].phone3 || list[activeCarId-1].phone2 === list[activeCarId-1].phone3)? warn: 'hidden'}>phone cannot be repeated</div>
                     <div className={isExtraPhoneOpen[2]? box: box + ' opacity-0 '}>
+                        <div className={number}>3</div>
                         {!isExtraPhoneOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         {(isExtraPhoneOpen[1] || isExtraPhoneOpen[2]) &&  <>
                             <PhoneNumberInput  setValidation={setIsPhone} type={2}  value={list[activeCarId-1].phone3} onChange={setPhone3}/>
@@ -315,11 +324,11 @@ const InfoSection = () => {
 
 export default InfoSection;
 
-
+const number = 'absolute left-5 text-gray-400 text-xl'
 const warn = 'absolute -top-[15px] left-12 text-xs z-20 text-red-500'
 
 const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-1 text-sm cursor-pointer "
-const extraNameClose = " my-auto ml-2 text-white px-2 py-1 items-center flex justify-center bg-rose-500 rounded-full cursor-pointer  left-[102%]"
+const extraNameClose = " my-auto ml-2 text-white px-2 py-1 items-center flex justify-center bg-rose-500 rounded cursor-pointer  left-[102%]"
 
 const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-full '
 

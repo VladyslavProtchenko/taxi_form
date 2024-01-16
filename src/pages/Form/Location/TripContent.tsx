@@ -605,7 +605,7 @@ const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-purple-
 const iconsType = 'flex mb-2 justify-between w-full py-2'
 const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
 
-const closeStop =" my-auto px-2 py-1 text-center bg-rose-500 ml-1 rounded-full flex justify-center items-center cursor-pointer text-bold text-white"
+const closeStop =" my-auto px-2 py-1 text-center bg-rose-500 ml-1 rounded flex justify-center items-center cursor-pointer text-bold text-white"
 const openStop ="absolute top-2 text-purple-500 text-gray-700 rounded flex cursor-pointer"
 
 
