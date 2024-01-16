@@ -392,7 +392,7 @@ export const useMain = create<IStore>()(
                     { title: 'Service dog (Mira)', cage: false, quantity: 0 },
                     { title: 'Other', cage: false, quantity: 0, isOther: true, },
                 ],
-                steps: 1,
+                steps:0,
             },
             {
                 id: 2, type: 1, filled: false,
@@ -500,7 +500,7 @@ export const useMain = create<IStore>()(
                     { title: 'Service dog (Mira)', cage: false, quantity: 0 },
                     { title: 'Other', cage: false, quantity: 0, isOther: true, },
                 ],
-                steps: 1,
+                steps: 0,
             },
             {
                 id: 3, type: 1, filled: false,
@@ -601,7 +601,7 @@ export const useMain = create<IStore>()(
                     { title: 'Service dog (Mira)', cage: false, quantity: 0 },
                     { title: 'Other', cage: false, quantity: 0, isOther: true, },
                 ],
-                steps: 1,
+                steps: 3,
             },
             {
                 id: 4, type: 1, filled: false,
@@ -705,7 +705,7 @@ export const useMain = create<IStore>()(
                     { title: 'Service dog (Mira)', cage: false, quantity: 0 },
                     { title: 'Other', cage: false, quantity: 0, isOther: true, },
                 ],
-                steps: 1,
+                steps: 4,
             },
             {
                 id: 5, type: 1, filled: false,
@@ -805,7 +805,7 @@ export const useMain = create<IStore>()(
                     { title: 'Service dog (Mira)', cage: false, quantity: 0 },
                     { title: 'Other', cage: false, quantity: 0, isOther: true, },
                 ],
-                steps: 1,
+                steps: 5,
             },
         ],
         setDay: (data) => set((state) => ({ ...state, day: data })),

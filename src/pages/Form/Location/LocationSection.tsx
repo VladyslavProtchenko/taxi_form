@@ -4,13 +4,12 @@ import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 import { useMain } from "../../../Store/useMain";
 import Boost from "./Boost";
-import { useStore } from '../../../Store/index';
 
 
 const LocationSection = ():React.ReactNode => {
     const [ returnCard, setReturnCard ] = useState(false)
-    const { list,isFrench, setType, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
-    const { store} = useStore()
+    const { list, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+
 
     useEffect(()=>{
         if(list[activeCarId-1].type>2) {
@@ -20,22 +19,6 @@ const LocationSection = ():React.ReactNode => {
     },[])
     return (
         <section className={section}>
-            <div className={typeContainer}>
-                {
-                    (isFrench ? store.typeListF: store.typeList ).map((item, index) => (
-                        <div className={list[activeCarId-1].type===(index+1) ?typeTabActive: typeTab} onClick={()=>setType((index+1))}>{item}</div>
-                    ))
-                }
-                <div className={tabLine}><div className={
-                    list[activeCarId-1].type===1 
-                    ? line
-                    :list[activeCarId-1].type===2 
-                    ? line + ' translate-x-[100%]'
-                    :list[activeCarId-1].type===3 
-                    ? line + ' translate-x-[200%]'
-                    : line + ' translate-x-[300%]'
-                }></div></div>
-            </div>
             
             <div className={(list[activeCarId-1].type<3)?'flex w-full px-10 mt-4': 'hidden'}>
                 {list[activeCarId-1].isReturnTrip && <div className={returnTabsActive}>
@@ -55,7 +38,7 @@ const LocationSection = ():React.ReactNode => {
                 {!list[activeCarId-1].isReturnTrip &&
                     <div className='flex w-full '>
                     <div className={returnTabActiveOne}>One-Way</div>
-                        <div className={activeReturnTripBtn} onClick={()=>setIsReturnTrip(true)}>+ Return</div>
+                        <div className={activeReturnTripBtn} onClick={()=>setIsReturnTrip(true)}><span className="font-bold text-[16px] mr-1">+</span>Return</div>
                     </div>}
             </div>
             
@@ -76,10 +59,5 @@ const returnTabActive = 'w-1/2 text-center z-10 text-white duration-500 py-2'
 const returnTabActiveOne = 'w-1/2 items-center justify-center z-10 text-white bg-purple-500 rounded-lg flex shadow-xl' 
 const returnTabsActive = 'relative flex bg-white  shadow-xl  rounded-lg w-full cursor-pointer'
 
-const tabLine = 'absolute w-full px-10 top-full left-0'
-const line = ' w-1/4 border-b-2 border-purple-500 duration-500'
-const typeTab = 'w-1/4 py-1 text-center cursor-pointer text-gray-400 font-bold'
-const typeTabActive = 'w-1/4 py-1 text-center cursor-pointer font-bold'
-const typeContainer = 'flex relative w-full text-[11px] px-10 mb-10 mt-5'
 
 const section = 'flex flex-col w-full  max-w-[576px]'

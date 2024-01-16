@@ -95,7 +95,6 @@ const Form = (): React.ReactNode => {
                 {list[activeCarId-1].steps === 3 && <OptionsSection />}
                 {list[activeCarId-1].steps === 4 && <PaymentSection/>}
             </> : <Submit/>}
-
         </div>
     );
 };

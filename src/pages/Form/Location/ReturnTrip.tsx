@@ -260,151 +260,183 @@ const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):Reac
             </div>
             </div>
 
-            {list[activeCarId-1].iconR>0 && <div className={type}>
-                <span className={iconCard}>
-                    {   
-                        list[activeCarId-1].iconR == 1
-                        ? <MdFlightLand className={ 'text-xl ' }/>
-                        :list[activeCarId-1].iconR == 2
-                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].iconR == 3
-                        ? <FaBus />
-                        :list[activeCarId-1].iconR == 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :<MdLocalHotel className={' text-base'}/>
-                    }
-                </span>
+            <div className={locations}>
 
-                {list[activeCarId-1].iconR > 0 && <div className={flightCard }>
-                    {list[activeCarId-1].iconR === 1 && 
-                    <Select 
-                        className='favorite w-1/2 max-h-[30px]'
-                        style={{width: '100px', borderRadius: 5}} 
-                        options={store.flights.map(item=>({value: item, label: item}))} 
-                        onChange={(e)=>{setFlightR({...list[activeCarId-1].flightR, title: e})}}
-                        placeholder='Airlines' 
-                    />}
-                    
-                    {list[activeCarId-1].iconR === 1
-                        ?<MdFlightLand className='text-xl mx-1'/>
-                        :list[activeCarId-1].iconR === 2
-                        ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].iconR === 3
-                        ? <FaBus className=' mx-1'/>
-                        :list[activeCarId-1].iconR === 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].iconR === 5 
-                        ?<MdLocalHotel className='mx-1'/>
-                        :<MdFlightLand className='text-xl mx-1'/>
-                    }   
-                    {list[activeCarId-1].iconR === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        { prefixes[list[activeCarId-1].flightR.title]}
-                    </div>}
-                    <Input 
-                        value={list[activeCarId-1].flightR.number}
-                        maxLength={4}
-                        placeholder={list[activeCarId-1].iconR === 1 ?'####': list[activeCarId-1].iconR === 2 ? 'Train#' : list[activeCarId-1].iconR === 3 ? "Bus#" : list[activeCarId-1].iconR === 4 ? 'Boat#': 'Room#'} 
-                        style={{width:`${list[activeCarId-1].iconR === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
-                            setFlightR({...list[activeCarId-1].flightR, number: e.target.value.replace(/\D/g, '')})
-                        }}
-                    />
-                    {list[activeCarId-1].flightR.number.length<3 && list[activeCarId-1].flightR.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
-
-                </div>} 
-            </div>}
-
-            <div className={locationCard}>
-                <div className={isFromR ? extraCard : extraCard + ' border-red-500'}>
-                    <span className='icon text-green-400'><SlLocationPin/></span>
-                    <GoogleAddressInput 
-                        style='w-full ' 
-                        defaultLocation={
-                            list[activeCarId-1].fromR
-                            ? list[activeCarId-1].fromR
-                            : list[activeCarId-1].to && trigger[1] 
-                            ? list[activeCarId-1].to
-                            : ''
+                {list[activeCarId-1].iconR>0 && <div className={type}>
+                    <span className={iconCard}>
+                        {   
+                            list[activeCarId-1].iconR == 1
+                            ? <MdFlightLand className={ 'text-xl ' }/>
+                            :list[activeCarId-1].iconR == 2
+                            ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].iconR == 3
+                            ? <FaBus />
+                            :list[activeCarId-1].iconR == 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :<MdLocalHotel className={' text-base'}/>
                         }
-                        onChange={(e)=> {
-                            setFromR(e)
-                            setTrigger({...trigger, 1: 0})
-                        }}
-                        placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
-                    />
-                </div>
-                {list[activeCarId-1].iconR === 1 && <div className={departureBox}>
-                    <Select placeholder='Departure' className='favorite' style={{ height: 30, borderRadius: 5}}onChange={setDepartureR}options={store.departureSections.map(item=>({value: item, label: item}))}/>
+                    </span>
+
+                    {list[activeCarId-1].iconR > 0 && <div className={flightCard }>
+                        {list[activeCarId-1].iconR === 1 && 
+                        <Select 
+                            className='favorite w-1/2 max-h-[30px]'
+                            style={{width: '100px', borderRadius: 5}} 
+                            options={store.flights.map(item=>({value: item, label: item}))} 
+                            onChange={(e)=>{setFlightR({...list[activeCarId-1].flightR, title: e})}}
+                            placeholder='Airlines' 
+                        />}
+                        
+                        {list[activeCarId-1].iconR === 1
+                            ?<MdFlightLand className='text-xl mx-1'/>
+                            :list[activeCarId-1].iconR === 2
+                            ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].iconR === 3
+                            ? <FaBus className=' mx-1'/>
+                            :list[activeCarId-1].iconR === 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].iconR === 5 
+                            ?<MdLocalHotel className='mx-1'/>
+                            :<MdFlightLand className='text-xl mx-1'/>
+                        }   
+                        {list[activeCarId-1].iconR === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                            { prefixes[list[activeCarId-1].flightR.title]}
+                        </div>}
+                        <Input 
+                            value={list[activeCarId-1].flightR.number}
+                            maxLength={4}
+                            placeholder={list[activeCarId-1].iconR === 1 ?'####': list[activeCarId-1].iconR === 2 ? 'Train#' : list[activeCarId-1].iconR === 3 ? "Bus#" : list[activeCarId-1].iconR === 4 ? 'Boat#': 'Room#'} 
+                            style={{width:`${list[activeCarId-1].iconR === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
+                            onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                                setFlightR({...list[activeCarId-1].flightR, number: e.target.value.replace(/\D/g, '')})
+                            }}
+                        />
+                        {list[activeCarId-1].flightR.number.length<3 && list[activeCarId-1].flightR.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+
+                    </div>} 
                 </div>}
-            </div>
 
-            
-            <div className={extraCardStop}>
-                <div className={(stop > 0)? box: box + ' opacity-0 '}>
-                    <span className='icon text-orange-400'><SlLocationPin/></span> 
-                    <GoogleAddressInput
-                        style='w-full'
-                        defaultLocation={list[activeCarId-1].stopsR[1]} 
-                        onChange={(e)=>{
-                            setStopTrigger(false)
-                            setStopsR({...list[activeCarId-1].stopsR, 1: e})
-                        }}
-                        placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
-                    />
+                <div className={locationCard}>
+                    <div className={isFromR ? extraCard : extraCard + ' border-red-500'}>
+                        <span className='icon text-green-400'><SlLocationPin/></span>
+                        <GoogleAddressInput 
+                            style='w-full ' 
+                            defaultLocation={
+                                list[activeCarId-1].fromR
+                                ? list[activeCarId-1].fromR
+                                : list[activeCarId-1].to && trigger[1] 
+                                ? list[activeCarId-1].to
+                                : ''
+                            }
+                            onChange={(e)=> {
+                                setFromR(e)
+                                setTrigger({...trigger, 1: 0})
+                            }}
+                            placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
+                        />
+                    </div>
+                    {list[activeCarId-1].iconR === 1 && <div className={departureBox}>
+                        <Select placeholder='Departure' className='favorite' style={{ height: 30, borderRadius: 5}}onChange={setDepartureR}options={store.departureSections.map(item=>({value: item, label: item}))}/>
+                    </div>}
                 </div>
-                <div 
-                    className={(stop === 0) ? openStop : 'hidden'} 
-                    onClick={()=>{ 
-                        if(stop===0) return setStop(1);
-                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 0)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setStopTrigger(false)
-                        setStopsR(data)
-                        setStop(stop - 1)
-                    }}
-                >+ stop</div>
-                <div 
-                    className={(stop > 0) ? closeStop : 'hidden'} 
-                    onClick={()=>{ 
-                        if(stop===0) return setStop(1);
-                        const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 0)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setStopsR(data)
-                        setStop(stop - 1)
-                    }}
-                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
 
-            </div>
-
-            
-            <div className={(stop > 0 ) ?  extraCardStop: 'hidden'}>
-                <div className={stop > 1 ? box: box + ' opacity-0 '}>
-                    <span className='icon text-orange-400'><SlLocationPin/></span>
-                    <GoogleAddressInput 
-                        style='w-full'
-                        defaultLocation={list[activeCarId-1].stopsR[2]} 
-                        onChange={(e)=>{
-                            setStopTrigger(false)
-                            setStopsR({...list[activeCarId-1].stopsR, 2: e})
-                        }}
-                        placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
-                    />
-                </div>
-                    <div  className={(stop === 1) ? openStop :'hidden'} onClick={()=> setStop(2)} >+ stop</div> 
-
+                <div className={extraCardStop}>
+                    <div className={(stop > 0)? box: box + ' opacity-0 '}>
+                        <span className='icon text-orange-400'><SlLocationPin/></span> 
+                        <GoogleAddressInput
+                            style='w-full'
+                            defaultLocation={list[activeCarId-1].stopsR[1]} 
+                            onChange={(e)=>{
+                                setStopTrigger(false)
+                                setStopsR({...list[activeCarId-1].stopsR, 1: e})
+                            }}
+                            placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
+                        />
+                    </div>
                     <div 
-                        className={(stop > 1) ? closeStop : 'hidden'} 
-                        onClick={()=>{
-                                if(stop===1) return setStop(2) 
-                                const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 1)
+                        className={(stop === 0) ? openStop : 'hidden'} 
+                        onClick={()=>{ 
+                            if(stop===0) return setStop(1);
+                            const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 0)
+                            const data: IObj ={}
+                            array.map((item, index) => {
+                                const number  = index+1;
+                                data[number] = item;
+                            })
+                            setStopTrigger(false)
+                            setStopsR(data)
+                            setStop(stop - 1)
+                        }}
+                    >+ stop</div>
+                    <div 
+                        className={(stop > 0) ? closeStop : 'hidden'} 
+                        onClick={()=>{ 
+                            if(stop===0) return setStop(1);
+                            const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 0)
+                            const data: IObj ={}
+                            array.map((item, index) => {
+                                const number  = index+1;
+                                data[number] = item;
+                            })
+                            setStopsR(data)
+                            setStop(stop - 1)
+                        }}
+                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
+
+                </div>
+                
+                <div className={(stop > 0 ) ?  extraCardStop: 'hidden'}>
+                    <div className={stop > 1 ? box: box + ' opacity-0 '}>
+                        <span className='icon text-orange-400'><SlLocationPin/></span>
+                        <GoogleAddressInput 
+                            style='w-full'
+                            defaultLocation={list[activeCarId-1].stopsR[2]} 
+                            onChange={(e)=>{
+                                setStopTrigger(false)
+                                setStopsR({...list[activeCarId-1].stopsR, 2: e})
+                            }}
+                            placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
+                        />
+                    </div>
+                        <div  className={(stop === 1) ? openStop :'hidden'} onClick={()=> setStop(2)} >+ stop</div> 
+
+                        <div 
+                            className={(stop > 1) ? closeStop : 'hidden'} 
+                            onClick={()=>{
+                                    if(stop===1) return setStop(2) 
+                                    const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 1)
+                                    const data: IObj ={}
+                                    array.map((item, index) => {
+                                        const number  = index+1;
+                                        data[number] = item;
+                                    })
+                                    setStopTrigger(false)
+                                    setStopsR(data)
+                                    setStop(stop -1)
+                                }}
+                        ><span className='scale-[150%] font-bold rotate-45'>+</span></div>  
+                </div>
+
+                
+                <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
+                    <div className={stop > 2 ? box : box + ' opacity-0 '}>
+                        <span className='icon text-orange-400'><SlLocationPin/></span>
+                        <GoogleAddressInput 
+                            style='w-full'
+                            defaultLocation={list[activeCarId-1].stopsR[3]} 
+                            onChange={(e)=>{
+                                setStopTrigger(false)
+                                setStopsR({...list[activeCarId-1].stopsR, 3: e})
+                            }}
+                            placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
+                        />
+                    </div>
+                    <div className={(stop === 2) ? openStop :'hidden'} onClick={()=> setStop(3)}>+ stop</div> 
+                    <div 
+                        className={(stop > 2) ? closeStop :'hidden'} 
+                        onClick={()=>{ 
+                                if(stop===2) return setStop(3)
+                                const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 2)
                                 const data: IObj ={}
                                 array.map((item, index) => {
                                     const number  = index+1;
@@ -412,159 +444,128 @@ const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):Reac
                                 })
                                 setStopTrigger(false)
                                 setStopsR(data)
-                                setStop(stop -1)
+                                setStop(stop -1) 
                             }}
-                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div>  
-            </div>
-
-            
-            <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
-                <div className={stop > 2 ? box : box + ' opacity-0 '}>
-                    <span className='icon text-orange-400'><SlLocationPin/></span>
-                    <GoogleAddressInput 
-                        style='w-full'
-                        defaultLocation={list[activeCarId-1].stopsR[3]} 
-                        onChange={(e)=>{
-                            setStopTrigger(false)
-                            setStopsR({...list[activeCarId-1].stopsR, 3: e})
-                        }}
-                        placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
-                    />
+                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
                 </div>
-                <div className={(stop === 2) ? openStop :'hidden'} onClick={()=> setStop(3)}>+ stop</div> 
-                <div 
-                    className={(stop > 2) ? closeStop :'hidden'} 
-                    onClick={()=>{ 
-                            if(stop===2) return setStop(3)
-                            const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 2)
-                            const data: IObj ={}
-                            array.map((item, index) => {
-                                const number  = index+1;
-                                data[number] = item;
-                            })
-                            setStopTrigger(false)
-                            setStopsR(data)
-                            setStop(stop -1) 
-                        }}
-                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
-            </div>
+                
+                <div className={(stop > 2  ) ?  extraCardStop: 'hidden'}>
+                    <div className={stop > 3 ? box : box + ' opacity-0 '}>
 
-            
-            <div className={(stop > 2  ) ?  extraCardStop: 'hidden'}>
-                <div className={stop > 3 ? box : box + ' opacity-0 '}>
-
-                    <span className='icon text-orange-400'><SlLocationPin/></span>
-                    <GoogleAddressInput 
-                        style='w-full '
-                        defaultLocation={list[activeCarId-1].stopsR[4]} 
-                        onChange={(e)=>{
-                            setStopTrigger(false)
-                            setStopsR({...list[activeCarId-1].stopsR, 4: e})
-                        }}
-                        placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
-                    />
+                        <span className='icon text-orange-400'><SlLocationPin/></span>
+                        <GoogleAddressInput 
+                            style='w-full '
+                            defaultLocation={list[activeCarId-1].stopsR[4]} 
+                            onChange={(e)=>{
+                                setStopTrigger(false)
+                                setStopsR({...list[activeCarId-1].stopsR, 4: e})
+                            }}
+                            placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
+                        />
+                    </div>
+                    <div className={(stop === 3) ? openStop :'hidden'}onClick={()=>setStop(4)} >+ stop</div> 
+                    <div 
+                        className={(stop > 3) ? closeStop :'hidden'} 
+                        onClick={()=>{ 
+                            if(stop===3) return setStop(4)
+                                const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 3)
+                                const data: IObj ={}
+                                array.map((item, index) => {
+                                    const number  = index+1;
+                                    data[number] = item;
+                                })
+                                setStopTrigger(false)
+                                setStopsR(data)
+                                setStop(stop -1) 
+                            }}
+                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
                 </div>
-                <div className={(stop === 3) ? openStop :'hidden'}onClick={()=>setStop(4)} >+ stop</div> 
-                <div 
-                    className={(stop > 3) ? closeStop :'hidden'} 
-                    onClick={()=>{ 
-                        if(stop===3) return setStop(4)
-                            const array = Object.values(list[activeCarId-1].stopsR).filter((_, index) => index !== 3)
-                            const data: IObj ={}
-                            array.map((item, index) => {
-                                const number  = index+1;
-                                data[number] = item;
-                            })
-                            setStopTrigger(false)
-                            setStopsR(data)
-                            setStop(stop -1) 
-                        }}
-                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
-            </div>
 
-            <div className={locationCard}>
-                <div className={isToR ? extraCard : extraCard + ' border-red-500'}>
-                    <span className='icon text-red-400'><SlLocationPin/></span>
-                    <GoogleAddressInput 
-                        defaultLocation={
-                            list[activeCarId-1].toR 
-                            ?  list[activeCarId-1].toR
-                            : list[activeCarId-1].from && trigger[2]
-                            ? list[activeCarId-1].from 
-                            : ''
-                        } 
-                        style='w-full' 
-                        onChange={(e)=> {
-                            setToR(e)
-                            setTrigger({...trigger, 2: 0})
-                        }}
-                        placeholder={isFrench? store.locationListF[1]:store.locationList[1]}
-                    />
+                <div className={locationCard}>
+                    <div className={isToR ? extraCard : extraCard + ' border-red-500'}>
+                        <span className='icon text-red-400'><SlLocationPin/></span>
+                        <GoogleAddressInput 
+                            defaultLocation={
+                                list[activeCarId-1].toR 
+                                ?  list[activeCarId-1].toR
+                                : list[activeCarId-1].from && trigger[2]
+                                ? list[activeCarId-1].from 
+                                : ''
+                            } 
+                            style='w-full' 
+                            onChange={(e)=> {
+                                setToR(e)
+                                setTrigger({...trigger, 2: 0})
+                            }}
+                            placeholder={isFrench? store.locationListF[1]:store.locationList[1]}
+                        />
+                    </div>
+                    {list[activeCarId-1].icon2 === 1 && 
+                    <div className={departureBox}>
+                        <Select placeholder='Departure' className='favorite ' style={{ height: 30, borderRadius: 5}}onChange={setDeparture2R}options={store.departureSections.map(item=>({value: item, label: item}))}/>
+                    </div>}
                 </div>
-                {list[activeCarId-1].icon2 === 1 && 
-                <div className={departureBox}>
-                    <Select placeholder='Departure' className='favorite ' style={{ height: 30, borderRadius: 5}}onChange={setDeparture2R}options={store.departureSections.map(item=>({value: item, label: item}))}/>
+
+                {(list[activeCarId-1].icon2R >0) &&<div className={type}>
+                    
+                    <span className={iconCard}>
+                        {   
+                            list[activeCarId-1].icon2R == 1
+                            ? <MdFlightTakeoff className={ 'text-xl ' }/>
+                            :list[activeCarId-1].icon2R == 2
+                            ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon2R == 3
+                            ? <FaBus />
+                            :list[activeCarId-1].icon2R == 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :<MdLocalHotel className={' text-base'}/>
+                        }
+                    </span>
+
+                    {list[activeCarId-1].icon2R>0 && <div className={flightCard }>
+                        {list[activeCarId-1].icon2R === 1 && <Select 
+                            className='favorite w-1/2 max-h-[30px]'
+                            style={{width: '100px', borderRadius:5}} 
+                            options={store.flights.map(item=>(
+                                {value: item, label: item}
+                            ))} 
+                            onChange={(e)=>{
+                                setFlight2R({...list[activeCarId-1].flight2R, title: e})
+                            }} 
+                            placeholder='Airlines' 
+                        />}
+                        
+                        {list[activeCarId-1].icon2R === 1
+                            ?< MdFlightTakeoff className='text-xl mx-1'/>
+                            :list[activeCarId-1].icon2R === 2
+                            ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon2R === 3
+                            ? <FaBus className=' mx-1'/>
+                            :list[activeCarId-1].icon2R === 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon2R === 5 
+                            ?<MdLocalHotel className='mx-1'/>
+                            :<MdFlightLand className='text-xl mx-1'/>
+                        }   
+                        {list[activeCarId-1].icon2R === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                            {prefixes[list[activeCarId-1].flight2R.title]}
+                        </div>}
+                        <Input 
+                            value={list[activeCarId-1].flight2R.number}
+                            maxLength={4}
+                            placeholder={list[activeCarId-1].icon2R === 1 ?'####': list[activeCarId-1].icon2R === 2 ? 'Train#' : list[activeCarId-1].icon2R === 3 ? "Bus#" : list[activeCarId-1].icon2R === 4 ? 'Boat#': 'Room#'} 
+                            style={{width:`${list[activeCarId-1].icon2R === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
+                            onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                                setFlight2R({...list[activeCarId-1].flight2R, number: e.target.value.replace(/\D/g, '')})
+
+                            }
+                        }/>
+                        {list[activeCarId-1].flight2R.number.length<3 && list[activeCarId-1].flight2R.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+
+                    </div> }
                 </div>}
             </div>
 
-            {(list[activeCarId-1].icon2R >0) &&<div className={type}>
-                
-                <span className={iconCard}>
-                    {   
-                        list[activeCarId-1].icon2R == 1
-                        ? <MdFlightTakeoff className={ 'text-xl ' }/>
-                        :list[activeCarId-1].icon2R == 2
-                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2R == 3
-                        ? <FaBus />
-                        :list[activeCarId-1].icon2R == 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :<MdLocalHotel className={' text-base'}/>
-                    }
-                </span>
-
-                {list[activeCarId-1].icon2R>0 && <div className={flightCard }>
-                    {list[activeCarId-1].icon2R === 1 && <Select 
-                        className='favorite w-1/2 max-h-[30px]'
-                        style={{width: '100px', borderRadius:5}} 
-                        options={store.flights.map(item=>(
-                            {value: item, label: item}
-                        ))} 
-                        onChange={(e)=>{
-                            setFlight2R({...list[activeCarId-1].flight2R, title: e})
-                        }} 
-                        placeholder='Airlines' 
-                    />}
-                    
-                    {list[activeCarId-1].icon2R === 1
-                        ?< MdFlightTakeoff className='text-xl mx-1'/>
-                        :list[activeCarId-1].icon2R === 2
-                        ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2R === 3
-                        ? <FaBus className=' mx-1'/>
-                        :list[activeCarId-1].icon2R === 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2R === 5 
-                        ?<MdLocalHotel className='mx-1'/>
-                        :<MdFlightLand className='text-xl mx-1'/>
-                    }   
-                    {list[activeCarId-1].icon2R === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        {prefixes[list[activeCarId-1].flight2R.title]}
-                    </div>}
-                    <Input 
-                        value={list[activeCarId-1].flight2R.number}
-                        maxLength={4}
-                        placeholder={list[activeCarId-1].icon2R === 1 ?'####': list[activeCarId-1].icon2R === 2 ? 'Train#' : list[activeCarId-1].icon2R === 3 ? "Bus#" : list[activeCarId-1].icon2R === 4 ? 'Boat#': 'Room#'} 
-                        style={{width:`${list[activeCarId-1].icon2R === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
-                            setFlight2R({...list[activeCarId-1].flight2R, number: e.target.value.replace(/\D/g, '')})
-
-                        }
-                    }/>
-                    {list[activeCarId-1].flight2R.number.length<3 && list[activeCarId-1].flight2R.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
-
-                </div> }
-            </div>}
 
             <div className={btns}>
                 <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser': 'Reset'}</button>
@@ -588,6 +589,7 @@ export default ReturnTrip;
 
 
 
+const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
 
@@ -639,5 +641,5 @@ const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 
 const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 
-const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-4 border-b pb-4'
+const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex flex-col relative w-full px-10 text-xs'

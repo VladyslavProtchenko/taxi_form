@@ -496,10 +496,13 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
 
     return (
         <section className={container}>
+            <div className='z-20 absolute left-[178px] font-bold top-[10px]'>+</div>
             <div className={phoneLabel} onClick={() => setIsOpen(!isOpen)} >
-                {icon === 1 ? <><IoPhonePortraitOutline className='text-blue-500' /><span className=' text-xs ml-1'>
+                {icon === 1 ? <><span className='w-3'><IoPhonePortraitOutline  className='text-blue-500 w-[12px]' /></span><span className=' text-xs mx-1 truncate'>
                     {isFrench ? store.phoneTitleListF[0] : store.phoneTitleList[0]}
-                </span></> : icon === 2 ? <><BsTelephone className='text-blue-500' /><span className=' text-xs ml-1'>{isFrench ? store.phoneTitleListF[1] : store.phoneTitleList[1]}</span></> : <><SlEarphonesAlt className='text-blue-500' /><span className=' text-xs ml-1'>{isFrench ? store.phoneTitleListF[2] : store.phoneTitleList[2]}</span></>}
+                </span></> : icon === 2 
+                    ? <><span className='w-3'><BsTelephone className='text-blue-500 w-[12px]' /></span><span className=' text-xs ml-1 truncate'>{isFrench ? store.phoneTitleListF[1] : store.phoneTitleList[1]}</span></> 
+                    : <><span className='w-3'><SlEarphonesAlt className='text-blue-500 w-[12px]' /></span><span className=' text-xs ml-1 truncate'>{isFrench ? store.phoneTitleListF[2] : store.phoneTitleList[2]}</span></>}
                 <ul className={isOpen ? subMenu : 'hidden'} ref={ref}>
                     <li className={icon === 1 ? 'bg-gray-100 ' + subItem : subItem} onClick={() => setIcon(1)}><IoPhonePortraitOutline className='text-blue-500' /><span className=' text-xs ml-2'>{isFrench ? store.phoneTitleListF[0] : store.phoneTitleList[0]}</span></li>
                     <li className={icon === 2 ? 'bg-gray-100 ' + subItem : subItem} onClick={() => setIcon(2)}> <BsTelephone className='text-blue-500' /><span className=' text-xs ml-2'>{isFrench ? store.phoneTitleListF[1] : store.phoneTitleList[1]}</span> </li>
@@ -514,7 +517,7 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                 selected={selected}
                 searchable
                 customLabels={{"US":"USA"}}
-                className='p-0'
+                className='p-0 px-1 h-[38px] flex items-center border-x-[1px] border-purple-500'
                 onSelect={handleCountryCode}
             />
 
@@ -527,7 +530,8 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                         setRes(res)
                         return true
                     }}
-
+                    
+                    prefix=''
                     dropdownClass='max-w-[180px] z-40'
                     priority={{ ca: 1, us: 0, kz: 0, ru: 1 }}
                     country={'us'}
@@ -550,8 +554,9 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                         setRes(res)
                         return true
                     }}
-
-                    dropdownClass='max-w-[180px] z-40'
+                    
+                    prefix=''
+                    dropdownClass='max-w-[180px] z-40 '
                     priority={{ ca: 0, us: 1, kz: 0, ru: 1 }}
                     country={'ca'}
                     value={value || countryCode}
@@ -576,7 +581,7 @@ export default PhoneNumberInput
 
 const subMenu = 'absolute bg-white z-30 top-[110%] left-0 shadow-xl rounded-lg overflow-hidden px-1'
 const subItem = 'flex text-sm px-3 py-2 items-end hover:bg-blue-50 rounded'
-const phoneLabel = ' flex rounded-l-xl relative items-center pl-1 h-[38px] cursor-pointer hover:bg-gray-100 border-r-[1px] border-gray-200'
-const container = 'flex items-center bg-white rounded-xl w-full'
+const phoneLabel = 'min-w-[75px] flex rounded-l-xl relative items-center pl-1 h-[38px]  cursor-pointer hover:bg-gray-100 '
+const container = 'flex relative items-center bg-white rounded-xl w-full'
 
 

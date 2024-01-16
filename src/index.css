@@ -35,7 +35,7 @@
     overflow-x: hidden;
 }
 .react-tel-input .form-control  {
-    padding-left: 4px;
+    padding-left: 10px;
 }
 
 .flag-dropdown {
@@ -230,7 +230,7 @@ select option {
     padding: 0 2px !important; 
     width: 92px;
     text-overflow: ellipsis;
-    font-size: 14px !important;
+    font-size: 12px !important;
 
 }
 .ReactFlagsSelect-module_fullWidthOptions__1XeR6 {
@@ -249,4 +249,12 @@ select option {
 }
 :where(.css-dev-only-do-not-override-amq5gd).ant-select .ant-select-clear {
     inset-inline-end: 22px !important;
+}
+
+.ReactFlagsSelect-module_label__27pw9, .ReactFlagsSelect-module_secondaryLabel__37t1D{
+    padding-left: 4px !important;
+}
+
+.ReactFlagsSelect-module_selectBtn__19wW7:after, .ReactFlagsSelect-module_selectBtn__19wW7[aria-expanded="true"]:after {
+    right: 4px !important;
 }

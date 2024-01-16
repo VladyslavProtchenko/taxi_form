@@ -328,7 +328,7 @@ const number = 'absolute left-5 text-gray-400 text-xl'
 const warn = 'absolute -top-[15px] left-12 text-xs z-20 text-red-500'
 
 const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-1 text-sm cursor-pointer "
-const extraNameClose = " my-auto ml-2 text-white px-2 py-1 items-center flex justify-center bg-rose-500 rounded cursor-pointer  left-[102%]"
+const extraNameClose = " my-auto ml-2 text-rose-500 px-2 text-xl  text-center flex justify-center border border-black rounded cursor-pointer  left-[102%]"
 
 const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-full '
 

@@ -279,164 +279,197 @@ const TripContent = ():React.ReactNode => {
                     </div>
                 </div>
             </div>
-
-            {list[activeCarId-1].icon>0 && <div className={iconsType}>
-                <span className={iconCard}>
-                    {
-                        list[activeCarId-1].icon == 1
-                        ? <MdFlightLand className={ 'text-xl ' }/>
-                        :list[activeCarId-1].icon == 2
-                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon == 3
-                        ? <FaBus />
-                        :list[activeCarId-1].icon == 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :<MdLocalHotel className={' text-base'}/>
-                    }
-                </span>
-                
-
-                {list[activeCarId-1].icon>0 && <div className={flightCard }>
-                    
-                    {list[activeCarId-1].icon === 1 && 
-                    <Select 
-                        className='favorite w-1/2 max-h-[30px]'
-                        style={{ borderRadius: 5}} 
-                        options={store.flights.map(item=>(
-                            {value: item, label: item}
-                        ))} 
-                        onChange={(e)=>{
-                            setFlight({...list[activeCarId-1].flight, title: e})
-                        }} 
-                        placeholder='Airlines'
-                    />}
-                    
-                    {list[activeCarId-1].icon === 1
-                        ?<MdFlightLand className='text-xl mx-1 e'/>
-                        :list[activeCarId-1].icon === 2
-                        ?<div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon === 3
-                        ? <FaBus className=' mx-1 sm:text-sm'/>
-                        :list[activeCarId-1].icon === 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon === 5 
-                        ?<MdLocalHotel className='mx-1 '/>
-                        :<MdFlightTakeoff className='text-xl mx-1 '/>
-                    }   
-                    {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        { prefixes[list[activeCarId-1].flight.title]}
-                    </div>}
-                    <Input
-                        value={list[activeCarId-1].flight.number}
-                        maxLength={4}
-                        placeholder={list[activeCarId-1].icon === 1 ?'####': list[activeCarId-1].icon === 2 ? 'Train#' : list[activeCarId-1].icon === 3 ? "Bus#" : list[activeCarId-1].icon === 4 ? 'Boat#': 'Room#'} 
-                        style={{ width:65, paddingLeft:0,paddingRight:0, borderRadius: 0, height: 30}} 
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
-                            setFlight({...list[activeCarId-1].flight, number: e.target.value.replace(/\D/g, '')})
-                        }}
-                    />
-                    {list[activeCarId-1].flight.number.length<3 && list[activeCarId-1].flight.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
-                </div>}
-            </div>}
-
-            <div className={locationCard}>
-                <div className={isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
-                    <span className='icon text-green-500 '><SlLocationPin/></span>
-                    <GoogleAddressInput
-                        style='w-full' 
-                        defaultLocation={list[activeCarId-1].from || ''} 
-                        onChange={setFrom}
-                        placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
-                    />
-                </div>
-                {list[activeCarId-1].icon === 1 && 
-                <div className={departureBox}>
-                    <Select 
-                        className='favorite truncate'
-                        style={{borderRadius: 20}} 
-                        options={store.departureSections.map(item=>(
-                            {value: item, label: item}
-                        ))}   
-                        onChange={setDeparture} 
-                        placeholder='Departure' 
-                    />
-                </div>}
-            </div>
-        
-            <div className={extraCardStop}>
-                <div className={(stop > 0)? box: box + ' opacity-0 '}>
-                    <span className='icon text-orange-400'><SlLocationPin/></span>  
-                    <GoogleAddressInput
-                        style='w-full'
-                        defaultLocation={localStops[1] || ''} 
-                        onChange={(e)=>setLocalStops({...localStops, 1:e})}
-                        placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
-                    />
-                </div>
-                <div className={(stop === 0) ? openStop :'hidden'} onClick={()=>setStop(1)}>+ stop</div> 
-                <div 
-                    className={(stop > 0 ) ? closeStop : 'hidden'} 
-                    onClick={()=>{
-                        if(stop===0) return setStop(1);
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 0)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setLocalStops(data)
-                        setStops(data)
-                        setStop(stop - 1)
-                    }}
-                ><span className='scale-[150%] translate-x-[0.5px] font-bold rotate-45'>+</span></div> 
-            </div>
             
-            <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
-                <div className={stop > 1 ? box: box + ' opacity-0 '}>
-                    <span className='icon  text-orange-400'><SlLocationPin/></span>
-                    <GoogleAddressInput
-                        style='w-full'
-                        defaultLocation={localStops[2] || ''} 
-                        onChange={(e)=>{setLocalStops({...localStops, 2:e})}}
-                        placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
-                    />
-                </div>
-                <div className={(stop === 1) ? openStop : 'hidden'} onClick={()=> setStop(2)} >+ stop</div>
-                <div 
-                    className={(stop > 1) ? closeStop : 'hidden'} 
-                    onClick={()=>{ 
-                        if(stop===1) return setStop(2);
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 1)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setLocalStops(data)
-                        setStops(data)
-                        setStop(stop - 1)
-                    }}
-                ><span className='scale-[150%] font-bold rotate-45'>+</span></div>
-            </div>
+            <div className={locations}>
 
-            <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
-                    <div className={stop > 2 ? box : box + ' opacity-0 '}>
+                {list[activeCarId-1].icon>0 && <div className={iconsType}>
+                    <span className={iconCard}>
+                        {
+                            list[activeCarId-1].icon == 1
+                            ? <MdFlightLand className={ 'text-xl ' }/>
+                            :list[activeCarId-1].icon == 2
+                            ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon == 3
+                            ? <FaBus />
+                            :list[activeCarId-1].icon == 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :<MdLocalHotel className={' text-base'}/>
+                        }
+                    </span>
+                    
+
+                    {list[activeCarId-1].icon>0 && <div className={flightCard }>
+                        
+                        {list[activeCarId-1].icon === 1 && 
+                        <Select 
+                            className='favorite w-1/2 max-h-[30px]'
+                            style={{ borderRadius: 5}} 
+                            options={store.flights.map(item=>(
+                                {value: item, label: item}
+                            ))} 
+                            onChange={(e)=>{
+                                setFlight({...list[activeCarId-1].flight, title: e})
+                            }} 
+                            placeholder='Airlines'
+                        />}
+                        
+                        {list[activeCarId-1].icon === 1
+                            ?<MdFlightLand className='text-xl mx-1 e'/>
+                            :list[activeCarId-1].icon === 2
+                            ?<div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon === 3
+                            ? <FaBus className=' mx-1 sm:text-sm'/>
+                            :list[activeCarId-1].icon === 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon === 5 
+                            ?<MdLocalHotel className='mx-1 '/>
+                            :<MdFlightTakeoff className='text-xl mx-1 '/>
+                        }   
+                        {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                            { prefixes[list[activeCarId-1].flight.title]}
+                        </div>}
+                        <Input
+                            value={list[activeCarId-1].flight.number}
+                            maxLength={4}
+                            placeholder={list[activeCarId-1].icon === 1 ?'####': list[activeCarId-1].icon === 2 ? 'Train#' : list[activeCarId-1].icon === 3 ? "Bus#" : list[activeCarId-1].icon === 4 ? 'Boat#': 'Room#'} 
+                            style={{ width:65, paddingLeft:0,paddingRight:0, borderRadius: 0, height: 30}} 
+                            onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                                setFlight({...list[activeCarId-1].flight, number: e.target.value.replace(/\D/g, '')})
+                            }}
+                        />
+                        {list[activeCarId-1].flight.number.length<3 && list[activeCarId-1].flight.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+                    </div>}
+                </div>}
+
+                <div className={locationCard}>
+                    <div className={isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                        <span className='icon text-green-500 '><SlLocationPin/></span>
+                        <GoogleAddressInput
+                            style='w-full' 
+                            defaultLocation={list[activeCarId-1].from || ''} 
+                            onChange={setFrom}
+                            placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
+                        />
+                    </div>
+                    {list[activeCarId-1].icon === 1 && 
+                    <div className={departureBox}>
+                        <Select 
+                            className='favorite truncate'
+                            style={{borderRadius: 20}} 
+                            options={store.departureSections.map(item=>(
+                                {value: item, label: item}
+                            ))}   
+                            onChange={setDeparture} 
+                            placeholder='Departure' 
+                        />
+                    </div>}
+                </div>
+            
+                <div className={extraCardStop}>
+                    <div className={(stop > 0)? box: box + ' opacity-0 '}>
+                        <span className='icon text-orange-400'><SlLocationPin/></span>  
+                        <GoogleAddressInput
+                            style='w-full'
+                            defaultLocation={localStops[1] || ''} 
+                            onChange={(e)=>setLocalStops({...localStops, 1:e})}
+                            placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
+                        />
+                    </div>
+                    <div className={(stop === 0) ? openStop :'hidden'} onClick={()=>setStop(1)}>+ stop</div> 
+                    <div 
+                        className={(stop > 0 ) ? closeStop : 'hidden'} 
+                        onClick={()=>{
+                            if(stop===0) return setStop(1);
+                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 0)
+                            const data: IObj ={}
+                            array.map((item, index) => {
+                                const number  = index+1;
+                                data[number] = item;
+                            })
+                            setLocalStops(data)
+                            setStops(data)
+                            setStop(stop - 1)
+                        }}
+                    ><span className='scale-[150%] translate-x-[0.5px] font-bold rotate-45'>+</span></div> 
+                </div>
+                
+                <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
+                    <div className={stop > 1 ? box: box + ' opacity-0 '}>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
                             style='w-full'
-                            defaultLocation={localStops[3] || ''} 
-                            onChange={(e)=>{
-                                setLocalStops({...localStops, 3:e})
-                            }}
-                            placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
+                            defaultLocation={localStops[2] || ''} 
+                            onChange={(e)=>{setLocalStops({...localStops, 2:e})}}
+                            placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
                         />
                     </div>
-                    <div  className={(stop === 2) ? openStop :' hidden '} onClick={()=>setStop(3)} >+ stop</div> 
+                    <div className={(stop === 1) ? openStop : 'hidden'} onClick={()=> setStop(2)} >+ stop</div>
                     <div 
-                        className={(stop > 2) ? closeStop :'hidden'} 
+                        className={(stop > 1) ? closeStop : 'hidden'} 
                         onClick={()=>{ 
-                            if(stop===2) return setStop(3);
-                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
+                            if(stop===1) return setStop(2);
+                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 1)
+                            const data: IObj ={}
+                            array.map((item, index) => {
+                                const number  = index+1;
+                                data[number] = item;
+                            })
+                            setLocalStops(data)
+                            setStops(data)
+                            setStop(stop - 1)
+                        }}
+                    ><span className='scale-[150%] font-bold rotate-45'>+</span></div>
+                </div>
+
+                <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
+                        <div className={stop > 2 ? box : box + ' opacity-0 '}>
+                            <span className='icon  text-orange-400'><SlLocationPin/></span>
+                            <GoogleAddressInput
+                                style='w-full'
+                                defaultLocation={localStops[3] || ''} 
+                                onChange={(e)=>{
+                                    setLocalStops({...localStops, 3:e})
+                                }}
+                                placeholder={isFrench? store.locationListF[4]:store.locationList[4]}
+                            />
+                        </div>
+                        <div  className={(stop === 2) ? openStop :' hidden '} onClick={()=>setStop(3)} >+ stop</div> 
+                        <div 
+                            className={(stop > 2) ? closeStop :'hidden'} 
+                            onClick={()=>{ 
+                                if(stop===2) return setStop(3);
+                                const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 2)
+                                const data: IObj ={}
+                                array.map((item, index) => {
+                                    const number  = index+1;
+                                    data[number] = item;
+                                })
+                                setLocalStops(data)
+                                setStops(data)
+                                setStop(stop - 1)
+                            }}
+                        ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
+                </div>
+
+                <div className={(stop > 2 ) ?  extraCardStop: 'hidden'}>
+                    <div className={stop > 3 ? box : box + ' opacity-0 '}>
+                        <span className='icon  text-orange-400'><SlLocationPin/></span>
+                        <GoogleAddressInput
+                            style='w-full'
+                            defaultLocation={localStops[4] || ''} 
+                            onChange={(e)=>{
+                                setLocalStops({...localStops, 4:e})
+                            }}
+                            placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
+                        />
+                    </div>
+
+                    <div className={(stop === 3) ? openStop :'hidden'} onClick={()=>setStop(4)}>+ stop</div> 
+                    <div 
+                        className={(stop > 3) ? closeStop :'hidden'} 
+                        onClick={()=>{ 
+                            if(stop===3) return setStop(4);
+                            const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 3)
                             const data: IObj ={}
                             array.map((item, index) => {
                                 const number  = index+1;
@@ -447,121 +480,91 @@ const TripContent = ():React.ReactNode => {
                             setStop(stop - 1)
                         }}
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
-            </div>
-
-            <div className={(stop > 2 ) ?  extraCardStop: 'hidden'}>
-                <div className={stop > 3 ? box : box + ' opacity-0 '}>
-                    <span className='icon  text-orange-400'><SlLocationPin/></span>
-                    <GoogleAddressInput
-                        style='w-full'
-                        defaultLocation={localStops[4] || ''} 
-                        onChange={(e)=>{
-                            setLocalStops({...localStops, 4:e})
-                        }}
-                        placeholder={isFrench? store.locationListF[5]:store.locationList[5]}
-                    />
                 </div>
 
-                <div className={(stop === 3) ? openStop :'hidden'} onClick={()=>setStop(4)}>+ stop</div> 
-                <div 
-                    className={(stop > 3) ? closeStop :'hidden'} 
-                    onClick={()=>{ 
-                        if(stop===3) return setStop(4);
-                        const array = Object.values(list[activeCarId-1].stops).filter((_, index) => index !== 3)
-                        const data: IObj ={}
-                        array.map((item, index) => {
-                            const number  = index+1;
-                            data[number] = item;
-                        })
-                        setLocalStops(data)
-                        setStops(data)
-                        setStop(stop - 1)
-                    }}
-                ><span className='scale-[150%] font-bold rotate-45'>+</span></div> 
-            </div>
 
-
-            <div className={locationCard}>
-                <div className={isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
-                    <span className='icon text-red-500'><SlLocationPin/></span>
-                    <GoogleAddressInput
-                        style='w-full' 
-                        defaultLocation={list[activeCarId-1].to || ''} 
-                        onChange={setTo}
-                        placeholder={isFrench? store.locationListF[1]:store.locationList[1]}
-                    />
-                </div>
-                {list[activeCarId-1].icon2 ===1 && 
-                <div className={departureBox}>
-                <Select 
-                    style={{borderRadius: 5}}
-                    className='favorite truncate '
-                    options={store.departureSections.map(item=>(
-                        {value: item, label: item}
-                    ))}   
-                    onChange={setDeparture2} 
-                    placeholder='Departure' 
-                />
-                </div>}
-            </div>
-
-            {list[activeCarId-1].icon2>0 &&  <div className={iconsType}>
-                
-                <span className={iconCard}>
-                    {   
-                        list[activeCarId-1].icon2 == 1
-                        ? <MdFlightLand className={ 'text-xl ' }/>
-                        :list[activeCarId-1].icon2 == 2
-                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2 == 3
-                        ? <FaBus/>
-                        :list[activeCarId-1].icon2 == 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :<MdLocalHotel className={' text-base'}/>
-                    }
-                </span>
-
-                {list[activeCarId-1].icon2>0 && <div className={flightCard }>
-                    {list[activeCarId-1].icon2 === 1 && 
+                <div className={locationCard}>
+                    <div className={isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
+                        <span className='icon text-red-500'><SlLocationPin/></span>
+                        <GoogleAddressInput
+                            style='w-full' 
+                            defaultLocation={list[activeCarId-1].to || ''} 
+                            onChange={setTo}
+                            placeholder={isFrench? store.locationListF[1]:store.locationList[1]}
+                        />
+                    </div>
+                    {list[activeCarId-1].icon2 ===1 && 
+                    <div className={departureBox}>
                     <Select 
-                        className='favorite w-1/2 max-h-[30px]'
-                        style={{width: '100px', borderRadius: 5}} 
-                        options={store.flights.map(item=>(
+                        style={{borderRadius: 5}}
+                        className='favorite truncate '
+                        options={store.departureSections.map(item=>(
                             {value: item, label: item}
-                        ))} 
-                        onChange={(e)=>{setFlight2({...list[activeCarId-1].flight2, title: e})}}
-                        placeholder='Airlines' 
-                    />}
-                    
-                    {list[activeCarId-1].icon2 === 1
-                        ?<MdFlightTakeoff className='text-xl mx-1'/>
-                        :list[activeCarId-1].icon2 === 2
-                        ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2 === 3
-                        ? <FaBus className=' mx-1'/>
-                        :list[activeCarId-1].icon2 === 4
-                        ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                        :list[activeCarId-1].icon2 === 5 
-                        ?<MdLocalHotel className='mx-1'/>
-                        :<MdFlightLand className='text-xl mx-1'/>
-                    }
-                    {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                        { prefixes[list[activeCarId-1].flight2.title]}
-                    </div>}
-                    <Input 
-                        value={list[activeCarId-1].flight2.number}
-                        maxLength={4}
-                        placeholder={list[activeCarId-1].icon2 === 1 ?'####': list[activeCarId-1].icon2 === 2 ? 'Train#' : list[activeCarId-1].icon2 === 3 ? "Bus#" : list[activeCarId-1].icon2 === 4 ? 'Boat#': 'Room#'} 
-                        className={list[activeCarId-1].icon === 1 ? ' max-w-[80px]': '' } 
-                        style={{ width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{
-                            setFlight2({...list[activeCarId-1].flight2, number: e.target.value.replace(/\D/g, '')})
-                        }}
+                        ))}   
+                        onChange={setDeparture2} 
+                        placeholder='Departure' 
                     />
-                    {list[activeCarId-1].flight2.number.length<3 && list[activeCarId-1].flight2.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+                    </div>}
+                </div>
 
+                {list[activeCarId-1].icon2>0 &&  <div className={iconsType}>
+                    
+                    <span className={iconCard}>
+                        {   
+                            list[activeCarId-1].icon2 == 1
+                            ? <MdFlightLand className={ 'text-xl ' }/>
+                            :list[activeCarId-1].icon2 == 2
+                            ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon2 == 3
+                            ? <FaBus/>
+                            :list[activeCarId-1].icon2 == 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :<MdLocalHotel className={' text-base'}/>
+                        }
+                    </span>
+
+                    {list[activeCarId-1].icon2>0 && <div className={flightCard }>
+                        {list[activeCarId-1].icon2 === 1 && 
+                        <Select 
+                            className='favorite w-1/2 max-h-[30px]'
+                            style={{width: '100px', borderRadius: 5}} 
+                            options={store.flights.map(item=>(
+                                {value: item, label: item}
+                            ))} 
+                            onChange={(e)=>{setFlight2({...list[activeCarId-1].flight2, title: e})}}
+                            placeholder='Airlines' 
+                        />}
+                        
+                        {list[activeCarId-1].icon2 === 1
+                            ?<MdFlightTakeoff className='text-xl mx-1'/>
+                            :list[activeCarId-1].icon2 === 2
+                            ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon2 === 3
+                            ? <FaBus className=' mx-1'/>
+                            :list[activeCarId-1].icon2 === 4
+                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
+                            :list[activeCarId-1].icon2 === 5 
+                            ?<MdLocalHotel className='mx-1'/>
+                            :<MdFlightLand className='text-xl mx-1'/>
+                        }
+                        {list[activeCarId-1].icon === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
+                            { prefixes[list[activeCarId-1].flight2.title]}
+                        </div>}
+                        <Input 
+                            value={list[activeCarId-1].flight2.number}
+                            maxLength={4}
+                            placeholder={list[activeCarId-1].icon2 === 1 ?'####': list[activeCarId-1].icon2 === 2 ? 'Train#' : list[activeCarId-1].icon2 === 3 ? "Bus#" : list[activeCarId-1].icon2 === 4 ? 'Boat#': 'Room#'} 
+                            className={list[activeCarId-1].icon === 1 ? ' max-w-[80px]': '' } 
+                            style={{ width:`${list[activeCarId-1].icon2 === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}} 
+                            onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                                setFlight2({...list[activeCarId-1].flight2, number: e.target.value.replace(/\D/g, '')})
+                            }}
+                        />
+                        {list[activeCarId-1].flight2.number.length<3 && list[activeCarId-1].flight2.number.length>0 && <div className='absolute right-0 -bottom-4 text-[10px] text-red-500'>from 3 to 4 digits</div>}
+
+                    </div>}
                 </div>}
-            </div>}
+            </div>
 
             <div className={list[activeCarId-1].type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser': 'Reset'}</button>
@@ -572,14 +575,13 @@ const TripContent = ():React.ReactNode => {
                 <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>
-
-
     </div>
     );
 };
 
 export default TripContent;
 
+const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
@@ -631,5 +633,5 @@ const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-50
 
 const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 
-const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-4 border-b pb-4'
+const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex flex-col relative w-full px-10 text-xs'

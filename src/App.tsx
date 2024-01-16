@@ -6,9 +6,9 @@ import fr from './assets/france.png'
 import { PiUserListLight } from "react-icons/pi";
 
 import { CiLocationOn } from "react-icons/ci";
-import { CiBoxList } from "react-icons/ci";
 import { CiMoneyCheck1 } from "react-icons/ci";
 import { MdOutlineModeOfTravel } from "react-icons/md";
+import { IoPeopleOutline } from "react-icons/io5";
 
 import { IoCheckmarkDone } from "react-icons/io5";
 import { IoCarSportOutline } from "react-icons/io5";
@@ -19,7 +19,7 @@ import dayjs from "dayjs";
 import { useStore } from './Store/index';
 
 function App():React.ReactNode {
-  const { list,submit, setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
+  const { list, submit, setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
   const { store } = useStore()
 
   useEffect(()=>{
@@ -41,42 +41,7 @@ function App():React.ReactNode {
                   <TiInfoLarge className='cursor-pointer '/>
             </div>
           </div>
-
-          <ul className={tabsContainer}>
-            <li className='px-4'>taxis</li>
-            <li 
-                className={activeCarId ===1  ? activeTab : activeCarId == 2 ? tab + ' rounded-br border-t  ' :  tab +"  rounded-tr border-b-gray-100" }
-                onClick={()=> setActiveCarId(1) }
-            >1<span className={isFrench?'font-light mx-[1px] w-3  -translate-y-[4px] ':'font-light mx-[1px] w-3  '}>{isFrench? 'er': 'st'}</span></li>
-            <li 
-                className={activeCarId===2 ? activeTab  : activeCarId ===3 ? tab + '  rounded-br ' : activeCarId===1 ? tab + ' rounded-tr ' : tab+ ' ' }
-                onClick={()=>{
-                  if(!isCars[1]) return
-                  setActiveCarId(2)
-                }}
-            >+2<span className={isFrench?'font-light mx-[1px] w-3  -translate-y-[6px] ':'font-light  mx-[1px] w-3  '}>{isFrench? 'e': 'nd'}</span></li>
-            <li 
-                className={activeCarId===3 ? activeTab  : activeCarId===4 ? tab + 'rounded-br ' : activeCarId===2 ? tab + '  rounded-tr': tab + ' '}
-                onClick={()=>{
-                  if(!isCars[2] || !isCars[1]) return
-                  setActiveCarId(3)
-                }}
-            >+3<span className={isFrench?'font-light  mx-[1px] w-3  -translate-y-[6px] ':'font-light  mx-[1px] w-3  '}>{isFrench? 'e': 'rd'}</span></li>
-            <li 
-                className={activeCarId===4 ? activeTab  : activeCarId===5 ? tab + '  rounded-br ' : activeCarId===3 ? tab + ' rounded-tr': tab + ' '}
-                onClick={()=>{
-                  if(!isCars[3] || !isCars[2] || !isCars[1]) return
-                  setActiveCarId(4)
-                }}
-            >+4<span className={isFrench?'font-light  mx-[1px] w-3  -translate-y-[6px] ':'font-light  mx-[1px] w-3  '}>{isFrench? 'e': 'th'}</span></li>
-            <li 
-                className={activeCarId===5 ? activeTab : activeCarId===4 ? tab + '  rounded-tr': tab + ' '}
-                onClick={()=>{
-                  if(!isCars[4] || !isCars[3] || !isCars[2] || !isCars[1]) return
-                  setActiveCarId(5)
-                }}
-            >+5<span className={isFrench?'font-light  mx-[1px] w-3  -translate-y-[6px] ':'font-light t mx-[1px] w-3  '}>{isFrench? 'e': 'th'}</span></li>
-          </ul> 
+ 
         </div>
         
         <div className={content}>
@@ -104,7 +69,7 @@ function App():React.ReactNode {
               setSubmit(false);
               if(list[activeCarId-1].validation>1) setSteps(3)
             }}>
-              <CiBoxList  className={footerIcon}/>
+              <IoPeopleOutline  className={footerIcon}/>
               <span className={footerTabText}>{isFrench? store.menuTabsF[3] : store.menuTabs[3] }</span>
             </span>
 
@@ -140,10 +105,6 @@ const footerIcon = 'text-lg'
 const footerTabText = 'text-[10px]'
 const footerTab = 'flex flex-col items-center  px-3 py-1 text-gray-500 cursor-pointer'
 const footerTabActive = 'flex flex-col items-center  px-3 py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
-
-const activeTab = 'px-1 flex items-center px-3 py-1 sm:px-2 bg-purple-500 text-white bg-gray-100'
-const tab = ' flex items-center cursor-pointer px-3 sm:px-2 py-1'
-const tabsContainer = 'bg-white flex mt-2 items-center text-xs mb-0 shadow-lg rounded-lg overflow-hidden'
 
 const lang = 'flex cursor-pointer items-center  mt-8 mb-2 '
 const langItem = ' px-1 text-gray-600 font-thin'
