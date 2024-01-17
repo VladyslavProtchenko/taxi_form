@@ -48,7 +48,7 @@ function App():React.ReactNode {
 
   useEffect(()=>{
     
-    if(screenWidth< 400) {
+    if(screenWidth< 570) {
       list[activeCarId-1].steps > 3
       ? ref.current?.goToSlide(2)
       : list[activeCarId-1].steps > 2  
