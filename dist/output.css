@@ -1067,10 +1067,6 @@ video {
   width: 35px;
 }
 
-.w-\[480px\]{
-  width: 480px;
-}
-
 .w-\[50\%\]{
   width: 50%;
 }
@@ -1337,10 +1333,6 @@ video {
 
 .overflow-scroll{
   overflow: scroll;
-}
-
-.overflow-x-auto{
-  overflow-x: auto;
 }
 
 .truncate{
@@ -1795,6 +1787,10 @@ video {
 
 .italic{
   font-style: italic;
+}
+
+.leading-3{
+  line-height: .75rem;
 }
 
 .text-\[\#0066ff\]{
