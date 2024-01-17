@@ -634,6 +634,10 @@ video {
   left: 0px;
 }
 
+.left-1{
+  left: 0.25rem;
+}
+
 .left-12{
   left: 3rem;
 }
@@ -656,10 +660,6 @@ video {
 
 .left-\[102\%\]{
   left: 102%;
-}
-
-.left-\[178px\]{
-  left: 178px;
 }
 
 .right-0{
@@ -710,10 +710,6 @@ video {
   top: 104%;
 }
 
-.top-\[10px\]{
-  top: 10px;
-}
-
 .top-\[110\%\]{
   top: 110%;
 }
@@ -724,6 +720,10 @@ video {
 
 .top-\[30px\]{
   top: 30px;
+}
+
+.top-\[6px\]{
+  top: 6px;
 }
 
 .top-full{

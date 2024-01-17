@@ -496,7 +496,6 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
 
     return (
         <section className={container}>
-            <div className='z-20 absolute left-[178px] font-bold top-[10px]'>+</div>
             <div className={phoneLabel} onClick={() => setIsOpen(!isOpen)} >
                 {icon === 1 ? <><span className='w-3'><IoPhonePortraitOutline  className='text-blue-500 w-[12px]' /></span><span className=' text-xs mx-1 truncate'>
                     {isFrench ? store.phoneTitleListF[0] : store.phoneTitleList[0]}
@@ -520,8 +519,11 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                 className='p-0 px-1 h-[38px] flex items-center border-x-[1px] border-purple-500'
                 onSelect={handleCountryCode}
             />
+            <div className="relative">
+            <div className='z-20 absolute left-1 font-bold top-[6px]'>+</div>
 
             {(country === 'USA' || country.toLowerCase() === "united states") &&
+                
                 <PhoneInput
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     isValid={(value, country: any,) => {
@@ -573,6 +575,7 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                     }}
                 />
             }
+            </div>
         </section>
     )
 }
