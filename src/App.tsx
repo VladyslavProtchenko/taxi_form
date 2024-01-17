@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useMain } from "./Store/useMain"
 import Form from "./pages/Form/Form"
 import en from './assets/english.png'
@@ -15,6 +15,7 @@ import { MdOutlineModeOfTravel } from "react-icons/md";
 import { IoPeopleOutline } from "react-icons/io5";
 import { PiSuitcaseRollingThin } from "react-icons/pi";
 import { IoCheckmarkDone } from "react-icons/io5";
+import { FaSortDown } from "react-icons/fa";
 
 import { TiInfoLarge } from "react-icons/ti";
 
@@ -26,6 +27,7 @@ function App():React.ReactNode {
     // submit, 
     setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
   const { store } = useStore()
+  const [screenWidth] = useState(window.innerWidth);
 
   useEffect(()=>{
     ( dayjs().format('HH') > '05' && dayjs().format('HH') < '23') ? setDay(true): setDay(false)
@@ -46,20 +48,18 @@ function App():React.ReactNode {
 
   useEffect(()=>{
     
-    
+    if(screenWidth< 400) {
       list[activeCarId-1].steps > 3
       ? ref.current?.goToSlide(2)
       : list[activeCarId-1].steps > 2  
       ? ref.current?.goToSlide(1)
       : ref.current?.goToSlide(0)
-    
-      // list[activeCarId-1].steps>3
-      // ? setTranslation(140)
-      // : list[activeCarId-1].steps>2  
-      // ? setTranslation( 70 +(70 * (list[activeCarId-1].steps - 2)))
-      // : setTranslation(0)
+    }
+      
 
   },[list[activeCarId-1].steps])
+
+  
   return (
     <div className={container} >
       <div className={wrapper}>
@@ -80,100 +80,87 @@ function App():React.ReactNode {
         <div className={content}>
           <Form />
         </div>
-        <div className={footer}>
-          <Carousel 
-            ref={ref}
-            showDots={false}
-            arrows={false}
-            responsive={responsive}
-          >
-              {
-                (isFrench? store.menuTabsF : store.menuTabs).map((item, index)=> (
-                      <span key={item} className={ list[activeCarId-1].steps===index?footerTabActive : footerTab  } onClick={()=>{setSubmit(false); setSteps(index)}}>
-                        {index === 0
-                          ?  <MdOutlineModeOfTravel  className={footerIcon}/>
-                          : index === 1
-                          ? <PiUserListLight className={footerIcon}/>
-                          : index === 2
-                          ? <CiLocationOn className={footerIcon} />
-                          : index === 3
-                          ? <IoPeopleOutline  className={footerIcon}/>
-                          : index === 4
-                          ? <PiSuitcaseRollingThin className={footerIcon}/>
-                          : index === 5
-                          ? <CiMoneyCheck1 className={footerIcon} />
-                          : <IoCheckmarkDone className={footerIcon} />
-                        }
-                        <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
-                      </span>
-                  )
-                )
-              }
-          </Carousel>
+        <div className="fixed -bottom-1 z-20 left-0 right-0 bg-white py-2 border-t">
+        <div className={"xs:hidden flex justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
+              {[0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
+                    ? <FaSortDown className={arrIcon}/>
+                    : <div className='w-[20px]'></div> 
+              )}
         </div>
-
-
+        <div className={" xs:flex hidden justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
+              {[1,1,1,1,1].map((_,index)=> {
+                  if(list[activeCarId-1].steps === 3 || list[activeCarId-1].steps === 4){
+                    return index === 2
+                    ? <FaSortDown className={arrIcon}/>
+                    : <div className='w-[20px]'></div>
+                  } else if( list[activeCarId-1].steps === 5) {
+                    return index === 3
+                    ? <FaSortDown className={arrIcon}/>
+                    : <div className='w-[20px]'></div>
+                  }else if( list[activeCarId-1].steps === 6) {
+                    return index === 4
+                    ? <FaSortDown className={arrIcon}/>
+                    : <div className='w-[20px]'></div>
+                  } else {
+                    return list[activeCarId-1].steps === index
+                    ? <FaSortDown className={arrIcon}/>
+                    : <div className='w-[20px]'></div> 
+                  }
+              })}
+        </div>
             
+            <Carousel 
+              className='max-w-[570px] text-center mx-auto'
+              ref={ref}
+              showDots={false}
+              arrows={false}
+              responsive={responsive}
+            >
+                {
+                  (isFrench? store.menuTabsF ||[1,3,3,3,3,3,3,3,3] : store.menuTabs ||[1,3,3,3,3,3,3,3,3] ).map((item, index)=> (
+                        <span key={item} className={ list[activeCarId-1].steps===index?footerTabActive : footerTab  } onClick={()=>{setSubmit(false); setSteps(index)}}>
+                          
+                          {index === 0
+                            ?  <MdOutlineModeOfTravel  className={footerIcon}/>
+                            : index === 1
+                            ? <PiUserListLight className={footerIcon}/>
+                            : index === 2
+                            ? <CiLocationOn className={footerIcon} />
+                            : index === 3
+                            ? <IoPeopleOutline  className={footerIcon}/>
+                            : index === 4
+                            ? <PiSuitcaseRollingThin className={footerIcon}/>
+                            : index === 5
+                            ? <CiMoneyCheck1 className={footerIcon} />
+                            : <IoCheckmarkDone className={footerIcon} />
+                          }
+                          <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
+                        </span>
+                    )
+                  )
+                }
+            </Carousel>
+        </div>
+        
 
 
-            {/*<span className={list[activeCarId-1].steps===0?footerTabActive: footerTab} onClick={()=>{setSubmit(false); setSteps(0)}}>
-              <MdOutlineModeOfTravel  className={footerIcon}/>
-              <span className={footerTabText}>{isFrench? store.menuTabsF[0] : store.menuTabs[0] }</span>
-            </span>
-            <span className={list[activeCarId-1].steps===1?footerTabActive: footerTab} onClick={()=>{setSubmit(false); setSteps(1)}}>
-              <PiUserListLight className={footerIcon}/>
-              <span className={footerTabText}>{isFrench? store.menuTabsF[1] : store.menuTabs[1] }</span>
-            </span>
-            <span className={list[activeCarId-1].steps===2?footerTabActive: footerTab} onClick={()=>{
-              setSubmit(false);
-                if(list[activeCarId-1].validation>0) setSteps(2)
-              }}>
-              <CiLocationOn className={footerIcon} />
-              <span className={footerTabText}>{isFrench? store.menuTabsF[2] : store.menuTabs[2] }</span>
-            </span>
-            <span className={list[activeCarId-1].steps===3?footerTabActive: footerTab} onClick={()=>{
-              setSubmit(false);
-              if(list[activeCarId-1].validation>1) setSteps(3)
-            }}>
-              <IoPeopleOutline  className={footerIcon}/>
-              <span className={footerTabText}>{isFrench? store.menuTabsF[3] : store.menuTabs[3] }</span>
-            </span>
 
-            <span className={list[activeCarId-1].steps===4?footerTabActive: footerTab} onClick={()=>{
-              setSubmit(false);
-              if(list[activeCarId-1].validation>1) setSteps(4)
-            }}>
-              <IoCarSportOutline className={footerIcon} />
-              <span className={footerTabText}>{isFrench? store.menuTabsF[4] : store.menuTabs[4] }</span>
-            </span>
-
-            <span className={ footerTab} onClick={()=>{}}>
-              <CiMoneyCheck1 className={footerIcon} />
-              <span className={footerTabText}>{isFrench? store.menuTabsF[5] : store.menuTabs[5] }</span>
-            </span>
-
-            <span className={submit?footerTabActive: footerTab} onClick={()=>{
-                setSubmit(true)
-            }}>
-              <IoCheckmarkDone className={footerIcon} />
-              <span className={footerTabText}>{isFrench? store.menuTabsF[6] : store.menuTabs[6] }</span>
-            </span> */}
       </div>
     </div>
   )
 }
 export default App
 
+const arrIcon = ' text-purple-500 text-xl'
 const footerIcon = 'text-lg'
 const footerTabText = 'text-[10px] leading-3 '
 
-const footerTab = 'flex flex-col items-center mx-1 text-center  w-[60px] py-1 text-gray-500 cursor-pointer'
-const footerTabActive = 'flex flex-col text-center mx-1 items-center w-[60px]  py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
+const footerTab = 'flex relative flex-col items-center mx-1 text-center  w-[60px] py-1 text-gray-500 cursor-pointer'
+const footerTabActive = ' relative flex flex-col text-center mx-1 items-center w-[60px]  py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
 
 const lang = 'flex cursor-pointer items-center  mt-6 mb-2 '
 const langItem = ' px-1 text-gray-600 font-thin'
 
-const footer =  'fixed border-t bg-white fixed bottom-0 left-0 right-0 z-20 pb-0 py-2 pb-3'
 const content =  'flex flex-1 w-full justify-center pb-[60px] pt-6'
 const header = 'fixed  z-50 bg-gray-50 flex flex-col px-10 w-full  '
 
