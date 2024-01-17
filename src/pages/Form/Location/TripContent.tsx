@@ -512,7 +512,7 @@ const TripContent = ():React.ReactNode => {
                     <span className={iconCard}>
                         {   
                             list[activeCarId-1].icon2 == 1
-                            ? <MdFlightLand className={ 'text-xl ' }/>
+                            ? <MdFlightTakeoff className={ 'text-xl ' }/>
                             :list[activeCarId-1].icon2 == 2
                             ? <div style={{backgroundImage:`url(${train})`}}  className="w-8 h-8 bg-contain bg-no-repeat bg-center"></div>
                             :list[activeCarId-1].icon2 == 3
@@ -527,7 +527,7 @@ const TripContent = ():React.ReactNode => {
                         {list[activeCarId-1].icon2 === 1 && 
                         <Select 
                             className='favorite w-1/2 max-h-[30px]'
-                            style={{width: '100px', borderRadius: 5}} 
+                            style={{ borderRadius: 5}} 
                             options={store.flights.map(item=>(
                                 {value: item, label: item}
                             ))} 
@@ -634,4 +634,4 @@ const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-50
 const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
-const container = 'flex flex-col relative w-full px-10 text-xs'
+const container = 'flex flex-col relative w-full px-5 text-xs'

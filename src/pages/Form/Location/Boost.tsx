@@ -198,5 +198,5 @@ const toggleLabelActive ='flex min-w-[42px] z-20 items-center py-1 text-xs  dura
 
 const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 
-const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-4 border-b pb-4'
+const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex flex-col relative w-full px-10 text-xs mt-12'

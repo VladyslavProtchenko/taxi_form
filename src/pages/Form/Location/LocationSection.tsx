@@ -4,11 +4,14 @@ import ReturnTrip from "./ReturnTrip";
 import TripContent from "./TripContent";
 import { useMain } from "../../../Store/useMain";
 import Boost from "./Boost";
+import { useStore } from '../../../Store/index';
+import { CgArrowLongLeft,CgArrowLongRight } from "react-icons/cg";
 
 
 const LocationSection = ():React.ReactNode => {
     const [ returnCard, setReturnCard ] = useState(false)
-    const { list, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    const { store } = useStore()
+    const { list, setIsReturnStatus, isFrench, setIsReturnTrip, activeCarId } = useMain()
 
 
     useEffect(()=>{
@@ -20,8 +23,8 @@ const LocationSection = ():React.ReactNode => {
     return (
         <section className={section}>
             
-            <div className={(list[activeCarId-1].type<3)?'flex w-full px-10 mt-4': 'hidden'}>
-                {list[activeCarId-1].isReturnTrip && <div className={returnTabsActive}>
+            <div className={(list[activeCarId-1].type<3)?'flex flex-col w-full px-10 mt-4': 'hidden'}>
+                {/* {list[activeCarId-1].isReturnTrip && <div className={returnTabsActive}>
                     <div 
                         className={returnCard ? returnTab : returnTabActive }
                         onClick={()=>setReturnCard(false)}
@@ -30,21 +33,41 @@ const LocationSection = ():React.ReactNode => {
                     {list[activeCarId-1].isReturnTrip &&<div 
                         className={returnCard ? returnTabActive : returnTab}
                         onClick={()=>setReturnCard(true)}
-                    >Return</div>}
+                    >{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</div>}
 
                     <div className={ returnCard ? returnTabBg+ ' translate-x-full':returnTabBg  }></div>
-                </div> }
+                </div> } */}
 
-                {!list[activeCarId-1].isReturnTrip &&
+                {/* {!list[activeCarId-1].isReturnTrip && */}
                     <div className='flex w-full '>
-                    <div className={returnTabActiveOne}>One-Way</div>
-                        <div className={activeReturnTripBtn} onClick={()=>setIsReturnTrip(true)}><span className="font-bold text-[16px] mr-1">+</span>Return</div>
-                    </div>}
+                        <div className={returnTabActiveOne}>{
+                            returnCard
+                            ? isFrench? store.tripTitlesF[1] : store.tripTitles[1]
+                            : isFrench? store.tripTitlesF[0] : store.tripTitles[0]
+                        }</div>
+                        <div 
+                            className={activeReturnTripBtn} 
+                            onClick={()=>setIsReturnTrip(!list[activeCarId-1].isReturnTrip)}
+                        ><span className="font-bold text-[16px] mr-1">{list[activeCarId-1].isReturnTrip ? '-' :'+'}</span>Return</div>
+                    </div>
+                    {/* } */}
+                {list[activeCarId-1].isReturnTrip && <div className="flex py-2 my-2">
+                    {!returnCard
+                        ? <span 
+                            onClick={()=>setReturnCard(true)} 
+                            className='flex ml-auto text-gray-800 items-center cursor-pointer hover:text-gray-400'
+                        > {isFrench? store.tripTitlesF[1] : store.tripTitles[1]} <CgArrowLongRight className="ml-1"  /></span>
+                        : <span 
+                            onClick={()=>setReturnCard(false)} 
+                            className='flex self-start text-gray-800 items-center cursor-pointer hover:text-gray-400'
+                        > <CgArrowLongLeft className="mr-1" />{isFrench? store.tripTitlesF[0] : store.tripTitles[0]}</span>
+                    }
+                </div>}
             </div>
             
             
             <div className={(!returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><TripContent /></div>
-            <div className={(returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><ReturnTrip setReturnCard={setReturnCard}/></div>
+            <div className={(returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><ReturnTrip /></div>
             <div className={( (list[activeCarId-1].type>2))? '': 'hidden'} ><Boost /></div>
         </section>
     );
@@ -52,12 +75,13 @@ const LocationSection = ():React.ReactNode => {
 
 export default LocationSection;
 
-const activeReturnTripBtn = 'w-1/2 text-center py-2 cursor-pointer active:bg-white text-purple-700 rounded-lg hover:shadow-xl '
-const returnTabBg = 'absolute w-1/2 bg-purple-500 top-0 bottom-0 rounded-lg duration-300'
-const returnTab = 'w-1/2 text-center z-10 duration-500  py-2'
-const returnTabActive = 'w-1/2 text-center z-10 text-white duration-500 py-2' 
+const activeReturnTripBtn = 'w-1/2 text-center py-2 cursor-pointer  text-purple-700 rounded-lg hover:underline '
 const returnTabActiveOne = 'w-1/2 items-center justify-center z-10 text-white bg-purple-500 rounded-lg flex shadow-xl' 
-const returnTabsActive = 'relative flex bg-white  shadow-xl  rounded-lg w-full cursor-pointer'
+
+// const returnTabBg = 'absolute w-1/2 bg-purple-500 top-0 bottom-0 rounded-lg duration-300'
+// const returnTab = 'w-1/2 text-center z-10 duration-500  py-2'
+// const returnTabActive = 'w-1/2 text-center z-10 text-white duration-500 py-2' 
+// const returnTabsActive = 'relative flex bg-white  shadow-xl  rounded-lg w-full cursor-pointer'
 
 
 const section = 'flex flex-col w-full  max-w-[576px]'

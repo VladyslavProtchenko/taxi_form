@@ -56,8 +56,8 @@ export const useStore = create<Store>(() => ({
         //  defaultLocations: [ 'Aéroport - Montréal ( 975 Roméo-Vachon)', 'Airport - Saint-Hubert( PASCAN AVIATION)', 'Train - Gare Centrale de Montreal(895 de la //Gauchetière Ouest)', 'Train - Dorval Station','Bus - Bus - Station Centrale d’autobus( 1717 rue Berri)',]
         // defaultLocations: ['Airport - Montreal ( 975 Roméo-Vachon)', 'Airport - Saint-Hubert( PASCAN AVIATION)', 'Train - Central Station( 895 Gauchetière Ouest)', 'Train - Dorval Station', 'Bus - Central Station( 1717 Rue Berri)',],
 
-        menuTabs: ['Service Type' , 'Contacts' ,  'Locations' , 'Passengers' , 'Car Type', 'Payment' , 'Confirmation'],
-        menuTabsF: ['Type Service', 'Contacts',  'Adresses', 'Passagers', 'Type Véhicule', 'Paiement', 'Confirmation'],
+        menuTabs: ['Service Type' , 'Contacts' ,  'Locations' , 'Passengers', 'Baggage', 'Car Type', 'Payment' , 'Confirmation'],
+        menuTabsF: ['Type Service', 'Contacts',  'Adresses', 'Passagers','Baggage', 'Type Véhicule', 'Paiement', 'Confirmation'],
         numbersList: ['st', 'nd', 'rd', 'th'],
         numbersListF: ['st', 'nd', 'rd', 'th'],
 

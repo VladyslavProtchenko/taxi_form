@@ -3,15 +3,15 @@ import { useMain } from "./Store/useMain"
 import Form from "./pages/Form/Form"
 import en from './assets/english.png'
 import fr from './assets/france.png'
-import { PiUserListLight } from "react-icons/pi";
+// import { PiUserListLight } from "react-icons/pi";
 
-import { CiLocationOn } from "react-icons/ci";
-import { CiMoneyCheck1 } from "react-icons/ci";
+// import { CiLocationOn } from "react-icons/ci";
+// import { CiMoneyCheck1 } from "react-icons/ci";
 import { MdOutlineModeOfTravel } from "react-icons/md";
-import { IoPeopleOutline } from "react-icons/io5";
+// import { IoPeopleOutline } from "react-icons/io5";
 
-import { IoCheckmarkDone } from "react-icons/io5";
-import { IoCarSportOutline } from "react-icons/io5";
+// import { IoCheckmarkDone } from "react-icons/io5";
+// import { IoCarSportOutline } from "react-icons/io5";
 
 import { TiInfoLarge } from "react-icons/ti";
 
@@ -19,7 +19,9 @@ import dayjs from "dayjs";
 import { useStore } from './Store/index';
 
 function App():React.ReactNode {
-  const { list, submit, setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
+  const { list, 
+    // submit, 
+    setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
   const { store } = useStore()
 
   useEffect(()=>{
@@ -41,7 +43,6 @@ function App():React.ReactNode {
                   <TiInfoLarge className='cursor-pointer '/>
             </div>
           </div>
- 
         </div>
         
         <div className={content}>
@@ -50,7 +51,18 @@ function App():React.ReactNode {
 
         <div className={footer}>
           <div className={footerWrapper}>
-          <span className={list[activeCarId-1].steps===0?footerTabActive: footerTab} onClick={()=>{setSubmit(false); setSteps(0)}}>
+            {
+              (isFrench? store.menuTabsF : store.menuTabs).map((_item, index)=>{
+
+                return (
+                    <span className={list[activeCarId-1].steps===index? footerTabActive: footerTab} onClick={()=>{setSubmit(false); setSteps(index)}}>
+                      <MdOutlineModeOfTravel  className={footerIcon}/>
+                      <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
+                    </span>
+                )
+              })
+            }
+            {/*<span className={list[activeCarId-1].steps===0?footerTabActive: footerTab} onClick={()=>{setSubmit(false); setSteps(0)}}>
               <MdOutlineModeOfTravel  className={footerIcon}/>
               <span className={footerTabText}>{isFrench? store.menuTabsF[0] : store.menuTabs[0] }</span>
             </span>
@@ -91,7 +103,7 @@ function App():React.ReactNode {
             }}>
               <IoCheckmarkDone className={footerIcon} />
               <span className={footerTabText}>{isFrench? store.menuTabsF[6] : store.menuTabs[6] }</span>
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
@@ -100,18 +112,19 @@ function App():React.ReactNode {
 }
 export default App
 
-const footerWrapper = 'flex max-w-[768px] w-full px-3 py-2 flex justify-around'
+const footerWrapper = 'flex w-[480px] py-2 flex justify-center'
 const footerIcon = 'text-lg'
 const footerTabText = 'text-[10px]'
-const footerTab = 'flex flex-col items-center  px-3 py-1 text-gray-500 cursor-pointer'
-const footerTabActive = 'flex flex-col items-center  px-3 py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
 
-const lang = 'flex cursor-pointer items-center  mt-8 mb-2 '
+const footerTab = 'flex flex-col items-center  w-[60px] py-1 text-gray-500 cursor-pointer'
+const footerTabActive = 'flex flex-col items-center w-[60px]  py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
+
+const lang = 'flex cursor-pointer items-center  mt-6 mb-2 '
 const langItem = ' px-1 text-gray-600 font-thin'
 
-const footer =  'flex justify-center border-t bg-white  fixed bottom-0 left-0 right-0 z-20 '
-const content =  'flex flex-1 w-full justify-center pb-[60px]'
-const header = 'flex flex-col px-10 w-full  '
+const footer =  'flex overflow-x-auto border-t bg-white fixed bottom-0 left-0 right-0 z-20 pb-0'
+const content =  'flex flex-1 w-full justify-center pb-[60px] pt-6'
+const header = 'fixed z-50 bg-gray-50 flex flex-col px-10 w-full  '
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px] main-h-screen'
 const container = 'flex w-full min-w-screen  min-h-screen justify-center bg-gray-50 text-xs'

@@ -25,7 +25,7 @@ import boat from './../../../assets/ship.png'
 
 
 
-const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):React.ReactNode  => {
+const ReturnTrip = ():React.ReactNode  => {
     const {
         list,
         isFrench,
@@ -44,7 +44,6 @@ const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):Reac
         resetReturn,
         setTimeTypeR,
         setSteps,
-        setIsReturnTrip,
     } =useMain()
     const { store } = useStore()
     
@@ -568,13 +567,13 @@ const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):Reac
 
 
             <div className={btns}>
-                <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser': 'Reset'}</button>
+                <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser Adresses': 'Reset Addresses'}</button>
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
-                <button className={cancelReturn} onClick={()=>{
+                {/* <button className={cancelReturn} onClick={()=>{
                     setIsReturnTrip(false)
                     setReturnCard(false)
                     
-                }}>Cancel return</button>
+                }}>Cancel return</button> */}
             </div>
             <div className='w-full flex justify-between  pt-10'>
                 <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
@@ -584,7 +583,6 @@ const ReturnTrip = ({setReturnCard }: {setReturnCard:(data:boolean)=>void}):Reac
     );
 };
 
-
 export default ReturnTrip;
 
 
@@ -593,7 +591,7 @@ const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 borde
 
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
 
-const type = 'flex items-center justify-between w-full sm:space-x-0 xl:space-x-4  lg:space-x-4 2xl:space-x-4'
+const type = 'flex items-center py-2 justify-between w-full mb-2'
 
 const btns = 'flex items-center  w-full  pt-4'
 
@@ -619,7 +617,6 @@ const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 bo
 const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
 
 const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500 mr-4'
-const cancelReturn = 'px-4 py-1 self-end text-rose-500 rounded-full font-bold  border-2 border-rose-500 ml-auto'
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-purple-500 shadow-lg'
 
@@ -642,4 +639,4 @@ const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
-const container = 'flex flex-col relative w-full px-10 text-xs'
+const container = 'flex flex-col relative w-full px-5 text-xs'
