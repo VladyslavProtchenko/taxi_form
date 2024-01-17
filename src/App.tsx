@@ -37,7 +37,7 @@ function App():React.ReactNode {
   const responsive = {
 
     tablet: {
-      breakpoint: { max: 1024, min: 480 },
+      breakpoint: { max: 10000, min: 480 },
       items: 7
     },
     mobile: {
@@ -110,14 +110,15 @@ function App():React.ReactNode {
         </div>
             
             <Carousel 
-              className='max-w-[570px] text-center mx-auto'
+              containerClass={`w-full`}
+              className='max-w-[570px] w-full text-center mx-auto'
               ref={ref}
-              showDots={false}
+              
               arrows={false}
               responsive={responsive}
             >
                 {
-                  (isFrench? store.menuTabsF ||[1,3,3,3,3,3,3,3,3] : store.menuTabs ||[1,3,3,3,3,3,3,3,3] ).map((item, index)=> (
+                  (isFrench? store.menuTabsF  : store.menuTabs).map((item, index)=> (
                         <span key={item} className={ list[activeCarId-1].steps===index?footerTabActive : footerTab  } onClick={()=>{setSubmit(false); setSteps(index)}}>
                           
                           {index === 0

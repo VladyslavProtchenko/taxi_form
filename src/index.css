@@ -262,3 +262,6 @@ select option {
     display:flex;
     justify-content: center;
 }
+[dir="rtl"] .carousel-container{
+    direction: ltr;
+}
