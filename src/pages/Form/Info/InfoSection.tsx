@@ -93,6 +93,7 @@ const InfoSection = () => {
 
     return (
         <section className={section}>
+            <h1 className={pageNumber}>2/7</h1>
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
@@ -312,18 +313,22 @@ const InfoSection = () => {
                     </button>
                 </div>
             </div>
-            <div className="w-full px-10">
-                <div 
-                    className="bg-purple-500 py-3 text-center px-3 rounded-full cursor-pointer border-purple-700  text-white active:bg-purple-400"
-                    onClick={goNext}
-                >{isFrench? 'Suivant': 'Next'}</div>
+
+            <div className='w-full flex px-10 justify-between mt-10 mb-10'>
+                <div className={backBtn} onClick={()=>setSteps(0)}>{isFrench? 'Précédent': 'Previous'}</div>
+                <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>
+
         </section>
     );
 };
 
 export default InfoSection;
 
+const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
+
+const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
+const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 const number = 'absolute left-5 text-gray-400 text-xl'
 const warn = 'absolute -top-[15px] left-12 text-xs z-20 text-red-500'
 
@@ -335,4 +340,4 @@ const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-f
 const nameCard = 'relative flex  w-full px-10'
 const extraContainer = 'flex flex-col w-full space-y-4 items-center'
 
-const section = 'flex flex-col space-y-6 items-center  w-full  max-w-[576px] pt-6'
+const section = 'flex flex-col space-y-6 items-center  w-full  max-w-[576px] pt-12'

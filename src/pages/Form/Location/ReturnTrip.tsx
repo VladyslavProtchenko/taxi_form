@@ -576,7 +576,7 @@ const ReturnTrip = ():React.ReactNode  => {
                 }}>Cancel return</button> */}
             </div>
             <div className='w-full flex justify-between  pt-10'>
-                <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
     </div>

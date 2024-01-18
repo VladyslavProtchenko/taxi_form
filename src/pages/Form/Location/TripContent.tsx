@@ -227,7 +227,7 @@ const TripContent = ():React.ReactNode => {
                                 }}>
                             <div style={{width: isFrench? 80: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
                             <div  style={{width:isFrench? 80: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
-                            <div className={list[activeCarId-1].dateNow ? toggleBg + ' bg-green-400 ' :toggleBg + ' translate-x-full bg-rose-500' }></div>
+                            <div className={list[activeCarId-1].dateNow ? toggleBg + ' bg-rose-500 ' :toggleBg + ' translate-x-full bg-green-400' }></div>
                         </div>
 
                         <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
@@ -572,7 +572,7 @@ const TripContent = ():React.ReactNode => {
 
             
             <div className='w-full flex justify-between mt-10 mb-10'>
-                <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>
     </div>

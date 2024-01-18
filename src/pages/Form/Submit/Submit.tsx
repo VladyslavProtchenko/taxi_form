@@ -17,18 +17,22 @@ const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
 };
 
 const Submit = (): React.ReactNode => {
-    const { list,setSubmit } = useMain()
+    const { list,setSubmit, isFrench,setSteps } = useMain()
     const navigate = useNavigate()
     useEffect(()=>{},[list])
     
     return (
         <section className={section}>
+            <h1 className={pageNumber}>7/7</h1>
             {list.filter(item => item.filled).length > 0 
             ? list.filter(item => item.filled).map((item) => (<CarCard item={item} key={item.name + item.phone}/>))
             : <div className='w-full h-[100px] text-center'> no orders yet</div>  }
 
             <div className="flex justify-between mt-20">
-                <div onClick={() => setSubmit(false)} className={backBtn}> Back </div>
+                <div onClick={() => {
+                        setSteps(0)
+                        setSubmit(false)
+                    }} className={backBtn}> {isFrench? 'Précédent': 'Previous'} </div>
                 <div onClick={async () => {
                     const data = list.filter(item=>item.filled).map(car =>{return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car})
                     await sendOrder(data)
@@ -40,6 +44,7 @@ const Submit = (): React.ReactNode => {
 };
 
 export default Submit;
+const pageNumber = 'absolute left-2 top-16 text-base text-gray-600'
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const greenBtn = 'w-1/3 border-2 border-green-400   active:bg-green-400 active:text-white flex items-center justify-center text-green-400 rounded-full'

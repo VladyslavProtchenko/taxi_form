@@ -22,23 +22,9 @@ const LocationSection = ():React.ReactNode => {
     },[])
     return (
         <section className={section}>
-            
-            <div className={(list[activeCarId-1].type<3)?'flex flex-col w-full px-10 mt-4': 'hidden'}>
-                {/* {list[activeCarId-1].isReturnTrip && <div className={returnTabsActive}>
-                    <div 
-                        className={returnCard ? returnTab : returnTabActive }
-                        onClick={()=>setReturnCard(false)}
-                    >One-Way</div>
+            <h1 className={pageNumber}>3/7</h1>
 
-                    {list[activeCarId-1].isReturnTrip &&<div 
-                        className={returnCard ? returnTabActive : returnTab}
-                        onClick={()=>setReturnCard(true)}
-                    >{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</div>}
-
-                    <div className={ returnCard ? returnTabBg+ ' translate-x-full':returnTabBg  }></div>
-                </div> } */}
-
-                {/* {!list[activeCarId-1].isReturnTrip && */}
+            <div className={(list[activeCarId-1].type<3)?'flex flex-col w-full px-5 mt-4': 'hidden'}>
                     <div className='flex w-full '>
                         <div className={returnTabActiveOne}>{
                             returnCard
@@ -75,13 +61,9 @@ const LocationSection = ():React.ReactNode => {
 
 export default LocationSection;
 
+const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
+
 const activeReturnTripBtn = 'w-1/2 text-center py-2 cursor-pointer  text-purple-700 rounded-lg hover:underline '
 const returnTabActiveOne = 'w-1/2 items-center justify-center z-10 text-white bg-purple-500 rounded-lg flex shadow-xl' 
 
-// const returnTabBg = 'absolute w-1/2 bg-purple-500 top-0 bottom-0 rounded-lg duration-300'
-// const returnTab = 'w-1/2 text-center z-10 duration-500  py-2'
-// const returnTabActive = 'w-1/2 text-center z-10 text-white duration-500 py-2' 
-// const returnTabsActive = 'relative flex bg-white  shadow-xl  rounded-lg w-full cursor-pointer'
-
-
-const section = 'flex flex-col w-full  max-w-[576px]'
+const section = 'flex flex-col w-full pt-10 max-w-[576px]'

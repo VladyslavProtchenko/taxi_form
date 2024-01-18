@@ -1,7 +1,3 @@
-import BagsSelect from "./BagsSelect/BagsSelect";
-import SportSelect from "./SportSelect/SportSelect";
-import CarSeatSelect from "./CarSeats/CarSeatsSelect";
-import PetsSelect from "./PetsSelect/PetsSelect";
 import PassengersSelect from "./PassengersSelect/PassengersSelect";
 import { useStore } from "../../../Store";
 
@@ -13,7 +9,7 @@ import { useMain } from "../../../Store/useMain";
 import React, { useEffect, useState } from "react";
 
 
-const OptionsSection = ():React.ReactNode => {
+const PassengersSection = ():React.ReactNode => {
     const { store } = useStore()
     const {list, activeCarId, setCarType, isFrench,setSteps} = useMain()
     const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
@@ -23,6 +19,8 @@ const OptionsSection = ():React.ReactNode => {
     },[isFrench])
     return (
         <section className={section}>
+            <h1 className={pageNumber}>4/7</h1>
+
             <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
                     {carList.map((item,index) => (
                         <div className={(index=== 3) ? typeItem + ' bg-gray-200': (list[activeCarId-1].carType=== index+1) ? typeItemActive : typeItem } key={item} onClick={()=>{
@@ -42,13 +40,10 @@ const OptionsSection = ():React.ReactNode => {
                 <div className={list[activeCarId-1].carType===2 ? trick + ' translate-x-full ': list[activeCarId-1].carType=== 3 ?trick + ' translate-x-[200%] ': trick}></div>
             </div>
             
-            <div className={content}>
-                <div className={contentItem}><PassengersSelect /><BagsSelect /></div>
-                <div className={contentItem}><CarSeatSelect /></div>
-                <div className={contentItem}><SportSelect /><PetsSelect/></div>
-            </div>
+            <div className={content}><PassengersSelect /></div>
+
             <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
-                <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Back'}</div>
+                <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={()=>{
                     (list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2))
                     ? alert('need adults')
@@ -61,7 +56,9 @@ const OptionsSection = ():React.ReactNode => {
     );
 };
 
-export default OptionsSection;
+export default PassengersSection;
+
+const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
@@ -71,7 +68,6 @@ const typeItem = 'flex justify-center z-10 px-2 py-1 cursor-pointer text-[10px] 
 const typeItemActive = 'flex text-white justify-center z-10 px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
 const type = 'relative flex  border-2 border-purple-500 rounded-full overflow-hidden w-full'
 
-const contentItem = '  flex relative w-full mb-3 space-x-1 items-start' 
 
 const content = 'flex flex-wrap w-full h-min rounded mt-6'
-const section = 'flex w-full flex-col mt-10 max-w-[576px] px-10 '
+const section = 'flex w-full flex-col mt-10 max-w-[576px] pt-4 px-10 '

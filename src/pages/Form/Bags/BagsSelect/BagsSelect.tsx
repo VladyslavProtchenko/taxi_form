@@ -36,8 +36,8 @@ const BagsSelect = ():React.ReactNode => {
                     </div>
                 </div>
             ))}
-            <div className='absolute -top-5 right-1/2 translate-x-1/2 border-none rounded-full px-[2px] flex bg-white'>
-                <div style={{backgroundImage:`url(${bags})` }} className={' z-10 bg-white  text-blue-500 w-8 bg-center h-8 bg-contain bg-no-repeat rounded-full'} ></div>
+            <div className='absolute -top-5 right-1/2 translate-x-1/2 border-none rounded-full px-2 flex bg-gray-50'>
+                <div style={{backgroundImage:`url(${bags})` }} className={' z-10 bg-gray-190  text-blue-500 w-8 bg-center h-8 bg-contain bg-no-repeat '} ></div>
             </div>
             
         </div>
@@ -49,4 +49,4 @@ const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 const card = 'relative flex pr-3 py-2 cursor-pointer border-purple-500 text-sm w-full h-[45px] '
-const container = 'relative rounded-xl px-2 flex w-1/2 pt-2 divide-y flex-col items-center border border-purple-500'
+const container = 'relative rounded-xl px-2 flex w-full mb-6 pt-2 divide-y flex-col items-center border border-purple-500'

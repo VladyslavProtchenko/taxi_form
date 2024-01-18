@@ -1,13 +1,14 @@
 import React from 'react';
 import InfoSection from './Info/InfoSection';
 import AddressSection from './Location/LocationSection';
-import OptionsSection from './Options/OptionsSection';
+import PassengersSection from './Passengers/PassengersSection';
 
 import PaymentSection from './Payment/Payment';
 import { useEffect } from 'react';
 import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
 import Type from './Type/TypeSection';
+import BagsSection from './Bags/BagsSection';
 
 const Form = (): React.ReactNode => {
     const { list,submit, setSubmit, activeCarId ,setIsCars, setFilled } = useMain()
@@ -92,8 +93,9 @@ const Form = (): React.ReactNode => {
                 {list[activeCarId-1].steps === 0 && <Type />}
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
                 {list[activeCarId-1].steps === 2 && <AddressSection />}
-                {list[activeCarId-1].steps === 3 && <OptionsSection />}
-                {list[activeCarId-1].steps === 4 && <PaymentSection/>}
+                {list[activeCarId-1].steps === 3 && <PassengersSection />}
+                {list[activeCarId-1].steps === 4 && <BagsSection />}
+                {list[activeCarId-1].steps === 5 && <PaymentSection/>}
             </> : <Submit/>}
         </div>
     );

@@ -139,7 +139,7 @@ const PassengersSelect = () => {
                 {((list[activeCarId-1].kids.length + list[activeCarId-1].adults) > 5) && <div className={extraFee}>
                     <span className={fee}>You will have extra fee 5%</span>
                 </div>}
-                <div className='absolute flex -top-4 border-none right-1/2 translate-x-1/2 z-10 bg-white px-1 items-center text rounded-full'>
+                <div className='absolute flex -top-4 border-none right-1/2 translate-x-1/2 z-10 bg-gray-50 px-1 items-center text rounded-full'>
                     <IoPeopleOutline className='text-2xl text-gray-500 '/>
                 </div>
 
@@ -152,8 +152,8 @@ export default PassengersSelect;
 const fee='text-gray-400 italic text-xs'
 const extraFee =' flex px-4 py-2  justify-between '
 
-const childrenCard = 'flex pl-2 pr-1 ml-3  border-gray-400 shadow-xl bg-white rounded-xl mb-2 items-center justify-between '
-const kidsContainer = 'flex flex-col py-2'
+const childrenCard = 'flex px-6  border-gray-400 shadow bg-white rounded border border-gray-200 mb-2 items-center justify-between '
+const kidsContainer = 'flex flex-col py-4'
 
 const label = 'flex items-center'
 
@@ -163,5 +163,5 @@ const button = "   cursor-pointer scale-[160%]  duration-300 "
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 
-const card = 'relative text-sm flex  pr-4  py-2 justify-between cursor-pointer h-[45px] border-purple-500 '
-const content = 'relative border px-2 h-min border-purple-500 rounded-xl pt-2 divide-y flex flex-col bg-white relative text-sm w-1/2'
+const card = 'relative text-sm flex pr-4 items-center py-2 justify-between cursor-pointer h-[60px] border-purple-500 '
+const content = 'relative border px-2 h-min border-purple-500 rounded-xl pt-2 divide-y flex flex-col bg-white relative text-sm w-full'

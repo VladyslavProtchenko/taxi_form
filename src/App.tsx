@@ -24,7 +24,7 @@ import { useStore } from './Store/index';
 
 function App():React.ReactNode {
   const { list, 
-    // submit, 
+    submit, 
     setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
   const { store } = useStore()
   const [screenWidth] = useState(window.innerWidth);
@@ -118,8 +118,24 @@ function App():React.ReactNode {
               responsive={responsive}
             >
                 {
-                  (isFrench? store.menuTabsF  : store.menuTabs).map((item, index)=> (
-                        <span key={item} className={ list[activeCarId-1].steps===index?footerTabActive : footerTab  } onClick={()=>{setSubmit(false); setSteps(index)}}>
+                  (isFrench? store.menuTabsF  : store.menuTabs).map((item, index)=> {
+
+                    return index === 6 
+                    ?  (<span 
+                      key={item} 
+                      className={ submit  ? footerTabActive : footerTab  } 
+                      onClick={()=>{
+                          setSubmit(true); setSteps(index)
+                        }}><IoCheckmarkDone  className={footerIcon}/>
+                      <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
+                    </span>)
+                    : (<span 
+                          key={item} 
+                          className={ (list[activeCarId-1].steps===index)  ? footerTabActive : footerTab  } 
+                          onClick={()=>{
+                              if(index ===6 ) return setSubmit(true)
+                              setSubmit(false); setSteps(index)
+                            }}>
                           
                           {index === 0
                             ?  <MdOutlineModeOfTravel  className={footerIcon}/>
@@ -131,13 +147,11 @@ function App():React.ReactNode {
                             ? <IoPeopleOutline  className={footerIcon}/>
                             : index === 4
                             ? <PiSuitcaseRollingThin className={footerIcon}/>
-                            : index === 5
-                            ? <CiMoneyCheck1 className={footerIcon} />
-                            : <IoCheckmarkDone className={footerIcon} />
+                            : <CiMoneyCheck1 className={footerIcon} />
                           }
                           <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
-                        </span>
-                    )
+                        </span>)
+                  }
                   )
                 }
             </Carousel>

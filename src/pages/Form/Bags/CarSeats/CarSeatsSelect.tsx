@@ -74,7 +74,7 @@ const CarSeatsSelect = () => {
             </div>
 
             <div className={card} key={list[activeCarId-1].carSeats[2].title}>
-                <div style={{backgroundImage:`url(${booster})` }} className={'w-5 h-4 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div>
+                <div style={{backgroundImage:`url(${booster})` }} className={'w-6 h-6 self-center mr-1 bg-gray-50  bg-center bg-contain bg-no-repeat'} ></div>
 
                 <div className={labelText}>
                     <span className={text}> {list[activeCarId-1].carSeats[2].title}</span>
@@ -101,8 +101,8 @@ const CarSeatsSelect = () => {
                 </div>
             </div>
 
-            <div className='absolute border-none rounded-full -top-4 right-1/2 translate-x-1/2 bg-white px-1'>
-                <div style={{backgroundImage:`url(${babiSeat})` }} className={' bg-white  text-xs w-6 bg-center h-5 bg-contain bg-no-repeat'} ></div>
+            <div className='absolute border-none rounded-full -top-3 right-1/2 translate-x-1/2 bg-gray-50 px-1'>
+                <div style={{backgroundImage:`url(${babiSeat})` }} className={'  text-xs w-6 bg-center h-5 bg-contain bg-no-repeat'} ></div>
             </div>
 
         </div>
@@ -218,8 +218,8 @@ const CarSeatsSelect = () => {
                 </div>
             </div>
 
-            <div className='absolute rounded-full -top-4 right-1/2 translate-x-1/2  border-none bg-white px-1'>
-                <div style={{backgroundImage:`url(${stroller})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+            <div className='absolute rounded-full -top-4 right-1/2 translate-x-1/2  border-none bg-gray-50 px-1'>
+                <div style={{backgroundImage:`url(${stroller})` }} className={'   z-10   text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
             </div>
 
         </div>
@@ -233,12 +233,12 @@ export default CarSeatsSelect;
 const labelText = 'flex items-center w-[50%]'
 const text = ' text-gray-400  truncate'
 
-const part = 'relative flex px-2 flex-col w-1/2 pt-2 border border-purple-500 rounded-xl divide-y'
+const part = 'relative flex px-2 flex-col w-full mb-4 pt-2 border border-purple-500 rounded-xl divide-y'
 const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 // const babiSeatIcon ='w-4 h-4 mx-1 overflow-hidden bg-contain bg-no-repeat bg-[url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png")] scale-[130%]'
 
 const card = 'relative flex  pr-4 py-2 cursor-pointer w-full text-sm max-h-[45px] border-purple-500'
-const container = 'flex w-full items-start space-x-1'
+const container = 'flex w-full items-start flex-col'
 
