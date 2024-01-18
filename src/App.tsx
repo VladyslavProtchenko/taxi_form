@@ -72,7 +72,7 @@ function App():React.ReactNode {
               }
             </div>
             <div className=" flex items-center mt-8 mb-2 justify-center border-2  rounded-full border-orange-400 text-orange-400 ml-auto">
-                  <TiInfoLarge className='cursor-pointer '/>
+                  <TiInfoLarge className='cursor-pointer text-base'/>
             </div>
           </div>
         </div>
