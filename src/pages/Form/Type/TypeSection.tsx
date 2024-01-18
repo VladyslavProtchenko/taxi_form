@@ -12,7 +12,7 @@ const Type = ():React.ReactNode => {
 
     return (
         <section className={section}>
-            <h1 className={number}>1/7</h1>
+            <h1 className={number}>1/8</h1>
             <h1 className={h1}>Bonjour taxi!</h1>
             <h2 className={h2}>Make a choice of service, please!</h2>
             <div className={buttons}>
