@@ -37,7 +37,7 @@ const BagsSelect = ():React.ReactNode => {
                 </div>
             ))}
             <div className='absolute -top-5 right-1/2 translate-x-1/2 border-none rounded-full px-2 flex bg-gray-50'>
-                <div style={{backgroundImage:`url(${bags})` }} className={' z-10 bg-gray-190  text-blue-500 w-8 bg-center h-8 bg-contain bg-no-repeat '} ></div>
+                <div style={{backgroundImage:`url(${bags})` }} className={' z-10 bg-gray-190  text-blue-500 w-6 bg-center h-8 bg-contain bg-no-repeat '} ></div>
             </div>
             
         </div>

@@ -8,15 +8,16 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import { PiUserListLight } from "react-icons/pi";
+import { IoSettingsOutline } from "react-icons/io5";
 
 import { CiLocationOn } from "react-icons/ci";
 import { CiMoneyCheck1 } from "react-icons/ci";
-import { MdOutlineModeOfTravel } from "react-icons/md";
 import { IoPeopleOutline } from "react-icons/io5";
-import { PiSuitcaseRollingThin } from "react-icons/pi";
 import { IoCheckmarkDone } from "react-icons/io5";
 import { FaSortDown } from "react-icons/fa";
-
+import { MdDirectionsBike } from "react-icons/md";
+import babiSeat from './assets/babySeat.png'
+import babiSeatPurple from './assets/babySeatPurple.png'
 import { TiInfoLarge } from "react-icons/ti";
 
 import dayjs from "dayjs";
@@ -42,17 +43,25 @@ function App():React.ReactNode {
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 5
+      items: 3
     }
   };
 
   useEffect(()=>{
     
     if(screenWidth< 570) {
-      list[activeCarId-1].steps > 3
-      ? ref.current?.goToSlide(2)
-      : list[activeCarId-1].steps > 2  
+      list[activeCarId-1].steps === 2
       ? ref.current?.goToSlide(1)
+      : list[activeCarId-1].steps === 3  
+      ? ref.current?.goToSlide(2)
+      : list[activeCarId-1].steps === 4  
+      ? ref.current?.goToSlide(3)
+      : list[activeCarId-1].steps === 5  
+      ? ref.current?.goToSlide(4)
+      : list[activeCarId-1].steps === 6  
+      ? ref.current?.goToSlide(5)
+      : list[activeCarId-1].steps === 7  
+      ? ref.current?.goToSlide(5)
       : ref.current?.goToSlide(0)
     }
       
@@ -120,7 +129,7 @@ function App():React.ReactNode {
                 {
                   (isFrench? store.menuTabsF  : store.menuTabs).map((item, index)=> {
 
-                    return index === 6 
+                    return index === 7 
                     ?  (<span 
                       key={item} 
                       className={ submit  ? footerTabActive : footerTab  } 
@@ -133,12 +142,11 @@ function App():React.ReactNode {
                           key={item} 
                           className={ (list[activeCarId-1].steps===index)  ? footerTabActive : footerTab  } 
                           onClick={()=>{
-                              if(index ===6 ) return setSubmit(true)
+                              if(index ===7 ) return setSubmit(true)
                               setSubmit(false); setSteps(index)
                             }}>
-                          
                           {index === 0
-                            ?  <MdOutlineModeOfTravel  className={footerIcon}/>
+                            ?  <IoSettingsOutline  className={footerIcon}/>
                             : index === 1
                             ? <PiUserListLight className={footerIcon}/>
                             : index === 2
@@ -146,7 +154,9 @@ function App():React.ReactNode {
                             : index === 3
                             ? <IoPeopleOutline  className={footerIcon}/>
                             : index === 4
-                            ? <PiSuitcaseRollingThin className={footerIcon}/>
+                            ? <div style={{backgroundImage:`url(${list[activeCarId-1].steps===4 ?babiSeatPurple : babiSeat})` }} className={'  text-xs w-10 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                            : index ===5
+                            ?<MdDirectionsBike className={footerIcon} />
                             : <CiMoneyCheck1 className={footerIcon} />
                           }
                           <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
@@ -167,10 +177,10 @@ function App():React.ReactNode {
 export default App
 
 const arrIcon = ' text-purple-500 text-xl'
-const footerIcon = 'text-lg'
+const footerIcon = 'text-3xl'
 const footerTabText = 'text-[10px] leading-3 '
 
-const footerTab = 'flex relative flex-col items-center mx-1 text-center  w-[60px] py-1 text-gray-500 cursor-pointer'
+const footerTab = 'flex relative flex-col items-center mx-1 text-center  w-[60px] py-1 text-gray-800 cursor-pointer'
 const footerTabActive = ' relative flex flex-col text-center mx-1 items-center w-[60px]  py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
 
 const lang = 'flex cursor-pointer items-center  mt-6 mb-2 '

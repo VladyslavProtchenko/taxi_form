@@ -1,23 +1,15 @@
-import BagsSelect from "./BagsSelect/BagsSelect";
-import SportSelect from "./SportSelect/SportSelect";
 import CarSeatSelect from "./CarSeats/CarSeatsSelect";
-import PetsSelect from "./PetsSelect/PetsSelect";
 
 import { useMain } from "../../../Store/useMain";
 import React from "react";
 
-
-const BagsSection = ():React.ReactNode => {
+const SeatsSection = ():React.ReactNode => {
     const {isFrench,setSteps} = useMain()
-
-
     return (
         <section className={section}>
             <h1 className={pageNumber}>5/7</h1>
             <div className={content}>
-                <BagsSelect />
                 <div className={contentItem}><CarSeatSelect /></div>
-                <div className={contentItem}><SportSelect /><PetsSelect/></div>
             </div>
 
             <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
@@ -30,7 +22,7 @@ const BagsSection = ():React.ReactNode => {
     );
 };
 
-export default BagsSection;
+export default SeatsSection;
 
 const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
 

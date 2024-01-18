@@ -7,6 +7,7 @@ import { PiJeepLight } from "react-icons/pi";
 import { AiOutlineStop } from "react-icons/ai";
 import { useMain } from "../../../Store/useMain";
 import React, { useEffect, useState } from "react";
+import BagsSelect from "./BagsSelect/BagsSelect";
 
 
 const PassengersSection = ():React.ReactNode => {
@@ -41,6 +42,7 @@ const PassengersSection = ():React.ReactNode => {
             </div>
             
             <div className={content}><PassengersSelect /></div>
+            <div className={content}><BagsSelect /></div>
 
             <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
                 <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Previous'}</div>

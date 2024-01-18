@@ -8,7 +8,8 @@ import { useEffect } from 'react';
 import Submit from './Submit/Submit';
 import { useMain } from '../../Store/useMain';
 import Type from './Type/TypeSection';
-import BagsSection from './Bags/BagsSection';
+import BagsSection from './Seats/SeatsSection';
+import SportSection from './Sport/SportSection';
 
 const Form = (): React.ReactNode => {
     const { list,submit, setSubmit, activeCarId ,setIsCars, setFilled } = useMain()
@@ -95,7 +96,8 @@ const Form = (): React.ReactNode => {
                 {list[activeCarId-1].steps === 2 && <AddressSection />}
                 {list[activeCarId-1].steps === 3 && <PassengersSection />}
                 {list[activeCarId-1].steps === 4 && <BagsSection />}
-                {list[activeCarId-1].steps === 5 && <PaymentSection/>}
+                {list[activeCarId-1].steps === 5 && <SportSection />}
+                {list[activeCarId-1].steps === 6 && <PaymentSection/>}
             </> : <Submit/>}
         </div>
     );

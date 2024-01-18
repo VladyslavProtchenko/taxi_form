@@ -23,12 +23,12 @@ const Type = ():React.ReactNode => {
                         }}>
                             <span className={icon}>
                                 {index === 0 
-                                    ? <div style={{backgroundImage:`url(${transport})` }} className={' z-10   w-8 bg-center h-8 bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${transport})` }} className={' z-10 w-12 h-12 bg-center  bg-contain bg-no-repeat '} ></div>
                                     : index === 1 
-                                    ? <div style={{backgroundImage:`url(${delivery})` }} className={' z-10 mb-1  w-8 bg-center h-8 bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${delivery})` }} className={' z-10 mb-1 w-12 h-12 bg-center bg-contain bg-no-repeat '} ></div>
                                     : index === 2 
-                                    ? <div style={{backgroundImage:`url(${boost})` }} className={' z-10  mb-1 w-8 bg-center h-8 bg-contain bg-no-repeat '} ></div>
-                                    : <div style={{backgroundImage:`url(${unlock})` }} className={' z-10   w-9 bg-center h-9 bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${boost})` }} className={' z-10  mb-1 w-12 h-12 bg-center bg-contain bg-no-repeat '} ></div>
+                                    : <div style={{backgroundImage:`url(${unlock})` }} className={' z-10 w-12 bg-center h-12 bg-contain bg-no-repeat '} ></div>
                                 }
                             </span>
                             <span className='text-[10px]'>{item}</span>

@@ -62,4 +62,4 @@ const button = "   cursor-pointer scale-[160%] duration-300 "
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 const card = 'relative flex pr-4  text-sm cursor-pointer w-full h-[45px] border-purple-500'
-const container = 'relative flex px-2 w-1/2 flex-col items-center pt-2 divide-y border border-purple-500 rounded-xl'
+const container = 'relative flex px-2 w-full flex-col items-center pt-2 divide-y border border-purple-500 rounded-xl'

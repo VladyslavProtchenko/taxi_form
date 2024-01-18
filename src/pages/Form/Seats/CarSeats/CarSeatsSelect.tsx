@@ -94,8 +94,7 @@ const CarSeatsSelect = () => {
                             onClick={()=>{
                                 if(list[activeCarId-1].carSeats[2].quantity <= 0 ) return;
                                 setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[2].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}
-                            
+                            }}
                         />
                     </div>
                 </div>
