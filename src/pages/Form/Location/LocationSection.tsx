@@ -22,7 +22,7 @@ const LocationSection = ():React.ReactNode => {
     },[])
     return (
         <section className={section}>
-            <h1 className={pageNumber}>3/7</h1>
+            <h1 className={pageNumber}>3/8</h1>
 
             <div className={(list[activeCarId-1].type<3)?'flex flex-col w-full px-5 mt-4': 'hidden'}>
                     <div className='flex w-full '>

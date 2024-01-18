@@ -7,7 +7,7 @@ const SeatsSection = ():React.ReactNode => {
     const {isFrench,setSteps} = useMain()
     return (
         <section className={section}>
-            <h1 className={pageNumber}>5/7</h1>
+            <h1 className={pageNumber}>5/8</h1>
             <div className={content}>
                 <div className={contentItem}><CarSeatSelect /></div>
             </div>

@@ -12,7 +12,7 @@ const PaymentSection = ():React.ReactNode => {
     const { store} = useStore()
     return (
         <section className={section}>
-            <h1 className={pageNumber}>6/7</h1>
+            <h1 className={pageNumber}>7/8</h1>
             <div className={content}>
                 <span className={box}>
                     <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 20}} value={list[activeCarId-1].tripType} onChange={setTripType} options={store.tripList.map(item=>({value: item, label: item}))}/></span>

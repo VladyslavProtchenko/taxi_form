@@ -93,7 +93,7 @@ const InfoSection = () => {
 
     return (
         <section className={section}>
-            <h1 className={pageNumber}>2/7</h1>
+            <h1 className={pageNumber}>2/8</h1>
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>

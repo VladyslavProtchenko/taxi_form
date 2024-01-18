@@ -20,7 +20,7 @@ const PassengersSection = ():React.ReactNode => {
     },[isFrench])
     return (
         <section className={section}>
-            <h1 className={pageNumber}>4/7</h1>
+            <h1 className={pageNumber}>4/8</h1>
 
             <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
                     {carList.map((item,index) => (

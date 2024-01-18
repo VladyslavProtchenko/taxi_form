@@ -39,7 +39,7 @@ function App():React.ReactNode {
 
     tablet: {
       breakpoint: { max: 10000, min: 480 },
-      items: 7
+      items: 8
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -91,30 +91,27 @@ function App():React.ReactNode {
         </div>
         <div className="fixed -bottom-1 z-20 left-0 right-0 bg-white py-2 border-t">
         <div className={"xs:hidden flex justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
-              {[0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
+              {[0,0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
                     ? <FaSortDown className={arrIcon}/>
                     : <div className='w-[20px]'></div> 
               )}
         </div>
         <div className={" xs:flex hidden justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
-              {[1,1,1,1,1].map((_,index)=> {
-                  if(list[activeCarId-1].steps === 3 || list[activeCarId-1].steps === 4){
+              {[1,1,1].map((_,index)=> {
+                  if(list[activeCarId-1].steps > 0 && list[activeCarId-1].steps < 7 ){
+                    return index === 1
+                    ? <FaSortDown className={arrIcon}/>
+                    : <div className='w-[20px]'></div>
+                  } else if( submit) {
                     return index === 2
                     ? <FaSortDown className={arrIcon}/>
                     : <div className='w-[20px]'></div>
-                  } else if( list[activeCarId-1].steps === 5) {
-                    return index === 3
+                  }else if( list[activeCarId-1].steps === 0) {
+                    return index === 0
                     ? <FaSortDown className={arrIcon}/>
                     : <div className='w-[20px]'></div>
-                  }else if( list[activeCarId-1].steps === 6) {
-                    return index === 4
-                    ? <FaSortDown className={arrIcon}/>
-                    : <div className='w-[20px]'></div>
-                  } else {
-                    return list[activeCarId-1].steps === index
-                    ? <FaSortDown className={arrIcon}/>
-                    : <div className='w-[20px]'></div> 
                   }
+                  
               })}
         </div>
             

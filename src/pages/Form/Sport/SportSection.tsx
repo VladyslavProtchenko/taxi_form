@@ -11,7 +11,7 @@ const SportSection = ():React.ReactNode => {
 
     return (
         <section className={section}>
-            <h1 className={pageNumber}>5/7</h1>
+            <h1 className={pageNumber}>6/8</h1>
             <div className={content}>
 
                 <PetsSelect />

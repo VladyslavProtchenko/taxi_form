@@ -23,7 +23,7 @@ const Submit = (): React.ReactNode => {
     
     return (
         <section className={section}>
-            <h1 className={pageNumber}>7/7</h1>
+            <h1 className={pageNumber}>8/8</h1>
             {list.filter(item => item.filled).length > 0 
             ? list.filter(item => item.filled).map((item) => (<CarCard item={item} key={item.name + item.phone}/>))
             : <div className='w-full h-[100px] text-center'> no orders yet</div>  }
