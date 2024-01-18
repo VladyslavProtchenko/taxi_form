@@ -163,5 +163,5 @@ const button = "   cursor-pointer scale-[160%]  duration-300 "
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 
-const card = 'relative text-sm flex pr-4 items-center py-2 justify-between cursor-pointer h-[60px] border-purple-500 '
+const card = 'relative text-sm flex pr-4 items-center py-2 justify-between cursor-pointer h-[45px] border-purple-500 '
 const content = 'relative border px-2 h-min border-purple-500 rounded-xl pt-2 divide-y flex flex-col bg-white relative text-sm w-full'

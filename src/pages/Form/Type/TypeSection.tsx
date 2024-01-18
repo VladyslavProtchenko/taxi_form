@@ -23,12 +23,12 @@ const Type = ():React.ReactNode => {
                         }}>
                             <span className={icon}>
                                 {index === 0 
-                                    ? <div style={{backgroundImage:`url(${transport})` }} className={' z-10 w-12 h-12 bg-center  bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${transport})` }} className={' z-10 w-12 h-12 bg-center mr-2 bg-contain bg-no-repeat '} ></div>
                                     : index === 1 
-                                    ? <div style={{backgroundImage:`url(${delivery})` }} className={' z-10 mb-1 w-12 h-12 bg-center bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${delivery})` }} className={' z-10 mb-1 w-12 h-12 bg-center mr-2  bg-contain bg-no-repeat '} ></div>
                                     : index === 2 
-                                    ? <div style={{backgroundImage:`url(${boost})` }} className={' z-10  mb-1 w-12 h-12 bg-center bg-contain bg-no-repeat '} ></div>
-                                    : <div style={{backgroundImage:`url(${unlock})` }} className={' z-10 w-12 bg-center h-12 bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${boost})` }} className={' z-10  mb-1 w-12 h-12 bg-center mr-2  bg-contain bg-no-repeat '} ></div>
+                                    : <div style={{backgroundImage:`url(${unlock})` }} className={' z-10 w-12 bg-center h-12 bg-contain mr-2  bg-no-repeat '} ></div>
                                 }
                             </span>
                             <span className='text-[10px]'>{item}</span>
@@ -46,7 +46,7 @@ const number = 'absolute left-2 top-18 text-base text-gray-300'
 const icon = ' '
 const h1 = ' text-3xl '
 const h2 = ' text-xl '
-const button = ' w-[200px] bg-white h-[100px] border-black flex flex-col items-center justify-center  py-2 shadow-xl rounded border cursor-pointer font-bold text-center hover:bg-gray-200 '
+const button = ' w-[200px] bg-white h-[100px] border-black flex  items-center justify-center  py-2 shadow-xl rounded border cursor-pointer font-bold text-center hover:bg-gray-200 '
 const buttons = 'flex flex-col items-center justify-center rounded border-black overflow-hidden space-y-2'
 
 const section = 'flex flex-col items-center  w-full  max-w-[576px] pt-6 pb-10 bg-white h-full'

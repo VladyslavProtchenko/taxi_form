@@ -29,6 +29,7 @@ const PaymentSection = ():React.ReactNode => {
             <div className='flex justify-end space-x-4 mt-4'>
                 {list.filter(item => item.filled).length>0 &&<button className={yellowBtn} onClick={()=> {
                         setSubmit(true)
+                        setSteps(7)
                     }}>View Orders</button>}
                 {list[activeCarId-1].filled 
                     ? <div className="px-4 py-2 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>
@@ -36,7 +37,7 @@ const PaymentSection = ():React.ReactNode => {
                             setFilled(true, activeCarId)
                         }}>Order taxi</button>}
             </div>
-            <div className="flex w-full max-w-[400px] justify-between mx-auto pt-10">
+            <div className="flex w-full mt-auto max-w-[400px] justify-between mx-auto ">
                 <div className={backBtn} onClick={()=>setSteps(4)}>{isFrench? 'Précédent': 'Previous'}</div>
             </div>
         </section>
@@ -57,4 +58,4 @@ const content ='flex justify-between w-full mb-4'
 const box ='flex border h-min pl-3 w-[100px] rounded-xl border-purple-500'
 const box2 ='flex border h-min ml-4 pl-3 w-[100px] rounded-xl border-purple-500'
 const textArea ='flex border h-min w-full rounded-xl border-purple-500' 
-const section = 'flex flex-col w-full pt-14 max-w-[576px]  border-none  py-8 px-10 pb-20  rounded-b'
+const section = 'flex flex-col h-full w-full pt-14 max-w-[576px]  border-none  py-8 px-10   rounded-b'

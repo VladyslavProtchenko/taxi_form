@@ -12,12 +12,13 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 import { CiLocationOn } from "react-icons/ci";
 import { CiMoneyCheck1 } from "react-icons/ci";
-import { IoPeopleOutline } from "react-icons/io5";
 import { IoCheckmarkDone } from "react-icons/io5";
 import { FaSortDown } from "react-icons/fa";
 import { MdDirectionsBike } from "react-icons/md";
 import babiSeat from './assets/babySeat.png'
 import babiSeatPurple from './assets/babySeatPurple.png'
+import carBags from './assets/carBags.png'
+import carBagsPurple from './assets/carBagsPurple.png'
 import { TiInfoLarge } from "react-icons/ti";
 
 import dayjs from "dayjs";
@@ -49,7 +50,7 @@ function App():React.ReactNode {
 
   useEffect(()=>{
     
-    if(screenWidth< 570) {
+    if(screenWidth < 570) {
       list[activeCarId-1].steps === 2
       ? ref.current?.goToSlide(1)
       : list[activeCarId-1].steps === 3  
@@ -89,14 +90,14 @@ function App():React.ReactNode {
         <div className={content}>
           <Form />
         </div>
-        <div className="fixed -bottom-1 z-20 left-0 right-0 bg-white py-2 border-t">
-        <div className={"xs:hidden flex justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
+        <div className="fixed -bottom-1 z-20 left-0 right-0  bg-white py-2 border-t">
+        <div className={"xs:hidden h-0 flex justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
               {[0,0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
                     ? <FaSortDown className={arrIcon}/>
                     : <div className='w-[20px]'></div> 
               )}
         </div>
-        <div className={" xs:flex hidden justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
+        <div className={" xs:flex h-0 hidden justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
               {[1,1,1].map((_,index)=> {
                   if(list[activeCarId-1].steps > 0 && list[activeCarId-1].steps < 7 ){
                     return index === 1
@@ -149,7 +150,7 @@ function App():React.ReactNode {
                             : index === 2
                             ? <CiLocationOn className={footerIcon} />
                             : index === 3
-                            ? <IoPeopleOutline  className={footerIcon}/>
+                            ? <div style={{backgroundImage:`url(${list[activeCarId-1].steps===3 ?carBagsPurple : carBags})` }} className={'  text-xs w-10 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                             : index === 4
                             ? <div style={{backgroundImage:`url(${list[activeCarId-1].steps===4 ?babiSeatPurple : babiSeat})` }} className={'  text-xs w-10 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                             : index ===5
@@ -163,10 +164,6 @@ function App():React.ReactNode {
                 }
             </Carousel>
         </div>
-        
-
-
-
       </div>
     </div>
   )

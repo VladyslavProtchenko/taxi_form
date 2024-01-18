@@ -52,9 +52,9 @@ const LocationSection = ():React.ReactNode => {
             </div>
             
             
-            <div className={(!returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><TripContent /></div>
-            <div className={(returnCard && (list[activeCarId-1].type<3))? '': 'hidden'} ><ReturnTrip /></div>
-            <div className={( (list[activeCarId-1].type>2))? '': 'hidden'} ><Boost /></div>
+            <div className={(!returnCard && (list[activeCarId-1].type<3))? 'h-full': 'hidden'} ><TripContent /></div>
+            <div className={(returnCard && (list[activeCarId-1].type<3))? 'h-full': 'hidden'} ><ReturnTrip /></div>
+            <div className={( (list[activeCarId-1].type>2))? 'h-full': 'hidden'} ><Boost /></div>
         </section>
     );
 };
@@ -66,4 +66,4 @@ const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
 const activeReturnTripBtn = 'w-1/2 text-center py-2 cursor-pointer  text-purple-700 rounded-lg hover:underline '
 const returnTabActiveOne = 'w-1/2 items-center justify-center z-10 text-white bg-purple-500 rounded-lg flex shadow-xl' 
 
-const section = 'flex flex-col w-full pt-10 max-w-[576px]'
+const section = 'flex h-full flex-col w-full pt-10 max-w-[576px]'

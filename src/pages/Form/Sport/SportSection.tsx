@@ -19,8 +19,8 @@ const SportSection = ():React.ReactNode => {
             </div>
 
             <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
-                <div className={backBtn} onClick={()=>setSteps(3)}>{isFrench? 'Précédent': 'Previous'}</div>
-                <div className={nextBtn} onClick={()=>setSteps(5)}>{isFrench? 'Suivant': 'Next'}</div>
+                <div className={backBtn} onClick={()=>setSteps(4)}>{isFrench? 'Précédent': 'Previous'}</div>
+                <div className={nextBtn} onClick={()=>setSteps(6)}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
 
 

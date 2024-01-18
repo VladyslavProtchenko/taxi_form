@@ -571,7 +571,7 @@ const TripContent = ():React.ReactNode => {
             </div>
 
             
-            <div className='w-full flex justify-between mt-10 mb-10'>
+            <div className='w-full flex justify-between mt-auto px-5 pt-4'>
                 <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -634,4 +634,4 @@ const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-50
 const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
-const container = 'flex flex-col relative w-full px-5 text-xs'
+const container = 'flex h-full pb-10 flex-col relative w-full px-5 text-xs'

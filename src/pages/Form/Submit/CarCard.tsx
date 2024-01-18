@@ -39,11 +39,11 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
             <h1 className='text-sm mb-0 pt-1 roboto w-full '>{dayjs(item.date.split('/').reverse().join('-')).format('dddd')}, {item.date}, {item.time}{(!item.dateNow && item.timeType===1) ? 'am': (!item.dateNow && item.timeType===2)? 'pm':''} </h1>
             <div className='flex  px-2  text-gray-500 italic text-[10px] '>{carTypes[item.carType]}</div>
             
-            <div className='flex '>
+            <div className='flex w-full pr-4'>
                 <div className="flex flex-col items-center justify-around ml-2 mr-1 w-1  my-2 mt-[12px] border border-r-white border-purple-500 "></div>
-                <div className="flex flex-col mb-1">
-                    <div className="flex truncate mt-1">{item.from} </div>
-                    <div className="flex  truncate mt-1"> {item.to}</div>
+                <div className="flex flex-col mb-1 w-full">
+                    <div className="flex truncate mt-1 w-full">{item.from} </div>
+                    <div className="flex  truncate mt-1 w-full"> {item.to}</div>
                 </div>
             </div>
             <div className="flex flex-col ml-auto justify-between">

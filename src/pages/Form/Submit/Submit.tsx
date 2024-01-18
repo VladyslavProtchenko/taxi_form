@@ -27,10 +27,12 @@ const Submit = (): React.ReactNode => {
             {list.filter(item => item.filled).length > 0 
             ? list.filter(item => item.filled).map((item) => (<CarCard item={item} key={item.name + item.phone}/>))
             : <div className='w-full h-[100px] text-center'> no orders yet</div>  }
-
-            <div className="flex justify-between mt-20">
+            {(list.filter(item => item.filled).length > 0 && list.filter(item => item.filled).length < 5)  && 
+                <div className={addCar}></div>
+            }
+            <div className="flex justify-between mt-auto">
                 <div onClick={() => {
-                        setSteps(0)
+                        setSteps(6)
                         setSubmit(false)
                     }} className={backBtn}> {isFrench? 'Précédent': 'Previous'} </div>
                 <div onClick={async () => {
@@ -44,11 +46,13 @@ const Submit = (): React.ReactNode => {
 };
 
 export default Submit;
+
+const addCar = ''
 const pageNumber = 'absolute left-2 top-16 text-base text-gray-600'
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const greenBtn = 'w-1/3 border-2 border-green-400   active:bg-green-400 active:text-white flex items-center justify-center text-green-400 rounded-full'
 
 
-const section = 'flex w-full space-y-4 flex-col max-w-[576px] py-8 px-10'
+const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-10'
 

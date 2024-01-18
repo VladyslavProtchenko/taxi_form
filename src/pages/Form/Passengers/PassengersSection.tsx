@@ -72,4 +72,4 @@ const type = 'relative flex  border-2 border-purple-500 rounded-full overflow-hi
 
 
 const content = 'flex flex-wrap w-full h-min rounded mt-6'
-const section = 'flex w-full flex-col mt-10 max-w-[576px] pt-4 px-10 '
+const section = 'flex w-full flex-col mt-10 max-w-[576px] pt-4 pb-10 px-10 '

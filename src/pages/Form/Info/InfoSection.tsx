@@ -340,4 +340,4 @@ const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-f
 const nameCard = 'relative flex  w-full px-10'
 const extraContainer = 'flex mb-4 flex-col w-full space-y-4 items-center'
 
-const section = 'flex flex-col items-center  w-full  max-w-[576px] pt-12'
+const section = 'flex flex-col h-full items-center  w-full  max-w-[576px] pt-12'
