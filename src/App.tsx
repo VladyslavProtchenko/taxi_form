@@ -42,7 +42,7 @@ function App():React.ReactNode {
       items: 8
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 570, min: 0 },
       items: 3
     }
   };

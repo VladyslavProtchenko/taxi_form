@@ -314,7 +314,7 @@ const InfoSection = () => {
                 </div>
             </div>
 
-            <div className='w-full flex px-10 justify-between mt-10 mb-10'>
+            <div className='w-full flex px-10 justify-between mt-auto mb-10'>
                 <div className={backBtn} onClick={()=>setSteps(0)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -338,6 +338,6 @@ const extraNameClose = " my-auto ml-2 text-rose-500 px-2 text-xl  text-center fl
 const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-full '
 
 const nameCard = 'relative flex  w-full px-10'
-const extraContainer = 'flex flex-col w-full space-y-4 items-center'
+const extraContainer = 'flex mb-4 flex-col w-full space-y-4 items-center'
 
-const section = 'flex flex-col space-y-6 items-center  w-full  max-w-[576px] pt-12'
+const section = 'flex flex-col items-center  w-full  max-w-[576px] pt-12'
