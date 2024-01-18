@@ -44,7 +44,7 @@ const PassengersSection = ():React.ReactNode => {
             <div className={content}><PassengersSelect /></div>
             <div className={content}><BagsSelect /></div>
 
-            <div className='w-full flex justify-between max-w-[400px] mx-auto pt-10'>
+            <div className='w-full flex justify-between max-w-[400px] mx-auto mt-auto'>
                 <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={()=>{
                     (list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2))
@@ -72,4 +72,4 @@ const type = 'relative flex  border-2 border-purple-500 rounded-full overflow-hi
 
 
 const content = 'flex flex-wrap w-full h-min rounded mt-6'
-const section = 'flex w-full flex-col mt-10 max-w-[576px] pt-4 pb-10 px-10 '
+const section = 'flex h-full w-full flex-col mt-10 max-w-[576px] pt-4 pb-10 px-10 '
