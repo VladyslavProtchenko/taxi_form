@@ -47,7 +47,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                 </div>
             </div>
             <div className="flex flex-col ml-auto justify-between">
-                <button className={removeBtn} onClick={()=>setOpenModal(true)}>x</button>
+                <button className={removeBtn} onClick={()=>setOpenModal(true)}>{isFrench? 'supprimer': 'delete'}</button>
             </div>
             <div className='flex justify-between w-full px-4'>
                 <div 
@@ -325,7 +325,7 @@ const trip = 'flex space-x-1 w-full text-xs'
 const headItem = 'flex w-1/3  text-xs px-2 flex-col'
 const headers = 'flex divide-x w-full'
 
-const removeBtn ='absolute rounded top-0 right-2 text-rose-600 py-[2px] text-xl'
+const removeBtn ='absolute rounded top-2 right-2 text-rose-600 py-[2px] text-xs'
 
 
 const stopIcon = 'min-w-[22px] text-yellow-400'
