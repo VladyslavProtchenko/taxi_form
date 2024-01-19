@@ -7,7 +7,6 @@ const SeatsSection = ():React.ReactNode => {
     const {isFrench,setSteps} = useMain()
     return (
         <section className={section}>
-            <h1 className={pageNumber}>5/8</h1>
             <div className={content}>
                 <div className={contentItem}><CarSeatSelect /></div>
             </div>
@@ -24,7 +23,6 @@ const SeatsSection = ():React.ReactNode => {
 
 export default SeatsSection;
 
-const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'

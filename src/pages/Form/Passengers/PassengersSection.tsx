@@ -20,7 +20,6 @@ const PassengersSection = ():React.ReactNode => {
     },[isFrench])
     return (
         <section className={section}>
-            <h1 className={pageNumber}>4/8</h1>
 
             <div className={list[activeCarId-1].carType ? type : type + ' border-red-500'}>
                     {carList.map((item,index) => (
@@ -60,7 +59,6 @@ const PassengersSection = ():React.ReactNode => {
 
 export default PassengersSection;
 
-const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'

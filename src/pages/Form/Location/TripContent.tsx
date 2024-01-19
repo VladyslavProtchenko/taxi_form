@@ -602,7 +602,7 @@ const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs
 
 const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500'
 
-const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-purple-500 shadow-lg'
+const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
 
 const iconsType = 'flex mb-2 justify-between w-full py-2'
 const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
@@ -631,7 +631,7 @@ const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-50
 
 
 
-const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
+const fare = 'py-1 font-bold mb-2 italic text-gray-400 w-full text-end mr-4'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex h-full pb-10 flex-col relative w-full px-5 text-xs'

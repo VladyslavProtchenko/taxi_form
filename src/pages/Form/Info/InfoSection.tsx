@@ -93,7 +93,6 @@ const InfoSection = () => {
 
     return (
         <section className={section}>
-            <h1 className={pageNumber}>2/8</h1>
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
@@ -325,7 +324,7 @@ const InfoSection = () => {
 
 export default InfoSection;
 
-const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
+
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'

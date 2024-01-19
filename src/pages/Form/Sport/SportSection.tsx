@@ -11,14 +11,13 @@ const SportSection = ():React.ReactNode => {
 
     return (
         <section className={section}>
-            <h1 className={pageNumber}>6/8</h1>
             <div className={content}>
 
                 <PetsSelect />
                 <SportSelect />
             </div>
 
-            <div className='w-full flex justify-between max-w-[400px] mx-auto mt-auto'>
+            <div className='w-full flex justify-between max-w-[400px] mx-auto mt-auto pt-4'>
                 <div className={backBtn} onClick={()=>setSteps(4)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={()=>setSteps(6)}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -30,7 +29,6 @@ const SportSection = ():React.ReactNode => {
 
 export default SportSection;
 
-const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'

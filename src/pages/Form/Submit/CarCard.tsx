@@ -14,14 +14,14 @@ import { BsChatSquareText } from 'react-icons/bs';
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const [open, setOpen] = useState(false)
     const {store} = useStore()
-    const {list, setFilled, isFrench } = useMain()
+    const {list, setFilled, isFrench, setActiveCarId,setSteps } = useMain()
     const [openModal, setOpenModal] = useState(false)
     const carTypes:{[key:number]:string} = {
         1: 'Sedan',
         2: 'SUV',
         3: "VAN",
     }
-    console.log(item, 'item')
+    
     return ( 
     <div className={container}>
         {/* __________________________________CLOSE_MODAL---------------------------------- */}
@@ -49,11 +49,18 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
             <div className="flex flex-col ml-auto justify-between">
                 <button className={removeBtn} onClick={()=>setOpenModal(true)}>x</button>
             </div>
-            <div className='flex flex-col w-1/6'>
+            <div className='flex justify-between w-full px-4'>
                 <div 
-                    className="text-[10px] mt-3 text-purple-500 border text-center rounded-full border-purple-500 cursor-pointer roboto text-thin"
+                    className={btn+ ' border-purple-500 text-purple-500 '}
                     onClick={()=>setOpen(!open)}
                 >Full info</div>
+                <div 
+                    className={btn+ ' border-blue-500 text-blue-500 '}  
+                    onClick={()=>{
+                        setActiveCarId(item.id)
+                        setSteps(1)
+                    }}
+                >Edit</div>
             </div>
         </div>
         
@@ -295,7 +302,7 @@ export default CarCard;
 
 const contentItem= 'flex items-center space-x-2'
 
-
+const btn = 'text-[10px] mt-3  border text-center rounded-full cursor-pointer roboto text-thin px-2'
 const red ='text-sm border-2 border-rose-500 rounded-full px-3 text-rose-500 text-xs'
 const green ='text-sm border-2 border-green-500 rounded-full px-3 text-green-500 text-xs'
 
@@ -327,4 +334,4 @@ const header = ' mb-2 bg-white px-1 absolute -top-2 left-3 text-xs'
 
 const InfoCard = 'flex w-full  py-4 pt-4 border-t   relative text-sm'
 
-const container = 'relative flex flex-col shadow-xl rounded-lg w-full px-2 py-2 items-center bg-white rounded'
+const container = 'relative flex flex-col shadow-xl rounded-lg w-full px-2 py-2 items-center bg-white rounded mb-4'

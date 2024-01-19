@@ -247,12 +247,12 @@ const ReturnTrip = ():React.ReactNode  => {
 
                 <div className='flex flex-col h-[85px] z-10 relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                     <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].timeR}  onChange={setTimeR} date={list[activeCarId-1].dateR}/> 
-                    {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-gray-600 ':list[activeCarId-1].timeTypeR===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
+                    <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-gray-600 ':list[activeCarId-1].timeTypeR===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                         <div className={list[activeCarId-1].timeTypeR===0 ? selectTextActive :selectText } onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
                         <div className={list[activeCarId-1].timeTypeR===1 ? amTextActive : amText} onClick={()=>setTimeTypeR(1)}>am</div>
                         <div className="absolute border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
                         <div className={list[activeCarId-1].timeTypeR===2 ? pmTextActive: pmText} onClick={()=>setTimeTypeR(2)}>PM</div>    
-                    </div>}
+                    </div>
                     {day && <div  className='absolute top-8 left-2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
 
@@ -588,11 +588,8 @@ export default ReturnTrip;
 
 
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
-
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
-
 const type = 'flex items-center py-2 justify-between w-full mb-2'
-
 const btns = 'flex items-center  w-full  pt-4'
 
 
@@ -618,7 +615,7 @@ const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs
 
 const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500 mr-4'
 
-const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-purple-500 shadow-lg'
+const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
 
 const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
 
@@ -636,7 +633,7 @@ const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 
 const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 
-const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
+const fare = 'py-1 font-bold mb-2 italic text-gray-400 w-full text-end mr-4'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex  h-full pb-10 flex-col relative w-full px-5 text-xs'

@@ -25,9 +25,7 @@ import dayjs from "dayjs";
 import { useStore } from './Store/index';
 
 function App():React.ReactNode {
-  const { list, 
-    submit, 
-    setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
+  const { list, submit, setSubmit, activeCarId, setActiveCarId, isCars, isFrench, setIsFrench, setDay,setSteps} = useMain()
   const { store } = useStore()
   const [screenWidth] = useState(window.innerWidth);
 
@@ -36,17 +34,13 @@ function App():React.ReactNode {
   },[activeCarId,setActiveCarId,isCars,isFrench])
   const ref = useRef<Carousel>(null);
   
-  const responsive = {
-
-    tablet: {
-      breakpoint: { max: 10000, min: 480 },
-      items: 8
-    },
-    mobile: {
-      breakpoint: { max: 570, min: 0 },
-      items: 3
-    }
-  };
+  const carTypes:{[key:number]: string} = {
+    1: 'Sedan',
+    2: 'SUV',
+    3: 'VAN',
+    4: 'Limo'
+  }
+  
 
   useEffect(()=>{
     
@@ -85,9 +79,24 @@ function App():React.ReactNode {
                   <TiInfoLarge className='cursor-pointer text-base'/>
             </div>
           </div>
+          {(list.filter(item => item.filled).length > 0 && !submit) && <div className={carMenu}>
+          {
+            list.map((item,index) => (
+              <div 
+                className={(index+1) === activeCarId ? carItemActive: carItem }
+                onClick={()=>{
+                  setActiveCarId(index+1)
+                  setSteps(0)
+                }}
+              >{carTypes[item.carType]}</div>
+            ))
+          }
+        </div>}
         </div>
         
+        
         <div className={content}>
+          <div className="text-base text-gray-300 absolute top-20 left-2 z-50">{list[activeCarId-1].steps+1}/8</div>
           <Form />
         </div>
         <div className="fixed -bottom-1 z-20 left-0 right-0  bg-white py-2 border-t">
@@ -122,7 +131,16 @@ function App():React.ReactNode {
               ref={ref}
               
               arrows={false}
-              responsive={responsive}
+              responsive={{
+                tablet: {
+                  breakpoint: { max: 10000, min: 480 },
+                  items: 8
+                },
+                mobile: {
+                  breakpoint: { max: 570, min: 0 },
+                  items: 3
+                }
+              }}
             >
                 {
                   (isFrench? store.menuTabsF  : store.menuTabs).map((item, index)=> {
@@ -170,6 +188,9 @@ function App():React.ReactNode {
 }
 export default App
 
+const carItem = 'px-4 w-1/5'
+const carItemActive = 'px-4  w-1/5 border-b-2 border-purple-500'
+const carMenu = 'flex '
 const arrIcon = ' text-purple-500 text-xl'
 const footerIcon = 'text-3xl'
 const footerTabText = 'text-[10px] leading-3 '
@@ -180,7 +201,7 @@ const footerTabActive = ' relative flex flex-col text-center mx-1 items-center w
 const lang = 'flex cursor-pointer items-center  mt-6 mb-2 '
 const langItem = ' px-1 text-gray-600 font-thin'
 
-const content =  'flex flex-1 w-full justify-center pb-[60px] pt-6'
+const content =  'flex relative flex-1 w-full justify-center pb-[60px] pt-10'
 const header = 'fixed  z-50 bg-gray-50 flex flex-col px-10 w-full  '
 
 const wrapper = ' relative w-full flex flex-col max-w-[768px] main-h-screen'

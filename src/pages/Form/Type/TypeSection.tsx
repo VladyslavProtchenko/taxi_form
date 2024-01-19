@@ -12,7 +12,6 @@ const Type = ():React.ReactNode => {
 
     return (
         <section className={section}>
-            <h1 className={number}>1/8</h1>
             <h1 className={h1}>Bonjour taxi!</h1>
             <h2 className={h2}>Make a choice of service, please!</h2>
             <div className={buttons}>
@@ -42,7 +41,6 @@ const Type = ():React.ReactNode => {
 
 export default Type;
 
-const number = 'absolute left-2 top-18 text-base text-gray-300'
 const icon = ' '
 const h1 = ' text-3xl '
 const h2 = ' text-xl '

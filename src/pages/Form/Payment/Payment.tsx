@@ -12,7 +12,6 @@ const PaymentSection = ():React.ReactNode => {
     const { store} = useStore()
     return (
         <section className={section}>
-            <h1 className={pageNumber}>7/8</h1>
             <div className={content}>
                 <span className={box}>
                     <Select  placeholder='Trip type' style={{ width:200 , height: 30, borderRadius: 20}} value={list[activeCarId-1].tripType} onChange={setTripType} options={store.tripList.map(item=>({value: item, label: item}))}/></span>
@@ -29,7 +28,6 @@ const PaymentSection = ():React.ReactNode => {
             <div className='flex justify-end space-x-4 mt-4'>
                 {list.filter(item => item.filled).length>0 &&<button className={yellowBtn} onClick={()=> {
                         setSubmit(true)
-                        setSteps(7)
                     }}>View Orders</button>}
                 {list[activeCarId-1].filled 
                     ? <div className="px-4 py-2 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>
@@ -46,7 +44,6 @@ const PaymentSection = ():React.ReactNode => {
 
 export default PaymentSection;
 
-const pageNumber = 'absolute left-2 top-16 text-base text-gray-300'
 
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
