@@ -28,12 +28,12 @@ const PassengersSection = ():React.ReactNode => {
                             }}>
                             {
                                 index === 0
-                                ? <><IoCarSportOutline className='w-[20px] text-sm'/>{isFrench ? 'Berline': 'Sedan'}</>
+                                ? <div className='items-center flex '><IoCarSportOutline className='w-[25px] mr-1 text-4xl'/>{isFrench ? 'Berline': 'Sedan'}</div>
                                 : index === 1
-                                ? <><PiJeepLight className='w-[20px] text-sm'/>{isFrench ? 'VUS': 'SUV'}</> 
+                                ? <div className='items-center flex'><PiJeepLight className='w-[25px] mr-1 text-4xl'/>{isFrench ? 'VUS': 'SUV'}</div> 
                                 : index === 2
-                                ? <><LiaShuttleVanSolid className='w-[20px] text-sm'/> {'VAN'}</>
-                                : <><AiOutlineStop className='w-[20px] text-sm text-red-500'/>{'Limo'}</>
+                                ? <div className='items-center flex '><LiaShuttleVanSolid className='w-[25px] mr-1 text-4xl'/> {'VAN'}</div>
+                                : <div className='items-center flex '><AiOutlineStop className='w-[25px] mr-1 text-4xl text-red-500'/>{'Limo'}</div>
                             }
                         </div>
                     ))}
@@ -64,8 +64,8 @@ const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-f
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 
 const trick = 'absolute bg-purple-500 top-0 bottom-0 w-1/4 duration-500'
-const typeItem = 'flex justify-center z-10 px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
-const typeItemActive = 'flex text-white justify-center z-10 px-2 py-1 cursor-pointer text-[10px] px-0 w-1/4'
+const typeItem = 'flex justify-center z-10 px-2 py-1 cursor-pointer  px-0 w-1/4'
+const typeItemActive = 'flex text-white justify-center z-10 px-2 py-1 cursor-pointer  px-0 w-1/4'
 const type = 'relative flex  border-2 border-purple-500 rounded-full overflow-hidden w-full'
 
 

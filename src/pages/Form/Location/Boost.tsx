@@ -27,7 +27,7 @@ const Boost = ():React.ReactNode => {
         setDateNow,
         setTimeType,
         setFilled,
-        setSteps,
+        setSubmit,
     } = useMain()
     
     const { store } = useStore()
@@ -67,7 +67,7 @@ const Boost = ():React.ReactNode => {
         setIsFrom(list[activeCarId-1].from.length>0)
         if(isDate && isFrom &&  list[activeCarId-1].time) {
             setFilled(true, activeCarId)
-            setSteps(5)
+            setSubmit(true)
         }
     }
     return (
@@ -196,7 +196,7 @@ const toggle ='relative flex self-start  items-center rounded-lg border border-p
 const toggleLabel ='flex  items-center text-xs duration-500 px-2 min-w-[42px] py-1 duration-1000'
 const toggleLabelActive ='flex min-w-[42px] z-20 items-center py-1 text-xs  duration-500 duration-1000 px-2 text-white font-bold '
 
-const fare = 'py-1 mb-2 italic text-gray-400 w-full text-end'
+const fare = 'py-1 font-black mb-2 italic text-gray-500 w-full text-end mr-4'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex flex-col relative w-full px-10 text-xs mt-12'

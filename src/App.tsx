@@ -68,7 +68,7 @@ function App():React.ReactNode {
     <div className={container} >
       <div className={wrapper}>
         <div className={header}>
-          <div className='flex items-center'>
+          <div className='flex items-center px-10 justify-between w-full max-w-[576px]'>
             <div className={lang} onClick={()=>setIsFrench(!isFrench)}>
               {isFrench 
                 ?<><div style={{backgroundImage:`url(${fr})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat'} ></div><div className={langItem} >EN</div></>
@@ -79,34 +79,37 @@ function App():React.ReactNode {
                   <TiInfoLarge className='cursor-pointer text-base'/>
             </div>
           </div>
-          {(list.filter(item => item.filled).length > 0 && !submit) && <div className={carMenu}>
-          {
-            list.map((item,index) => (
-              <div 
-                className={(index+1) === activeCarId ? carItemActive: carItem }
-                onClick={()=>{
-                  setActiveCarId(index+1)
-                  setSteps(0)
-                }}
-              >{carTypes[item.carType]}</div>
-            ))
-          }
-        </div>}
+          {(list.filter(item => item.filled).length > 0 && !submit) 
+            && <div className={carMenu}>
+              <div className='flex w-full max-w-[576px]'>
+                {
+                  list.map((item,index) => (
+                    <div 
+                      className={(index+1) === activeCarId ? carItemActive: carItem }
+                      onClick={()=>{
+                        setActiveCarId(index+1)
+                        setSteps(0)
+                      }}
+                    >{carTypes[item.carType]}</div>
+                  ))
+                }
+            </div>
+          </div>}
         </div>
         
         
+        <div className="text-base sticky text-gray-300 top-20 z-50">{list[activeCarId-1].steps+1}/8</div>
         <div className={content}>
-          <div className="text-base text-gray-300 absolute top-20 left-2 z-50">{list[activeCarId-1].steps+1}/8</div>
           <Form />
         </div>
         <div className="fixed -bottom-1 z-20 left-0 right-0  bg-white py-2 border-t">
-        <div className={"xs:hidden h-0 flex justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
+        <div className={"xs:hidden h-0 flex justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
               {[0,0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
                     ? <FaSortDown className={arrIcon}/>
                     : <div className='w-[20px]'></div> 
               )}
         </div>
-        <div className={" xs:flex h-0 hidden justify-around max-w-[570px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
+        <div className={" xs:flex h-0 hidden justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
               {[1,1,1].map((_,index)=> {
                   if(list[activeCarId-1].steps > 0 && list[activeCarId-1].steps < 7 ){
                     return index === 1
@@ -188,9 +191,9 @@ function App():React.ReactNode {
 }
 export default App
 
-const carItem = 'px-4 w-1/5'
-const carItemActive = 'px-4  w-1/5 border-b-2 border-purple-500'
-const carMenu = 'flex '
+const carItem = 'px-4 w-1/5 text-center'
+const carItemActive = 'px-4  w-1/5 border-b-2 text-purple-500 border-purple-500 text-center'
+const carMenu = 'flex items-center justify-center absolute top-16 left-0 right-0'
 const arrIcon = ' text-purple-500 text-xl'
 const footerIcon = 'text-3xl'
 const footerTabText = 'text-[10px] leading-3 '
@@ -202,7 +205,7 @@ const lang = 'flex cursor-pointer items-center  mt-6 mb-2 '
 const langItem = ' px-1 text-gray-600 font-thin'
 
 const content =  'flex relative flex-1 w-full justify-center pb-[60px] pt-10'
-const header = 'fixed  z-50 bg-gray-50 flex flex-col px-10 w-full  '
+const header = 'fixed top-0 left-0 right-0 justify-center z-50 bg-gray-50 flex w-full  '
 
-const wrapper = ' relative w-full flex flex-col max-w-[768px] main-h-screen'
+const wrapper = ' relative w-full flex flex-col max-w-[576px] main-h-screen'
 const container = 'flex w-full min-w-screen  min-h-screen justify-center bg-gray-50 text-xs'

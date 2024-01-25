@@ -14,7 +14,7 @@ import { BsChatSquareText } from 'react-icons/bs';
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const [open, setOpen] = useState(false)
     const {store} = useStore()
-    const {list, setFilled, isFrench, setActiveCarId,setSteps } = useMain()
+    const {list, setFilled,setSubmit, isFrench, setActiveCarId,setSteps } = useMain()
     const [openModal, setOpenModal] = useState(false)
     const carTypes:{[key:number]:string} = {
         1: 'Sedan',
@@ -59,6 +59,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                     onClick={()=>{
                         setActiveCarId(item.id)
                         setSteps(1)
+                        setSubmit(false)
                     }}
                 >Edit</div>
             </div>

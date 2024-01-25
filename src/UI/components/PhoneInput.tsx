@@ -465,12 +465,12 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
     const { isFrench } = useMain()
     const { store } = useStore()
     const [country, setCountry] = useState('Canada')
-    const [countryCode, setCountryCode] = useState(value)
     const [isOpen, setIsOpen] = useState(false)
     const [icon, setIcon] = useState(1)
     const [val, setVal] = useState(0)
     const [res, setRes] = useState(0)
     const [selected, setSelected] = useState('CA')
+    const [trigger, setTrigger] = useState(false)
 
     useEffect(() => {
         if (type === 1) {
@@ -480,12 +480,14 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
     }, [val, res])
 
     useEffect(() => {
-        if (country) {
+        
+        if (country && trigger) {
             const res = countries.find((item) => item[0].toLowerCase().includes(country.toLowerCase()))
             if (res) {
-                setCountryCode(res[1])
+                onChange(res[1])
             }
         }
+        setTrigger(true)
     }, [country])
 
     const handleCountryCode = (data: string) => {
@@ -532,14 +534,13 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                         setRes(res)
                         return true
                     }}
-                    
-                    prefix=''
+                    prefix={' '}
                     dropdownClass='max-w-[180px] z-40'
                     priority={{ ca: 1, us: 0, kz: 0, ru: 1 }}
                     country={'us'}
-                    value={value || countryCode}
+                    value={value}
                     onChange={(e, countryName: ICountry) => {
-                        setCountryCode('')
+                        
                         for (const key in flags) {
                             if (flags[key] === countryName.name) setSelected(key)
                         }
@@ -557,19 +558,17 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                         return true
                     }}
                     
-                    prefix=''
+                    prefix={' '}
                     dropdownClass='max-w-[180px] z-40 '
                     priority={{ ca: 0, us: 1, kz: 0, ru: 1 }}
                     country={'ca'}
-                    value={value || countryCode}
+                    value={value}
                     onChange={(e, countryName: ICountry) => {
-                        setCountryCode('')
                         for (const key in flags) {
 
                             if (flags[key] === countryName.name) {
                                 setSelected(key)
                             }
-
                         }
                         onChange(e)
                     }}

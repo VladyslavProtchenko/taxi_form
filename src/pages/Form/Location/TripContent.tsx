@@ -567,7 +567,7 @@ const TripContent = ():React.ReactNode => {
             </div>
 
             <div className={list[activeCarId-1].type + ' pt-4'}>
-                <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser': 'Reset'}</button>
+                <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser les adresses': 'Reset Addresses'}</button>
             </div>
 
             
@@ -631,7 +631,7 @@ const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-50
 
 
 
-const fare = 'py-1 font-bold mb-2 italic text-gray-400 w-full text-end mr-4'
+const fare = 'py-1 font-black mb-2 italic text-gray-500 w-full text-end mr-4'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex h-full pb-10 flex-col relative w-full px-5 text-xs'
