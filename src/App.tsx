@@ -34,13 +34,6 @@ function App():React.ReactNode {
   },[activeCarId,setActiveCarId,isCars,isFrench])
   const ref = useRef<Carousel>(null);
   
-  // const carTypes:{[key:number]: string} = {
-  //   1: 'Sedan',
-  //   2: 'SUV',
-  //   3: 'VAN',
-  //   4: 'Limo'
-  // }
-  
 
   useEffect(()=>{
     
@@ -78,7 +71,19 @@ function App():React.ReactNode {
                 :<><div style={{backgroundImage:`url(${en})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat '} ></div><div  className={langItem} >FR</div></>
               }
             </div>
-            <div className='flex items-center mt-5 mx-auto text-base text-gray-400'>Taxi {activeCarId} </div>
+            <div className='flex items-center mt-5 mx-auto  text-gray-600'>
+                {
+                  list[activeCarId-1].isEdit? 'Editing ': 'Adding '
+                } 
+                {
+                  activeCarId === 1
+                  ? '1st'
+                  :activeCarId === 2
+                  ? '2nd'
+                  :activeCarId === 3
+                  ? '3rd'
+                  : activeCarId +'th'
+              } Car </div>
             <div className=" flex items-center mt-8 mb-2 justify-center border-2  rounded-full border-orange-400 text-orange-400 "><TiInfoLarge className='cursor-pointer text-base'/></div>
           </div>
           {/* {(list.filter(item => item.filled).length > 0 && !submit) 
@@ -106,14 +111,14 @@ function App():React.ReactNode {
         </div>
         <div className="fixed -bottom-1 z-20 left-0 right-0  bg-white py-2 border-t">
         <div className={"xs:hidden h-0 flex justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
-              {[0,0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
+              {[0,0,0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
                     ? <FaSortDown className={arrIcon}/>
                     : <div className='w-[20px]'></div> 
               )}
         </div>
         <div className={" xs:flex h-0 hidden justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
               {[1,1,1].map((_,index)=> {
-                  if(list[activeCarId-1].steps > 0 && list[activeCarId-1].steps < 7 ){
+                  if(list[activeCarId-1].steps > 0 && list[activeCarId-1].steps < 8 ){
                     return index === 1
                     ? <FaSortDown className={arrIcon}/>
                     : <div className='w-[20px]'></div>

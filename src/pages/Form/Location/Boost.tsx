@@ -28,6 +28,7 @@ const Boost = ():React.ReactNode => {
         setTimeType,
         setFilled,
         setSubmit,
+        setSteps,
     } = useMain()
     
     const { store } = useStore()
@@ -68,6 +69,7 @@ const Boost = ():React.ReactNode => {
         if(isDate && isFrom &&  list[activeCarId-1].time) {
             setFilled(true, activeCarId)
             setSubmit(true)
+            setSteps(8)
         }
     }
     return (

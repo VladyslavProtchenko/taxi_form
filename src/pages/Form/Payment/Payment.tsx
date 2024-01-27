@@ -25,15 +25,17 @@ const PaymentSection = ():React.ReactNode => {
                         setAdditionalText(e.target.value)
                     }}/></span>
             </div>
+
             <div className='flex justify-end space-x-4 mt-4'>
-                {list.filter(item => item.filled).length>0 &&<button className={yellowBtn} onClick={()=> {
-                        setSubmit(true)
-                    }}>View Orders</button>}
+                
                 {list[activeCarId-1].filled 
                     ? <div className="px-4 py-2 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>
                     : <button className={nextBtn} onClick={()=> {
                             setFilled(true, activeCarId)
                         }}>Order taxi</button>}
+                {list.filter(item => item.filled).length>0 &&<button className={yellowBtn} onClick={()=> {
+                        setSubmit(true)
+                    }}>View Orders</button>}
             </div>
             <div className="flex w-full mt-auto max-w-[400px] justify-between mx-auto ">
                 <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? 'Précédent': 'Previous'}</div>
@@ -47,7 +49,7 @@ export default PaymentSection;
 
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
-const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-2 rounded-full'
+const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-3 rounded-full'
 
 const additional ='flex w-full '
 const content ='flex justify-between w-full mb-4'

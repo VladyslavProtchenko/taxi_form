@@ -165,6 +165,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
 
     function goNext() {
+        if(!list[activeCarId-1].isReturnTrip) return setSteps(4)
 
         if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
         if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return alert('need return time')

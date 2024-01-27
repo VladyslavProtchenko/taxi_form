@@ -20,6 +20,7 @@ export interface ITaxi {
     timeTypeR: number;
     type: number;
     validation:number;
+    isEdit: boolean;
 
     name: string;
     name2: string;
@@ -145,6 +146,7 @@ interface IStore {
         5: boolean
     }) => void;
     addNewCar: (value: ITaxi[]) => void;
+    removeCar: (id: number) => void;
     setSubmit: (value: boolean) => void;
     setValidation: (value: number) => void;
     setTitle: (value: string) => void;
@@ -245,6 +247,8 @@ interface IStore {
     setPets: (value: IPet[]) => void;
     setCarSeats: (value: IItem[]) => void;
     setIsReturnStatus: (value: boolean) => void;
+    setIsEdit: (value: boolean) => void;
+    setList: (value: ITaxi[]) => void;
 
     //steps 
     setSteps: (value: number) => void;
@@ -267,6 +271,7 @@ export const useMain = create<IStore>()(
                 timeTypeR: 0,
                 filled: false,
                 validation:0,
+                isEdit: false,
                 name: '',
                 name2: '',
                 name3: '',
@@ -397,11 +402,15 @@ export const useMain = create<IStore>()(
             }
         ],
         addNewCar:(data) => set((state)=>({...state, list:data})),
+        removeCar:(id) =>  set((state)=>({...state, list:state.list.filter(item => item.id !== id)})),
+
+        setList:(data) => set((state)=>({...state, list:data})),
 
         setDay: (data) => set((state) => ({ ...state, day: data })),
         setSubmit: (data) => set((state) => ({ ...state, submit: data })),
         setType: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, type: data } : item) })),
         setValidation: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, validation: data } : item) })),
+        setIsEdit: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, isEdit: data } : item) })),
 
         setIsFrench: (data) => set((state) => ({ ...state, isFrench: data })),
         setActiveCarId: (data) => set((state) => ({ ...state, activeCarId: data })),

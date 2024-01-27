@@ -14,24 +14,47 @@ import { BsChatSquareText } from 'react-icons/bs';
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const [open, setOpen] = useState(false)
     const {store} = useStore()
-    const {list, setFilled,setSubmit, isFrench, setActiveCarId,setSteps } = useMain()
+    const {list,setList, removeCar, setSubmit,setFilled,setIsEdit, isFrench, setActiveCarId,setSteps } = useMain()
     const [openModal, setOpenModal] = useState(false)
     const carTypes:{[key:number]:string} = {
         1: 'Sedan',
         2: 'SUV',
         3: "VAN",
     }
-    
+    const removeTaxi = (id:number) => {
+        
+        if(list.length === 1 ) {
+            setFilled(false, id)
+            setSubmit(false)
+            return setSteps(0)
+        }
+        if( id === 1 ) {
+            
+            const newList = list.filter(i=>i.id!==1).map(item => {
+                const newId = (item.id-1)
+                return {...item,  id:newId}
+            })
+            
+            setList(newList)
+            setActiveCarId(1)
+            setOpenModal(false)
+            return setSubmit(true)
+            
+        }
+        
+        removeCar(id)
+        setActiveCarId(1)
+        setOpenModal(false)
+        setSubmit(true)
+    }
+
     return ( 
     <div className={container}>
         {/* __________________________________CLOSE_MODAL---------------------------------- */}
         {openModal && <div className="absolute flex flex-col bg-white shadow-lg shadow-purple-700 p-4 rounded-xl">
             <h1>Do you want decline car?</h1>
             <div className='flex space-x-2 self-end mt-4'>
-                <button className={green} onClick={()=>{
-                    setFilled(false, item.id)
-                    setOpenModal(false)
-                    }}>yes</button>
+                <button className={green} onClick={()=>removeTaxi(item.id)}>yes</button>
                 <button className={red} onClick={()=>setOpenModal(false)}>not</button>
             </div>
         </div>}
@@ -57,6 +80,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                 <div 
                     className={btn+ ' border-blue-500 text-blue-500 '}  
                     onClick={()=>{
+                        setIsEdit(true);
                         setActiveCarId(item.id)
                         setSteps(1)
                         setSubmit(false)

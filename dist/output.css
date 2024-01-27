@@ -706,10 +706,6 @@ video {
   top: 0.5rem;
 }
 
-.top-24{
-  top: 6rem;
-}
-
 .top-4{
   top: 1rem;
 }
@@ -744,6 +740,10 @@ video {
 
 .top-\[6px\]{
   top: 6px;
+}
+
+.top-\[84px\]{
+  top: 84px;
 }
 
 .top-full{
@@ -969,6 +969,10 @@ video {
 
 .h-\[38px\]{
   height: 38px;
+}
+
+.h-\[400px\]{
+  height: 400px;
 }
 
 .h-\[40px\]{

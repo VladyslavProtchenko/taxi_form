@@ -13,7 +13,7 @@ import SportSection from './Sport/SportSection';
 import ReturnSection from './Location/ReturnSection';
 
 const Form = (): React.ReactNode => {
-    const { list,submit, setSubmit, activeCarId ,setIsCars, setFilled } = useMain()
+    const { list,submit, activeCarId ,setIsCars, setFilled } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     useEffect(()=>{
@@ -85,12 +85,9 @@ const Form = (): React.ReactNode => {
         setIsCars(cars)
     },[list])
 
-    useEffect(()=>{
-        setSubmit(false)
-    },[activeCarId])
     
     return (
-        <div  className={container}>
+        <div className={container}>
             {!submit ? <>
                 {list[activeCarId-1].steps === 0 && <Type />}
                 {list[activeCarId-1].steps === 1 && <InfoSection />}

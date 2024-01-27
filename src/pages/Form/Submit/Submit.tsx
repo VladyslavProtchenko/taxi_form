@@ -5,6 +5,7 @@ import CarCard from './CarCard';
 import axios, { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
 import {  useNavigate } from 'react-router-dom';
+import BoostCard from './BoostCard';
 
 
 const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
@@ -28,22 +29,33 @@ const Submit = (): React.ReactNode => {
         }
         if(list.length===5) return;
         
-        const id = list.length+1
-
+        const id = list.reduce((max, obj)=>(obj.id > max.id ? obj : max ), list[0]).id +1
+        
         const newCar = {
-            ...list[activeCarId-1],
+            ...list[0],
             id: id,
             filled: false,
+            isEdit: false,
         }
+        console.log(newCar, 'custom id')
         addNewCar([...list, newCar])
         setActiveCarId(id)
+        setSubmit(false)
         setSteps(0)
     }
+    
+    console.log(activeCarId,'car id')
+    console.log(list,'list')
     
     return (
         <section className={section}>
             {list.filter(item => item.filled).length > 0 
-            ? list.filter(item => item.filled).map((item) => (<CarCard item={item} key={item.name + item.phone}/>))
+            ? list.filter(item => item.filled).map((item) => {
+                    return item.type < 3 
+                        ? (<CarCard item={item} key={item.id + item.phone}/>)
+                        :(<BoostCard item={item} key={item.id + item.phone}/>)
+                }
+            )
             : <div className='w-full h-[100px] text-center'> no orders yet</div>  }
             {(list.filter(item => item.filled).length > 0 && list.filter(item => item.filled).length < 5)  && 
                 <div 
@@ -71,7 +83,7 @@ export default Submit;
 const addCar = 'border-2 border-green-400 rounded-full text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
 
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
-const greenBtn = 'w-1/3 border-2 border-green-400   active:bg-green-400 active:text-white flex items-center justify-center text-green-400 rounded-full'
+const greenBtn = 'w-1/3 border-2 border-green-400  active:bg-green-400 active:text-white flex items-center justify-center text-green-400 rounded-full'
 
 
 const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-10'

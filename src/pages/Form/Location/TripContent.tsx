@@ -168,7 +168,7 @@ const TripContent = ():React.ReactNode => {
 
         if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) {
             setValidation(2)
-            return setSteps(4)
+            return setSteps(3)
         }
         if(!list[activeCarId-1].date) return alert('need date')
         if(!list[activeCarId-1].time) return alert('need time')
