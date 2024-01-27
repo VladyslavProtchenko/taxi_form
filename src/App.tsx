@@ -64,7 +64,7 @@ function App():React.ReactNode {
       <div className={wrapper}>
         <div className={header}>
           <div className='flex relative items-center px-10 justify-between w-full max-w-[576px]'>
-            <div className="text-base absolute text-gray-300 left-2 top-7 z-50">{list[activeCarId-1].steps+1}/8</div>
+            <div className="text-base absolute text-gray-300 left-2 top-7 z-50">{list[activeCarId-1].steps+1}/9</div>
             <div className={lang} onClick={()=>setIsFrench(!isFrench)}>
               {isFrench 
                 ?<><div style={{backgroundImage:`url(${fr})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat'} ></div><div className={langItem} >EN</div></>

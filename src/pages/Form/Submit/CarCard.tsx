@@ -14,7 +14,7 @@ import { BsChatSquareText } from 'react-icons/bs';
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     const [open, setOpen] = useState(false)
     const {store} = useStore()
-    const {list,setList, removeCar, setSubmit,setFilled,setIsEdit, isFrench, setActiveCarId,setSteps } = useMain()
+    const {list,setList, setSubmit,setFilled,setIsEdit, isFrench, setActiveCarId,setSteps } = useMain()
     const [openModal, setOpenModal] = useState(false)
     const carTypes:{[key:number]:string} = {
         1: 'Sedan',
@@ -22,14 +22,12 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
         3: "VAN",
     }
     const removeTaxi = (id:number) => {
-        
         if(list.length === 1 ) {
             setFilled(false, id)
             setSubmit(false)
             return setSteps(0)
         }
         if( id === 1 ) {
-            
             const newList = list.filter(i=>i.id!==1).map(item => {
                 const newId = (item.id-1)
                 return {...item,  id:newId}
@@ -39,13 +37,12 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
             setActiveCarId(1)
             setOpenModal(false)
             return setSubmit(true)
-            
         }
-        
-        removeCar(id)
+
+        const newList = list.filter(i=>i.id!==id)
+        setList(newList)
         setActiveCarId(1)
         setOpenModal(false)
-        setSubmit(true)
     }
 
     return ( 

@@ -401,10 +401,16 @@ export const useMain = create<IStore>()(
                 steps:0,
             }
         ],
-        addNewCar:(data) => set((state)=>({...state, list:data})),
+        addNewCar:(data) => {
+            const res = data.map((item,index)=> { return {...item, id: (index+1)} })
+            set((state)=>({...state, list:res}))
+        },
         removeCar:(id) =>  set((state)=>({...state, list:state.list.filter(item => item.id !== id)})),
 
-        setList:(data) => set((state)=>({...state, list:data})),
+        setList:(data) => {
+            const res = data.map((item,index)=> { return {...item, id: (index+1)} })
+            set((state)=>({...state, list:res}))
+        },
 
         setDay: (data) => set((state) => ({ ...state, day: data })),
         setSubmit: (data) => set((state) => ({ ...state, submit: data })),

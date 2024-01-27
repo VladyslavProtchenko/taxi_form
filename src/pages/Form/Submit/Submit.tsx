@@ -17,7 +17,7 @@ const sendOrder = async (data:ITaxi[]): Promise<AxiosResponse> => {
 };
 
 const Submit = (): React.ReactNode => {
-    const { list,activeCarId,addNewCar, setSubmit,setActiveCarId, isFrench,setSteps } = useMain()
+    const { list,addNewCar, setSubmit,setActiveCarId, isFrench,setSteps } = useMain()
     const navigate = useNavigate()
     useEffect(()=>{},[list])
 
@@ -37,16 +37,13 @@ const Submit = (): React.ReactNode => {
             filled: false,
             isEdit: false,
         }
-        console.log(newCar, 'custom id')
+        
         addNewCar([...list, newCar])
         setActiveCarId(id)
         setSubmit(false)
         setSteps(0)
     }
-    
-    console.log(activeCarId,'car id')
-    console.log(list,'list')
-    
+    console.log(list, 'xxx')
     return (
         <section className={section}>
             {list.filter(item => item.filled).length > 0 

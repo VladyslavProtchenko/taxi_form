@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 const BoostCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
-    const {list, submit, setList, setSubmit,setFilled,setIsEdit, isFrench, setActiveCarId,setSteps } = useMain()
+    const {list, setList, setSubmit,setFilled,setIsEdit, isFrench, setActiveCarId,setSteps } = useMain()
     const [openModal, setOpenModal] = useState(false)
 
     const removeTaxi = (id:number) => {
@@ -29,8 +29,6 @@ const BoostCard = ({item}:{item: ITaxi}):React.ReactNode => {
         setList(newList)
         setActiveCarId(1)
         setOpenModal(false)
-        
-        console.log(submit, 'submit')
     }
 
     return ( 
