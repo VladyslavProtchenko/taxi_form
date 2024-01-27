@@ -34,12 +34,12 @@ function App():React.ReactNode {
   },[activeCarId,setActiveCarId,isCars,isFrench])
   const ref = useRef<Carousel>(null);
   
-  const carTypes:{[key:number]: string} = {
-    1: 'Sedan',
-    2: 'SUV',
-    3: 'VAN',
-    4: 'Limo'
-  }
+  // const carTypes:{[key:number]: string} = {
+  //   1: 'Sedan',
+  //   2: 'SUV',
+  //   3: 'VAN',
+  //   4: 'Limo'
+  // }
   
 
   useEffect(()=>{
@@ -56,7 +56,9 @@ function App():React.ReactNode {
       : list[activeCarId-1].steps === 6  
       ? ref.current?.goToSlide(5)
       : list[activeCarId-1].steps === 7  
-      ? ref.current?.goToSlide(5)
+      ? ref.current?.goToSlide(6)
+      : list[activeCarId-1].steps === 8  
+      ? ref.current?.goToSlide(6)
       : ref.current?.goToSlide(0)
     }
       
@@ -68,18 +70,18 @@ function App():React.ReactNode {
     <div className={container} >
       <div className={wrapper}>
         <div className={header}>
-          <div className='flex items-center px-10 justify-between w-full max-w-[576px]'>
+          <div className='flex relative items-center px-10 justify-between w-full max-w-[576px]'>
+            <div className="text-base absolute text-gray-300 left-2 top-7 z-50">{list[activeCarId-1].steps+1}/8</div>
             <div className={lang} onClick={()=>setIsFrench(!isFrench)}>
               {isFrench 
                 ?<><div style={{backgroundImage:`url(${fr})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat'} ></div><div className={langItem} >EN</div></>
                 :<><div style={{backgroundImage:`url(${en})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat '} ></div><div  className={langItem} >FR</div></>
               }
             </div>
-            <div className=" flex items-center mt-8 mb-2 justify-center border-2  rounded-full border-orange-400 text-orange-400 ml-auto">
-                  <TiInfoLarge className='cursor-pointer text-base'/>
-            </div>
+            <div className='flex items-center mt-5 mx-auto text-base text-gray-400'>Taxi {activeCarId} </div>
+            <div className=" flex items-center mt-8 mb-2 justify-center border-2  rounded-full border-orange-400 text-orange-400 "><TiInfoLarge className='cursor-pointer text-base'/></div>
           </div>
-          {(list.filter(item => item.filled).length > 0 && !submit) 
+          {/* {(list.filter(item => item.filled).length > 0 && !submit) 
             && <div className={carMenu}>
               <div className='flex w-full max-w-[576px]'>
                 {
@@ -94,11 +96,11 @@ function App():React.ReactNode {
                   ))
                 }
             </div>
-          </div>}
+          </div>} */}
         </div>
         
         
-        <div className="text-base sticky text-gray-300 top-20 z-50">{list[activeCarId-1].steps+1}/8</div>
+        
         <div className={content}>
           <Form />
         </div>
@@ -147,8 +149,7 @@ function App():React.ReactNode {
             >
                 {
                   (isFrench? store.menuTabsF  : store.menuTabs).map((item, index)=> {
-
-                    return index === 7 
+                    return index === 8 
                     ?  (<span 
                       key={item} 
                       className={ submit  ? footerTabActive : footerTab  } 
@@ -157,25 +158,26 @@ function App():React.ReactNode {
                         }}><IoCheckmarkDone  className={footerIcon}/>
                       <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
                     </span>)
+
                     : (<span 
                           key={item} 
-                          className={ (list[activeCarId-1].steps===index)  ? footerTabActive : footerTab  } 
+                          className={ (list[activeCarId-1].steps === index)  ? footerTabActive : footerTab  } 
                           onClick={()=>{
-                              if(index ===7 ) return setSubmit(true)
+                              if(index === 8 ) return setSubmit(true)
                               setSubmit(false); setSteps(index)
                             }}>
                           {index === 0
                             ?  <IoSettingsOutline  className={footerIcon}/>
                             : index === 1
                             ? <PiUserListLight className={footerIcon}/>
-                            : index === 2
+                            : index === 2 || index === 3
                             ? <CiLocationOn className={footerIcon} />
-                            : index === 3
-                            ? <div style={{backgroundImage:`url(${list[activeCarId-1].steps===3 ?carBagsPurple : carBags})` }} className={'  text-xs w-10 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                             : index === 4
-                            ? <div style={{backgroundImage:`url(${list[activeCarId-1].steps===4 ?babiSeatPurple : babiSeat})` }} className={'  text-xs w-10 bg-center h-7 bg-contain bg-no-repeat'} ></div>
-                            : index ===5
-                            ?<MdDirectionsBike className={footerIcon} />
+                            ? <div style={{backgroundImage:`url(${list[activeCarId-1].steps===4 ?carBagsPurple : carBags})` }} className={'  text-xs w-10 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                            : index === 5
+                            ? <div style={{backgroundImage:`url(${list[activeCarId-1].steps===5 ?babiSeatPurple : babiSeat})` }} className={'  text-xs w-10 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                            : index === 6
+                            ? <MdDirectionsBike className={footerIcon} />
                             : <CiMoneyCheck1 className={footerIcon} />
                           }
                           <span className={footerTabText}>{isFrench? store.menuTabsF[index] : store.menuTabs[index] }</span>
@@ -191,9 +193,7 @@ function App():React.ReactNode {
 }
 export default App
 
-const carItem = 'px-4 w-1/5 text-center'
-const carItemActive = 'px-4  w-1/5 border-b-2 text-purple-500 border-purple-500 text-center'
-const carMenu = 'flex items-center justify-center absolute top-16 left-0 right-0'
+
 const arrIcon = ' text-purple-500 text-xl'
 const footerIcon = 'text-3xl'
 const footerTabText = 'text-[10px] leading-3 '

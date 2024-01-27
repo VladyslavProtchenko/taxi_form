@@ -435,7 +435,7 @@ const flags: { [key: string]: string } = {
     UA: "Ukraine",
     AE: "United Arab Emirates",
     GB: "United Kingdom",
-    US: "(USA) United States",
+    US: "United States",
     UY: "Uruguay",
     UZ: "Uzbekistan",
     VU: "Vanuatu",
@@ -540,7 +540,6 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                     country={'us'}
                     value={value}
                     onChange={(e, countryName: ICountry) => {
-                        
                         for (const key in flags) {
                             if (flags[key] === countryName.name) setSelected(key)
                         }
@@ -565,7 +564,6 @@ function PhoneNumberInput({ value, onChange, type, setValidation }: IPhone): Rea
                     value={value}
                     onChange={(e, countryName: ICountry) => {
                         for (const key in flags) {
-
                             if (flags[key] === countryName.name) {
                                 setSelected(key)
                             }

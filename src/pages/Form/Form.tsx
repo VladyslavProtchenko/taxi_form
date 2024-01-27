@@ -1,6 +1,6 @@
 import React from 'react';
 import InfoSection from './Info/InfoSection';
-import AddressSection from './Location/LocationSection';
+import LocationSection from './Location/LocationSection';
 import PassengersSection from './Passengers/PassengersSection';
 
 import PaymentSection from './Payment/Payment';
@@ -10,6 +10,7 @@ import { useMain } from '../../Store/useMain';
 import Type from './Type/TypeSection';
 import BagsSection from './Seats/SeatsSection';
 import SportSection from './Sport/SportSection';
+import ReturnSection from './Location/ReturnSection';
 
 const Form = (): React.ReactNode => {
     const { list,submit, setSubmit, activeCarId ,setIsCars, setFilled } = useMain()
@@ -93,11 +94,13 @@ const Form = (): React.ReactNode => {
             {!submit ? <>
                 {list[activeCarId-1].steps === 0 && <Type />}
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
-                {list[activeCarId-1].steps === 2 && <AddressSection />}
-                {list[activeCarId-1].steps === 3 && <PassengersSection />}
-                {list[activeCarId-1].steps === 4 && <BagsSection />}
-                {list[activeCarId-1].steps === 5 && <SportSection />}
-                {list[activeCarId-1].steps === 6 && <PaymentSection/>}
+                {list[activeCarId-1].steps === 2 && <LocationSection />}
+                {list[activeCarId-1].steps === 3 && <ReturnSection />}
+
+                {list[activeCarId-1].steps === 4 && <PassengersSection />}
+                {list[activeCarId-1].steps === 5 && <BagsSection />}
+                {list[activeCarId-1].steps === 6 && <SportSection />}
+                {list[activeCarId-1].steps === 7 && <PaymentSection/>}
             </> : <Submit/>}
         </div>
     );

@@ -166,16 +166,6 @@ const ReturnTrip = ():React.ReactNode  => {
 
     function goNext() {
 
-        setIsDateR(list[activeCarId-1].date.length>0)
-        setIsFromR(list[activeCarId-1].from.length>0)
-        setIsToR(list[activeCarId-1].to.length>0)
-
-        if(!list[activeCarId-1].date) return alert('need date')
-        if(!list[activeCarId-1].time && list[activeCarId-1].timeType!==0 ) return alert('need time')
-        if(!list[activeCarId-1].from) return alert('need pick up location')
-        if(!list[activeCarId-1].to) return alert('need drop of location')
-
-        if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) return setSteps(3)
         if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
         if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return alert('need return time')
         if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
@@ -189,12 +179,14 @@ const ReturnTrip = ():React.ReactNode  => {
             && list[activeCarId-1].timeR
             && list[activeCarId-1].fromR 
             && list[activeCarId-1].toR 
-        ) return setSteps(3)
+        ) return setSteps(4)
     }
+
     function setBackSection(){
         setTrigger({ 1: 1, 2: 1 })
         setStopTrigger(true)
     }
+
     function resetCard(){
         setTrigger({ 1: 0, 2: 0 })
         setStopTrigger(false)
@@ -575,8 +567,8 @@ const ReturnTrip = ():React.ReactNode  => {
                     
                 }}>Cancel return</button> */}
             </div>
-            <div className='w-full flex justify-between px-5 pt-4 mt-auto'>
-                <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Previous'}</div>
+            <div className='w-full flex justify-between max-w-[400px] mx-auto pt-4 mt-auto'>
+                <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
     </div>

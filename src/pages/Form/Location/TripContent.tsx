@@ -59,12 +59,6 @@ const TripContent = ():React.ReactNode => {
     const [isFrom, setIsFrom] = useState(true)
     const [isTo, setIsTo] = useState(true)
     const [trigger, setTrigger] = useState(false)
-    const [_, setChangedList] = useState(isFrench? store.typeListF: store.typeList)
-
-
-    useEffect(()=>{
-        setChangedList(isFrench? store.typeListF: store.typeList)
-    },[isFrench])
 
     const prefixes:{[key:string]:string} = {
         'AIR CANADA': "AC",
@@ -149,7 +143,6 @@ const TripContent = ():React.ReactNode => {
 
     useEffect(()=>{
         setStops(localStops)
-
     },[localStops])
 
     useEffect(()=>{
@@ -175,25 +168,14 @@ const TripContent = ():React.ReactNode => {
 
         if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) {
             setValidation(2)
-            return setSteps(3)
+            return setSteps(4)
         }
-        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
-        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip) return alert('need return time')
-        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
-        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return alert('need return drop of location')
-        if(
-            list[activeCarId-1].date 
-            && list[activeCarId-1].from 
-            && list[activeCarId-1].to 
-            && list[activeCarId-1].isReturnTrip
-            && list[activeCarId-1].dateR
-            && list[activeCarId-1].timeR
-            && list[activeCarId-1].fromR 
-            && list[activeCarId-1].toR 
-        ) {
-            setValidation(2)
-            return setSteps(3)
-        }
+        if(!list[activeCarId-1].date) return alert('need date')
+        if(!list[activeCarId-1].time) return alert('need time')
+        if(!list[activeCarId-1].from) return alert('need pick up location')
+        if(!list[activeCarId-1].toR) return alert('need drop of location')
+        
+        return setSteps(3)
     }
 
     useEffect(()=>{
@@ -571,7 +553,7 @@ const TripContent = ():React.ReactNode => {
             </div>
 
             
-            <div className='w-full flex justify-between mt-auto px-5 pt-4'>
+            <div className='w-full flex justify-between mt-auto mx-auto pt-4 max-w-[400px]'>
                 <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>

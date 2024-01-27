@@ -64,10 +64,19 @@ const InfoSection = () => {
         setNoPhone(false)
         setValidation(0)
 
-        if(list[activeCarId-1].name.length > 2) setIsName(true)
-        if(list[activeCarId-1].title.length>1) setIsTitle(true)
-        if(pattern.test(list[activeCarId-1].email)) setIsEmail(true)
-        if(isPhone) setNoPhone(true)
+        if(list[activeCarId-1].name.length > 2) {
+            setIsName(true)
+        } else { return alert('Name is required')}
+        if(list[activeCarId-1].title.length>1) {
+            setIsTitle(true)
+        } else { return alert('Title is required')}
+        if(pattern.test(list[activeCarId-1].email)) {
+            setIsEmail(true)
+        } else { return alert('Email is required')}
+
+        if(isPhone) {
+            setNoPhone(true)
+        }else { return alert('Phone is required')}
     
         if(isTitle && isName &&  isPhone && isEmail && noPhone) {
             setValidation(1)
@@ -313,7 +322,7 @@ const InfoSection = () => {
                 </div>
             </div>
 
-            <div className='w-full flex px-10 justify-between mt-auto mb-10'>
+            <div className='w-full flex justify-between mt-auto mx-auto max-w-[400px] mb-10 px-5'>
                 <div className={backBtn} onClick={()=>setSteps(0)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>

@@ -21,6 +21,11 @@ const Submit = (): React.ReactNode => {
     useEffect(()=>{},[list])
 
     const newOrder = () => {
+
+        if(list.find(a => a.filled === false)) {
+            setSubmit(false)
+            return setSteps(0)
+        }
         if(list.length===5) return;
         
         const id = list.length+1
@@ -46,7 +51,7 @@ const Submit = (): React.ReactNode => {
                     onClick={newOrder}
                 >Add car</div>
             }
-            <div className="flex justify-between mt-auto pt-4">
+            <div className="flex justify-between mt-auto pt-4 max-w-[400px] mx-auto w-full">
                 <div onClick={() => {
                         setSteps(6)
                         setSubmit(false)

@@ -44,11 +44,13 @@ const PassengersSection = ():React.ReactNode => {
             <div className={content}><BagsSelect /></div>
 
             <div className='w-full flex justify-between max-w-[400px] mx-auto mt-auto'>
-                <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Previous'}</div>
+                <div className={backBtn} onClick={()=>{
+                        setSteps(list[activeCarId-1].isReturnTrip ? 3: 2)
+                    }}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={()=>{
                     (list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2))
                     ? alert('need adults')
-                    : setSteps(4)
+                    : setSteps(5)
                 }}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
 

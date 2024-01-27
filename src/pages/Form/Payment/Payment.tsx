@@ -36,7 +36,7 @@ const PaymentSection = ():React.ReactNode => {
                         }}>Order taxi</button>}
             </div>
             <div className="flex w-full mt-auto max-w-[400px] justify-between mx-auto ">
-                <div className={backBtn} onClick={()=>setSteps(4)}>{isFrench? 'Précédent': 'Previous'}</div>
+                <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? 'Précédent': 'Previous'}</div>
             </div>
         </section>
     );
