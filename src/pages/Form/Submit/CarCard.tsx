@@ -136,7 +136,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                                     <div className='px-1'>{item.flight.prefix}</div>
                                     <div className='px-1 '>{item.flightR.number? '#'+item.flightR.number : ''}</div>
                                 </div>
-                                {Object.values(item.stops).filter(i=>i).map(item=>(<div className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div>))}
+                                {Object.values(item.stops).filter(i=>i).map(item=>(<div key={item} className={text+ ' ml-3'}><SlLocationPin className={stopIcon}/>{item}</div>))}
                                 {item.to && <div className={text}><SlLocationPin className={icon+ ' text-red-400'}/>{item.to}</div>}
                                 <div className='flex'>
                                     <div className='px-1'>{item.flight2.title}</div>

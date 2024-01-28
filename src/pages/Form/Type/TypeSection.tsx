@@ -16,7 +16,7 @@ const Type = ():React.ReactNode => {
             <h2 className={h2}>Make a choice of service, please!</h2>
             <div className={buttons}>
                 {(isFrench? store.typeListF: store.typeList).map((item,index)=>(
-                        <div className={button} onClick={()=>{
+                        <div className={button} key={item} onClick={()=>{
                             setType(index+1)
                             setSteps(1)
                         }}>

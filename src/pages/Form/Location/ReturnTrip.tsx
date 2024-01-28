@@ -58,38 +58,7 @@ const ReturnTrip = ():React.ReactNode  => {
     const [isFromR, setIsFromR] = useState(true)
     const [isToR, setIsToR] = useState(true)
 
-    const prefixes:{[key:string]:string} = {
-        'AIR CANADA': "AC",
-        'Air Transat': "AT",
-        'PAL airlines':"PA",
-        'Air Inuit':"AI",
-        'Porter':"PO",
-        'UNITED': "UN",
-        'CANADIAN NORTH':"CN",
-        'American Airlines':"AA",
-        'Emirates':"EM",
-        'arajet':"AR",
-        'DELTA':"DE",
-        'flair':"FL",
-        'AIR ALGERIE':"AL",
-        'TUNISAIR':"TU",
-        'SWISS':"SW",
-        'Austrian':"AU",
-        'Air Saint-Pierre':"SP",
-        'AIRFRANCE':"AF",
-        'KLM':"KLM",
-        'Lufthansa':"LU",
-        'Royal Air MAroc(RAM)':"MA",
-        'BRITISH AIRWAYS':"BA",
-        'AeroMexico':"AM",
-        'CopaAirlines':"CO",
-        'Lynx':"LY",
-        'SUNWING':"SNW",
-        'QATAR':"QT",
-        'RAM':"RAM",
-        'Another':"",
-        "":'',
-    }
+
 
 
     useEffect(()=>{
@@ -272,33 +241,19 @@ const ReturnTrip = ():React.ReactNode  => {
                     {list[activeCarId-1].iconR > 0 && <div className={flightCard }>
                         {list[activeCarId-1].iconR === 1 && 
                         <Select 
-                            className='favorite w-1/2 max-h-[30px]'
-                            style={{width: '100px', borderRadius: 5}} 
+                            className='favorite max-h-[30px] max-w-[210px]'
+                            style={{ borderRadius: 5}} 
                             options={store.flights.map(item=>({value: item, label: item}))} 
                             onChange={(e)=>{setFlightR({...list[activeCarId-1].flightR, title: e})}}
                             placeholder='Airlines' 
                         />}
                         
-                        {list[activeCarId-1].iconR === 1
-                            ?<MdFlightLand className='text-xl mx-1'/>
-                            :list[activeCarId-1].iconR === 2
-                            ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                            :list[activeCarId-1].iconR === 3
-                            ? <FaBus className=' mx-1'/>
-                            :list[activeCarId-1].iconR === 4
-                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                            :list[activeCarId-1].iconR === 5 
-                            ?<MdLocalHotel className='mx-1'/>
-                            :<MdFlightLand className='text-xl mx-1'/>
-                        }   
-                        {list[activeCarId-1].iconR === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                            { prefixes[list[activeCarId-1].flightR.title]}
-                        </div>}
+                        
                         <Input 
                             value={list[activeCarId-1].flightR.number}
                             maxLength={4}
                             placeholder={list[activeCarId-1].iconR === 1 ?'####': list[activeCarId-1].iconR === 2 ? 'Train#' : list[activeCarId-1].iconR === 3 ? "Bus#" : list[activeCarId-1].iconR === 4 ? 'Boat#': 'Room#'} 
-                            style={{width:`${list[activeCarId-1].iconR === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 5, height: 30}}
+                            style={{ width:65, paddingLeft:2,paddingBottom:4, paddingRight:0, marginLeft:2,marginRight:2, borderRadius: 0, height: 30, overflow: 'hidden' }} 
                             onChange={(e:ChangeEvent<HTMLInputElement>)=>{
                                 setFlightR({...list[activeCarId-1].flightR, number: e.target.value.replace(/\D/g, '')})
                             }}
@@ -516,8 +471,8 @@ const ReturnTrip = ():React.ReactNode  => {
 
                     {list[activeCarId-1].icon2R>0 && <div className={flightCard }>
                         {list[activeCarId-1].icon2R === 1 && <Select 
-                            className='favorite w-1/2 max-h-[30px]'
-                            style={{width: '100px', borderRadius:5}} 
+                            className='favorite max-h-[30px] max-w-[210px]'
+                            style={{ borderRadius:5}} 
                             options={store.flights.map(item=>(
                                 {value: item, label: item}
                             ))} 
@@ -527,26 +482,11 @@ const ReturnTrip = ():React.ReactNode  => {
                             placeholder='Airlines' 
                         />}
                         
-                        {list[activeCarId-1].icon2R === 1
-                            ?< MdFlightTakeoff className='text-xl mx-1'/>
-                            :list[activeCarId-1].icon2R === 2
-                            ?<div style={{backgroundImage:`url(${train})`}}  className="w-7 h-7 bg-cover bg-no-repeat bg-center"></div>
-                            :list[activeCarId-1].icon2R === 3
-                            ? <FaBus className=' mx-1'/>
-                            :list[activeCarId-1].icon2R === 4
-                            ? <div style={{backgroundImage:`url(${boat})`}}  className="w-5 h-5 bg-cover bg-no-repeat bg-center"></div>
-                            :list[activeCarId-1].icon2R === 5 
-                            ?<MdLocalHotel className='mx-1'/>
-                            :<MdFlightLand className='text-xl mx-1'/>
-                        }   
-                        {list[activeCarId-1].icon2R === 1 && <div className='text-sm pl-1 text-gray-500 translate-y-[0.5px] pr-[1px]'>
-                            {prefixes[list[activeCarId-1].flight2R.title]}
-                        </div>}
                         <Input 
                             value={list[activeCarId-1].flight2R.number}
                             maxLength={4}
                             placeholder={list[activeCarId-1].icon2R === 1 ?'####': list[activeCarId-1].icon2R === 2 ? 'Train#' : list[activeCarId-1].icon2R === 3 ? "Bus#" : list[activeCarId-1].icon2R === 4 ? 'Boat#': 'Room#'} 
-                            style={{width:`${list[activeCarId-1].icon2R === 1 ? '70px': '100%' }`, paddingLeft:0, borderRadius: 0, height: 30}}
+                            style={{ width:65, paddingLeft:2,paddingBottom:4, paddingRight:0, marginLeft:2,marginRight:2, borderRadius: 0, height: 30, overflow: 'hidden' }} 
                             onChange={(e:ChangeEvent<HTMLInputElement>)=>{
                                 setFlight2R({...list[activeCarId-1].flight2R, number: e.target.value.replace(/\D/g, '')})
 

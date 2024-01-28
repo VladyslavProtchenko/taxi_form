@@ -78,7 +78,6 @@ const Form = (): React.ReactNode => {
                 } else {
                     if(item.filled) setFilled(false, item.id)
                     cars = {...cars, [index+1]: false}
-                    
                 }
             }
         })

@@ -23,7 +23,6 @@ export default function DatePicker({onChange, getFullDate, isReturn, value}:IDat
             getFullDate(parsedDate)
             onChange(parsedDate.format('MM/DD/YYYY'))
     }
-    console.log(dayjs(value))
     return (
         <div className="relative" >
             <div className={pickUpTime}>

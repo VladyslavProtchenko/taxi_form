@@ -71,65 +71,49 @@ function App():React.ReactNode {
                 :<><div style={{backgroundImage:`url(${en})` }} className={'w-5 h-5 text-xs bg-center bg-cover bg-no-repeat '} ></div><div  className={langItem} >FR</div></>
               }
             </div>
-            <div className='flex items-center mt-5 mx-auto  text-gray-600'>
+            {!submit && <div className='flex items-center mt-5 mx-auto  text-gray-600'>
                 {
-                  list[activeCarId-1].isEdit? 'Editing ': 'Adding '
+                  list[activeCarId-1].isEdit
+                    ?  isFrench ? 'Modification ': 'Editing '
+                    : isFrench ? 'Ajout ': 'Adding '
                 } 
                 {
                   activeCarId === 1
-                  ? '1st'
+                  ? isFrench ? '1er':  '1st'
                   :activeCarId === 2
-                  ? '2nd'
+                  ? isFrench ? '2e':  '2nd'
                   :activeCarId === 3
-                  ? '3rd'
-                  : activeCarId +'th'
-              } Car </div>
+                  ? isFrench ? '3e':'3rd'
+                  : isFrench ? activeCarId+'e':activeCarId +'th'
+              } {isFrench ? ' Véhicule': ' Car'} 
+            </div>}
             <div className=" flex items-center mt-8 mb-2 justify-center border-2  rounded-full border-orange-400 text-orange-400 "><TiInfoLarge className='cursor-pointer text-base'/></div>
           </div>
-          {/* {(list.filter(item => item.filled).length > 0 && !submit) 
-            && <div className={carMenu}>
-              <div className='flex w-full max-w-[576px]'>
-                {
-                  list.map((item,index) => (
-                    <div 
-                      className={(index+1) === activeCarId ? carItemActive: carItem }
-                      onClick={()=>{
-                        setActiveCarId(index+1)
-                        setSteps(0)
-                      }}
-                    >{carTypes[item.carType]}</div>
-                  ))
-                }
-            </div>
-          </div>} */}
         </div>
-        
-        
-        
         <div className={content}>
           <Form />
         </div>
         <div className="fixed -bottom-1 z-20 left-0 right-0  bg-white py-2 border-t">
         <div className={"xs:hidden h-0 flex justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
               {[0,0,0,0,0,0,0,0,0].map((_,index)=>  list[activeCarId-1].steps === index
-                    ? <FaSortDown className={arrIcon}/>
-                    : <div className='w-[20px]'></div> 
+                    ? <FaSortDown className={arrIcon} key={index}/>
+                    : <div className='w-[20px]' key={index}></div> 
               )}
         </div>
         <div className={" xs:flex h-0 hidden justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"}>
               {[1,1,1].map((_,index)=> {
                   if(list[activeCarId-1].steps > 0 && list[activeCarId-1].steps < 8 ){
                     return index === 1
-                    ? <FaSortDown className={arrIcon}/>
-                    : <div className='w-[20px]'></div>
+                    ? <FaSortDown className={arrIcon} key={index}/>
+                    : <div className='w-[20px]' key={index}></div>
                   } else if( submit) {
                     return index === 2
-                    ? <FaSortDown className={arrIcon}/>
-                    : <div className='w-[20px]'></div>
+                    ? <FaSortDown className={arrIcon} key={index}/>
+                    : <div className='w-[20px]' key={index}></div>
                   }else if( list[activeCarId-1].steps === 0) {
                     return index === 0
-                    ? <FaSortDown className={arrIcon}/>
-                    : <div className='w-[20px]'></div>
+                    ? <FaSortDown className={arrIcon} key={index}/>
+                    : <div className='w-[20px]' key={index}></div>
                   }
                   
               })}
@@ -144,7 +128,7 @@ function App():React.ReactNode {
               responsive={{
                 tablet: {
                   breakpoint: { max: 10000, min: 480 },
-                  items: 8
+                  items: 9
                 },
                 mobile: {
                   breakpoint: { max: 570, min: 0 },

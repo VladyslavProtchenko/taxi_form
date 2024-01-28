@@ -43,7 +43,6 @@ const Submit = (): React.ReactNode => {
         setSubmit(false)
         setSteps(0)
     }
-    console.log(list, 'xxx')
     return (
         <section className={section}>
             {list.filter(item => item.filled).length > 0 
@@ -62,7 +61,7 @@ const Submit = (): React.ReactNode => {
             }
             <div className="flex justify-between mt-auto pt-4 max-w-[400px] mx-auto w-full">
                 <div onClick={() => {
-                        setSteps(6)
+                        setSteps(7)
                         setSubmit(false)
                     }} className={backBtn}> {isFrench? 'Précédent': 'Previous'} </div>
                 <div onClick={async () => {

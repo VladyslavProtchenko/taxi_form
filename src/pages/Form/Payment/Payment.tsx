@@ -34,6 +34,7 @@ const PaymentSection = ():React.ReactNode => {
                             setFilled(true, activeCarId)
                         }}>Order taxi</button>}
                 {list.filter(item => item.filled).length>0 &&<button className={yellowBtn} onClick={()=> {
+                        setSteps(8)
                         setSubmit(true)
                     }}>View Orders</button>}
             </div>
