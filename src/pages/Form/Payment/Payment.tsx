@@ -55,7 +55,7 @@ const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-c
 const additional ='flex w-full '
 const content ='flex justify-between w-full mb-4'
 
-const box ='flex border h-min pl-3 w-[100px] rounded-xl border-purple-500'
-const box2 ='flex border h-min ml-4 pl-3 w-[100px] rounded-xl border-purple-500'
+const box ='flex border h-min pl-3 w-[100px] rounded-xl border-purple-500 bg-white'
+const box2 ='flex border h-min ml-4 pl-3 w-[100px] rounded-xl border-purple-500 bg-white' 
 const textArea ='flex border h-min w-full rounded-xl border-purple-500' 
 const section = 'flex flex-col h-full w-full pt-14 max-w-[576px]  border-none  py-8 px-10   rounded-b'
