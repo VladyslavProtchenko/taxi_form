@@ -265,3 +265,17 @@ select option {
 [dir="rtl"] .carousel-container{
     direction: ltr;
 }
+
+.anticon {
+    display: none!important;
+}
+
+.ant-input-clear-icon {
+    transform: rotate(45deg);
+}
+
+.ant-input-clear-icon::after {
+    content: '+';
+    transform: rotate(100deg)!important;
+    font-size: 34px
+}

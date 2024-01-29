@@ -42,7 +42,8 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
         <div className={(!noMail && mainMail) ? container  +' border-red-500': container}>
             <span className='icon'><TfiEmail/></span>
             <Input
-                style={{maxWidth: 200,width:'60%', fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
+                allowClear
+                style={{maxWidth: 200,width:'60%',paddingRight:22, fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
                 value={value.split('@')[0] || ''}
                 onChange={(v) => onChange(v.target.value+'@'+(value.split('@')[1] || ''))}
                 placeholder={placeholder}
