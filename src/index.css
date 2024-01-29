@@ -267,7 +267,8 @@ select option {
 }
 
 .anticon {
-    display: none!important;
+    height: 0!important;
+    width: 0!important;
 }
 
 .ant-input-clear-icon {
@@ -277,5 +278,12 @@ select option {
 .ant-input-clear-icon::after {
     content: '+';
     transform: rotate(100deg)!important;
-    font-size: 34px
+    font-size: 34px;
+}
+
+.ant-select-clear::before {
+    content: '+';
+    font-size: 34px;
+    transform: translateY(-14px) translateX(-4px) rotate(45deg) !important;
+
 }
