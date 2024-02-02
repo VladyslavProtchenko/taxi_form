@@ -44,7 +44,8 @@ interface IStore {
 
     menuTabs: string[];
     menuTabsF: string[];
-
+    dayPrices: number[];
+    nightPrices: number[];
 
 }
 interface Store {
@@ -58,6 +59,9 @@ export const useStore = create<Store>(() => ({
         menuTabsF: ['Type Service', 'Contacts', 'Aller simple', 'Retour', 'Vehicle & Passengers','Seats & Strollers','Sport & Pets', 'Paiement', 'Confirmation'],
         numbersList: ['st', 'nd', 'rd', 'th'],
         numbersListF: ['st', 'nd', 'rd', 'th'],
+
+        dayPrices: [4.10, 1.05, 22.537],//prices:  from start/ per km/ minute of waiting / fee 0.9/ tax  1.05
+        nightPrices: [4.70, 1.05, 22.723 ],
 
         titleList: ['Mr.', 'Mrs.', 'Miss.', 'Prefer Not To say'],
         titleListF: ['M.', 'Mme.', 'Mlle.', 'Préfère ne pas dire'],
@@ -98,37 +102,6 @@ export const useStore = create<Store>(() => ({
         paymentList: ['Cash', 'Debit', 'Credit Card(need receipt),', 'Voucher', 'Office Charges'],
         paymentListF: ['Comptant', 'Débit', 'Carte crédit(besoin reçu),', 'Coupon', 'Charge Au Bureu'],
 
-        // flights: [
-        //     'AIR CANADA',
-        //     'Air Transat',
-        //     'PAL airlines',
-        //     'Air Inuit',
-        //     'Porter',
-        //     'UNITED',
-        //     'CANADIAN NORTH',
-        //     'American Airlines',
-        //     'Emirates',
-        //     'arajet',
-        //     'DELTA',
-        //     'flair',
-        //     'AIR ALGERIE',
-        //     'TUNISAIR',
-        //     'SWISS',
-        //     'Austrian',
-        //     'Air Saint-Pierre',
-        //     'AIRFRANCE',
-        //     'KLM',
-        //     'Lufthansa',
-        //     'Royal Air MAroc(RAM)',
-        //     'BRITISH AIRWAYS',
-        //     'AeroMexico',
-        //     'CopaAirlines',
-        //     'Lynx',
-        //     'SUNWING',
-        //     'QATAR',
-        //     'RAM',
-        //     'Another'
-        // ],
 
         flights: [
             'AIR CANADA - AC',

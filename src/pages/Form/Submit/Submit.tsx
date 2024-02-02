@@ -4,14 +4,14 @@ import React, { useEffect } from 'react';
 import CarCard from './CarCard';
 import axios, { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
-import {  useNavigate } from 'react-router-dom';
+// import {  useNavigate } from 'react-router-dom';
 import BoostCard from './BoostCard';
 
 
 const sendOrder = async (data: ITaxi[], isFrench: boolean): Promise<AxiosResponse> => {
 
-    // const response = await axios.post("http://localhost:7010/order",{data, isFrench})
-    const response = await axios.post("https://taxibeckend.onrender.com/order",{data, isFrench})
+    const response = await axios.post("http://localhost:7010/order",{list:data, isFrench})
+    // const response = await axios.post("https://taxibeckend.onrender.com/order",{data, isFrench})
     console.log(response, 'response from server')
     
     return response;
@@ -19,7 +19,7 @@ const sendOrder = async (data: ITaxi[], isFrench: boolean): Promise<AxiosRespons
 
 const Submit = (): React.ReactNode => {
     const { list,addNewCar, setSubmit,setActiveCarId, isFrench ,setSteps } = useMain()
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     useEffect(()=>{},[list])
 
     const newOrder = () => {
@@ -68,7 +68,7 @@ const Submit = (): React.ReactNode => {
                 <div onClick={async () => {
                     const data = list.filter(item=>item.filled).map(car =>{return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car})
                     await sendOrder(data, isFrench )
-                    navigate('success')
+                    // navigate('success')
                 }} className={greenBtn}>Submit</div>
             </div>
         </section>
