@@ -102,6 +102,7 @@ const InfoSection = () => {
 
     return (
         <section className={section}>
+
             <div className={extraContainer}>
                 <div className={nameCard}>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
@@ -332,7 +333,6 @@ const InfoSection = () => {
 };
 
 export default InfoSection;
-
 
 const btns = ' fixed bottom-20 w-full flex justify-between mt-auto mx-auto max-w-[400px] px-5'
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'

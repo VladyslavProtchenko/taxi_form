@@ -21,6 +21,7 @@ export interface ITaxi {
     type: number;
     validation:number;
     isEdit: boolean;
+    isReset: boolean;
 
     name: string;
     name2: string;
@@ -147,7 +148,7 @@ interface IStore {
         4: boolean,
         5: boolean
     }) => void;
-    addNewCar: (value: ITaxi[]) => void;
+    addNewCar: () => void;
     removeCar: (id: number) => void;
     setSubmit: (value: boolean) => void;
     setValidation: (value: number) => void;
@@ -170,6 +171,7 @@ interface IStore {
     setPaymentMethod: (method: string) => void;
     setAdditionalText: (text: string) => void;
     resetForm: () => void;
+    restoreForm: () => void;
 
     //trip data methods
     setDate: (value: string) => void;
@@ -275,6 +277,7 @@ export const useMain = create<IStore>()(
                 filled: false,
                 validation:0,
                 isEdit: false,
+                isReset: false,
                 name: '',
                 name2: '',
                 name3: '',
@@ -404,9 +407,11 @@ export const useMain = create<IStore>()(
                 steps:0,
             }
         ],
-        addNewCar:(data) => {
-            const res = data.map((item,index)=> { return {...item, id: (index+1)} })
-            set((state)=>({...state, list:res}))
+        addNewCar:() => {
+            set((state)=>({
+                ...state,
+                list:[...state.list, {...state.list[state.list.length-1], id: (state.list[state.list.length-1].id+1), isEdit: false, filled: false } ]
+            }))
         },
         removeCar:(id) =>  set((state)=>({...state, list:state.list.filter(item => item.id !== id)})),
 
@@ -451,60 +456,171 @@ export const useMain = create<IStore>()(
         setPaymentMethod: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, paymentMethod: data } : item) })),
         setAdditionalText: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, additionalText: data } : item) })),
         resetForm: () => set((state) => ({
-            ...state, list: state.list.map(item => item.id === state.activeCarId ? {
-                ...item,
-                validation:0,
-                date: '', time: '', dateNow: true,
-                from: '', to: '',
-
-                stops: {
-                    1: '', 2: '', 3: '', 4: '',
-                },
-
-                icon: 0, icon2: 0,
-                flight: {
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+                    type: 1,
+                    timeType: 0,
+                    timeTypeR: 0,
+                    filled: false,
+                    validation:0,
+                    isEdit: false,
+                    isReset: true,
+                    name: '',
+                    name2: '',
+                    name3: '',
+    
                     title: '',
-                    prefix: '',
-                    number: '',
-                },
-                flight2: {
-                    title: '',
-                    prefix: '',
-                    number: '',
-                },
-                airline: '', airlineBack: '',
-                departure: '', departure2: '',
-
-                //return trip information
-                isReturnTrip: false,
-                
-
-                fromR: '',
-                toR: '',
-
-                stopsR: {
-                    1: '', 2: '', 3: '', 4: '',
-                },
-
-                dateR: '', timeR: '',
-
-                iconR: 0, icon2R: 0,
-                flightR: {
-                    title: '',
-                    prefix: '',
-                    number: '',
-                },
-                flight2R: {
-                    title: '',
-                    prefix: '',
-                    number: '',
-                },
-
-                airlineR: '', airlineBackR: '',
-                departureR: '', departure2R: '',
-
-            } : item)
+                    title2: '',
+                    title3: '',
+    
+                    email:'@',
+                    email2:'@',
+                    email3:'@',
+    
+                    phone: '',
+                    phone2: '',
+                    phone3: '',
+    
+                    date: '',
+                    time: '', 
+                    dateNow: true,
+    
+                    //trip information
+                    from: ''
+                    , to: '',
+    
+                    stops: {
+                        1: '',
+                        2: '', 
+                        3: '', 
+                        4: '',
+                    },
+    
+                    icon: 0, 
+                    icon2: 0,
+    
+                    airlines: '', 
+                    airlinesBack: '',
+                    flight: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+                    flight2: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+    
+                    departure: '', 
+                    departure2: '',
+    
+                    tripType: 'Vacation', 
+                    paymentMethod: 'Cash',
+                    additionalText: '',
+    
+                    //return trip information
+                    isReturnTrip: false,
+                    isReturnStatus:false,
+    
+                    fromR: '', 
+                    toR: '',
+    
+                    stopsR: {
+                        1: '', 
+                        2: '', 
+                        3: '', 
+                        4: '',
+                    },
+    
+                    dateR: '', 
+                    timeR: '',
+    
+                    iconR: 0, icon2R: 0,
+                    flightR: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+                    flight2R: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+    
+                    airlinesR: '', airlinesBackR: '',
+                    departureR: '', departure2R: '',
+    
+                    //options information
+                    carType: 1,
+    
+                    adults: 1, kids: [], babies: 0,
+    
+                    baggage: [
+                        { title: '32 kg', quantity: 0, },
+                        { title: '23 kg', quantity: 0, },
+                        { title: 'Between', quantity: 0, },
+                        { title: '10 kg', quantity: 0, },
+                        { title: '8 kg', quantity: 0, }
+                    ],
+                    sport: [
+                        { title: 'Bikes', quantity: 0, },
+                        { title: 'Skis', quantity: 0, },
+                        { title: 'Golf', quantity: 0, },
+                        { title: 'Surf', quantity: 0, },
+                    ],
+                    carSeats: [
+                        {
+                            title: 'Regular',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Babi',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Booster',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Regular stroller',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Umbrella',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Double',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Wheelchair',
+                            quantity: 0,
+                        },
+                    ],
+                    pets: [
+                        { title: 'Dog', cage: false, quantity: 0, },
+                        { title: 'Cat', cage: false, quantity: 0 },
+                        { title: 'Rabbit', cage: false, quantity: 0 },
+                        { title: 'Service dog (Mira)', cage: false, quantity: 0 },
+                        { title: 'Other', cage: false, quantity: 0, isOther: true, },
+                    ],
+                    steps:0,
+                } : item)
         })),
+        restoreForm: () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? {
+                ...state.list[0],
+                id:state.activeCarId,
+                isReset: false,
+                filled:false,
+                steps:  state.list[state.activeCarId-1].steps,
+            }
+            : item
+            )})),
 
 
         //trip methods 

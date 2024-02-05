@@ -28,18 +28,12 @@ const Submit = (): React.ReactNode => {
             setSubmit(false)
             return setSteps(0)
         }
+
         if(list.length===5) return;
         
-        const id = list.reduce((max, obj)=>(obj.id > max.id ? obj : max ), list[0]).id +1
-        
-        const newCar = {
-            ...list[0],
-            id: id,
-            filled: false,
-            isEdit: false,
-        }
-        
-        addNewCar([...list, newCar])
+        const id = list[list.length-1].id + 1
+
+        addNewCar()
         setActiveCarId(id)
         setSubmit(false)
         setSteps(0)
@@ -77,7 +71,7 @@ const Submit = (): React.ReactNode => {
 
 export default Submit;
 
-const btns ="fixed bottom-24 left-0 flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5"
+const btns ="fixed bottom-24 flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5 right-1/2 translate-x-1/2"
 
 const addCar = 'border-2 border-green-400 rounded-full text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
 

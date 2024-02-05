@@ -497,7 +497,7 @@ const TripContent = ():React.ReactNode => {
 export default TripContent;
 
 
-const btns = ' fixed left-0 bottom-20 w-full flex justify-between  max-w-[400px] px-5'
+const btns = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
 
@@ -551,4 +551,4 @@ const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-50
 const fare = 'py-1 font-black mb-2 italic text-gray-500 w-full text-end mr-4'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
-const container = 'flex  h-full pb-10 flex-col relative w-full px-5 text-xs'
+const container = 'relative flex h-full pb-10 flex-col relative w-full px-5 text-xs'
