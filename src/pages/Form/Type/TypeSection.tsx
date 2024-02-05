@@ -44,7 +44,7 @@ export default Type;
 const icon = ' '
 const h1 = ' text-3xl '
 const h2 = ' text-xl '
-const button = ' w-[200px] bg-white h-[100px] border-black flex  items-center justify-center  py-2 shadow-xl rounded border cursor-pointer font-bold text-center hover:bg-gray-200 '
+const button = ' w-[200px] bg-white h-[90px] border-black flex  items-center justify-center  py-2 shadow-xl rounded border cursor-pointer font-bold text-center hover:bg-gray-200 '
 const buttons = 'flex flex-col items-center justify-center rounded border-black overflow-hidden space-y-2'
 
-const section = 'flex flex-col items-center  w-full  max-w-[576px] pt-6 pb-10 bg-white h-full'
+const section = 'flex flex-col items-center  w-full  max-w-[576px] pt-12 pb-10 bg-white h-full'

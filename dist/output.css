@@ -1007,6 +1007,10 @@ video {
   height: 85px;
 }
 
+.h-\[90px\]{
+  height: 90px;
+}
+
 .h-full{
   height: 100%;
 }
@@ -1830,10 +1834,6 @@ video {
   padding-top: 1rem;
 }
 
-.pt-6{
-  padding-top: 1.5rem;
-}
-
 .text-center{
   text-align: center;
 }
@@ -1919,6 +1919,11 @@ video {
 .text-blue-500{
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.text-blue-700{
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
 }
 
 .text-gray-300{

@@ -518,7 +518,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
-const prevNext = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
+const prevNext = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2 z-20'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
 const type = 'flex items-center py-2 justify-between w-full mb-2'

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TiInfoLarge } from "react-icons/ti";
 import { useMain } from '../../Store/useMain';
-import en from '../../assets/english.png'
+import en from '../../assets/usa.png'
 import fr from '../../assets/france.png'
 
 const Header = (): React.ReactNode => {
@@ -37,10 +37,10 @@ const Header = (): React.ReactNode => {
                     <div className={step}>{list[activeCarId - 1].steps + 1}/9</div>
                 </div>
 
-                <div className={toggleButton}>
+                {activeCarId !==1 && <div className={toggleButton}>
                     <div onClick={resetForm} className={list[activeCarId-1].isReset ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
                     <div onClick={restoreForm} className={list[activeCarId-1].isReset ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
-                </div> 
+                </div>}
             </div>
         </div>
     );
@@ -54,7 +54,7 @@ const toggleButton = ' flex text-[10px] border rounded-full self-center divide-x
 const content = 'flex items-center w-full justify-between mb-1' 
 const image = 'w-8 h-5 text-xs bg-center bg-cover bg-no-repeat'
 const iIcon = " flex items-center justify-center border-2  rounded-full border-orange-400 text-orange-400 "
-const headerText = 'flex items-center mx-auto text-gray-600 text-base'
+const headerText = 'flex font-bold items-center mx-auto text-blue-700 text-base '
 const step = "text-2xl ml-2 text-gray-300"
 const wrapper = 'flex flex-col w-full max-w-[576px] px-4 '
 const lang = 'flex cursor-pointer items-center'

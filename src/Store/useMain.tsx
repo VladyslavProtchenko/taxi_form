@@ -608,7 +608,7 @@ export const useMain = create<IStore>()(
                         { title: 'Service dog (Mira)', cage: false, quantity: 0 },
                         { title: 'Other', cage: false, quantity: 0, isOther: true, },
                     ],
-                    steps:0,
+                    steps:item.steps,
                 } : item)
         })),
         restoreForm: () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
