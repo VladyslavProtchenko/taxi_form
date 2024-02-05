@@ -35,6 +35,6 @@ const ReturnSection = ():React.ReactNode => {
 export default ReturnSection;
 
 const tab = ' text-center py-1 duration-300 rounded-full px-3 font-bold'
-const returnTabActiveOne = 'max-w-[120px] mx-5 items-center  z-10  text-white rounded-full flex ' 
+const returnTabActiveOne = 'max-w-[120px] mx-5 items-center  z-10  text-white rounded-full flex cursor-pointer ' 
 
 const section = 'flex relative h-full flex-col w-full pt-10 max-w-[576px]'

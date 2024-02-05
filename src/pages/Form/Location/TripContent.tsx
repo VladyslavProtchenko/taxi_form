@@ -216,12 +216,12 @@ const TripContent = ():React.ReactNode => {
                     </div>
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[30px] left-0 right-1/2 bottom-0  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
 
-                    <div className='flex flex-col h-[85px] z-10 relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                    <div className='flex flex-col h-[92px] z-10 relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                         <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
-                        {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
+                        {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                             <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
                             <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
-                            <div className="absolute border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
+                            <div className="absolute border-b border-black w-[35px] right-[24px] z-30 rotate-[114deg]"></div>
                             <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
                         </div>}
                         {day && <div  className='absolute top-8 left-2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
@@ -501,21 +501,21 @@ const btns = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 ri
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
 
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
+const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white  cursor-pointer'
+const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white  cursor-pointer'
 const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
 
 
 const amText = 'pl-2 flex items-center py-1 pr-[2px] '
-const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-gray-600 text-white '
+const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-black text-white font-bold'
 
 const pmText = 'px-2 pl-4 rounded-tl triangle flex bg-white items-center py-1 '
-const pmTextActive = 'px-2 pl-4 text-white bg-gray-600  rounded-tl triangle flex items-center py-1 '
+const pmTextActive = 'px-2 pl-4 text-white bg-black rounded-tl triangle flex items-center py-1 font-bold'
 
 const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
-const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 border-r border-black '
+const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 border-r border-black '
 
-const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
+const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
 const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500'
 
@@ -541,14 +541,14 @@ const extraCardPickUp = 'flex relative w-3/4 bg-white items-center border border
 
 
 const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300 justify-center'
-const toggle ='relative flex self-start rounded-lg border border-purple-500 duration-500 transition cursor-pointer mb-2 overflow-hidden' 
+const toggle ='relative flex self-start rounded-lg border border-purple-500 duration-500 transition cursor-pointer mb-5 overflow-hidden' 
 
 const toggleLabel ='flex text-xs duration-500 justify-center px-2 py-1 duration-1000 '
 const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-500 duration-1000 px-2 text-white font-bold 	'
 
 
 
-const fare = 'py-1 font-black mb-2 italic text-gray-500 w-full text-end mr-4'
+const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-full text-end mr-4 text-xl'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'relative flex h-full pb-10 flex-col relative w-full px-5 text-xs'
