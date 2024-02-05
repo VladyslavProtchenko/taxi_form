@@ -299,7 +299,9 @@ const TripContent = ():React.ReactNode => {
                 </div>
             
                 <div className={extraCardStop}>
+                
                     <div className={(stop > 0)? box: box + ' opacity-0 '}>
+                        <div className={stopLabel}>{isFrench? '1er Arrêt':'1st Stop'}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>  
                         <GoogleAddressInput
                             style='w-full'
@@ -328,6 +330,7 @@ const TripContent = ():React.ReactNode => {
                 
                 <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 1 ? box: box + ' opacity-0 '}>
+                        <div className={stopLabel}>{isFrench? '2e Arrêt':'2nd Stop'}</div>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
                             style='w-full'
@@ -356,6 +359,7 @@ const TripContent = ():React.ReactNode => {
 
                 <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
                         <div className={stop > 2 ? box : box + ' opacity-0 '}>
+                            <div className={stopLabel}>{isFrench? '3e Arrêt':'3rd Stop'}</div>
                             <span className='icon  text-orange-400'><SlLocationPin/></span>
                             <GoogleAddressInput
                                 style='w-full'
@@ -386,6 +390,7 @@ const TripContent = ():React.ReactNode => {
 
                 <div className={(stop > 2 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 3 ? box : box + ' opacity-0 '}>
+                        <div className={stopLabel}>{isFrench? '4e Arrêt':'4th Stop'}</div>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
                             style='w-full'
@@ -497,6 +502,7 @@ const TripContent = ():React.ReactNode => {
 export default TripContent;
 
 
+const stopLabel = 'absolute top-2 -left-16 text-sm z-20 text-gray-400 '
 const btns = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
@@ -525,7 +531,7 @@ const iconsType = 'flex mb-2 justify-between w-full py-2'
 const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
 
 const closeStop =" my-auto px-2 py-1 text-center bg-rose-500 ml-1 rounded flex justify-center items-center cursor-pointer text-bold text-white"
-const openStop ="absolute top-2 text-purple-500 text-gray-700 rounded flex cursor-pointer"
+const openStop ="absolute top-2 text-purple-500  rounded flex cursor-pointer text-xl"
 
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'

@@ -289,6 +289,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
                 <div className={extraCardStop}>
                     <div className={(stop > 0)? box: box + ' opacity-0 '}>
+                        <div className={stopLabel}>{isFrench? '1er Arrêt':'1st Stop'}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span> 
                         <GoogleAddressInput
                             style='w-full'
@@ -334,6 +335,7 @@ const ReturnTrip = ():React.ReactNode  => {
                 
                 <div className={(stop > 0 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 1 ? box: box + ' opacity-0 '}>
+                        <div className={stopLabel}>{isFrench? '2e Arrêt':'2nd Stop'}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput 
                             style='w-full'
@@ -367,6 +369,7 @@ const ReturnTrip = ():React.ReactNode  => {
                 
                 <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 2 ? box : box + ' opacity-0 '}>
+                        <div className={stopLabel}>{isFrench? '3e Arrêt':'3rd Stop'}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput 
                             style='w-full'
@@ -398,7 +401,7 @@ const ReturnTrip = ():React.ReactNode  => {
                 
                 <div className={(stop > 2  ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 3 ? box : box + ' opacity-0 '}>
-
+                        <div className={stopLabel}>{isFrench? '4e Arrêt':'4th Stop'}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput 
                             style='w-full '
@@ -513,6 +516,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
+const stopLabel = 'absolute top-2 -left-16 text-sm z-20 text-gray-400 '
 const prevNext = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2 z-20'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
@@ -547,7 +551,7 @@ const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white b
 const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
 
 const closeStop =" my-auto px-2 py-1 text-center bg-rose-500 ml-1 rounded flex justify-center items-center cursor-pointer text-bold text-white"
-const openStop ="absolute top-2 text-purple-500 text-gray-700 rounded flex cursor-pointer"
+const openStop ="absolute top-2 text-purple-500 text-xl rounded flex cursor-pointer"
 
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'

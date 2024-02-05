@@ -594,6 +594,10 @@ video {
   bottom: -1rem;
 }
 
+.-left-16{
+  left: -4rem;
+}
+
 .-left-6{
   left: -1.5rem;
 }
@@ -1966,11 +1970,6 @@ video {
 .text-gray-600{
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
-}
-
-.text-gray-700{
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 .text-gray-800{
