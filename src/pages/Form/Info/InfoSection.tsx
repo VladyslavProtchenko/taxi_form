@@ -55,6 +55,31 @@ const InfoSection = () => {
         setIsExtraEmailOpen({ 1:list[activeCarId-1].email2.length>1 , 2:list[activeCarId-1].email3.length>1})
         setIsExtraPhoneOpen({ 1:list[activeCarId-1].phone2.length>0 , 2:list[activeCarId-1].phone3.length>0})
     },[])
+    useEffect(()=>{
+        if(trigger) {
+            setIsTitle(false)
+            setIsName(false)
+            setIsEmail(false)
+            setNoPhone(false)
+    
+            setIsName(list[activeCarId-1].name?.length > 2)
+            setIsTitle(list[activeCarId-1].title?.length>1)
+            setIsEmail(pattern.test(list[activeCarId-1].email))
+            setNoPhone(isPhone)
+        }
+    },[list[activeCarId-1], isPhone])
+
+    useEffect(()=>{
+        if(list[activeCarId-1].title?.length>1) {
+            isFrench ? setTitle(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title)]) : setTitle(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title)])
+        }   
+        if(list[activeCarId-1].title2?.length>1) {
+            isFrench ? setTitle2(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title2)]) : setTitle2(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title2)])
+        }
+        if(list[activeCarId-1].title3?.length>1) {
+            isFrench ? setTitle3(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title3)]) : setTitle3(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title3)])
+        }
+    },[isFrench])
 
     function goNext(){
         setTrigger(true)
@@ -84,19 +109,7 @@ const InfoSection = () => {
         }
     }
 
-    useEffect(()=>{
-        if(trigger) {
-            setIsTitle(false)
-            setIsName(false)
-            setIsEmail(false)
-            setNoPhone(false)
-    
-            setIsName(list[activeCarId-1].name?.length > 2)
-            setIsTitle(list[activeCarId-1].title?.length>1)
-            setIsEmail(pattern.test(list[activeCarId-1].email))
-            setNoPhone(isPhone)
-        }
-    },[list[activeCarId-1], isPhone])
+
     
     const options1 = isFrench ? store.titleListF.map(item=>({value: item, label: item })) : store.titleList.map(item=>({value: item, label: item }))
 
