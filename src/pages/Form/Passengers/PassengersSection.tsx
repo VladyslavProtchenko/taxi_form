@@ -43,7 +43,7 @@ const PassengersSection = ():React.ReactNode => {
             <div className={content}><PassengersSelect /></div>
             <div className={content}><BagsSelect /></div>
 
-            <div className='w-full flex justify-between max-w-[400px] mx-auto mt-auto'>
+            <div className={btns}>
                 <div className={backBtn} onClick={()=>{
                         setSteps(list[activeCarId-1].isReturnTrip ? 3: 2)
                     }}>{isFrench? 'Précédent': 'Previous'}</div>
@@ -53,15 +53,13 @@ const PassengersSection = ():React.ReactNode => {
                     : setSteps(5)
                 }}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
-
-
         </section>
     );
 };
 
 export default PassengersSection;
 
-
+const btns = 'fixed bottom-20 left-0 w-full flex justify-between max-w-[400px] px-5 mt-auto'
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 
@@ -72,4 +70,4 @@ const type = 'relative flex  border-2 border-purple-500 rounded-full overflow-hi
 
 
 const content = 'flex flex-wrap w-full h-min rounded mt-6'
-const section = 'flex h-full w-full flex-col mt-10 max-w-[576px] pt-4 pb-10 px-10 '
+const section = ' flex h-full w-full flex-col mt-10 max-w-[576px] pt-4 pb-20 px-10 '

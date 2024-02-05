@@ -642,6 +642,14 @@ video {
   bottom: 50%;
 }
 
+.bottom-20{
+  bottom: 5rem;
+}
+
+.bottom-24{
+  bottom: 6rem;
+}
+
 .bottom-4{
   bottom: 1rem;
 }
@@ -991,16 +999,16 @@ video {
   height: 38px;
 }
 
-.h-\[400px\]{
-  height: 400px;
-}
-
 .h-\[40px\]{
   height: 40px;
 }
 
 .h-\[45px\]{
   height: 45px;
+}
+
+.h-\[600px\]{
+  height: 600px;
 }
 
 .h-\[85px\]{
@@ -1734,6 +1742,10 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.pb-20{
+  padding-bottom: 5rem;
+}
+
 .pb-3{
   padding-bottom: 0.75rem;
 }
@@ -2382,6 +2394,10 @@ select option {
   content: '+';
   font-size: 34px;
   transform: translateY(-14px) translateX(-4px) rotate(45deg) !important;
+}
+
+.blueInput .ant-input  {
+  color: #0066ff;
 }
 
 .hover\:bg-blue-50:hover{

@@ -508,7 +508,7 @@ const ReturnTrip = ():React.ReactNode  => {
                     
                 }}>Cancel return</button> */}
             </div>
-            <div className='w-full flex justify-between max-w-[400px] mx-auto pt-4 mt-auto'>
+            <div className={prevNext}>
                 <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -518,8 +518,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
-
-
+const prevNext = ' fixed left-0 bottom-20 w-full flex justify-between  max-w-[400px] px-5 z-20'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
 const type = 'flex items-center py-2 justify-between w-full mb-2'
@@ -569,4 +568,4 @@ const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 const fare = 'py-1 font-black mb-2 italic text-gray-500 w-full text-end mr-4'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
-const container = 'flex  h-full pb-10 flex-col relative w-full px-5 text-xs'
+const container = 'flex  h-full pb-10 flex-col relative w-full px-5 text-xs pb-20'

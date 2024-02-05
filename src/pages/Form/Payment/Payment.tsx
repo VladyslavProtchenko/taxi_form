@@ -38,7 +38,7 @@ const PaymentSection = ():React.ReactNode => {
                         setSubmit(true)
                     }}>View Orders</button>}
             </div>
-            <div className="flex w-full mt-auto max-w-[400px] justify-between mx-auto ">
+            <div className={btns}>
                 <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? 'Précédent': 'Previous'}</div>
             </div>
         </section>
@@ -47,7 +47,7 @@ const PaymentSection = ():React.ReactNode => {
 
 export default PaymentSection;
 
-
+const btns ="fixed bottom-20 left-0 flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5"
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-3 rounded-full'

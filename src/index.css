@@ -287,3 +287,7 @@ select option {
     transform: translateY(-14px) translateX(-4px) rotate(45deg) !important;
 
 }
+
+.blueInput .ant-input  {
+    color: #0066ff;
+}

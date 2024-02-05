@@ -18,7 +18,7 @@ const ReturnSection = ():React.ReactNode => {
     },[])
     return (
         <section className={section}>
-            <div className={list[activeCarId-1].isReturnTrip ? 'hidden':'absolute top-[84px] left-0 right-0 h-[400px] z-20 bg-white opacity-50'}></div>
+            <div className={list[activeCarId-1].isReturnTrip ? 'hidden':'absolute top-[84px] left-0 right-0 h-[600px] z-20 bg-white opacity-50'}></div>
             <div className={(list[activeCarId-1].type<3) ? 'flex flex-col w-full  mt-4': 'hidden'}>
                 <div className={returnTabActiveOne} onClick={()=>{setIsReturnTrip(!list[activeCarId-1].isReturnTrip )}}>
                     <span

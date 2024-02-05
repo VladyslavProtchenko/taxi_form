@@ -11,7 +11,7 @@ const SeatsSection = ():React.ReactNode => {
                 <div className={contentItem}><CarSeatSelect /></div>
             </div>
 
-            <div className='w-full flex justify-between max-w-[400px] mx-auto mt-auto'>
+            <div className={btns}>
                 <div className={backBtn} onClick={()=>setSteps(4)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={()=>setSteps(6)}>{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -23,7 +23,7 @@ const SeatsSection = ():React.ReactNode => {
 
 export default SeatsSection;
 
-
+const btns = 'fixed bottom-20 left-0 w-full flex justify-between max-w-[400px] px-5 mt-auto'
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 

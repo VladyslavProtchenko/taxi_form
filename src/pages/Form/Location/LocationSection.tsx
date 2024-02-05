@@ -29,4 +29,4 @@ export default LocationSection;
 
 
 
-const section = 'flex h-full flex-col w-full pt-10 max-w-[576px]'
+const section = 'relative flex h-full flex-col w-full pt-10 max-w-[576px] pb-20'

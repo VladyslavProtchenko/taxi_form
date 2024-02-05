@@ -60,7 +60,7 @@ const Submit = (): React.ReactNode => {
                     onClick={newOrder}
                 >Add car</div>
             }
-            <div className="flex justify-between mt-auto pt-4 max-w-[400px] mx-auto w-full">
+            <div className={btns}>
                 <div onClick={() => {
                         setSteps(7)
                         setSubmit(false)
@@ -76,6 +76,8 @@ const Submit = (): React.ReactNode => {
 };
 
 export default Submit;
+
+const btns ="fixed bottom-24 left-0 flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5"
 
 const addCar = 'border-2 border-green-400 rounded-full text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
 

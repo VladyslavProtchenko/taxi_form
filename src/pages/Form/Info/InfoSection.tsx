@@ -322,7 +322,7 @@ const InfoSection = () => {
                 </div>
             </div>
 
-            <div className='w-full flex justify-between mt-auto mx-auto max-w-[400px] mb-10 px-5'>
+            <div className={btns}>
                 <div className={backBtn} onClick={()=>setSteps(0)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
             </div>
@@ -334,7 +334,7 @@ const InfoSection = () => {
 export default InfoSection;
 
 
-
+const btns = ' fixed bottom-20 w-full flex justify-between mt-auto mx-auto max-w-[400px] px-5'
 const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white'
 const number = 'absolute left-5 text-gray-400 text-xl'
@@ -348,4 +348,4 @@ const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-f
 const nameCard = 'relative flex  w-full px-10'
 const extraContainer = 'flex mb-4 flex-col w-full space-y-4 items-center'
 
-const section = 'flex flex-col h-full items-center  w-full  max-w-[576px] pt-12'
+const section = 'relative flex flex-col h-full items-center  w-full  max-w-[576px] pt-12 pb-20'
