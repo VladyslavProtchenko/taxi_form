@@ -58,7 +58,11 @@ const Header = (): React.ReactNode => {
                     <div className={step}><span className='text-gray-500 font-bold'>{list[activeCarId - 1].steps + 1}</span>/9</div>
                 </div>
 
-                {activeCarId !==1 && <div className={toggleButton}>
+                {activeCarId ===1 
+                ?<div className={toggleButton}>
+                    <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
+                </div>
+                :<div className={toggleButton}>
                     <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
                     <div onClick={restoreForm} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
                 </div>}

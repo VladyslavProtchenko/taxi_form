@@ -3,8 +3,9 @@ import { useMain } from '../../Store/useMain';
 import useOnclickOutside from "react-cool-onclickoutside";
 import { IoMdClose } from "react-icons/io";
 import { useStore } from '../../Store/index';
-
-import { CgArrowsExchange } from "react-icons/cg";
+import { PiArrowArcRightBold,PiArrowArcLeftBold } from "react-icons/pi";
+import day from './../../assets/day.png'
+import night from './../../assets/stars.jpg'
 
 const InfoMenu = (): React.ReactNode => {
     const { infoOpen, setInfoOpen,isFrench } = useMain()
@@ -17,12 +18,14 @@ const InfoMenu = (): React.ReactNode => {
             <IoMdClose className={closeIcon} onClick={() => setInfoOpen(false)} />
             <div className={infoOpen ? modalContent : ' opacity-0 '}>
                 <div className={fromTo}>
-                    <span>TEXT TEXT</span> 
-                    <div className="flex justify-around w-full">
-                        <div className='w-[40%] text-center'>$48,40 Montrial Airport </div>
-                        <CgArrowsExchange className='text-xl'/>
-                        <div className='w-[40%] text-center'>Downtown $55,65 </div>
+                    <div className=' text-center'>$48,40</div>
+                    <PiArrowArcRightBold className='rotate-[300deg] text-xl translate-x-3'/>
+                    <div className='flex flex-col items-center w-[140px]'>
+                        <span className='flex'>{isFrench?'Aéroport de Montréal':'Montreal Airport'}</span> 
+                        <span className='flex'>{isFrench?'Centre-ville de Montréal':'Montreal Downtown'}</span> 
                     </div>
+                    <PiArrowArcLeftBold className='rotate-[70deg] text-xl -translate-x-3'/>
+                    <div className=' text-center'>$55,65 </div>
                 </div>
                 <div className={titles}>
                     <span>{isFrench?'Ouverture du taximètre': 'Taximeter opening'}</span>
@@ -31,7 +34,7 @@ const InfoMenu = (): React.ReactNode => {
                     <span>{isFrench?'Per minute': 'Per minute'}</span>
                     <span>{isFrench?'Per km': 'Per km'}</span>
                 </div>
-                <div className={side + ' border-r'}>
+                <div className={side + ' border-r'} style={{backgroundImage:`url(${day})` }}>
                     <h1 className={title}>{isFrench?'Tariffication du jour': 'Day Fare'}</h1>
                     <h2 className={time}>Time Range <br/> 05:00:00 am To 22:59:59</h2>
                     <div className={priceItem}>${store.dayPrices[0]}</div>
@@ -41,7 +44,7 @@ const InfoMenu = (): React.ReactNode => {
                     <div className={priceItem}>if &#8805; ${store.dayPrices[2]} km/h</div>
 
                 </div>
-                <div className={side}>
+                <div className={side2} style={{backgroundImage:`url(${night})` }}>
                     <h1 className={title}>{isFrench?'Tariffication de nuit': 'Night Fare'}</h1>
                     <h2 className={time}>Time Range <br/> 23:00:00   To 04:59:59</h2>
                     <div className={priceItem2}>${store.nightPrices[0]}</div>
@@ -51,6 +54,7 @@ const InfoMenu = (): React.ReactNode => {
                     <div className={priceItem2}>if &#8805; ${store.nightPrices[2]} km/h</div>
                 </div>
             </div>
+
             <div className={infoOpen ? fees: 'opacity-0'}>Au montant de départ s’ajoute une redevance de 0,90 $ + taxes (1,05 $) </div>
         </div>
     );
@@ -59,18 +63,19 @@ const InfoMenu = (): React.ReactNode => {
 export default InfoMenu;
 
 const time = ' mb-[92px] text-center'
-const fromTo = ' absolute flex w-full flex-col items-center top-20 bg-white'
-const titles = ' absolute px-1 w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[134px] bg-white border space-y-1 py-2 text-center rounded-lg'
+const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-center top-20 bg-white rounded-xl w-[90%] '
+const titles = ' absolute px-1  w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[150px]  border space-y-1 py-2 text-center rounded-lg bg-white'
 
 const fees = 'px-4 text-gray-400 italic text-center mt-auto mb-4 duration-[3000ms]'
-const priceItem = ' flex mb-1 h-[20px] pr-[66px] justify-center w-full'
-const priceItem2 = ' flex mb-1 h-[20px] pl-[66px] justify-center w-full'
+const priceItem = ' flex mb-1 h-[20px] pr-[64px] justify-center w-full font-bold'
+const priceItem2 = ' flex mb-1 h-[20px] pl-[64px] justify-center w-full font-bold'
 
-const title = 'text-center '
+const title = 'text-center border-[1px] self-start px-2 mx-auto rounded border-black bg-white text-black'
 
-const side = 'w-1/2  h-full px-2 flex flex-col '
+const side = 'w-1/2  h-full px-2 flex flex-col  border-black pt-4'
+const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-4 bg-cover'
 const modalContent = 'flex  mb-6 duration-[3000ms] h-full relative'
-const closeIcon = ' mt-4 ml-4 text-xl '
+const closeIcon = ' my-2 mx-2 text-xl cursor-pointer'
 
 const modal = 'fixed overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[0px] bg-white z-50 duration-500 '
 const modalOpen = 'fixed overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[360px] bg-white z-50 duration-500'

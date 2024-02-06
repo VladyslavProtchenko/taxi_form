@@ -39,7 +39,6 @@ const TripContent = ():React.ReactNode => {
         setFlight2,
         setIcon,
         setIcon2,
-        resetForm,
         setDateNow,
         setTimeType,
         setSteps,
@@ -486,9 +485,9 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>
 
-            <div className={list[activeCarId-1].type + ' pt-4'}>
+            {/* <div className={list[activeCarId-1].type + ' pt-4'}>
                 <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser les adresses': 'Reset Addresses'}</button>
-            </div>
+            </div> */}
 
             
             <div className={btns}>
@@ -523,7 +522,6 @@ const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 borde
 
 const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
-const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500'
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
 
