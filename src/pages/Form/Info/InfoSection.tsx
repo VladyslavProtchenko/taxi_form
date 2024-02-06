@@ -36,7 +36,7 @@ const InfoSection = () => {
     const [isPhone, setIsPhone] = useState(true)
     const [noPhone, setNoPhone] = useState(true)
     const [trigger, setTrigger] = useState(false)
-
+    const [titleTrigger, setTitleTrigger] = useState(false)
     const [isExtraNameOpen, setIsExtraNameOpen] = useState({
         1:false,
         2:false,
@@ -70,15 +70,19 @@ const InfoSection = () => {
     },[list[activeCarId-1], isPhone])
 
     useEffect(()=>{
-        if(list[activeCarId-1].title?.length>1) {
-            isFrench ? setTitle(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title)]) : setTitle(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title)])
-        }   
-        if(list[activeCarId-1].title2?.length>1) {
-            isFrench ? setTitle2(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title2)]) : setTitle2(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title2)])
+        if(titleTrigger) {
+            if(list[activeCarId-1].title?.length>1) {
+            
+                isFrench ? setTitle(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title)]) : setTitle(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title)])
+            }
+            if(list[activeCarId-1].title2?.length>1) {
+                isFrench ? setTitle2(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title2)]) : setTitle2(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title2)])
+            }
+            if(list[activeCarId-1].title3?.length>1) {
+                isFrench ? setTitle3(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title3)]) : setTitle3(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title3)])
+            }
         }
-        if(list[activeCarId-1].title3?.length>1) {
-            isFrench ? setTitle3(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title3)]) : setTitle3(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title3)])
-        }
+        setTitleTrigger(true)
     },[isFrench])
 
     function goNext(){

@@ -5,7 +5,28 @@ import en from '../../assets/usa.png'
 import fr from '../../assets/france.png'
 
 const Header = (): React.ReactNode => {
-    const { list, resetForm, restoreForm, submit, activeCarId, isFrench, setIsFrench, infoOpen, setInfoOpen } = useMain()
+    const { list, reset1, reset2, reset3, reset4, reset5, reset6, restore1 , restore2,restore3,restore4,restore5,restore6, restoreForm, submit, activeCarId, isFrench, setIsFrench, infoOpen, setInfoOpen } = useMain()
+
+    const resetHandler = () =>{
+        if(list[activeCarId-1].steps === 1 ) {
+            list[activeCarId-1].isReset[1] ?  restore1() : reset1()
+        }
+        if(list[activeCarId-1].steps === 2 ) {
+            list[activeCarId-1].isReset[2] ?  restore2() : reset2()
+        }
+        if(list[activeCarId-1].steps === 3 ) {
+            list[activeCarId-1].isReset[3] ?  restore3() : reset3()
+        }
+        if(list[activeCarId-1].steps === 4 ) {
+            list[activeCarId-1].isReset[4] ?  restore4() : reset4()
+        }
+        if(list[activeCarId-1].steps === 5 ) {
+            list[activeCarId-1].isReset[5] ?  restore5() : reset5()
+        }
+        if(list[activeCarId-1].steps === 6 ) {
+            list[activeCarId-1].isReset[6] ?  restore6() : reset6()
+        }
+    }
 
     return (
         <div className={header}>
@@ -38,8 +59,8 @@ const Header = (): React.ReactNode => {
                 </div>
 
                 {activeCarId !==1 && <div className={toggleButton}>
-                    <div onClick={resetForm} className={list[activeCarId-1].isReset ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
-                    <div onClick={restoreForm} className={list[activeCarId-1].isReset ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
+                    <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
+                    <div onClick={restoreForm} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
                 </div>}
             </div>
         </div>

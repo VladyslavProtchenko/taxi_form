@@ -501,7 +501,6 @@ const ReturnTrip = ():React.ReactNode  => {
                 </div>}
             </div>
 
-
             <div className={btns}>
                 <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser Adresses': 'Reset Addresses'}</button>
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>

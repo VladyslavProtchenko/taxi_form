@@ -21,7 +21,7 @@ export interface ITaxi {
     type: number;
     validation:number;
     isEdit: boolean;
-    isReset: boolean;
+    isReset: {[key:number]: boolean};
 
     name: string;
     name2: string;
@@ -173,6 +173,20 @@ interface IStore {
     resetForm: () => void;
     restoreForm: () => void;
 
+    reset1: () => void;
+    reset2: () => void;
+    reset3: () => void;
+    reset4: () => void;
+    reset5: () => void;
+    reset6: () => void;
+
+    restore1: () => void;
+    restore2: () => void;
+    restore3: () => void;
+    restore4: () => void;
+    restore5: () => void;
+    restore6: () => void;
+
     //trip data methods
     setDate: (value: string) => void;
     setTime: (value: string) => void;
@@ -277,7 +291,7 @@ export const useMain = create<IStore>()(
                 filled: false,
                 validation:0,
                 isEdit: false,
-                isReset: false,
+                isReset: {1:false, 2:false, 3:false, 4:false, 5:false, 6:false },
                 name: '',
                 name2: '',
                 name3: '',
@@ -466,7 +480,7 @@ export const useMain = create<IStore>()(
                     filled: false,
                     validation:0,
                     isEdit: false,
-                    isReset: true,
+                    isReset: { 1:true, 2:true, 3:true, 4:true, 5:true, 6:true },
                     name: '',
                     name2: '',
                     name3: '',
@@ -615,13 +629,395 @@ export const useMain = create<IStore>()(
             ? {
                 ...state.list[0],
                 id:state.activeCarId,
-                isReset: false,
+                isReset: { 1:false, 2:false, 3:false, 4:false, 5:false, 6:false },
                 filled:false,
                 steps:  state.list[state.activeCarId-1].steps,
             }
             : item
-            )})),
+        )})),
+        reset1: () => set((state) => ({
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+                    filled: false,
+                    isReset: { ...item.isReset, 1:true },
+                    name: '',
+                    name2: '',
+                    name3: '',
+    
+                    title: '',
+                    title2: '',
+                    title3: '',
+    
+                    email:'@',
+                    email2:'@',
+                    email3:'@',
+    
+                    phone: '',
+                    phone2: '',
+                    phone3: '',
 
+                    steps:item.steps,
+                } : item)
+        })),
+
+        reset2: () => set((state) => ({
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+                    filled: false,
+                    isReset: { ...item.isReset, 2: true },
+
+                    date: '',
+                    time: '', 
+                    dateNow: true,
+    
+                    //trip information
+                    from: ''
+                    , to: '',
+    
+                    stops: {
+                        1: '',
+                        2: '', 
+                        3: '', 
+                        4: '',
+                    },
+    
+                    icon: 0, 
+                    icon2: 0,
+    
+                    airlines: '', 
+                    airlinesBack: '',
+                    flight: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+                    flight2: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+    
+                    departure: '', 
+                    departure2: '',
+    
+                    //return trip information
+                    isReturnTrip: false,
+                    isReturnStatus:false,
+    
+                    fromR: '', 
+                    toR: '',
+    
+                    stopsR: {
+                        1: '', 
+                        2: '', 
+                        3: '', 
+                        4: '',
+                    },
+    
+                    dateR: '', 
+                    timeR: '',
+    
+                    iconR: 0, icon2R: 0,
+                    flightR: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+                    flight2R: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+    
+                    airlinesR: '', airlinesBackR: '',
+                    departureR: '', departure2R: '',
+
+                    steps:item.steps,
+                } : item)
+        })),
+
+        reset3: () => set((state) => ({
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+                    filled: false,
+                    isReset: { ...item.isReset, 3: true},
+
+                    fromR: '', 
+                    toR: '',
+    
+                    stopsR: {
+                        1: '', 
+                        2: '', 
+                        3: '', 
+                        4: '',
+                    },
+    
+                    dateR: '', 
+                    timeR: '',
+    
+                    iconR: 0, icon2R: 0,
+                    flightR: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+                    flight2R: {
+                        title: '',
+                        prefix: '',
+                        number: '',
+                    },
+    
+                    airlinesR: '', 
+                    airlinesBackR: '',
+                    departureR: '', 
+                    departure2R: '',
+
+                    steps:item.steps,
+                } : item)
+        })),
+
+        reset4: () => set((state) => ({
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+
+                    filled: false,
+                    isReset: { ...item.isReset, 4: true },
+                    //options information
+                    carType: 1,
+                    adults: 1, kids: [], babies: 0,
+    
+                    baggage: [
+                        { title: '32 kg', quantity: 0, },
+                        { title: '23 kg', quantity: 0, },
+                        { title: 'Between', quantity: 0, },
+                        { title: '10 kg', quantity: 0, },
+                        { title: '8 kg', quantity: 0, }
+                    ],
+
+                    steps:item.steps,
+                } : item)
+        })),
+
+        reset5: () => set((state) => ({
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+                    filled: false,
+                    isReset: { ...item.isReset, 5: true },
+
+                    carSeats: [
+                        {
+                            title: 'Regular',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Babi',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Booster',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Regular stroller',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Umbrella',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Double',
+                            quantity: 0,
+                        },
+                        {
+                            title: 'Wheelchair',
+                            quantity: 0,
+                        },
+                    ],
+                    steps:item.steps,
+                } : item)
+        })),
+        reset6: () => set((state) => ({
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+                    filled: false,
+                    isReset: { ...item.isReset, 5: true },
+                    sport: [
+                        { title: 'Bikes', quantity: 0, },
+                        { title: 'Skis', quantity: 0, },
+                        { title: 'Golf', quantity: 0, },
+                        { title: 'Surf', quantity: 0, },
+                    ],
+                    pets: [
+                        { title: 'Dog', cage: false, quantity: 0, },
+                        { title: 'Cat', cage: false, quantity: 0 },
+                        { title: 'Rabbit', cage: false, quantity: 0 },
+                        { title: 'Service dog (Mira)', cage: false, quantity: 0 },
+                        { title: 'Other', cage: false, quantity: 0, isOther: true, },
+                    ],
+                    steps:item.steps,
+                } : item)
+        })),
+
+        restore1 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? {   
+                ...item,
+                filled: false,
+                isReset: { ...item.isReset, 1:false },
+                name: state.list[0].name,
+                name2:  state.list[0].name2,
+                name3:  state.list[0].name3,
+
+                title:  state.list[0].title,
+                title2:  state.list[0].title2,
+                title3:  state.list[0].title3,
+
+                email: state.list[0].email,
+                email2: state.list[0].email2,
+                email3: state.list[0].email3,
+
+                phone:  state.list[0].phone,
+                phone2:  state.list[0].phone2,
+                phone3: state.list[0].phone3,
+
+                steps:item.steps,
+            } 
+            : item
+        )})),
+
+        restore2 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? 
+            {   ...item,
+                filled: false,
+                isReset: { ...item.isReset, 2: false },
+
+                date: state.list[0].date,
+                time: state.list[0].time, 
+                dateNow: state.list[0].dateNow,
+
+                //trip information
+                from: state.list[0].from,
+                to: state.list[0].to,
+
+                stops: state.list[0].date,
+
+                icon: state.list[0].icon, 
+                icon2: state.list[0].icon2,
+
+                airlines: state.list[0].airlines, 
+                airlinesBack: state.list[0].airlinesBack,
+                flight: state.list[0].flight,
+                flight2: state.list[0].flight2,
+
+                departure: state.list[0].departure, 
+                departure2: state.list[0].departure2,
+
+                //return trip information
+                isReturnTrip: state.list[0].isReturnTrip,
+                isReturnStatus:state.list[0].isReturnStatus,
+
+                fromR: state.list[0].fromR, 
+                toR: state.list[0].toR,
+
+                stopsR: state.list[0].stopsR,
+
+                dateR: state.list[0].dateR, 
+                timeR: state.list[0].timeR,
+
+                iconR: state.list[0].iconR,
+                icon2R: state.list[0].icon2R,
+                flightR: state.list[0].flightR,
+                flight2R: state.list[0].flight2R,
+
+                airlinesR: state.list[0].airlinesR,
+                airlinesBackR: state.list[0].airlinesBackR,
+                departureR: state.list[0].departureR,
+                departure2R: state.list[0].departure2R,
+                steps:item.steps,
+
+            }
+            : item
+        )})),
+
+        restore3 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? 
+            {   ...item,
+                filled: false,
+                isReset: { ...item.isReset, 3: false },
+                isReturnTrip: state.list[0].isReturnTrip,
+                isReturnStatus:state.list[0].isReturnStatus,
+
+                fromR: state.list[0].fromR, 
+                toR: state.list[0].toR,
+
+                stopsR: state.list[0].stopsR,
+
+                dateR: state.list[0].dateR, 
+                timeR: state.list[0].timeR,
+
+                iconR: state.list[0].iconR,
+                icon2R: state.list[0].icon2R,
+                flightR: state.list[0].flightR,
+                flight2R: state.list[0].flight2R,
+
+                airlinesR: state.list[0].airlinesR,
+                airlinesBackR: state.list[0].airlinesBackR,
+                departureR: state.list[0].departureR,
+                departure2R: state.list[0].departure2R,
+                steps:item.steps,
+            }
+            : item
+        )})),
+
+        restore4 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? 
+            {   ...item,
+                filled: false,
+                isReset: { ...item.isReset, 4: false },
+                carType: state.list[0].carType,
+                adults: state.list[0].adults, 
+                kids: state.list[0].kids, 
+                babies: state.list[0].babies,
+    
+                baggage: state.list[0].baggage,
+                steps:item.steps,
+            }
+            : item
+        )})),
+
+        restore5 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? 
+            {   ...item,
+                filled: false,
+                isReset: { ...item.isReset, 5: false },
+                carSeats: state.list[0].carSeats,
+                steps:item.steps,
+            }
+            : item
+        )})),
+        restore6 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? 
+            {   ...item,
+                filled: false,
+                isReset: { ...item.isReset, 6: false },
+                sport: state.list[0].sport,
+                pets: state.list[0].pets,
+                steps:item.steps,
+            }
+            : item
+        )})),
 
         //trip methods 
 

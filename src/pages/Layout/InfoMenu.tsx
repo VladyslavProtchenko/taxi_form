@@ -33,7 +33,7 @@ const InfoMenu = (): React.ReactNode => {
                 </div>
                 <div className={side + ' border-r'}>
                     <h1 className={title}>{isFrench?'Tariffication du jour': 'Day Fare'}</h1>
-                    <h2 className={time}>Time Range From 05:00:00 am To 22:59:59</h2>
+                    <h2 className={time}>Time Range <br/> 05:00:00 am To 22:59:59</h2>
                     <div className={priceItem}>${store.dayPrices[0]}</div>
                     <div className={priceItem+ ' mb-3'}>${store.dayPrices[1]}</div>
                     <div className={priceItem+ ' mb-3'}>${store.dayPrices[2]} km/h</div>
@@ -43,7 +43,7 @@ const InfoMenu = (): React.ReactNode => {
                 </div>
                 <div className={side}>
                     <h1 className={title}>{isFrench?'Tariffication de nuit': 'Night Fare'}</h1>
-                    <h2 className={time}>Time Range From 23:00:00   To 04:59:59</h2>
+                    <h2 className={time}>Time Range <br/> 23:00:00   To 04:59:59</h2>
                     <div className={priceItem2}>${store.nightPrices[0]}</div>
                     <div className={priceItem2+ ' mb-3'}>${store.nightPrices[1]}</div>
                     <div className={priceItem2+ ' mb-3'}>${store.nightPrices[2]} km/h</div>
@@ -63,8 +63,8 @@ const fromTo = ' absolute flex w-full flex-col items-center top-20 bg-white'
 const titles = ' absolute px-1 w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[134px] bg-white border space-y-1 py-2 text-center rounded-lg'
 
 const fees = 'px-4 text-gray-400 italic text-center mt-auto mb-4 duration-[3000ms]'
-const priceItem = ' flex mb-1 self-end h-[20px] pr-[66px]'
-const priceItem2 = ' flex mb-1 text-end h-[20px] pl-[66px]'
+const priceItem = ' flex mb-1 h-[20px] pr-[66px] justify-center w-full'
+const priceItem2 = ' flex mb-1 h-[20px] pl-[66px] justify-center w-full'
 
 const title = 'text-center '
 
