@@ -3,7 +3,7 @@ import { useMain } from '../../../Store/useMain';
 import { useStore } from '../../../Store/index';
 import transport from '../../../assets/taxiOrder.png' 
 import delivery from '../../../assets/delivery.png' 
-import boost from '../../../assets/carBooster.png' 
+import boost from '../../../assets/boost.png' 
 import unlock from '../../../assets/lostKeys.png' 
 
 const Type = ():React.ReactNode => {
@@ -16,22 +16,22 @@ const Type = ():React.ReactNode => {
             <h2 className={h2}>Make a choice of service, please!</h2>
             <div className={buttons}>
                 {(isFrench? store.typeListF: store.typeList).map((item,index)=>(
-                        <div className={button} key={item} onClick={()=>{
+                        <><div className={button} key={item} onClick={()=>{
                             setType(index+1)
                             setSteps(1)
                         }}>
                             <span className={icon}>
                                 {index === 0 
-                                    ? <div style={{backgroundImage:`url(${transport})` }} className={' z-10 w-12 h-12 bg-center mr-2 bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${transport})` }} className={iconImage} ></div>
                                     : index === 1 
-                                    ? <div style={{backgroundImage:`url(${delivery})` }} className={' z-10 mb-1 w-12 h-12 bg-center mr-2  bg-contain bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${delivery})` }} className={iconImage} ></div>
                                     : index === 2 
-                                    ? <div style={{backgroundImage:`url(${boost})` }} className={' z-10  mb-1 w-12 h-12 bg-center mr-2  bg-contain bg-no-repeat '} ></div>
-                                    : <div style={{backgroundImage:`url(${unlock})` }} className={' z-10 w-12 bg-center h-12 bg-contain mr-2  bg-no-repeat '} ></div>
+                                    ? <div style={{backgroundImage:`url(${boost})` }} className={iconImage}></div>
+                                    : <div style={{backgroundImage:`url(${unlock})` }} className={iconImage}></div>
                                 }
                             </span>
-                            <span className='text-[10px]'>{item}</span>
-                        </div>
+                            <span className='text-xl text-start'>{item}</span>
+                        </div><div className="w-full border-b border-black"></div></>
                     ))
                 }
             </div>
@@ -41,10 +41,11 @@ const Type = ():React.ReactNode => {
 
 export default Type;
 
-const icon = ' '
+const iconImage =' z-10 w-20 h-20 bg-center mr-2 bg-contain bg-no-repeat '
+const icon = ''
 const h1 = ' text-3xl '
-const h2 = ' text-xl '
-const button = ' w-[200px] bg-white h-[90px] border-black flex  items-center justify-center  py-2 shadow-xl rounded border cursor-pointer font-bold text-center hover:bg-gray-200 '
-const buttons = 'flex flex-col items-center justify-center rounded border-black overflow-hidden space-y-2'
+const h2 = ' text-xl mb-'
+const button = ' w-[200px] px-2 bg-white h-[90px] border-black flex  items-center  py-2 cursor-pointer font-bold text-center hover:bg-gray-200 rounded-lg'
+const buttons = 'flex flex-col items-center justify-center rounded border-black overflow-hidden space-y-4'
 
 const section = 'flex flex-col items-center  w-full  max-w-[576px] pt-12 pb-10 bg-white h-full'

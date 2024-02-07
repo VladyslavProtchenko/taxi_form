@@ -357,10 +357,10 @@ const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 round
 const number = 'absolute left-5 text-gray-400 text-xl'
 const warn = 'absolute -top-[15px] left-12 text-xs z-20 text-red-500'
 
-const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-1 text-sm cursor-pointer "
-const extraNameClose = " my-auto ml-2 text-rose-500 px-2 text-xl  text-center flex justify-center border border-black rounded cursor-pointer  left-[102%]"
+const addExtraBtn = "absolute p-2 py-1 flex justify-center text-purple-500 -top-1 text-lg cursor-pointer "
+const extraNameClose = "absolute my-auto pl-[9px] top-[6px] right-[6px] ml-2 text-black bg-rose-500 px-2 text-xl  text-center items-center flex justify-center border border-black rounded cursor-pointer "
 
-const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-full '
+const box = ' border border-purple-500 rounded-xl bg-white flex items-center w-full'
 
 const nameCard = 'relative flex  w-full px-10'
 const extraContainer = 'flex mb-4 flex-col w-full space-y-4 items-center'

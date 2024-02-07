@@ -514,7 +514,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
-const stopLabel = 'absolute top-2 -left-16 text-sm z-20 text-gray-400 '
+const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 '
 const prevNext = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2 z-20'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-lg active:bg-orange-500 active:text-white'
@@ -548,7 +548,7 @@ const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white b
 
 const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
 
-const closeStop =" my-auto px-2 py-1 text-center bg-rose-500 ml-1 rounded flex justify-center items-center cursor-pointer text-bold text-white"
+const closeStop =" my-auto pl-[9px] px-2  text-xl text-center border border-black bg-rose-500 ml-1 rounded flex justify-center items-center cursor-pointer text-black"
 const openStop ="absolute top-2 text-purple-500 text-xl rounded flex cursor-pointer"
 
 

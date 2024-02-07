@@ -501,7 +501,7 @@ const TripContent = ():React.ReactNode => {
 export default TripContent;
 
 
-const stopLabel = 'absolute top-2 -left-16 text-sm z-20 text-gray-400 '
+const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 '
 const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
@@ -528,7 +528,7 @@ const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white b
 const iconsType = 'flex mb-2 justify-between w-full py-2'
 const flightCard = 'flex relative items-center border border-purple-500 w-4/5 rounded-xl py-1 bg-white'
 
-const closeStop =" my-auto px-2 py-1 text-center bg-rose-500 ml-1 rounded flex justify-center items-center cursor-pointer text-bold text-white"
+const closeStop =" my-auto pl-[9px] text-xl px-2 text-center border border-black bg-rose-500 ml-1 rounded flex justify-center items-center cursor-pointer text-black"
 const openStop ="absolute top-2 text-purple-500  rounded flex cursor-pointer text-xl"
 
 

@@ -11,7 +11,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { CiMoneyCheck1 } from "react-icons/ci";
 import { IoCheckmarkDone } from "react-icons/io5";
 import { FaSortDown } from "react-icons/fa";
-import { MdDirectionsBike } from "react-icons/md";
+// import { MdDirectionsBike } from "react-icons/md";
+import { FaRunning } from "react-icons/fa";
 
 import babiSeat from '../../assets/babySeat.png'
 import babiSeatPurple from '../../assets/babySeatPurple.png'
@@ -114,7 +115,7 @@ const Footer = (): React.ReactNode => {
                                 : index === 5
                                 ? <div style={{ backgroundImage: `url(${list[activeCarId - 1].steps === 5 ? babiSeatPurple : babiSeat})` }} className={icon}></div>
                                 : index === 6
-                                ? <MdDirectionsBike className={footerIcon} />
+                                ? <FaRunning className={footerIcon} />
                                 : <CiMoneyCheck1 className={footerIcon} />
                             }
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>

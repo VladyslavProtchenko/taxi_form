@@ -55,7 +55,7 @@ const Header = (): React.ReactNode => {
                         } {isFrench ? ' Véhicule' : ' Car'}
                     </div>
                     <div className={iIcon} onClick={()=>setInfoOpen(!infoOpen)}><TiInfoLarge className='cursor-pointer text-3xl' /></div>
-                    <div className={step}><span className='text-gray-500 font-bold'>{list[activeCarId - 1].steps + 1}</span>/9</div>
+                    <div className={step}><span className='text-blue-500 font-black text-[22px] italic'>{list[activeCarId - 1].steps + 1}</span>|9</div>
                 </div>
 
                 {activeCarId ===1 
@@ -80,10 +80,10 @@ const content = 'flex items-center w-full justify-between mb-1'
 const image = 'w-8 h-5 text-xs bg-center bg-cover bg-no-repeat'
 const iIcon = " flex items-center justify-center border-2  rounded-full border-orange-400 text-orange-400 "
 const headerText = 'flex font-bold items-center mx-auto text-blue-700 text-lg '
-const step = "text-2xl ml-2 text-gray-300"
+const step = "text-2xl ml-2 text-black font-bold "
 const wrapper = 'flex flex-col w-full max-w-[576px] px-4 '
 const lang = 'flex cursor-pointer items-center'
-const langItem = ' px-1 text-gray-600 font-thin text-xl'
+const langItem = ' px-1 text-gray-600 bold text-xl'
 const header = 'fixed top-0 left-0 right-0 pt-4 pb-2 items-center justify-center z-40 bg-gray-50 flex w-full  '
 
 
