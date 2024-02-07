@@ -165,7 +165,6 @@ const ReturnTrip = ():React.ReactNode  => {
 
     return (
     <div className={container}>
-
             
             <div className={date}>
             <div className={fare}>{day ? isFrench? 'Tarification jour ': 'Day fare': isFrench? 'Tarification nuit': 'Night fare'} </div>
@@ -516,19 +515,19 @@ const ReturnTrip = ():React.ReactNode  => {
 export default ReturnTrip;
 
 const stopLabel = 'absolute top-2 -left-16 text-sm z-20 text-gray-400 '
-const prevNext = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2 z-20'
+const prevNext = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2 z-20'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
-const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-full active:bg-orange-500 active:text-white'
+const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-lg active:bg-orange-500 active:text-white'
 const type = 'flex items-center py-2 justify-between w-full mb-2'
-const btns = 'flex items-center  w-full  pt-4'
+const btns = 'flex items-center  w-full pt-4'
 
 
 const extraCard = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
 
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
 
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white  cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white  cursor-pointer'
+const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
+const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white  cursor-pointer'
 const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
 
 
@@ -543,7 +542,7 @@ const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 borde
 
 const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
-const reset = 'px-4 py-1  text-rose-500 rounded-full font-bold  border-2 border-rose-500 mr-4'
+const reset = 'px-4 py-1  text-rose-500 rounded-lg font-bold  border-2 border-rose-500 mr-4'
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
 

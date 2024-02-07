@@ -63,7 +63,7 @@ const InfoMenu = (): React.ReactNode => {
 export default InfoMenu;
 
 const time = ' mb-[92px] text-center'
-const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-center top-20 bg-white rounded-xl w-[90%] '
+const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-center top-20 bg-white rounded-lg w-[90%] '
 const titles = ' absolute px-1  w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[150px]  border space-y-1 py-2 text-center rounded-lg bg-white'
 
 const fees = 'px-4 text-gray-400 italic text-center mt-auto mb-4 duration-[3000ms]'
@@ -73,7 +73,7 @@ const priceItem2 = ' flex mb-1 h-[20px] pl-[64px] justify-center w-full font-bol
 const title = 'text-center border-[1px] self-start px-2 mx-auto rounded border-black bg-white text-black'
 
 const side = 'w-1/2  h-full px-2 flex flex-col  border-black pt-4'
-const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-4 bg-cover'
+const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-4 bg-cover bg-right bg-top'
 const modalContent = 'flex  mb-6 duration-[3000ms] h-full relative'
 const closeIcon = ' my-2 mx-2 text-xl cursor-pointer'
 

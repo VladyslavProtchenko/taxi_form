@@ -646,10 +646,6 @@ video {
   bottom: 50%;
 }
 
-.bottom-20{
-  bottom: 5rem;
-}
-
 .bottom-24{
   bottom: 6rem;
 }
@@ -1692,6 +1688,14 @@ video {
 
 .bg-center{
   background-position: center;
+}
+
+.bg-right{
+  background-position: right;
+}
+
+.bg-top{
+  background-position: top;
 }
 
 .bg-no-repeat{

@@ -336,7 +336,7 @@ export default CarCard;
 
 const contentItem= 'flex items-center space-x-2'
 
-const btn = 'text-[10px] mt-3  border text-center rounded-full cursor-pointer roboto text-thin px-2'
+const btn = 'text-[10px] mt-3  border text-center rounded cursor-pointer roboto text-thin px-2'
 const red ='text-sm border-2 border-rose-500 rounded-full px-3 text-rose-500 text-xs'
 const green ='text-sm border-2 border-green-500 rounded-full px-3 text-green-500 text-xs'
 

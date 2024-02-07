@@ -502,12 +502,12 @@ export default TripContent;
 
 
 const stopLabel = 'absolute top-2 -left-16 text-sm z-20 text-gray-400 '
-const btns = ' fixed bottom-20 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
+const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
 
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white  cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white  cursor-pointer'
+const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
+const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white  cursor-pointer'
 const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
 
 

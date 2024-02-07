@@ -75,7 +75,7 @@ export default Header;
 
 const toggle = 'px-2  border-purple-500 '
 const toggleActive = 'px-2   border-purple-500 bg-purple-500 text-white'
-const toggleButton = ' flex text-[10px] border rounded-full self-center divide-x cursor-pointer border-purple-500 overflow-hidden'
+const toggleButton = ' flex text-[10px] border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden'
 const content = 'flex items-center w-full justify-between mb-1' 
 const image = 'w-8 h-5 text-xs bg-center bg-cover bg-no-repeat'
 const iIcon = " flex items-center justify-center border-2  rounded-full border-orange-400 text-orange-400 "

@@ -351,9 +351,9 @@ const InfoSection = () => {
 
 export default InfoSection;
 
-const btns = ' fixed bottom-20 w-full flex justify-between mt-auto mx-auto max-w-[400px] px-5'
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-full text-white cursor-pointer'
+const btns = ' fixed bottom-24 w-full flex justify-between mt-auto mx-auto max-w-[400px] px-5'
+const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white cursor-pointer'
+const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white cursor-pointer'
 const number = 'absolute left-5 text-gray-400 text-xl'
 const warn = 'absolute -top-[15px] left-12 text-xs z-20 text-red-500'
 

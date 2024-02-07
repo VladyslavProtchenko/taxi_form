@@ -71,13 +71,13 @@ const Submit = (): React.ReactNode => {
 
 export default Submit;
 
-const btns ="fixed bottom-24 flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5 right-1/2 translate-x-1/2"
+const btns ="fixed bottom-24 flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5 right-1/2 translate-x-1/2 z-20"
 
-const addCar = 'border-2 border-green-400 rounded-full text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
+const addCar = 'border-2 border-green-400 rounded-lg text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
 
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-full text-white  cursor-pointer'
-const greenBtn = 'w-1/3 border-2 border-green-400  active:bg-green-400 active:text-white flex items-center justify-center text-green-400 rounded-full  cursor-pointer'
+const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
+const greenBtn = 'w-1/3 border-2 border-green-400 bg-gray-50 active:bg-green-400 active:text-white flex items-center justify-center text-green-400 rounded-xl  cursor-pointer'
 
 
-const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-10'
+const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-10 pb-20'
 
