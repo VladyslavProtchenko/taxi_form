@@ -291,3 +291,19 @@ select option {
 .blueInput .ant-input  {
     color: #0066ff;
 }
+
+.placeholder-orange .ant-input::placeholder {
+    color: rgb(251 146 60)!important;
+}
+
+.placeholder-green .ant-input::placeholder {
+    color: rgb(34 197 94)!important;
+}
+
+.placeholder-red .ant-input::placeholder {
+    color: rgb(239 68 68)!important;
+}
+
+.ant-select-clear {
+    opacity: 1 !important;
+}

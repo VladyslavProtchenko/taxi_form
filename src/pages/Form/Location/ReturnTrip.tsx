@@ -266,7 +266,7 @@ const ReturnTrip = ():React.ReactNode  => {
                     <div className={isFromR ? extraCard : extraCard + ' border-red-500'}>
                         <span className='icon text-green-400'><SlLocationPin/></span>
                         <GoogleAddressInput 
-                            style='w-full ' 
+                            style='w-full placeholder-green' 
                             defaultLocation={
                                 list[activeCarId-1].fromR
                                 ? list[activeCarId-1].fromR
@@ -288,10 +288,10 @@ const ReturnTrip = ():React.ReactNode  => {
 
                 <div className={extraCardStop}>
                     <div className={(stop > 0)? box: box + ' opacity-0 '}>
-                        <div className={stopLabel}>{isFrench? '1er Arrêt':'1st Stop'}</div>
+                        <div className={stopLabel}>{isFrench? '1er Arrêt':<><span className='mr-1'> 1st </span> Stop</>}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span> 
                         <GoogleAddressInput
-                            style='w-full'
+                            style='w-full placeholder-orange'
                             defaultLocation={list[activeCarId-1].stopsR[1]} 
                             onChange={(e)=>{
                                 setStopTrigger(false)
@@ -334,10 +334,10 @@ const ReturnTrip = ():React.ReactNode  => {
                 
                 <div className={(stop > 0 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 1 ? box: box + ' opacity-0 '}>
-                        <div className={stopLabel}>{isFrench? '2e Arrêt':'2nd Stop'}</div>
+                        <div className={stopLabel}>{isFrench? <><span className='mr-1'> 2e </span> Arrêt</>:'2nd Stop'}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput 
-                            style='w-full'
+                            style='w-full placeholder-orange'
                             defaultLocation={list[activeCarId-1].stopsR[2]} 
                             onChange={(e)=>{
                                 setStopTrigger(false)
@@ -368,10 +368,12 @@ const ReturnTrip = ():React.ReactNode  => {
                 
                 <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 2 ? box : box + ' opacity-0 '}>
-                        <div className={stopLabel}>{isFrench? '3e Arrêt':'3rd Stop'}</div>
+                        <div className={stopLabel}>{isFrench
+                            ? <><span className='mr-1'> 3e </span> Arrêt</>
+                            :'3rd Stop'}</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput 
-                            style='w-full'
+                            style='w-full placeholder-orange'
                             defaultLocation={list[activeCarId-1].stopsR[3]} 
                             onChange={(e)=>{
                                 setStopTrigger(false)
@@ -400,10 +402,13 @@ const ReturnTrip = ():React.ReactNode  => {
                 
                 <div className={(stop > 2  ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 3 ? box : box + ' opacity-0 '}>
-                        <div className={stopLabel}>{isFrench? '4e Arrêt':'4th Stop'}</div>
+                        <div className={stopLabel}>{isFrench
+                            ? <><span className='mr-1'> 4e </span> Arrêt</>
+                            :'4th Stop'
+                        }</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput 
-                            style='w-full '
+                            style='w-full placeholder-orange'
                             defaultLocation={list[activeCarId-1].stopsR[4]} 
                             onChange={(e)=>{
                                 setStopTrigger(false)
@@ -441,7 +446,7 @@ const ReturnTrip = ():React.ReactNode  => {
                                 ? list[activeCarId-1].from 
                                 : ''
                             } 
-                            style='w-full' 
+                            style='w-full placeholder-red' 
                             onChange={(e)=> {
                                 setToR(e)
                                 setTrigger({...trigger, 2: 0})
@@ -514,7 +519,7 @@ const ReturnTrip = ():React.ReactNode  => {
 
 export default ReturnTrip;
 
-const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 '
+const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 font-bold'
 const prevNext = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2 z-20'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-lg active:bg-orange-500 active:text-white'

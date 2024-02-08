@@ -3,7 +3,7 @@ import { useMain } from '../../../Store/useMain';
 import { useStore } from '../../../Store/index';
 import transport from '../../../assets/taxiOrder.png' 
 import delivery from '../../../assets/delivery.png' 
-import boost from '../../../assets/boost.png' 
+import boost from '../../../assets/boost2.png' 
 import unlock from '../../../assets/lostKeys.png' 
 
 const Type = ():React.ReactNode => {

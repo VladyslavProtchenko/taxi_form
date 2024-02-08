@@ -277,7 +277,7 @@ const TripContent = ():React.ReactNode => {
                     <div className={isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                         <span className='icon text-green-500 '><SlLocationPin/></span>
                         <GoogleAddressInput
-                            style='w-full' 
+                            style='w-full placeholder-green' 
                             defaultLocation={list[activeCarId-1].from || ''} 
                             onChange={setFrom}
                             placeholder={isFrench? store.locationListF[0]:store.locationList[0]}
@@ -300,10 +300,13 @@ const TripContent = ():React.ReactNode => {
                 <div className={extraCardStop}>
                 
                     <div className={(stop > 0)? box: box + ' opacity-0 '}>
-                        <div className={stopLabel}>{isFrench? '1er Arrêt':'1st Stop'}</div>
+                        <div className={stopLabel}>{isFrench
+                            ?' 1er  Arrêt'
+                            :<><span className='mr-1'> 1st </span> Stop</>
+                            }</div>
                         <span className='icon text-orange-400'><SlLocationPin/></span>  
                         <GoogleAddressInput
-                            style='w-full'
+                            style='w-full placeholder-orange'
                             defaultLocation={localStops[1] || ''} 
                             onChange={(e)=>setLocalStops({...localStops, 1:e})}
                             placeholder={isFrench? store.locationListF[2]:store.locationList[2]}
@@ -329,10 +332,13 @@ const TripContent = ():React.ReactNode => {
                 
                 <div className={(stop > 0) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 1 ? box: box + ' opacity-0 '}>
-                        <div className={stopLabel}>{isFrench? '2e Arrêt':'2nd Stop'}</div>
+                        <div className={stopLabel}>{isFrench
+                            ? <><span className='mr-1'> 2e </span> Arrêt</>
+                            :'2nd Stop'
+                        }</div>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
-                            style='w-full'
+                            style='w-full placeholder-orange'
                             defaultLocation={localStops[2] || ''} 
                             onChange={(e)=>{setLocalStops({...localStops, 2:e})}}
                             placeholder={isFrench? store.locationListF[3]:store.locationList[3]}
@@ -358,10 +364,12 @@ const TripContent = ():React.ReactNode => {
 
                 <div className={(stop > 1 ) ?  extraCardStop: 'hidden'}>
                         <div className={stop > 2 ? box : box + ' opacity-0 '}>
-                            <div className={stopLabel}>{isFrench? '3e Arrêt':'3rd Stop'}</div>
+                            <div className={stopLabel}>{isFrench
+                                ? <><span className='mr-1'> 3e </span> Arrêt</>
+                                :'3rd Stop'}</div>
                             <span className='icon  text-orange-400'><SlLocationPin/></span>
                             <GoogleAddressInput
-                                style='w-full'
+                                style='w-full placeholder-orange'
                                 defaultLocation={localStops[3] || ''} 
                                 onChange={(e)=>{
                                     setLocalStops({...localStops, 3:e})
@@ -389,10 +397,13 @@ const TripContent = ():React.ReactNode => {
 
                 <div className={(stop > 2 ) ?  extraCardStop: 'hidden'}>
                     <div className={stop > 3 ? box : box + ' opacity-0 '}>
-                        <div className={stopLabel}>{isFrench? '4e Arrêt':'4th Stop'}</div>
+                        <div className={stopLabel}>{isFrench
+                            ? <><span className='mr-1'> 4e </span> Arrêt</>
+                            :'4th Stop'
+                        }</div>
                         <span className='icon  text-orange-400'><SlLocationPin/></span>
                         <GoogleAddressInput
-                            style='w-full'
+                            style='w-full placeholder-orange'
                             defaultLocation={localStops[4] || ''} 
                             onChange={(e)=>{
                                 setLocalStops({...localStops, 4:e})
@@ -423,7 +434,7 @@ const TripContent = ():React.ReactNode => {
                     <div className={isTo ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                         <span className='icon text-red-500'><SlLocationPin/></span>
                         <GoogleAddressInput
-                            style='w-full' 
+                            style='w-full placeholder-red' 
                             defaultLocation={list[activeCarId-1].to || ''} 
                             onChange={setTo}
                             placeholder={isFrench? store.locationListF[1]:store.locationList[1]}
@@ -501,7 +512,7 @@ const TripContent = ():React.ReactNode => {
 export default TripContent;
 
 
-const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 '
+const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 font bold'
 const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
