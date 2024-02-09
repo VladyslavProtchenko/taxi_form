@@ -5,7 +5,8 @@ import { IoMdClose } from "react-icons/io";
 import { useStore } from '../../Store/index';
 import { PiArrowArcLeftBold } from "react-icons/pi";
 import day from './../../assets/day.png'
-import night from './../../assets/stars.jpg'
+// import night from './../../assets/stars.jpg'
+import night from './../../assets/night.png'
 
 const InfoMenu = (): React.ReactNode => {
     const { infoOpen, setInfoOpen,isFrench } = useMain()
@@ -79,7 +80,7 @@ const priceItem2 = ' flex mb-1 h-[20px] pl-[64px] justify-center w-full font-bol
 const title = 'text-center border-[1px] self-start px-2 mx-auto rounded border-black bg-white text-black'
 
 const side = 'w-1/2  h-full px-2 flex flex-col  border-black pt-4 bg-no-repeat bg-cover'
-const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-4 bg-cover bg-right bg-top'
+const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-4 bg-cover bg-right'
 const modalContent = 'flex  mb-6 duration-[3000ms] h-full relative'
 const closeIcon = ' my-2 mx-2 text-xl cursor-pointer'
 
