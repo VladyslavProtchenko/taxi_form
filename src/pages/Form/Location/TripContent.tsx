@@ -172,7 +172,7 @@ const TripContent = ():React.ReactNode => {
                 <div className={fare}>{day ? isFrench? 'Tarification du jour ': 'Day fare': isFrench? 'Tarification de nuit': 'Night fare'} </div>
 
                 <div className={dateRow}>
-                    <div className='flex flex-col w-1/2'>
+                    <div className='flex justify-between mb-5 px-3'>
                         <div className={!list[activeCarId-1].dateNow ? toggle + ' ' : toggle +' bg-white'} onClick={()=>{
                                     if((list[activeCarId-1].type>2)) return setDateNow(true);
                                     setDateNow(!list[activeCarId-1].dateNow)
@@ -225,17 +225,17 @@ const TripContent = ():React.ReactNode => {
                             </div>}
                         </div>
                     </div>
-                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[30px] left-0 right-1/2 bottom-0  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
+                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[53px] left-0 -right-2 bottom-0  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
 
-                    <div className='flex flex-col h-[92px] z-10 relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
-                        <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
+                    <div className='flex relative w-full rounded-lg px-2 justify-between items-end bg-cover py-2 px-4 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                         {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                             <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
                             <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
                             <div className="absolute border-b border-black w-[35px] right-[24px] z-30 rotate-[114deg]"></div>
                             <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
                         </div>}
-                        {day && <div  className='absolute top-8 left-2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
+                        <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
+                        {day && <div  className='absolute top-2 left-1/2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
 
                     </div>
                 </div>
@@ -532,7 +532,7 @@ const pmTextActive = 'px-2 pl-4 text-white bg-black rounded-tl triangle flex ite
 const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
 const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 border-r border-black '
 
-const timeToggle = 'z-20 absolute top-1 font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
+const timeToggle = 'relative font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
@@ -546,7 +546,7 @@ const openStop ="absolute top-2 text-purple-500  rounded flex cursor-pointer tex
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
-const dateRow = 'flex relative   w-full   justify-between'
+const dateRow = 'flex relative flex-col w-full   justify-between'
 
 const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-[200px] max-w-[200px] w-full rounded-xl'
 
@@ -557,10 +557,10 @@ const extraCardPickUp = 'flex relative w-3/4 bg-white items-center border border
 
 
 const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300 justify-center'
-const toggle ='relative flex self-start rounded-lg border border-purple-500 duration-500 transition cursor-pointer mb-5 overflow-hidden' 
+const toggle ='relative flex  rounded-lg border border-purple-500 duration-500 transition cursor-pointer overflow-hidden' 
 
-const toggleLabel ='flex text-xs duration-500 justify-center px-2 py-1 duration-1000 '
-const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-500 duration-1000 px-2 text-white font-bold 	'
+const toggleLabel ='flex items-center duration-500 justify-center px-2 py-1 duration-1000 '
+const toggleLabelActive ='flex z-20 items-center flex py-1 justify-center  duration-500 duration-1000 px-2 text-white font-bold 	'
 
 
 

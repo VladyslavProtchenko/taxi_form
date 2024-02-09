@@ -207,15 +207,15 @@ const ReturnTrip = ():React.ReactNode  => {
                     </div>
                 </div>
 
-                <div className='flex flex-col h-[92px] z-10 relative w-1/2 rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
-                    <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].timeR}  onChange={setTimeR} date={list[activeCarId-1].dateR}/> 
+                <div className='flex relative rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                     <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeTypeR===1 ? timeToggle+ ' bg-black':timeToggle+ ' bg-white' }>
                         <div className={list[activeCarId-1].timeTypeR===0 ? selectTextActive :selectText } onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
                         <div className={list[activeCarId-1].timeTypeR===1 ? amTextActive : amText} onClick={()=>setTimeTypeR(1)}>am</div>
                         <div className="absolute border-b border-black w-[35px] right-[24px] z-30 rotate-[114deg]"></div>
                         <div className={list[activeCarId-1].timeTypeR===2 ? pmTextActive: pmText} onClick={()=>setTimeTypeR(2)}>PM</div>    
                     </div>
-                    {day && <div  className='absolute top-8 left-2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
+                    <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].timeR}  onChange={setTimeR} date={list[activeCarId-1].dateR}/> 
+                    {day && <div  className='absolute top-2 left-1/2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                 </div>
 
             </div>
@@ -542,7 +542,7 @@ const pmTextActive = 'px-2 pl-4 text-white bg-black  rounded-tl triangle flex it
 const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
 const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 border-r border-black '
 
-const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
+const timeToggle = ' font-bold relative flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
 const reset = 'px-4 py-1  text-rose-500 rounded-lg font-bold  border-2 border-rose-500 mr-4'
 
@@ -556,7 +556,7 @@ const openStop ="absolute top-2 text-purple-500 text-xl rounded flex cursor-poin
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
-const dateRow = 'flex relative w-full justify-between'
+const dateRow = 'flex relative w-full justify-between flex-col'
 
 const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-[200px] max-w-[200px] w-full rounded-xl'
 

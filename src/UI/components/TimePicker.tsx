@@ -44,8 +44,8 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
                     setHour(dayjs().format('HH'))
                     setMinute(dayjs().add(30, 'minutes').format('mm'))
                 } else {
-                    setHour(dayjs().subtract(1, 'hours').format('HH'))
-                    setMinute(dayjs().add(30, 'minutes').format('mm'))
+                    setHour(dayjs().add(1, 'hours').format('HH'))
+                    setMinute(dayjs().subtract(30, 'minutes').format('mm'))
                 }
             }
         }
@@ -202,4 +202,4 @@ const input2 ='pr-2 py-1 pl-[2px] w-[35px] outline-none'
 const button ='absolute top-[120px] rounded left-2 bg-blue-600 px-3 py-1 text-xs text-white active:bg-blue-400'
 const submenu = "absolute flex shadow-xl top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white  rounded "
 
-const container = 'flex cursor-pointer relative h-[40px] bg-white items-center border border-purple-500 text-sm relative w-[100px] outline-none cursor-text rounded-xl'
+const container = 'flex cursor-pointer relative h-[40px] bg-white items-center border border-purple-500 text-sm relative w-[100px] outline-none cursor-text rounded-xl ml-auto'

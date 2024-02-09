@@ -662,6 +662,10 @@ video {
   left: 0.25rem;
 }
 
+.left-1\/2{
+  left: 50%;
+}
+
 .left-12{
   left: 3rem;
 }
@@ -734,10 +738,6 @@ video {
   top: 1rem;
 }
 
-.top-8{
-  top: 2rem;
-}
-
 .top-\[102\%\]{
   top: 102%;
 }
@@ -760,6 +760,10 @@ video {
 
 .top-\[30px\]{
   top: 30px;
+}
+
+.top-\[53px\]{
+  top: 53px;
 }
 
 .top-\[6px\]{
@@ -1021,10 +1025,6 @@ video {
 
 .h-\[90px\]{
   height: 90px;
-}
-
-.h-\[92px\]{
-  height: 92px;
 }
 
 .h-full{
