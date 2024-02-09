@@ -20,6 +20,7 @@ import sun from './../../../assets/sun.png'
 import stars from './../../../assets/stars.jpg'
 import train from './../../../assets/train.jpeg'
 import boat from './../../../assets/ship.png'
+import Buttons from "../Components/Buttons";
 
 
 interface IObj {[key:number]: string}
@@ -168,7 +169,7 @@ const TripContent = ():React.ReactNode => {
     return (
     <div className={container}>
             <div className={date}>
-                <div className={fare}>{day ? isFrench? 'Tarification jour ': 'Day fare': isFrench? 'Tarification nuit': 'Night fare'} </div>
+                <div className={fare}>{day ? isFrench? 'Tarification du jour ': 'Day fare': isFrench? 'Tarification de nuit': 'Night fare'} </div>
 
                 <div className={dateRow}>
                     <div className='flex flex-col w-1/2'>
@@ -506,11 +507,7 @@ const TripContent = ():React.ReactNode => {
                     </div>}
                 </div>}
             </div>
-
-            <div className={btns}>
-                <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Previous'}</div>
-                <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
-            </div>
+            <Buttons goNext={goNext} step={1} />
     </div>
     );
 };
@@ -519,12 +516,10 @@ export default TripContent;
 
 
 const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 font bold'
-const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
 
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white  cursor-pointer'
+
 const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
 
 

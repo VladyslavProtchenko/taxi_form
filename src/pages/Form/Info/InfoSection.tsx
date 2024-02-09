@@ -6,6 +6,7 @@ import { BsPeople } from "react-icons/bs";
 import { useMain } from '../../../Store/useMain';
 import { useStore } from '../../../Store';
 import React from 'react';
+import Buttons from '../Components/Buttons';
 
 const InfoSection = () => {
     const { store } = useStore()
@@ -339,11 +340,7 @@ const InfoSection = () => {
                     </button>
                 </div>
             </div>
-
-            <div className={btns}>
-                <div className={backBtn} onClick={()=>setSteps(0)}>{isFrench? 'Précédent': 'Previous'}</div>
-                <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
-            </div>
+            <Buttons  goNext={goNext} step={0}/>
 
         </section>
     );
@@ -351,9 +348,7 @@ const InfoSection = () => {
 
 export default InfoSection;
 
-const btns = ' fixed bottom-24 w-full flex justify-between mt-auto mx-auto max-w-[400px] px-5'
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white cursor-pointer'
+
 const number = 'absolute left-5 text-gray-400 text-xl'
 const warn = 'absolute -top-[15px] left-12 text-xs z-20 text-red-500'
 

@@ -22,6 +22,7 @@ import sun from './../../../assets/sun.png'
 import stars from './../../../assets/stars.jpg'
 import train from './../../../assets/train.jpeg'
 import boat from './../../../assets/ship.png'
+import Buttons from "../Components/Buttons";
 
 
 
@@ -509,10 +510,9 @@ const ReturnTrip = ():React.ReactNode  => {
                 <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser Adresses': 'Reset Addresses'}</button>
                 <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
             </div>
-            <div className={prevNext}>
-                <div className={backBtn} onClick={()=>setSteps(2)}>{isFrench? 'Précédent': 'Previous'}</div>
-                <div className={nextBtn} onClick={goNext}>{isFrench? 'Suivant': 'Next'}</div>
-            </div>
+
+            <Buttons goNext={goNext} step={2} />
+
     </div>
     );
 };
@@ -520,7 +520,6 @@ const ReturnTrip = ():React.ReactNode  => {
 export default ReturnTrip;
 
 const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 font-bold'
-const prevNext = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2 z-20'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-lg active:bg-orange-500 active:text-white'
 const type = 'flex items-center py-2 justify-between w-full mb-2'
@@ -531,8 +530,6 @@ const extraCard = 'flex relative w-3/4 bg-white items-center border border-purpl
 
 const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-xl py-1"
 
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white  cursor-pointer'
 const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
 
 

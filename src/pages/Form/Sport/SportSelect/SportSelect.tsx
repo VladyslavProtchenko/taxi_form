@@ -9,7 +9,6 @@ import bike from './../../../../assets/bike.png'
 const SportsSelect = ():React.ReactNode => {
     const {list, activeCarId, setSport} = useMain()
 
-
     return (
         <div className={container}>
 
@@ -17,12 +16,12 @@ const SportsSelect = ():React.ReactNode => {
                 <div className={card} key={item.title}>
                     <div className='flex items-center space-x-2'>
                         {(item.title =='Bikes')
-                        ?<div style={{backgroundImage:`url(${bike})` }} className={'   z-10 bg-gray-50   text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                        ?<div style={{backgroundImage:`url(${bike})` }} className={' bg-gray-50   text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                         :(item.title =='Skis')
-                        ?<div style={{backgroundImage:`url(${ski})` }} className={'   z-10 bg-gray-50   text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                        ?<div style={{backgroundImage:`url(${ski})` }} className={' bg-gray-50   text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                         :(item.title =='Surf')
-                        ?<div style={{backgroundImage:`url(${surfer})` }} className={'   z-10 bg-gray-50  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
-                        :<div style={{backgroundImage:`url(${golfer})` }} className={'   z-10 bg-gray-50  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>}
+                        ?<div style={{backgroundImage:`url(${surfer})` }} className={' bg-gray-50  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                        :<div style={{backgroundImage:`url(${golfer})` }} className={'    bg-gray-50  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>}
                         <span className=' text-gray-400' > {item.title}</span>
                     </div>
                     <div className={bagCount}>

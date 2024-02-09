@@ -8,6 +8,7 @@ import { AiOutlineStop } from "react-icons/ai";
 import { useMain } from "../../../Store/useMain";
 import React, { useEffect, useState } from "react";
 import BagsSelect from "./BagsSelect/BagsSelect";
+import Buttons from "../Components/Buttons";
 
 
 const PassengersSection = ():React.ReactNode => {
@@ -18,6 +19,11 @@ const PassengersSection = ():React.ReactNode => {
     useEffect(()=>{
         setCarList(isFrench? store.carListF: store.carList)
     },[isFrench])
+    const goNext =() => {
+        (list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2))
+        ? alert('need adults')
+        : setSteps(5)
+    }
     return (
         <section className={section}>
 
@@ -43,25 +49,13 @@ const PassengersSection = ():React.ReactNode => {
             <div className={content}><PassengersSelect /></div>
             <div className={content}><BagsSelect /></div>
 
-            <div className={btns}>
-                <div className={backBtn} onClick={()=>{
-                        setSteps(list[activeCarId-1].isReturnTrip ? 3: 2)
-                    }}>{isFrench? 'Précédent': 'Previous'}</div>
-                <div className={nextBtn} onClick={()=>{
-                    (list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2))
-                    ? alert('need adults')
-                    : setSteps(5)
-                }}>{isFrench? 'Suivant': 'Next'}</div>
-            </div>
+
+            <Buttons goNext={goNext} step={list[activeCarId-1].isReturnTrip ? 3: 2} />
         </section>
     );
 };
 
 export default PassengersSection;
-
-const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white  cursor-pointer'
 
 const trick = 'absolute bg-purple-500 top-0 bottom-0 w-1/4 duration-500'
 const typeItem = 'flex justify-center z-10 px-2 py-1 cursor-pointer  px-0 w-1/4'

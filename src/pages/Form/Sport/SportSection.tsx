@@ -3,11 +3,11 @@ import PetsSelect from "./PetsSelect/PetsSelect";
 
 import { useMain } from "../../../Store/useMain";
 import React from "react";
+import Buttons from "../Components/Buttons";
 
 
 const SportSection = ():React.ReactNode => {
-    const {isFrench,setSteps} = useMain()
-
+    const {setSteps} = useMain()
 
     return (
         <section className={section}>
@@ -17,22 +17,13 @@ const SportSection = ():React.ReactNode => {
                 <SportSelect />
             </div>
 
-            <div className={btns}>
-                <div className={backBtn} onClick={()=>setSteps(5)}>{isFrench? 'Précédent': 'Previous'}</div>
-                <div className={nextBtn} onClick={()=>setSteps(7)}>{isFrench? 'Suivant': 'Next'}</div>
-            </div>
-
+            <Buttons goNext={()=>setSteps(7)} step={5} />
 
         </section>
     );
 };
 
 export default SportSection;
-
-const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
-const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white cursor-pointer'
-
 
 const content = 'flex  flex-col w-full h-min rounded mt-6'
 const section = 'flex h-full w-full flex-col mt-10 mb-10 max-w-[576px] px-10 pb-20'

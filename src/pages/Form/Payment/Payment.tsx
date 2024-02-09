@@ -39,7 +39,7 @@ const PaymentSection = ():React.ReactNode => {
                     }}>View Orders</button>}
             </div>
             <div className={btns}>
-                <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? 'Précédent': 'Previous'}</div>
+                <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? '<< Précédent': '<< Previous'}</div>
             </div>
         </section>
     );
@@ -49,7 +49,7 @@ export default PaymentSection;
 
 const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const nextBtn = 'w-1/3 bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white  cursor-pointer'
-const backBtn = 'w-1/3 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer'
+const backBtn = 'w-1/3 px-2 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-lg text-white cursor-pointer font-bold'
 const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-3 rounded-xl'
 
 const additional ='flex w-full '
