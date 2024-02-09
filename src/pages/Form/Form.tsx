@@ -11,9 +11,10 @@ import Type from './Type/TypeSection';
 import BagsSection from './Seats/SeatsSection';
 import SportSection from './Sport/SportSection';
 import ReturnSection from './Location/ReturnSection';
+import dayjs from 'dayjs';
 
 const Form = (): React.ReactNode => {
-    const { list,submit, activeCarId ,setIsCars, setFilled } = useMain()
+    const { list,submit, activeCarId ,setIsCars,setTime, setDate, setFilled } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     useEffect(()=>{
@@ -84,7 +85,14 @@ const Form = (): React.ReactNode => {
         setIsCars(cars)
     },[list])
 
-    
+    useEffect(()=>{
+        const days = dayjs().format('MM/DD/YYYY')
+        const time = dayjs().format('hh:mm')
+        
+        setTime(time)
+        setDate(days)
+    },[activeCarId])
+
     return (
         <div className={container}>
             {!submit ? <>

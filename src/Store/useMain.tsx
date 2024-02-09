@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { create } from 'zustand';
 
 export interface IPet {
@@ -308,7 +309,9 @@ export const useMain = create<IStore>()(
                 phone2: '',
                 phone3: '',
 
-                date: '', time: '', dateNow: true,
+                date: '', 
+                time: dayjs().format('hh:mm'), 
+                dateNow: true,
 
                 //trip information
                 from: '', to: '',

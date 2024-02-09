@@ -42,13 +42,6 @@ const Boost = ():React.ReactNode => {
 
     const [isDate, setIsDate] = useState(true)
     const [isFrom, setIsFrom] = useState(true)
-    const [_, setChangedList] = useState(isFrench? store.typeListF: store.typeList)
-
-
-    useEffect(()=>{
-        setChangedList(isFrench? store.typeListF: store.typeList)
-    },[isFrench])
-
 
     useEffect(()=>{
         setDate(list[activeCarId-1].date ? list[activeCarId-1].date : dayjs().format('MM/DD/YYYY'))
@@ -72,6 +65,18 @@ const Boost = ():React.ReactNode => {
             setSteps(8)
         }
     }
+    useEffect(()=>{
+        
+        const now = dayjs();
+        const noon = dayjs().set('hour', 12).set('minute', 0).set('second', 0).set('millisecond', 0);
+        if (now.isBefore(noon)) {
+            setTimeType(1)
+        } else if (now.isAfter(noon)) {
+            setTimeType(2)
+        } else {
+            setTimeType(0)
+        }
+    }, [])
     return (
     <div className={container}>
             <div className={date}>
@@ -142,7 +147,7 @@ const Boost = ():React.ReactNode => {
                             <div className="absolute border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
                             <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
                         </div>}
-                        {day && <div  className='absolute top-8 left-2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
+                        {day && <div  className='absolute top-2 left-2 w-8 h-8 bg-no-repeat z-10 bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
 
                     </div>
                 </div>
@@ -179,7 +184,7 @@ const pmTextActive = 'px-2 pl-4 text-white bg-gray-600  rounded-tl triangle flex
 const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
 const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 border-r border-black '
 
-const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
+const timeToggle = 'z-20 absolute top-1 font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
@@ -198,7 +203,7 @@ const toggle ='relative flex self-start  items-center rounded-lg border border-p
 const toggleLabel ='flex  items-center text-xs duration-500 px-2 min-w-[42px] py-1 duration-1000'
 const toggleLabelActive ='flex min-w-[42px] z-20 items-center py-1 text-xs  duration-500 duration-1000 px-2 text-white font-bold '
 
-const fare = 'py-1 font-black mb-2 italic text-gray-500 w-full text-end mr-4'
+const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-1/2 ml-auto text-center  text-xl'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex flex-col relative w-full px-10 text-xs mt-12'

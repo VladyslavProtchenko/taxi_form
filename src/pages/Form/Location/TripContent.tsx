@@ -59,7 +59,6 @@ const TripContent = ():React.ReactNode => {
     const [isTo, setIsTo] = useState(true)
     const [trigger, setTrigger] = useState(false)
 
-
     useEffect(()=>{
         setDate(list[activeCarId-1].date ? list[activeCarId-1].date : dayjs().format('MM/DD/YYYY'))
     },[])
@@ -122,7 +121,7 @@ const TripContent = ():React.ReactNode => {
     
     useEffect(()=>{
         setDay(list[activeCarId-1].time.slice(0,2) > '04' && list[activeCarId-1].time.slice(0,2) < '23')
-    },[list[activeCarId-1].time,list[activeCarId-1].timeType])
+    },[list[activeCarId-1].time, list[activeCarId-1].timeType])
 
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
@@ -153,6 +152,18 @@ const TripContent = ():React.ReactNode => {
         }
     },[list[activeCarId-1]])
 
+    useEffect(()=>{
+        
+        const now = dayjs();
+        const noon = dayjs().set('hour', 12).set('minute', 0).set('second', 0).set('millisecond', 0);
+        if (now.isBefore(noon)) {
+            setTimeType(1)
+        } else if (now.isAfter(noon)) {
+            setTimeType(2)
+        } else {
+            setTimeType(0)
+        }
+    }, [])
     
     return (
     <div className={container}>
@@ -165,13 +176,13 @@ const TripContent = ():React.ReactNode => {
                                     if((list[activeCarId-1].type>2)) return setDateNow(true);
                                     setDateNow(!list[activeCarId-1].dateNow)
                                     if(list[activeCarId-1].dateNow) {
-                                        setTime('')
-                                        setDate('')
+                                        setTime(dayjs().format('hh:mm'))
+                                        setDate(dayjs().format('MM/DD/YYYY'))
                                     } else {
                                         (dayjs().format('mm') > '30') 
                                             ? setTime((dayjs().add(1, 'hours').format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
                                             : setTime((dayjs().format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
-                                        setDate(dayjs().format('DD/MM/YYYY'))
+                                        setDate(dayjs().format('MM/DD/YYYY'))
                                     }
                                 }}>
                             <div style={{width: isFrench? 80: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
@@ -496,11 +507,6 @@ const TripContent = ():React.ReactNode => {
                 </div>}
             </div>
 
-            {/* <div className={list[activeCarId-1].type + ' pt-4'}>
-                <button className={reset} onClick={resetForm}>{isFrench? 'Réinitialiser les adresses': 'Reset Addresses'}</button>
-            </div> */}
-
-            
             <div className={btns}>
                 <div className={backBtn} onClick={()=>setSteps(1)}>{isFrench? 'Précédent': 'Previous'}</div>
                 <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}</div>
@@ -531,7 +537,7 @@ const pmTextActive = 'px-2 pl-4 text-white bg-black rounded-tl triangle flex ite
 const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
 const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 border-r border-black '
 
-const timeToggle = ' absolute top-1 font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
+const timeToggle = 'z-20 absolute top-1 font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
@@ -563,7 +569,7 @@ const toggleLabelActive ='flex z-20 flex py-1 justify-center text-xs duration-50
 
 
 
-const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-full text-end mr-4 text-xl'
+const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-1/2 ml-auto text-center  text-xl'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'relative flex h-full pb-10 flex-col relative w-full px-5 text-xs'

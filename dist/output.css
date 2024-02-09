@@ -1321,8 +1321,8 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.rotate-\[300deg\]{
-  --tw-rotate: 300deg;
+.rotate-\[260deg\]{
+  --tw-rotate: 260deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1507,6 +1507,11 @@ video {
   border-bottom-left-radius: 0.75rem;
 }
 
+.rounded-t-lg{
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
 .rounded-tl{
   border-top-left-radius: 0.25rem;
 }
@@ -1676,6 +1681,14 @@ video {
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-opacity-25{
+  --tw-bg-opacity: 0.25;
+}
+
+.bg-opacity-90{
+  --tw-bg-opacity: 0.9;
 }
 
 .bg-\[url\(\"https\:\/\/cdn1\.iconfinder\.com\/data\/icons\/car-engine-dashboard-lights-outline-set-2\/91\/Car_Engine_-_Dashboard_Lights_73-512\.png\"\)\]{
@@ -1930,6 +1943,10 @@ video {
 
 .text-\[10px\]{
   font-size: 10px;
+}
+
+.text-\[20px\]{
+  font-size: 20px;
 }
 
 .text-\[22px\]{
