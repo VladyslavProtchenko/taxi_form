@@ -278,13 +278,17 @@ select option {
 .ant-input-clear-icon::after {
     content: '+';
     transform: rotate(100deg)!important;
-    font-size: 34px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fe8191;
 }
 
 .ant-select-clear::before {
     content: '+';
-    font-size: 34px;
-    transform: translateY(-14px) translateX(-4px) rotate(45deg) !important;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fe8191;
+    transform: translateY(-10px) translateX(-4px) rotate(45deg) !important;
 
 }
 
@@ -306,4 +310,8 @@ select option {
 
 .ant-select-clear {
     opacity: 1 !important;
+}
+
+.ant-select-selection-item {
+    padding-right: 26px !important;
 }

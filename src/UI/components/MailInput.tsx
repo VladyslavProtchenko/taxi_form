@@ -1,7 +1,8 @@
 import React, {  useState } from 'react';
 import { Input, Select } from 'antd';
 import 'antd/dist/reset.css';
-import { TfiEmail } from "react-icons/tfi";
+
+import { CiMail } from "react-icons/ci";
 
 interface InputProps {
     value:string;
@@ -39,11 +40,11 @@ const MailInput: React.FC<InputProps> = ({ onChange, placeholder, value, mainMai
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     
     return (
-        <div className={(!noMail && mainMail) ? container  +' border-red-500': container}>
-            <span className='icon'><TfiEmail/></span>
+        <div className={(!noMail && mainMail) ? container  +' border-red-600': container}>
+            <span className='icon'><CiMail className='text-[#3e49da]'/></span>
             <Input
                 allowClear
-                style={{ maxWidth: 200,width:'60%', paddingRight:22, fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
+                style={{ maxWidth: 250,width:'60%', paddingRight:22, fontWeight: 'bold', borderRadius: 0, height: 30, color: '#0066ff' }}
                 value={value.split('@')[0] || ''}
                 className='blueInput'
                 onChange={(v) => onChange(v.target.value+'@'+(value.split('@')[1] || ''))}

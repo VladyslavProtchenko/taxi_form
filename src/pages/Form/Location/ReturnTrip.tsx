@@ -193,7 +193,7 @@ const ReturnTrip = ():React.ReactNode  => {
                                     ? 'rd'
                                     : 'th'
                                 }
-                            {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>Choose return date</div> }
+                            {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>{isFrench? 'Choicir une date de Retour':'Choose return date'}</div> }
                         {isDateOpen && <div className={dateTimeSubmenu}>
                             <DatePicker value={list[activeCarId-1].dateR} isReturn={true} time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
                             <div className="flex justify-between pl-8">

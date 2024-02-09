@@ -157,7 +157,7 @@ const Boost = ():React.ReactNode => {
                 <div className={isFrom ? extraCardPickUp : extraCardPickUp +' border-red-500'}>
                     <span className='icon text-green-500 '><SlLocationPin/></span>
                     <GoogleAddressInput
-                        style='w-full' 
+                        style='w-full placeholder-green' 
                         defaultLocation={list[activeCarId-1].from || ''} 
                         onChange={setFrom}
                         placeholder={isFrench? store.locationListF[0]:store.locationList[0]}

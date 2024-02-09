@@ -82,7 +82,7 @@ const title = 'text-center border-[1px] self-start px-2 mx-auto rounded border-b
 const side = 'w-1/2  h-full px-2 flex flex-col  border-black pt-4 bg-no-repeat bg-cover'
 const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-4 bg-cover bg-right'
 const modalContent = 'flex  mb-6 duration-[3000ms] h-full relative'
-const closeIcon = ' my-2 mx-2 text-xl cursor-pointer'
+const closeIcon = 'absolute top-1 left-1 z-20 text-3xl cursor-pointer shadow-lg rounded-full hover:bg-white hover:bg-opacity-25'
 
 const modal = 'fixed overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[0px] bg-white z-50 duration-500 '
 const modalOpen = 'fixed overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[360px] bg-white z-50 duration-500'
