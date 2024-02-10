@@ -225,7 +225,7 @@ const TripContent = ():React.ReactNode => {
                             </div>}
                         </div>
                     </div>
-                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[53px] left-0 -right-2 bottom-0  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
+                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[53px] left-0 -right-2 bottom-0  bg-white opacity-25 cursor-not-allowed transition duration-1000 "></div>}
 
                     <div className='flex relative w-full rounded-lg px-4 z-10 justify-between items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                         {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
@@ -557,10 +557,10 @@ const extraCardPickUp = 'flex relative w-3/4 bg-white items-center border border
 
 
 const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300 justify-center'
-const toggle ='relative flex  rounded-lg border border-purple-500 duration-500 transition cursor-pointer overflow-hidden' 
+const toggle ='relative  flex  rounded-lg border border-purple-500 duration-500 transition cursor-pointer overflow-hidden' 
 
-const toggleLabel ='flex items-center duration-500 justify-center px-2 py-1 duration-1000 '
-const toggleLabelActive ='flex z-20 items-center flex py-1 justify-center  duration-500 duration-1000 px-2 text-white font-bold 	'
+const toggleLabel ='flex items-center font-black duration-500 justify-center px-2 py-1 duration-1000 '
+const toggleLabelActive ='flex z-20 font-black items-center flex py-1 justify-center  duration-500 duration-1000 px-2 text-white font-bold 	'
 
 
 

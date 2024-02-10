@@ -137,7 +137,7 @@ const Boost = ():React.ReactNode => {
                             </div>}
                         </div>
                     </div>
-                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[34px] left-0 right-0 bottom-0  bg-white opacity-25 cursor-not-allowed transition duration-1000 "></div>}
+                    {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[48px] left-0 right-0 bottom-0  bg-white opacity-25 cursor-not-allowed transition duration-1000 "></div>}
 
                     <div className='flex   rounded-lg px-2 bg-cover py-2 mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                         {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
@@ -197,13 +197,14 @@ const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 const extraCardPickUp = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
 
 
-const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300'
-const toggle ='relative flex t  items-center rounded-lg border border-purple-500 duration-500 transition cursor-pointer mb-2 overflow-hidden' 
+const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300 justify-center'
+const toggle ='relative  flex  rounded-lg border border-purple-500 duration-500 transition cursor-pointer overflow-hidden' 
 
-const toggleLabel ='flex  items-center text-xs duration-500 px-2 min-w-[42px] py-1 duration-1000'
-const toggleLabelActive ='flex min-w-[42px] z-20 items-center py-1 text-xs  duration-500 duration-1000 px-2 text-white font-bold '
+const toggleLabel ='flex items-center font-black duration-500 justify-center px-2 py-1 duration-1000 '
+const toggleLabelActive ='flex z-20 font-black items-center flex py-1 justify-center  duration-500 duration-1000 px-2 text-white font-bold 	'
+
 
 const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-full ml-auto text-center  text-xl'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
-const container = 'flex flex-col relative w-full px-10 text-xs mt-12'
+const container = 'flex flex-col relative w-full px-4 text-xs mt-12'
