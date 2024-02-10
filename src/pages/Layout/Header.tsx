@@ -39,19 +39,14 @@ const Header = (): React.ReactNode => {
                         }
                     </div>
                     <div className={submit ? headerText +' opacity-0': headerText}>
-                        {
-                            list[activeCarId - 1].isEdit
-                                ? isFrench ? 'Modification ' : 'Editing '
-                                : isFrench ? 'Ajout ' : 'Adding '
-                        }
-                        {
-                            activeCarId === 1
-                                ? isFrench ? '1er' : '1st'
-                                : activeCarId === 2
-                                    ? isFrench ? '2e' : '2nd'
-                                    : activeCarId === 3
-                                        ? isFrench ? '3e' : '3rd'
-                                        : isFrench ? activeCarId + 'e' : activeCarId + 'th'
+                        { list[activeCarId - 1].isEdit? isFrench ? 'Modification ' : 'Editing ': isFrench ? 'Ajout ' : 'Adding '}
+                        {activeCarId === 1
+                            ? isFrench ? '1er' : '1st'
+                            : activeCarId === 2
+                            ? isFrench ? '2e' : '2nd'
+                            : activeCarId === 3
+                            ? isFrench ? '3e' : '3rd'
+                            : isFrench ? activeCarId + 'e' : activeCarId + 'th'
                         } {isFrench ? ' Véhicule' : ' Car'}
                     </div>
                     <div className={iIcon} onClick={()=>setInfoOpen(!infoOpen)}><TiInfoLarge className='cursor-pointer text-3xl' /></div>
@@ -73,9 +68,9 @@ const Header = (): React.ReactNode => {
 
 export default Header;
 
-const toggle = 'px-2  border-purple-500 '
-const toggleActive = 'px-2  border-purple-500 bg-purple-500 text-white'
-const toggleButton = ' flex text-[20px] border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden px-1 py-1'
+const toggle = 'px-2  border-purple-500 px-1 py-1'
+const toggleActive = 'px-2  border-purple-500 bg-purple-500 text-white px-1 py-1'
+const toggleButton = ' flex text-[20px] border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden '
 const content = 'flex items-center w-full justify-between' 
 const image = 'w-8 h-5 text-xs bg-center bg-cover bg-no-repeat'
 const iIcon = " flex items-center justify-center border-2  rounded-full border-orange-400 text-orange-400 "

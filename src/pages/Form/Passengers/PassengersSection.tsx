@@ -58,9 +58,9 @@ const PassengersSection = ():React.ReactNode => {
 export default PassengersSection;
 
 const trick = 'absolute bg-purple-500 top-0 bottom-0 w-1/4 duration-500'
-const typeItem = 'flex justify-center z-10 px-2 py-1 cursor-pointer  px-0 w-1/4'
-const typeItemActive = 'flex text-white justify-center z-10 px-2 py-1 cursor-pointer  px-0 w-1/4'
-const type = 'relative flex  border-2 border-purple-500 rounded-full overflow-hidden w-full'
+const typeItem = 'flex justify-center z-10 px-2 py-1 cursor-pointer  px-0 w-1/4 duration-1000'
+const typeItemActive = 'flex text-white justify-center z-10 px-2 py-1 cursor-pointer duration-1000 px-0 w-1/4'
+const type = 'relative flex  border-2 border-purple-500 rounded-xl overflow-hidden w-full'
 
 
 const content = 'flex flex-wrap w-full h-min rounded mt-6'

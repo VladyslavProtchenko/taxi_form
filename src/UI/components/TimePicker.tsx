@@ -54,7 +54,9 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
     useEffect(()=>{
 
         if(!list[activeCarId-1].dateNow && JSON.stringify(dayjs().format('MM/DD/YYYY')) === JSON.stringify(date)) {
-            //if 24 hours time 
+            
+            //if 24 hours time
+            console.log(hour, 'hour')
             hour === dayjs().format('HH')
                 ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
                 : setFilteredMinutes(minutes)
@@ -78,7 +80,10 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             }).filter(item => item >= dayjs().format('HH')))
 
 
-            if(hour===dayjs().format('HH') && isAm!==2) setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
+            if(hour===dayjs().format('HH') && isAm!==2){
+                console.log('work 3')
+                setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))  
+            } 
         }
         
         if(dayjs().format('MM/DD/YYYY') !== date ) {
@@ -123,12 +128,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
 
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
-            <div 
-                className={isAm===0? 'absolute rounded-xl top-0 left-0 right-0 bottom-0 bg-white opacity-60 z-500': 'hidden'} 
-                onClick={(e)=>{
-                    e.stopPropagation(); 
-                    return
-                }}></div>
+            
             <IoMdTime className='cursor-pointer text-lg ml-2' onClick={() => setIsOpen(true)}/>
             <input
                 className={input}
@@ -166,21 +166,26 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             {isOpen && <div className={submenu} >
 
                 <div className="overflow-scroll border-r">
-                    {[...filteredHours].map((item, index) =>
+
+                    {filteredHours.length ? [...filteredHours].map((item, index) =>
                             <div
                                 key={index + item}
                                 className=" px-4 cursor-pointer hover:bg-gray-100"
                                 onClick={() => setHour(item)}
                             >{item}</div>
-                        )}
+                        )
+                    :<div className=" px-4 ">- -</div>}
+                        
                 </div>
                 <div className="overflow-scroll " >
-                    {[...filteredMinutes].map((item, index) =>
+                    {filteredMinutes.length ? [...filteredMinutes].map((item, index) =>
                         <div
                             key={index + item}
                             className=" px-4 cursor-pointer hover:bg-gray-100"
                             onClick={() => setMinute(item)}
-                        >{item}</div>)}
+                        >{item}</div>)
+                    : <div className=" px-4 ">- -</div>}
+                        
                 </div>
 
                 <button
@@ -200,6 +205,6 @@ export default TimePicker;
 const input ='pr-2 py-1 text-end pr-[2px] w-[24px] outline-none'
 const input2 ='pr-2 py-1 pl-[2px] w-[35px] outline-none'
 const button ='absolute top-[120px] rounded left-2 bg-blue-600 px-3 py-1 text-xs text-white active:bg-blue-400'
-const submenu = "absolute flex shadow-xl top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white  rounded "
+const submenu = "absolute z-50 flex shadow-xl top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white rounded "
 
-const container = 'flex cursor-pointer relative h-[40px] bg-white items-center border border-purple-500 text-sm relative w-[100px] outline-none cursor-text rounded-xl ml-auto'
+const container = 'flex cursor-pointer relative h-[40px]  bg-white items-center border border-purple-500 text-sm relative w-[100px] outline-none cursor-text rounded-xl ml-auto'

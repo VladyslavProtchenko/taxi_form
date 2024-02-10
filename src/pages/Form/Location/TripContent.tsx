@@ -227,7 +227,7 @@ const TripContent = ():React.ReactNode => {
                     </div>
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[53px] left-0 -right-2 bottom-0  bg-white opacity-75 cursor-not-allowed transition duration-1000 "></div>}
 
-                    <div className='flex relative w-full rounded-lg px-2 justify-between items-end bg-cover py-2 px-4 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                    <div className='flex relative w-full rounded-lg px-4 z-10 justify-between items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                         {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                             <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
                             <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
