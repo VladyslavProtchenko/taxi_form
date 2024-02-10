@@ -7,7 +7,7 @@ import { useMain } from "../../../Store/useMain";
 
 const ReturnSection = ():React.ReactNode => {
 
-    const { list, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    const { list,isFrench, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
 
 
     useEffect(()=>{
@@ -23,7 +23,7 @@ const ReturnSection = ():React.ReactNode => {
                 <div className={returnTabActiveOne} onClick={()=>{setIsReturnTrip(!list[activeCarId-1].isReturnTrip )}}>
                     <span
                         className={list[activeCarId-1].isReturnTrip ? tab+ ' bg-rose-500' : tab + ' bg-green-400 ' }
-                    >{list[activeCarId-1].isReturnTrip ? '- Take off return':'+ Add return'}</span>
+                    >{list[activeCarId-1].isReturnTrip ? isFrench? '- décoller Retour ':'- take off Return':isFrench? '+ ajouter Retour': '+ add Return'}</span>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@ const ReturnSection = ():React.ReactNode => {
 
 export default ReturnSection;
 
-const tab = ' text-center duration-300 rounded px-1 w-full font-bold text-2xl'
-const returnTabActiveOne = 'max-w-[160px] border border-black mx-5 items-center  z-10  text-white rounded flex cursor-pointer items-center' 
+const tab = ' text-center duration-300 rounded px-4 w-full font-bold text-2xl'
+const returnTabActiveOne = 'self-center  border border-black mx-5 items-center  z-10  text-white rounded flex cursor-pointer items-center' 
 
 const section = 'flex relative h-full flex-col w-full pt-10 max-w-[576px]'
