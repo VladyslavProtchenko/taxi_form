@@ -2,14 +2,15 @@ import PassengersSelect from "./PassengersSelect/PassengersSelect";
 import { useStore } from "../../../Store";
 
 import { IoCarSportOutline } from "react-icons/io5";
-import { LiaShuttleVanSolid } from "react-icons/lia";
-import { PiJeepLight } from "react-icons/pi";
 import { AiOutlineStop } from "react-icons/ai";
 import { useMain } from "../../../Store/useMain";
 import React, { useEffect, useState } from "react";
 import BagsSelect from "./BagsSelect/BagsSelect";
 import Buttons from "../Components/Buttons";
-
+import suv from '../../../assets/suv.png';
+import suvWhite from '../../../assets/suvWhite.png';
+import van from '../../../assets/van.png';
+import vanWhite from '../../../assets/vanWhite.png';
 
 const PassengersSection = ():React.ReactNode => {
     const { store } = useStore()
@@ -36,9 +37,9 @@ const PassengersSection = ():React.ReactNode => {
                                 index === 0
                                 ? <div className='items-center flex '><IoCarSportOutline className='w-[25px] mr-1 text-4xl'/>{isFrench ? 'Berline': 'Sedan'}</div>
                                 : index === 1
-                                ? <div className='items-center flex'><PiJeepLight className='w-[25px] mr-1 text-4xl'/>{isFrench ? 'VUS': 'SUV'}</div> 
+                                ? <div className='items-center flex'><div style={{backgroundImage:`url(${list[activeCarId-1].carType ===2 ? suvWhite: suv})` }} className={'w-10 bg-center h-5 bg-contain bg-no-repeat mr-2'} ></div>{isFrench ? 'VUS': 'SUV'}</div> 
                                 : index === 2
-                                ? <div className='items-center flex '><LiaShuttleVanSolid className='w-[25px] mr-1 text-4xl'/> {'VAN'}</div>
+                                ? <div className='items-center flex '><div style={{backgroundImage:`url(${list[activeCarId-1].carType ===3 ? vanWhite: van})` }} className={'w-9 bg-center h-5 bg-contain bg-no-repeat mr-2'} ></div>{'VAN'}</div>
                                 : <div className='items-center flex '><AiOutlineStop className='w-[25px] mr-1 text-4xl text-red-500'/>{'Limo'}</div>
                             }
                         </div>

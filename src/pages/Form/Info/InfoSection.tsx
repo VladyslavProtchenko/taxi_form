@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import PhoneNumberInput from '../../../UI/components/PhoneInput';
 import MailInput from '../../../UI/components/MailInput';
 import { Input, Select } from 'antd';
-import { BsPeople } from "react-icons/bs";
+import { IoIosPerson } from "react-icons/io";
 import { useMain } from '../../../Store/useMain';
 import { useStore } from '../../../Store';
 import React from 'react';
 import Buttons from '../Components/Buttons';
-
 const InfoSection = () => {
     const { store } = useStore()
     const {
@@ -125,7 +124,7 @@ const InfoSection = () => {
                 <div className={nameCard}>
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
                         {isExtraNameOpen[1] && <div className={number}>1</div>}
-                        <span className='icon ml-1'><BsPeople/></span>
+                        <span className='icon ml-1'><IoIosPerson/></span>
                         <Select allowClear  className='arrow-right'  placeholder={isFrench? 'Titre':'Title' } style={{width: 118, height: 40}} onChange={setTitle} options={options1} value={list[activeCarId-1].title || null} />
                         <Input allowClear value={list[activeCarId-1].name} placeholder={isFrench? store.nameListF[0]:store.nameList[0] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{  borderRadius: 5, height: 30}}/>
                     </div>
@@ -136,7 +135,7 @@ const InfoSection = () => {
                         <div className={number}>2</div>
                         <div className={(list[activeCarId-1].name === list[activeCarId-1].name2)? warn: 'hidden'}>name cannot be repeated</div>
                         {!isExtraNameOpen[1] &&  <div className='absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-100 rounded cursor-not-allowed'></div>}
-                        <span className='icon ml-1'><BsPeople/></span>
+                        <span className='icon ml-1'><IoIosPerson/></span>
                         <Select allowClear placeholder={isFrench? 'Titre':'Title'  }  className='arrow-right' style={{width: 118, height: 40}} onChange={setTitle2} options={options1} value={list[activeCarId-1].title2 || null}/> 
                         <Input value={list[activeCarId-1].name2} allowClear placeholder={isFrench? store.nameListF[1]:store.nameList[1] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{  borderRadius: 5, height: 30}}/>
                         
@@ -179,7 +178,7 @@ const InfoSection = () => {
                     <div className={(isExtraNameOpen[2])? box: box +' opacity-0'}>
                         <div className={number}>3</div>
                         {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
-                        <span className='icon  ml-1'><BsPeople/></span>
+                        <span className='icon  ml-1'><IoIosPerson/></span>
                         <Select allowClear placeholder={isFrench? 'Titre':'Title'  }  className=' arrow-right ' style={{width: 118, height: 40}} onChange={setTitle3}options={options1} value={list[activeCarId-1].title3 || null}/> 
                         <Input  value={list[activeCarId-1].name3 } allowClear placeholder={isFrench? store.nameListF[2]:store.nameList[2] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{ borderRadius: 5, height: 30}}/>
                     </div>

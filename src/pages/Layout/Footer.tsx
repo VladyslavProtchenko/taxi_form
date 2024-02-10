@@ -4,12 +4,12 @@ import { useStore } from '../../Store';
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { FcSettings } from "react-icons/fc";
+import { PiUserListFill } from "react-icons/pi";
+import { IoLocationOutline } from "react-icons/io5";
+import { IoCardOutline } from "react-icons/io5";
+import { IoCheckmarkDoneSharp } from "react-icons/io5";
 
-import { PiUserListLight } from "react-icons/pi";
-import { IoSettingsOutline } from "react-icons/io5";
-import { CiLocationOn } from "react-icons/ci";
-import { CiMoneyCheck1 } from "react-icons/ci";
-import { IoCheckmarkDone } from "react-icons/io5";
 import { FaSortDown } from "react-icons/fa";
 // import { MdDirectionsBike } from "react-icons/md";
 import { FaRunning } from "react-icons/fa";
@@ -88,12 +88,13 @@ const Footer = (): React.ReactNode => {
                     return index === 8
                         ? <span
                             key={item}
-                            className={submit ? footerTabActive : footerTab}
+                            className={submit ? footerTabActive : footerTab }
                             onClick={() => {
                                 setSubmit(true)
                                 setSteps(index)
                             }}>
-                                <IoCheckmarkDone className={footerIcon} />
+                                <IoCheckmarkDoneSharp className={submit? footerIcon: footerIcon + ' text-green-500 '} />
+                                <div className={tabIndex+ ' text-[15px] text-center pt-[2px] px-1'}>9</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
 
@@ -105,19 +106,22 @@ const Footer = (): React.ReactNode => {
                                 setSubmit(false); setSteps(index)
                             }}>
                             {index === 0
-                                ? <IoSettingsOutline className={footerIcon} />
+                                ? <FcSettings className={ footerIcon} />
                                 : index === 1
-                                ? <PiUserListLight className={footerIcon} />
-                                : index === 2 || index === 3
-                                ? <CiLocationOn className={footerIcon} />
+                                ? <PiUserListFill className={footerIcon} />
+                                : index === 2
+                                ? <IoLocationOutline className={list[activeCarId - 1].steps===2 ? footerIcon: footerIcon + ' text-blue-500'} />
+                                : index === 3
+                                ? <IoLocationOutline className={list[activeCarId - 1].steps===3 ? footerIcon: footerIcon + ' text-orange-500'} />
                                 : index === 4
                                 ? <div style={{ backgroundImage: `url(${list[activeCarId - 1].steps === 4 ? carBagsPurple : carBags})` }} className={icon}></div>
                                 : index === 5
                                 ? <div style={{ backgroundImage: `url(${list[activeCarId - 1].steps === 5 ? babiSeatPurple : babiSeat})` }} className={icon}></div>
                                 : index === 6
-                                ? <FaRunning className={footerIcon} />
-                                : <CiMoneyCheck1 className={footerIcon} />
+                                ? <FaRunning className={list[activeCarId - 1].steps===6 ? footerIcon: footerIcon + ' text-blue-700 '} />
+                                : <IoCardOutline className={list[activeCarId - 1].steps===7 ? footerIcon: footerIcon+' text-orange-900'} />
                             }
+                            <div className={index===0? tabIndex+ ' text-[15px] text-center pt-[2px] px-1': tabIndex}>{index+1}</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
                     }
@@ -128,13 +132,14 @@ const Footer = (): React.ReactNode => {
     );
 };
 
+const tabIndex = 'absolute top-0 font bold px-1 bg-white rounded-full shadow border left-1'
 const arrows = "xs:hidden h-0 flex justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
 const arrowsXs = " xs:flex h-0 hidden justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
 
 const icon = 'text-xs w-10 bg-center h-7 bg-contain bg-no-repeat' 
 const arrIcon = ' text-purple-500 text-xl'
 const footerIcon = 'text-3xl'
-const footerTabText = 'text-[10px] leading-3 '
+const footerTabText = 'text-[12px] leading-3  font-bold'
 
 const footerTab = 'flex relative flex-col items-center mx-1 text-center  w-[60px] py-1 text-gray-800 cursor-pointer'
 const footerTabActive = ' relative flex flex-col text-center mx-1 items-center w-[60px]  py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '

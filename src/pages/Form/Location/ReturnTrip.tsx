@@ -564,7 +564,7 @@ const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 
 const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 
-const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-1/2 ml-auto text-center  text-xl'
+const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-full ml-auto text-center  text-xl'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
 const container = 'flex  h-full pb-10 flex-col relative w-full px-5 text-xs pb-20'
