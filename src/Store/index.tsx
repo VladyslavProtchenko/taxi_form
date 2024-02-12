@@ -60,8 +60,8 @@ export const useStore = create<Store>(() => ({
         numbersList: ['st', 'nd', 'rd', 'th'],
         numbersListF: ['st', 'nd', 'rd', 'th'],
 
-        dayPrices: [ '4.10', '1.05','0.77', '2.05'],//prices:  from start/ per km/ minute of waiting / fee 0.9/ tax  1.05
-        nightPrices: ['4.70', '1.05','0.89', '2.35' ],
+        dayPrices: [ '4.10', '1.05','22.537','0.77', '2.05'],//prices:  from start/ per km/ minute of waiting / fee 0.9/ tax  1.05
+        nightPrices: ['4.70', '1.05','22.573','0.89', '2.35' ],
 
         titleList: ['Mr.', 'Mrs.', 'Miss.', 'Prefer Not To say'],
         titleListF: ['M.', 'Mme.', 'Mlle.', 'Préfère ne pas dire'],

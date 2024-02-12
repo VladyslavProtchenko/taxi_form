@@ -193,15 +193,15 @@ const TripContent = ():React.ReactNode => {
                                         setDate(dayjs().format('MM/DD/YYYY'))
                                     }
                                 }}>
-                            <div style={{width: isFrench ? 80: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
+                            <div style={{width: isFrench ? 70: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
                             <div  style={{width:isFrench ? 40: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
-                            <div className={list[activeCarId-1].dateNow ? toggleBg + ` bg-rose-500 ${isFrench? ' w-[80px] ': 'w-[44px]'}` :toggleBg + ` translate-x-full bg-green-400 ${isFrench? ' w-[80px] ': 'w-[44px]'}` }></div>
+                            <div className={list[activeCarId-1].dateNow ? toggleBg + ` bg-rose-500 ${isFrench? ' w-[70px] ': 'w-[44px]'}` :toggleBg + ` translate-x-full bg-green-400 ${isFrench? ' w-[70px] ': 'w-[44px]'}` }></div>
                         </div>
 
                         <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                             <div onClick={(e)=>e.stopPropagation()} className={list[activeCarId-1].dateNow? 'absolute z-10 top-0 left-0 right-0 bottom-0 rounded-xl bg-white bg-opacity-50 cursor-not-allowed':'hidden'}></div>
                             <span className='flex items-center pl-1 text-xl '><PiCalendarCheckLight className='text-blue-700'/></span>
-                            {list[activeCarId-1].date ? <div className='flex items-center font-bold text-blue-700'>
+                            {list[activeCarId-1].date ? <div className='flex items-center font-bold text-sm text-blue-700'>
                                 {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
                                 :fullDate.format('dddd')==='Tuesday'? isFrench ? 'Mardi':'Tuesday'
                                 :fullDate.format('dddd')==='Wednesday'?isFrench ? 'Merceredi':'Wednesday'
@@ -556,7 +556,7 @@ const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-6
 const dateTimeSubmenu ='absolute overflow-hidden z-30 flex flex-col item-star top-[102%]  z-20 w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl right-0'
 const dateRow = 'flex relative flex-col w-full   justify-between'
 
-const dateInput = 'relative text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative max-w-[200px] min-w-[170px]  rounded-xl'
+const dateInput = 'relative  flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-full max-w-[200px] min-w-[170px]  rounded-xl'
 
 const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 

@@ -171,12 +171,12 @@ const ReturnTrip = ():React.ReactNode  => {
             <div className={fare}>{day ? isFrench? 'Tarification jour ': 'Day fare': isFrench? 'Tarification nuit': 'Night fare'} </div>
 
             <div className={dateRow}>
-                <div className="flex pb-3 justify-end w-1/2 self-end text-blue-700">
+                <div className="flex pb-3 justify-end w-[200px] self-end text-blue-700">
 
                     <div className={isDateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='flex items-center text-xl '><PiCalendarCheckLight/></span>
                             {list[activeCarId-1].dateR ? 
-                            <div className='flex items-center font-bold  truncate '>
+                            <div className='flex items-center text-sm  truncate font-bold'>
                                 {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
                                 :fullDate.format('dddd')==='Tuesday'? isFrench ? 'Mardi':'Tuesday'
                                 :fullDate.format('dddd')==='Wednesday'?isFrench ? 'Merceredi':'Wednesday'
@@ -194,7 +194,7 @@ const ReturnTrip = ():React.ReactNode  => {
                                     ? 'rd'
                                     : 'th'
                                 }
-                            {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center'>{isFrench? 'Choicir une date de Retour':'Choose return date'}</div> }
+                            {' '+fullDate.format('YYYY')} </div>:  <div className='flex items-center text-sm font-bold'>{isFrench? 'Choicir une date de Retour':'Choose return date'}</div> }
                         {isDateOpen && <div className={dateTimeSubmenu}>
                             <DatePicker value={list[activeCarId-1].dateR} isReturn={true} time={list[activeCarId-1].timeR} onChange={setDateR} getFullDate={setFullDate}/>
                             <div className="flex justify-between pl-8">
@@ -558,7 +558,7 @@ const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-6
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
 const dateRow = 'flex relative w-full justify-between flex-col'
 
-const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative max-w-[200px] w-full rounded-xl'
+const dateInput = 'flex border bg-white border-purple-500 cursor-pointer h-[40px] relative max-w-[200px] w-full rounded-xl'
 
 const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 

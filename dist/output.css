@@ -598,6 +598,10 @@ video {
   left: -4rem;
 }
 
+.-left-2{
+  left: -0.5rem;
+}
+
 .-left-6{
   left: -1.5rem;
 }
@@ -1196,8 +1200,8 @@ video {
   width: 60%;
 }
 
-.w-\[80px\]{
-  width: 80px;
+.w-\[70px\]{
+  width: 70px;
 }
 
 .w-full{
@@ -1889,8 +1893,8 @@ video {
   padding-right: 2px;
 }
 
-.pr-\[40px\]{
-  padding-right: 40px;
+.pr-\[32px\]{
+  padding-right: 32px;
 }
 
 .pt-1{
@@ -2668,5 +2672,11 @@ select option {
 
   .sm\:text-\[10px\]{
     font-size: 10px;
+  }
+}
+
+@media (max-width: 570px){
+  .xs\:left-3{
+    left: 0.75rem;
   }
 }

@@ -53,11 +53,11 @@ const InfoMenu = (): React.ReactNode => {
                     <h2 className={time}>
                         <span className='bg-white rounded-t-lg bg-opacity-90 px-2'>{isFrench? 'Plage horaire':'Time Range'} </span> 
                         <br/><span className='bg-white rounded-lg bg-opacity-90 px-2'>05:00:00 am To 22:59:59</span> </h2>
-                    <div className={priceItem+ ' mb-6'}>$ {store.dayPrices[0]}</div>
-                    <div className={priceItem+ ' mb-6'}>$ {store.dayPrices[1]}</div>
-                    <div className={priceItem+ ' mb-[14px]'}>if {'> '+store.dayPrices[2]} km/h</div>
-                    <div className={priceItem}>{'if < '+ store.dayPrices[2]} km/h</div>
-                    <div className={priceItem}>if &#8805; {store.dayPrices[3]} km/h</div>
+                    <div className={priceItem+ ' mb-6'}>{store.dayPrices[0]}$</div>
+                    <div className={priceItem+ ' mb-6'}>{store.dayPrices[1]}$</div>
+                    <div className={priceItem+ ' mb-[14px]'}> A = {store.dayPrices[2]} km/h</div>
+                    <div className={priceItem}>{"if speed < A =>"+store.dayPrices[3]}$</div>
+                    <div className={priceItem}>if speed &#x2265;{" A =>"+store.dayPrices[4]}$</div>
 
                 </div>
                 <div className={side2} style={{backgroundImage:`url(${night})` }}>
@@ -66,11 +66,11 @@ const InfoMenu = (): React.ReactNode => {
                         <span className='bg-black rounded-t-lg bg-opacity-75 px-2'>{isFrench? 'Plage horaire':'Time Range'} </span> 
                         <br/><span className='bg-black rounded-lg bg-opacity-75 px-2'>23:00:00   To 04:59:59</span>
                     </h2>
-                    <div className={priceItem2+ ' mb-6'}>$ {store.nightPrices[0]}</div>
-                    <div className={priceItem2+ ' mb-6'}>$ {store.nightPrices[1]}</div>
-                    <div className={priceItem2+ ' mb-[14px]'}>if &#8805; {store.nightPrices[2]} km/h</div>
-                    <div className={priceItem2}>if{' < '+ store.nightPrices[2]} km/h</div>
-                    <div className={priceItem2}>if &#8805; {store.nightPrices[3]} km/h</div>
+                    <div className={priceItem2+ ' mb-6'}>{store.nightPrices[0]}$</div>
+                    <div className={priceItem2+ ' mb-6'}>{store.nightPrices[1]}$</div>
+                    <div className={priceItem2+ ' mb-[14px]'}>B = {store.nightPrices[2]} km/h</div>
+                    <div className={priceItem2}>{"if speed < B =>"+store.nightPrices[3]}$</div>
+                    <div className={priceItem2}>if speed &#x2265;{" B =>"+store.nightPrices[4]}$</div>
                 </div>
             </div>
 
@@ -87,7 +87,7 @@ const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-ce
 const titles = ' absolute px-1  w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[200px]   space-y-1 py-2 text-center rounded-lg'
 
 const fees = 'px-4 text-gray-400 italic text-center mt-auto mb-4 duration-[3000ms]'
-const priceItem = ' flex mb-1 h-[22px] pr-[40px] justify-center w-full font-bold'
+const priceItem = ' flex mb-1 h-[22px] pr-[32px] justify-center w-full font-bold'
 const priceItem2 = ' flex mb-1 h-[22px] pl-[40px] justify-center w-full font-bold'
 
 const title = 'text-cente mb-4 border-[1px] self-start px-2 mx-auto rounded border-black bg-white text-black'
