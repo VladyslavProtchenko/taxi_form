@@ -29,7 +29,7 @@ const Footer = (): React.ReactNode => {
 
     const responsive = {
         tablet: {
-            breakpoint: { max: 10000, min: 480 },
+            breakpoint: { max: 10000, min: 571 },
             items: 9
         },
         mobile: {
@@ -52,31 +52,6 @@ const Footer = (): React.ReactNode => {
 
     return (
         <div className={footer}>
-            {/* <div className={arrows}>
-                {[0, 0, 0, 0, 0, 0, 0, 0, 0].map((_, index) => list[activeCarId - 1].steps === index
-                    ? <FaSortDown className={arrIcon} key={index} />
-                    : <div className='w-[20px]' key={index}></div>
-                )}
-            </div>
-            <div className={arrowsXs}>
-                {[1, 1, 1].map((_, index) => {
-                    if (list[activeCarId - 1].steps > 0 && list[activeCarId - 1].steps < 8) {
-                        return index === 1
-                            ? <FaSortDown className={arrIcon} key={index} />
-                            : <div className='w-[20px]' key={index}></div>
-                    } else if (submit) {
-                        return index === 2
-                            ? <FaSortDown className={arrIcon} key={index} />
-                            : <div className='w-[20px]' key={index}></div>
-                    } else if (list[activeCarId - 1].steps === 0) {
-                        return index === 0
-                            ? <FaSortDown className={arrIcon} key={index} />
-                            : <div className='w-[20px]' key={index}></div>
-                    }
-
-                })}
-            </div> */}
-
             <Carousel
                 containerClass={`w-full`}
                 className='max-w-[570px] w-full text-center mx-auto'
@@ -85,8 +60,7 @@ const Footer = (): React.ReactNode => {
                 responsive={responsive}
             >
                 {(isFrench ? store.menuTabsF : store.menuTabs).map((item, index) => {
-                    console.log(index, 'index')
-                    console.log(list[activeCarId - 1].steps,'steps')
+                    
                     return index === 8
                         ? <span
                             key={item}
@@ -97,7 +71,7 @@ const Footer = (): React.ReactNode => {
                             }}>
                                 <FaSortDown className={list[activeCarId - 1].steps === 8 ? arrIcon : ' hidden '}/>
                                 <IoCheckmarkDoneSharp className={submit? footerIcon: footerIcon + ' text-green-500 '} />
-                                <div className={tabIndex+ ' text-[15px] text-center pt-[2px] px-1'}>9</div>
+                                <div className={tabIndex+  ' text-[24px] text-center w-[30px] h-[30px] -top-3'}>9</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
 
@@ -125,7 +99,7 @@ const Footer = (): React.ReactNode => {
                                 ? <FaRunning className={list[activeCarId - 1].steps===6 ? footerIcon: footerIcon + ' text-blue-700 '} />
                                 : <IoCardOutline className={list[activeCarId - 1].steps===7 ? footerIcon: footerIcon+' text-orange-900'} />
                             }
-                            <div className={index===0? tabIndex+ ' text-[15px] text-center pt-[2px] px-1': tabIndex}>{index+1}</div>
+                            <div className={index===0? tabIndex+ ' text-[24px] text-center w-[30px] h-[30px] -top-3': tabIndex + ' text-[18px] text-center w-[24px] h-[24px] '}>{index+1}</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
                     }
@@ -136,17 +110,15 @@ const Footer = (): React.ReactNode => {
     );
 };
 
-const tabIndex = 'absolute top-0 font bold px-1 bg-white rounded-full shadow border left-1'
-// const arrows = "xs:hidden h-0 flex justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
-// const arrowsXs = " xs:flex h-0 hidden justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
+const tabIndex = 'absolute font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow border left-3'
 
 const icon = 'text-xs w-10 bg-center h-7 bg-contain bg-no-repeat' 
 const arrIcon = ' text-purple-500 text-2xl absolute -translate-y-9'
 const footerIcon = 'text-3xl'
 const footerTabText = 'text-[12px] leading-3  font-bold'
 
-const footerTab = 'flex relative flex-col items-center mx-1 text-center  w-[60px] py-1 text-gray-800 cursor-pointer'
-const footerTabActive = ' relative flex flex-col text-center mx-1 items-center w-[60px]  py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
+const footerTab = 'flex w-full relative flex-col items-center mx-1 text-center  py-1 text-gray-800 cursor-pointer'
+const footerTabActive = 'w-full relative flex flex-col text-center mx-1 items-center  py-1 font-bold text-purple-500 rounded-xl cursor-pointer  '
 const footer = "fixed -bottom-1 z-20 left-0 right-0  bg-white py-2 border-t"
 
 export default Footer;

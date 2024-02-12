@@ -178,7 +178,7 @@ const TripContent = ():React.ReactNode => {
                 <div className={fare}>{day ? isFrench? 'Tarification du jour ': 'Day fare': isFrench? 'Tarification de nuit': 'Night fare'} </div>
 
                 <div className={dateRow}>
-                    <div className='flex justify-between mb-5'>
+                    <div className='flex justify-between mb-5 0'>
                         <div className={!list[activeCarId-1].dateNow ? toggle + ' ' : toggle +' bg-white'} onClick={()=>{
                                     if((list[activeCarId-1].type>2)) return setDateNow(true);
                                     setDateNow(!list[activeCarId-1].dateNow)
@@ -200,8 +200,8 @@ const TripContent = ():React.ReactNode => {
 
                         <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
                             <div onClick={(e)=>e.stopPropagation()} className={list[activeCarId-1].dateNow? 'absolute z-10 top-0 left-0 right-0 bottom-0 rounded-xl bg-white bg-opacity-50 cursor-not-allowed':'hidden'}></div>
-                            <span className='icon text-xl'><PiCalendarCheckLight/></span>
-                            {list[activeCarId-1].date ? <div className='flex items-center'>
+                            <span className='flex items-center pl-1 text-xl '><PiCalendarCheckLight className='text-blue-700'/></span>
+                            {list[activeCarId-1].date ? <div className='flex items-center font-bold text-blue-700'>
                                 {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
                                 :fullDate.format('dddd')==='Tuesday'? isFrench ? 'Mardi':'Tuesday'
                                 :fullDate.format('dddd')==='Wednesday'?isFrench ? 'Merceredi':'Wednesday'
@@ -564,11 +564,11 @@ const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 const extraCardPickUp = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
 
 
-const toggleBg = 'absolute top-0 bottom-0 w-1/2 duration-300 justify-center'
+const toggleBg = 'absolute top-0 bottom-0 font-bold w-1/2 duration-300 justify-center'
 const toggle ='relative  flex  rounded-lg border border-purple-500 duration-500 transition cursor-pointer overflow-hidden' 
 
-const toggleLabel ='flex items-center font-black duration-500 justify-center px-2 py-1 duration-1000 '
-const toggleLabelActive ='flex z-20 font-black items-center flex py-1 justify-center  duration-500 duration-1000 px-2 text-white font-bold 	'
+const toggleLabel ='flex items-center font-black duration-500 justify-center px-1 py-1 duration-1000 '
+const toggleLabelActive ='flex z-20 font-black items-center flex py-1 justify-center  duration-500 duration-1000 px-1 text-white font-bold 	'
 
 
 
