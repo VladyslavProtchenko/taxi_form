@@ -71,7 +71,7 @@ const Footer = (): React.ReactNode => {
                             }}>
                                 <FaSortDown className={list[activeCarId - 1].steps === 8 ? arrIcon : ' hidden '}/>
                                 <IoCheckmarkDoneSharp className={submit? footerIcon: footerIcon + ' text-green-500 '} />
-                                <div className={tabIndex+  ' text-[24px] text-center w-[30px] h-[30px] -top-3'}>9</div>
+                                <div className={tabIndex+  ' text-[24px]  w-[30px] h-[30px] -top-3'}>9</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
 
@@ -99,7 +99,7 @@ const Footer = (): React.ReactNode => {
                                 ? <FaRunning className={list[activeCarId - 1].steps===6 ? footerIcon: footerIcon + ' text-blue-700 '} />
                                 : <IoCardOutline className={list[activeCarId - 1].steps===7 ? footerIcon: footerIcon+' text-orange-900'} />
                             }
-                            <div className={index===0? tabIndex+ ' text-[24px] text-center w-[30px] h-[30px] -top-3': tabIndex + ' text-[18px] text-center w-[24px] h-[24px] '}>{index+1}</div>
+                            <div className={index===0? tabIndex+ ' text-[24px]   w-[30px] h-[30px] -top-3': tabIndex + ' text-[18px] w-[24px] h-[24px] pt-[2px] '}>{index+1}</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
                     }
@@ -110,7 +110,7 @@ const Footer = (): React.ReactNode => {
     );
 };
 
-const tabIndex = 'absolute font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow border left-3'
+const tabIndex = 'absolute flex font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow border left-3'
 
 const icon = 'text-xs w-10 bg-center h-7 bg-contain bg-no-repeat' 
 const arrIcon = ' text-purple-500 text-2xl absolute -translate-y-9'

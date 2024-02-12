@@ -1909,6 +1909,10 @@ video {
   padding-top: 1rem;
 }
 
+.pt-\[2px\]{
+  padding-top: 2px;
+}
+
 .text-center{
   text-align: center;
 }
