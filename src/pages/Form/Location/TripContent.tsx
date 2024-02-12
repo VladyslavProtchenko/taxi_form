@@ -194,8 +194,8 @@ const TripContent = ():React.ReactNode => {
                                     }
                                 }}>
                             <div style={{width: isFrench ? 80: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
-                            <div  style={{width:isFrench ? 80: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
-                            <div className={list[activeCarId-1].dateNow ? toggleBg + ' bg-rose-500 ' :toggleBg + ' translate-x-full bg-green-400' }></div>
+                            <div  style={{width:isFrench ? 40: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
+                            <div className={list[activeCarId-1].dateNow ? toggleBg + ` bg-rose-500 ${isFrench? ' w-[80px] ': 'w-[44px]'}` :toggleBg + ` translate-x-full bg-green-400 ${isFrench? ' w-[80px] ': 'w-[44px]'}` }></div>
                         </div>
 
                         <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
