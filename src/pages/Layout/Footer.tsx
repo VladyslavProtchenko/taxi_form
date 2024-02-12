@@ -52,7 +52,7 @@ const Footer = (): React.ReactNode => {
 
     return (
         <div className={footer}>
-            <div className={arrows}>
+            {/* <div className={arrows}>
                 {[0, 0, 0, 0, 0, 0, 0, 0, 0].map((_, index) => list[activeCarId - 1].steps === index
                     ? <FaSortDown className={arrIcon} key={index} />
                     : <div className='w-[20px]' key={index}></div>
@@ -75,7 +75,7 @@ const Footer = (): React.ReactNode => {
                     }
 
                 })}
-            </div>
+            </div> */}
 
             <Carousel
                 containerClass={`w-full`}
@@ -85,6 +85,8 @@ const Footer = (): React.ReactNode => {
                 responsive={responsive}
             >
                 {(isFrench ? store.menuTabsF : store.menuTabs).map((item, index) => {
+                    console.log(index, 'index')
+                    console.log(list[activeCarId - 1].steps,'steps')
                     return index === 8
                         ? <span
                             key={item}
@@ -93,6 +95,7 @@ const Footer = (): React.ReactNode => {
                                 setSubmit(true)
                                 setSteps(index)
                             }}>
+                                <FaSortDown className={list[activeCarId - 1].steps === 8 ? arrIcon : ' hidden '}/>
                                 <IoCheckmarkDoneSharp className={submit? footerIcon: footerIcon + ' text-green-500 '} />
                                 <div className={tabIndex+ ' text-[15px] text-center pt-[2px] px-1'}>9</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
@@ -105,6 +108,7 @@ const Footer = (): React.ReactNode => {
                                 if (index === 8) return setSubmit(true)
                                 setSubmit(false); setSteps(index)
                             }}>
+                            <FaSortDown className={(list[activeCarId - 1].steps === index && list[activeCarId - 1].steps !== 8) ? arrIcon : ' hidden '}/>
                             {index === 0
                                 ? <FcSettings className={ footerIcon} />
                                 : index === 1
@@ -133,11 +137,11 @@ const Footer = (): React.ReactNode => {
 };
 
 const tabIndex = 'absolute top-0 font bold px-1 bg-white rounded-full shadow border left-1'
-const arrows = "xs:hidden h-0 flex justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
-const arrowsXs = " xs:flex h-0 hidden justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
+// const arrows = "xs:hidden h-0 flex justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
+// const arrowsXs = " xs:flex h-0 hidden justify-around max-w-[576px] absolute -top-6 right-1/2 translate-x-1/2 w-full"
 
 const icon = 'text-xs w-10 bg-center h-7 bg-contain bg-no-repeat' 
-const arrIcon = ' text-purple-500 text-xl'
+const arrIcon = ' text-purple-500 text-2xl absolute -translate-y-9'
 const footerIcon = 'text-3xl'
 const footerTabText = 'text-[12px] leading-3  font-bold'
 

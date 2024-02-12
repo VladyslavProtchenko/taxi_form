@@ -65,6 +65,13 @@ const TripContent = ():React.ReactNode => {
     },[])
 
     useEffect(()=>{
+        if(list[activeCarId-1].dateNow) {
+            setFullDate(dayjs(list[activeCarId -1].date))
+        } else {
+            setFullDate(dayjs())
+        }
+    },[list[activeCarId-1].dateNow])
+    useEffect(()=>{
         //if montreal airport is pick up location  we need require departure and flight.
         //if if montreal airport is pick up location we need just show departure and flight.
         //if just airport we need show flight number
@@ -126,6 +133,26 @@ const TripContent = ():React.ReactNode => {
 
     useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
 
+    useEffect(()=>{
+        if(trigger){
+            setIsDate(list[activeCarId-1].date.length>0)
+            setIsFrom(list[activeCarId-1].from.length>0)
+            setIsTo(list[activeCarId-1].to.length>0)
+        }
+    },[list[activeCarId-1]])
+
+    useEffect(()=>{
+        const now = dayjs();
+        const noon = dayjs().set('hour', 12).set('minute', 0).set('second', 0).set('millisecond', 0);
+        if (now.isBefore(noon)) {
+            setTimeType(1)
+        } else if (now.isAfter(noon)) {
+            setTimeType(2)
+        } else {
+            setTimeType(0)
+        }
+    }, [])
+
     function goNext() {
         setTrigger(true)
         setIsDate(list[activeCarId-1].date.length>0)
@@ -144,41 +171,21 @@ const TripContent = ():React.ReactNode => {
         
         return setSteps(3)
     }
-
-    useEffect(()=>{
-        if(trigger){
-            setIsDate(list[activeCarId-1].date.length>0)
-            setIsFrom(list[activeCarId-1].from.length>0)
-            setIsTo(list[activeCarId-1].to.length>0)
-        }
-    },[list[activeCarId-1]])
-
-    useEffect(()=>{
-        
-        const now = dayjs();
-        const noon = dayjs().set('hour', 12).set('minute', 0).set('second', 0).set('millisecond', 0);
-        if (now.isBefore(noon)) {
-            setTimeType(1)
-        } else if (now.isAfter(noon)) {
-            setTimeType(2)
-        } else {
-            setTimeType(0)
-        }
-    }, [])
-    
+    console.log(list[activeCarId-1].date)
     return (
     <div className={container}>
             <div className={date}>
                 <div className={fare}>{day ? isFrench? 'Tarification du jour ': 'Day fare': isFrench? 'Tarification de nuit': 'Night fare'} </div>
 
                 <div className={dateRow}>
-                    <div className='flex justify-between mb-5 px-3'>
+                    <div className='flex justify-between mb-5'>
                         <div className={!list[activeCarId-1].dateNow ? toggle + ' ' : toggle +' bg-white'} onClick={()=>{
                                     if((list[activeCarId-1].type>2)) return setDateNow(true);
                                     setDateNow(!list[activeCarId-1].dateNow)
                                     if(list[activeCarId-1].dateNow) {
                                         setTime(dayjs().format('hh:mm'))
                                         setDate(dayjs().format('MM/DD/YYYY'))
+                                        setFullDate(dayjs())
                                     } else {
                                         (dayjs().format('mm') > '30') 
                                             ? setTime((dayjs().add(1, 'hours').format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
@@ -186,12 +193,13 @@ const TripContent = ():React.ReactNode => {
                                         setDate(dayjs().format('MM/DD/YYYY'))
                                     }
                                 }}>
-                            <div style={{width: isFrench? 80: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
-                            <div  style={{width:isFrench? 80: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
+                            <div style={{width: isFrench ? 80: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
+                            <div  style={{width:isFrench ? 80: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
                             <div className={list[activeCarId-1].dateNow ? toggleBg + ' bg-rose-500 ' :toggleBg + ' translate-x-full bg-green-400' }></div>
                         </div>
 
                         <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
+                            <div onClick={(e)=>e.stopPropagation()} className={list[activeCarId-1].dateNow? 'absolute z-10 top-0 left-0 right-0 bottom-0 rounded-xl bg-white bg-opacity-50 cursor-not-allowed':'hidden'}></div>
                             <span className='icon text-xl'><PiCalendarCheckLight/></span>
                             {list[activeCarId-1].date ? <div className='flex items-center'>
                                 {fullDate.format('dddd')==='Monday'? isFrench ?'Lundi' : 'Monday'
@@ -227,7 +235,7 @@ const TripContent = ():React.ReactNode => {
                     </div>
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[53px] left-0 -right-2 bottom-0  bg-white opacity-25 cursor-not-allowed transition duration-1000 "></div>}
 
-                    <div className='flex relative w-full rounded-lg px-4 z-10 justify-between items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                    <div className='flex relative w-full rounded-lg px-4 z-10 justify-between items-end bg-cover py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                         {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                             <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
                             <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
@@ -545,10 +553,10 @@ const openStop ="absolute top-2 text-purple-500  rounded flex cursor-pointer tex
 
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
-const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
+const dateTimeSubmenu ='absolute overflow-hidden z-30 flex flex-col item-star top-[102%]  z-20 w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl right-0'
 const dateRow = 'flex relative flex-col w-full   justify-between'
 
-const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-[200px] max-w-[200px] w-full rounded-xl'
+const dateInput = 'relative text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative max-w-[200px] min-w-[170px]  rounded-xl'
 
 const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 

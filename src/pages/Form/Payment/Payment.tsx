@@ -25,21 +25,30 @@ const PaymentSection = ():React.ReactNode => {
                         setAdditionalText(e.target.value)
                     }}/></span>
             </div>
+            {list[activeCarId-1].filled && <div className="px-4 py-2 mx-auto pt-32 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>}
 
-            <div className='flex justify-end space-x-4 mt-4'>
-                
-                {list[activeCarId-1].filled 
-                    ? <div className="px-4 py-2 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>
-                    : <button className={nextBtn} onClick={()=> {
-                            setFilled(true, activeCarId)
-                        }}>Order taxi</button>}
+            <div className={btns}>
+                <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? '<< Précédent': '<< Previous'}</div>
+                {!list[activeCarId-1].filled && 
+                    <button className={nextBtn} onClick={()=> setFilled(true, activeCarId)}>
+                        Order&#20;
+                        {
+                            activeCarId === 1 
+                            ? isFrench ? '1er ' : ' 1st ' 
+                            :activeCarId === 2
+                            ? isFrench ? '2e ' : ' 1nd ' 
+                            :activeCarId === 3
+                            ? isFrench ? '3e ' : ' 3rd ' 
+                            :activeCarId === 4
+                            ? isFrench ? '4e ' : ' 4th ' 
+                            : isFrench ? '5e ' : ' 5th ' 
+                        }
+                        Car
+                    </button>}
                 {list.filter(item => item.filled).length>0 &&<button className={yellowBtn} onClick={()=> {
                         setSteps(8)
                         setSubmit(true)
                     }}>View Orders</button>}
-            </div>
-            <div className={btns}>
-                <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? '<< Précédent': '<< Previous'}</div>
             </div>
         </section>
     );
@@ -48,7 +57,7 @@ const PaymentSection = ():React.ReactNode => {
 export default PaymentSection;
 
 const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
-const nextBtn = 'w-[140px] bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white  cursor-pointer'
+const nextBtn = 'w-[140px] bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white text-lg  cursor-pointer'
 const backBtn = 'w-[140px] px-2 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-lg text-white cursor-pointer font-bold'
 const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-3 rounded-xl'
 

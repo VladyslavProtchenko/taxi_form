@@ -315,3 +315,7 @@ select option {
 .ant-select-selection-item {
     padding-right: 26px !important;
 }
+
+.react-multi-carousel-list{ 
+    overflow: visible !important;
+}

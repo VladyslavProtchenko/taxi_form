@@ -207,7 +207,7 @@ const ReturnTrip = ():React.ReactNode  => {
                     </div>
                 </div>
 
-                <div className='flex relative rounded-lg px-2 justify-end items-end bg-cover py-2 -translate-y-[6px] mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                <div className='flex relative rounded-lg px-2 justify-end items-end bg-cover py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                     <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeTypeR===1 ? timeToggle+ ' bg-black':timeToggle+ ' bg-white' }>
                         <div className={list[activeCarId-1].timeTypeR===0 ? selectTextActive :selectText } onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
                         <div className={list[activeCarId-1].timeTypeR===1 ? amTextActive : amText} onClick={()=>setTimeTypeR(1)}>am</div>
@@ -567,4 +567,4 @@ const extraCardStop = 'flex relative w-5/6 self-end  rounded mb-2'
 const fare = 'py-1 font-bold mb-2 italic text-gray-500 w-full ml-auto text-center  text-xl'
 
 const date = 'flex w-full items-center justify-between mb-4 flex-wrap pt-2 mt-2 border-b pb-4 border border-purple-500 rounded-xl bg-white shadow-xl px-2'
-const container = 'flex  h-full pb-10 flex-col relative w-full px-5 text-xs pb-20'
+const container = 'flex  h-full pb-28 flex-col relative w-full px-5 text-xs pb-20'
