@@ -35,69 +35,55 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
     const [filteredHours, setFilteredHours] = useState<string[]>(hours)
 
     useEffect(()=>{
-        if(list[activeCarId-1].dateNow){
+        if(list[activeCarId-1].dateNow) {
             setHour(dayjs().format('HH'))
             setMinute(dayjs().format('mm'))
         } else {
-            if(list[activeCarId-1].time === dayjs().format('HH:mm')) {
-                if(time.slice(3)< '30') {
-                    setHour(dayjs().format('HH'))
-                    setMinute(dayjs().add(30, 'minutes').format('mm'))
-                } else {
-                    setHour(dayjs().add(1, 'hours').format('HH'))
-                    setMinute(dayjs().subtract(30, 'minutes').format('mm'))
-                }
-            }
+            (list[activeCarId-1].time === dayjs().format('HH:mm'))
+                ? setHour(dayjs().add(1, 'hours').format('HH')) 
+                : setHour(dayjs().format('HH'))
+
+            setMinute(dayjs().format('mm'))
         }
     },[list[activeCarId-1].dateNow])
 
     useEffect(()=>{
 
         if(!list[activeCarId-1].dateNow && JSON.stringify(dayjs().format('MM/DD/YYYY')) === JSON.stringify(date)) {
-            
-            //if 24 hours time
-            console.log(hour, 'hour')
-            hour === dayjs().format('HH')
-                ? setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))
-                : setFilteredMinutes(minutes)
+            //DATE IS TODAY
 
             if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
-                setMinute(dayjs().add(30, 'minutes').format('mm'))
+                setMinute(dayjs().format('mm'))
                 setHour(dayjs().add(1, 'hours').format('HH'))
-                onChange(dayjs().add(30, 'minutes').add(1, 'hours').format('HH:mm'))
+                onChange(dayjs().add(1, 'hours').format('HH:mm'))
             }
 
-            (dayjs().format('mm') > '30')
-            ? setFilteredHours(hours.filter(item => {
-                if(isAm === 1) return +item < 12 
+            setFilteredHours(hours.filter(item => {
+                if(isAm === 1) return +item < 12
                 if(isAm === 2) return +item >=12
                 return item
-            }).filter(item => item >= dayjs().add(1, 'hours').format('HH') ))
-            : setFilteredHours(hours.filter(item => {
-                if(isAm === 1) return +item < 12 
-                if(isAm === 2) return +item >=12
-                return item
-            }).filter(item => item >= dayjs().format('HH')))
+            }).filter(item => item >= dayjs().add(1, 'hours').format('HH')));
 
 
-            if(hour===dayjs().format('HH') && isAm!==2){
-                console.log('work 3')
-                setFilteredMinutes(minutes.filter(item => item > dayjs().add(30, 'minutes').format('mm') ))  
-            } 
+            
+            setFilteredMinutes((hour===dayjs().format('HH')) 
+                ? minutes.filter(item => item > dayjs().format('mm') )
+                : minutes
+            )
         }
         
         if(dayjs().format('MM/DD/YYYY') !== date ) {
-            
-            setFilteredMinutes(minutes)
-            if(isAm !== 0) {
-                isAm === 1 
-                    ? setFilteredHours(hours.filter(item => +item < 12))
-                    : setFilteredHours(hours.filter(item => +item >= 12))
-            } else {
-                setFilteredHours(hours)
-            }
-            
+            //DATE NEXT DAYS
+            setFilteredHours(
+                isAm === 1
+                ? hours.filter(item => +item < 12)
+                : isAm === 2
+                ? hours.filter(item => +item >= 12)
+                : hours
+            )         
+            setFilteredMinutes(minutes);
         }
+            
     },[date, list[activeCarId-1].date, list[activeCarId-1].time, isAm])
 
     useEffect(() => {
@@ -119,10 +105,9 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             } 
             onChange((hour) + ':' + (minute))
         }else if(isAm === 0) {
-            dayjs().format('HH')
-            setHour(dayjs().format('HH'))
-            setMinute(dayjs().format('mm'))
-            onChange(dayjs().format('HH:mm'))
+            setHour('00')
+            setMinute('00')
+            onChange('00:00')
         }
     },[isAm])
 

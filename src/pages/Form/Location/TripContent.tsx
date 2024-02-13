@@ -65,7 +65,7 @@ const TripContent = ():React.ReactNode => {
     },[])
 
     useEffect(()=>{
-        if(list[activeCarId-1].dateNow) {
+        if(!list[activeCarId-1].dateNow) {
             setFullDate(dayjs(list[activeCarId -1].date))
         } else {
             setFullDate(dayjs())
@@ -239,7 +239,7 @@ const TripContent = ():React.ReactNode => {
                         {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
                             <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
                             <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
-                            <div className="absolute border-b border-black w-[35px] right-[24px] z-30 rotate-[114deg]"></div>
+                            <div className="absolute border-b border-black w-[35px] right-[24px] z-10 rotate-[114deg]"></div>
                             <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
                         </div>}
                         <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 

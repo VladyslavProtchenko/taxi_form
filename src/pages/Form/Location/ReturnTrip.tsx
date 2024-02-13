@@ -211,7 +211,7 @@ const ReturnTrip = ():React.ReactNode  => {
                     <div className={list[activeCarId-1].timeTypeR===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeTypeR===1 ? timeToggle+ ' bg-black':timeToggle+ ' bg-white' }>
                         <div className={list[activeCarId-1].timeTypeR===0 ? selectTextActive :selectText } onClick={()=>setTimeTypeR(0)}>{isFrench? 'Choisir':'Select'}</div>
                         <div className={list[activeCarId-1].timeTypeR===1 ? amTextActive : amText} onClick={()=>setTimeTypeR(1)}>am</div>
-                        <div className="absolute border-b border-black w-[35px] right-[24px] z-30 rotate-[114deg]"></div>
+                        <div className="absolute border-b border-black w-[35px] right-[24px] z-10 rotate-[114deg]"></div>
                         <div className={list[activeCarId-1].timeTypeR===2 ? pmTextActive: pmText} onClick={()=>setTimeTypeR(2)}>PM</div>    
                     </div>
                     <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].timeR}  onChange={setTimeR} date={list[activeCarId-1].dateR}/> 
@@ -222,6 +222,11 @@ const ReturnTrip = ():React.ReactNode  => {
             </div>
 
             <div className={locations}>
+                <div className={btns}>
+                    <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser Adresses': 'Reset Addresses'}</button>
+                    <span className='h-full border-r border-[0px] border-black mx-2'></span>
+                    <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
+                </div>
 
                 {list[activeCarId-1].iconR>0 && <div className={type}>
                     <span className={iconCard}>
@@ -506,10 +511,7 @@ const ReturnTrip = ():React.ReactNode  => {
                 </div>}
             </div>
 
-            <div className={btns}>
-                <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser Adresses': 'Reset Addresses'}</button>
-                <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
-            </div>
+
 
             <Buttons goNext={goNext} step={2} />
 
@@ -520,10 +522,10 @@ const ReturnTrip = ():React.ReactNode  => {
 export default ReturnTrip;
 
 const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 font-bold'
-const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 border-purple-500 '
+const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 pt-0 border-purple-500 '
 const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-lg active:bg-orange-500 active:text-white'
 const type = 'flex items-center py-2 justify-between w-full mb-2'
-const btns = 'flex items-center  w-full pt-4'
+const btns = 'flex items-center  w-full py-2'
 
 
 const extraCard = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
@@ -544,7 +546,7 @@ const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 borde
 
 const timeToggle = ' font-bold relative flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
-const reset = 'px-4 py-1  text-rose-500 rounded-lg font-bold  border-2 border-rose-500 mr-4'
+const reset = 'px-4 py-1  text-rose-500 rounded-lg font-bold  border-2 border-rose-500'
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
 
@@ -555,7 +557,7 @@ const openStop ="absolute top-2 text-purple-500 text-xl rounded flex cursor-poin
 
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
-const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
+const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] right-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl overflow-hidden'
 const dateRow = 'flex relative w-full justify-between flex-col'
 
 const dateInput = 'flex border bg-white border-purple-500 cursor-pointer h-[40px] relative max-w-[200px] w-full rounded-xl'

@@ -187,7 +187,7 @@ const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 bo
 const timeToggle = ' font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
-const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl sm:-left-[10px]'
+const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] right-0 overflow-hidden z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl'
 const dateRow = 'flex relative flex-col w-full '
 
 const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-[200px] max-w-[200px] w-full rounded-xl'
