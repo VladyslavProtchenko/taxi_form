@@ -5,6 +5,7 @@ import { useStore } from "../../../Store";
 import React from "react";
 const { TextArea } = Input;
 import { MdDone } from "react-icons/md";
+import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 
 const PaymentSection = ():React.ReactNode => {
@@ -28,7 +29,7 @@ const PaymentSection = ():React.ReactNode => {
             {list[activeCarId-1].filled && <div className="px-4 py-2 mx-auto pt-32 text-gray-400 flex items-center "><MdDone className='-translate-y-[1px] text-xl'/> Completed! </div>}
 
             <div className={btns}>
-                <div className={backBtn} onClick={()=>setSteps(6)}>{isFrench? '<< Précédent': '<< Previous'}</div>
+                <div className={backBtn} onClick={()=>setSteps(6)}><MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{isFrench? 'Précédent': 'Previous'}</div>
                 {!list[activeCarId-1].filled && 
                     <button className={nextBtn} onClick={()=> setFilled(true, activeCarId)}>
                         Order&#20;
@@ -57,8 +58,8 @@ const PaymentSection = ():React.ReactNode => {
 export default PaymentSection;
 
 const btns = ' fixed bottom-[86px] w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
-const nextBtn = 'w-[140px] bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white text-lg  cursor-pointer'
-const backBtn = 'w-[140px] px-2 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-lg text-white cursor-pointer font-bold'
+const nextBtn = 'w-[130px] bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white text-lg  cursor-pointer font-bold'
+const backBtn = 'w-[120px] flex items-center justify-center  bg-rose-500 pr-2 active:bg-rose-700 text-center py-3 rounded-xl text-lg text-white cursor-pointer font-bold'
 const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-3 rounded-xl'
 
 const additional ='flex w-full '

@@ -71,7 +71,7 @@ const Footer = (): React.ReactNode => {
                             }}>
                                 <FaSortDown className={list[activeCarId - 1].steps === 8 ? arrIcon : ' hidden '}/>
                                 <IoCheckmarkDoneSharp className={submit? footerIcon: footerIcon + ' text-green-500 '} />
-                                <div className={tabIndex}>9</div>
+                                <div className={tabIndex+ ' pl-[1px]'}>9</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
 
@@ -110,7 +110,7 @@ const Footer = (): React.ReactNode => {
     );
 };
 
-const tabIndex = 'absolute flex font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow border xs:left-3 -left-2 text-[24px] w-[26px] h-[26px] pt-[1px] pl-[1px]'
+const tabIndex = 'absolute flex font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow  border-black border-[0.5px] xs:left-3 -left-2 text-[24px] w-[26px] h-[26px] pt-[1px] '
 
 const icon = 'text-xs w-10 bg-center h-7 bg-contain bg-no-repeat' 
 const arrIcon = ' text-purple-500 text-2xl absolute -translate-y-9'

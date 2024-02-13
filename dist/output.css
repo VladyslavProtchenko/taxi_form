@@ -803,11 +803,6 @@ video {
   margin-right: 0.25rem;
 }
 
-.mx-2{
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
 .mx-5{
   margin-left: 1.25rem;
   margin-right: 1.25rem;
@@ -1141,8 +1136,16 @@ video {
   width: 100px;
 }
 
+.w-\[120px\]{
+  width: 120px;
+}
+
 .w-\[12px\]{
   width: 12px;
+}
+
+.w-\[130px\]{
+  width: 130px;
 }
 
 .w-\[14\%\]{
@@ -1518,8 +1521,8 @@ video {
   border-width: 2px;
 }
 
-.border-\[0px\]{
-  border-width: 0px;
+.border-\[0\.5px\]{
+  border-width: 0.5px;
 }
 
 .border-\[1px\]{
@@ -2564,6 +2567,11 @@ select option {
 
 .react-multi-carousel-list{
   overflow: visible !important;
+}
+
+.MuiButtonBase-root.Mui-selected {
+  font-weight: bold !important;
+  font-size: 20px !important;
 }
 
 .hover\:bg-blue-50:hover{

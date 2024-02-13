@@ -224,8 +224,7 @@ const ReturnTrip = ():React.ReactNode  => {
             <div className={locations}>
                 <div className={btns}>
                     <button className={reset} onClick={resetCard}>{isFrench? 'Réinitialiser Adresses': 'Reset Addresses'}</button>
-                    <span className='h-full border-r border-[0px] border-black mx-2'></span>
-                    <button className={revert} onClick={setBackSection}>{isFrench? store.tripTitlesF[1] : store.tripTitles[1]}</button>
+                    <button className={revert} onClick={setBackSection}>{isFrench? 'Mêmes adresses que l’Aller' : 'Same Addresses as One-Way'}</button>
                 </div>
 
                 {list[activeCarId-1].iconR>0 && <div className={type}>
@@ -523,9 +522,10 @@ export default ReturnTrip;
 
 const stopLabel = 'absolute top-3 -left-16 text-sm z-20 text-gray-400 font-bold'
 const locations = ' flex flex-col border rounded-xl shadow-xl bg-white p-4 pt-0 border-purple-500 '
-const revert = 'px-4 py-1 border-2 border-orange-500 text-orange-500 rounded-lg active:bg-orange-500 active:text-white'
+const revert = 'px-2 py-1 border-2 border-orange-500 text-orange-500 rounded-lg active:bg-orange-500 active:text-white'
+const reset = 'px-2 py-1  text-rose-500 rounded-lg font-bold  border-2 border-rose-500'
 const type = 'flex items-center py-2 justify-between w-full mb-2'
-const btns = 'flex items-center  w-full py-2'
+const btns = 'flex items-center  w-full py-2 justify-between border-b mb-2 border-purple-500'
 
 
 const extraCard = 'flex relative w-3/4 bg-white items-center border border-purple-500 w-full rounded-xl'
@@ -546,7 +546,6 @@ const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 borde
 
 const timeToggle = ' font-bold relative flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
 
-const reset = 'px-4 py-1  text-rose-500 rounded-lg font-bold  border-2 border-rose-500'
 
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
 

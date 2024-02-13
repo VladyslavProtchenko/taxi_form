@@ -6,6 +6,7 @@ import axios, { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
 // import {  useNavigate } from 'react-router-dom';
 import BoostCard from './BoostCard';
+import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 
 const sendOrder = async (data: ITaxi[], isFrench: boolean): Promise<AxiosResponse> => {
@@ -58,7 +59,7 @@ const Submit = (): React.ReactNode => {
                 <div onClick={() => {
                         setSteps(7)
                         setSubmit(false)
-                    }} className={backBtn}> {isFrench? '<< Précédent': '<< Previous'} </div>
+                    }} className={backBtn}> <MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{isFrench? 'Précédent': 'Previous'} </div>
                 <div onClick={async () => {
                     const data = list.filter(item=>item.filled).map(car =>{return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car})
                     await sendOrder(data, isFrench )
@@ -75,8 +76,8 @@ const btns ="fixed bottom-[86px] flex w-full mt-auto max-w-[400px] justify-betwe
 
 const addCar = 'border-2 border-green-400 rounded-lg text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
 
-const backBtn = 'w-[140px] bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer font-bold text-lg px-2'
-const greenBtn = 'px-2 border-2 border-green-400 bg-gray-50 active:bg-green-400 active:text-white flex items-center justify-center text-lg font-bold text-green-400 rounded-xl  cursor-pointer'
+const backBtn = 'w-[120px] flex items-center justify-center bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer font-bold text-lg pr-2'
+const greenBtn = 'w-[120px] border-2 border-green-400 bg-gray-50 active:bg-green-400 active:text-white flex items-center justify-center text-lg font-bold text-green-400 rounded-xl  cursor-pointer'
 
 
 const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-10 pb-20'

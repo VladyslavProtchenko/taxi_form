@@ -319,3 +319,9 @@ select option {
 .react-multi-carousel-list{ 
     overflow: visible !important;
 }
+
+
+.MuiButtonBase-root.Mui-selected {
+    font-weight: bold !important;
+    font-size: 20px !important;
+}
