@@ -556,7 +556,7 @@ const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-6
 const dateTimeSubmenu ='absolute overflow-hidden z-30 flex flex-col item-star top-[102%]  z-20 w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl right-0'
 const dateRow = 'flex relative flex-col w-full   justify-between'
 
-const dateInput = 'relative  flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-full max-w-[200px] min-w-[170px]  rounded-xl'
+const dateInput = 'relative  flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-full max-w-[210px] min-w-[170px]  rounded-xl'
 
 const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 

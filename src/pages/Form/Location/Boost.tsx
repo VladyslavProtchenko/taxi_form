@@ -190,7 +190,7 @@ const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-6
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] right-0 overflow-hidden z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl'
 const dateRow = 'flex relative flex-col w-full '
 
-const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative w-[200px] max-w-[200px] w-full rounded-xl'
+const dateInput = 'text-xs flex border bg-white border-purple-500 cursor-pointer h-[40px] relative max-w-[210px] w-full rounded-xl'
 
 const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 

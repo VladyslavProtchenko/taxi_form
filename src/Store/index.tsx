@@ -56,7 +56,7 @@ export const useStore = create<Store>(() => ({
     store: {
 
         menuTabs: ['Service Type' , 'Contacts', 'One-Way','Return', 'Vehicle & Passengers', 'Seats & Strollers','Sport & Pets', 'Payment' , 'Confirmation'],
-        menuTabsF: ['Type Service', 'Contacts', 'Aller simple', 'Retour', 'Vehicle & Passengers','Seats & Strollers','Sport & Pets', 'Paiement', 'Confirmation'],
+        menuTabsF: ['Type Service', 'Contacts', 'Aller', 'Retour', 'Vehicle & Passengers','Seats & Strollers','Sport & Pets', 'Paiement', 'Confirmation'],
         numbersList: ['st', 'nd', 'rd', 'th'],
         numbersListF: ['st', 'nd', 'rd', 'th'],
 
