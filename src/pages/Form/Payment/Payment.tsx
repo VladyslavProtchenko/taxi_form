@@ -32,17 +32,17 @@ const PaymentSection = ():React.ReactNode => {
                 <div className={backBtn} onClick={()=>setSteps(6)}><MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{isFrench? 'Précédent': 'Previous'}</div>
                 {!list[activeCarId-1].filled && 
                     <button className={nextBtn} onClick={()=> setFilled(true, activeCarId)}>
-                        Order&#20;
+                        Order
                         {
                             activeCarId === 1 
-                            ? isFrench ? '1er ' : '1st ' 
+                            ? isFrench ? ' 1er ' : ' 1st ' 
                             :activeCarId === 2
-                            ? isFrench ? '2e ' : '2nd ' 
+                            ? isFrench ? ' 2e ' : ' 2nd ' 
                             :activeCarId === 3
-                            ? isFrench ? '3e ' : '3rd ' 
+                            ? isFrench ? ' 3e ' : ' 3rd ' 
                             :activeCarId === 4
-                            ? isFrench ? '4e ' : '4th ' 
-                            : isFrench ? '5e ' : '5th ' 
+                            ? isFrench ? ' 4e ' : ' 4th ' 
+                            : isFrench ? ' 5e ' : ' 5th ' 
                         }
                         Car
                     </button>}

@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useMain } from '../../Store/useMain';
 import { useStore } from '../../Store';
-
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+
 import { FcSettings } from "react-icons/fc";
 import { PiUserListFill } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCardOutline } from "react-icons/io5";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
-
 import { FaSortDown } from "react-icons/fa";
-// import { MdDirectionsBike } from "react-icons/md";
 import { FaRunning } from "react-icons/fa";
 
 import babiSeat from '../../assets/babySeat.png'
@@ -21,7 +19,6 @@ import carBagsPurple from '../../assets/carBagsPurple.png'
 
 
 const Footer = (): React.ReactNode => {
-
     const { list, submit, setSubmit, activeCarId, isFrench, setSteps } = useMain()
     const { store } = useStore()
     const [screenWidth] = useState(window.innerWidth);
@@ -51,7 +48,7 @@ const Footer = (): React.ReactNode => {
     }, [list[activeCarId - 1].steps])
 
     return (
-        <div className={footer}>
+        <footer className={footer}>
             <Carousel
                 containerClass={`w-full`}
                 className='max-w-[570px] w-full text-center mx-auto'
@@ -62,7 +59,7 @@ const Footer = (): React.ReactNode => {
                 {(isFrench ? store.menuTabsF : store.menuTabs).map((item, index) => {
                     
                     return index === 8
-                        ? <span
+                        ? <button
                             key={item}
                             className={submit ? footerTabActive : footerTab }
                             onClick={() => {
@@ -71,11 +68,11 @@ const Footer = (): React.ReactNode => {
                             }}>
                                 <FaSortDown className={list[activeCarId - 1].steps === 8 ? arrIcon : ' hidden '}/>
                                 <IoCheckmarkDoneSharp className={submit? footerIcon: footerIcon + ' text-green-500 '} />
-                                <div className={tabIndex+ ' pl-[1px]'}>9</div>
+                                <span className={tabIndex+ ' pl-[1px]'}>9</span>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
-                        </span>
+                        </button>
 
-                        : <span
+                        : <button
                             key={item}
                             className={(list[activeCarId - 1].steps === index) ? footerTabActive : footerTab}
                             onClick={() => {
@@ -99,14 +96,14 @@ const Footer = (): React.ReactNode => {
                                 ? <FaRunning className={list[activeCarId - 1].steps===6 ? footerIcon: footerIcon + ' text-blue-700 '} />
                                 : <IoCardOutline className={list[activeCarId - 1].steps===7 ? footerIcon: footerIcon+' text-orange-900'} />
                             }
-                            <div className={tabIndex}>{index+1}</div>
+                            <span className={tabIndex}>{index+1}</span>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
-                        </span>
+                        </button>
                     }
                     )
                 }
             </Carousel>
-        </div>
+        </footer>
     );
 };
 

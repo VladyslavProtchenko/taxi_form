@@ -5,7 +5,6 @@ import { IoMdClose } from "react-icons/io";
 import { useStore } from '../../Store/index';
 import { PiArrowArcLeftBold } from "react-icons/pi";
 import day from './../../assets/day.png'
-// import night from './../../assets/stars.jpg'
 import night from './../../assets/night.png'
 
 const InfoMenu = (): React.ReactNode => {
@@ -13,13 +12,14 @@ const InfoMenu = (): React.ReactNode => {
     const { store } = useStore()
     const ref = useOnclickOutside(() => setInfoOpen(false));  
 
-
     return (
-        <div className={infoOpen ? modalOpen : modal} ref={ref}>
+        <section className={infoOpen ? modalOpen : modal} ref={ref}>
             <IoMdClose className={closeIcon} onClick={() => setInfoOpen(false)} />
             <div className={infoOpen ? modalContent : ' opacity-0 '}>
+
                 <div className={fromTo}>
-                    <div className=' text-center font-bold bg-white bg-opacity-75 px-1 rounded mx-auto'>$48,40</div>
+                    <span className=' text-center font-bold bg-white bg-opacity-75 px-1 rounded mx-auto'>$48,40</span>
+
                     <div className='flex items-center bg-white border border-black rounded '>
                         <PiArrowArcLeftBold className='rotate-[260deg] text-xl translate-x-1'/>
                         <div className='flex flex-col items-center w-[140px]'>
@@ -29,59 +29,65 @@ const InfoMenu = (): React.ReactNode => {
                         <PiArrowArcLeftBold className='rotate-[70deg] text-xl -translate-x-1'/>
 
                     </div>
-                    <div className=' text-center font-bold text-white bg-black bg-opacity-75 px-1 rounded mx-auto'>$55,65 </div>
+
+                    <span className=' text-center font-bold text-white bg-black bg-opacity-75 px-1 rounded mx-auto'>$55,65 </span>
                 </div>
+
                 <div className={titles}>
-                    <span className={titleItem+ ' w-full'}>
+                    <h3 className={titleItem+ ' w-full'}>
                         {isFrench?<>Ouverture <br /> du taximètre</>:<>Taximeter <br /> opening</>}
-                    </span>
-                    <span className={titleItem+ ' w-full'}>
+                    </h3>
+                    <h3 className={titleItem+ ' w-full'}>
                         {isFrench?<>Redevance <br /> gouvernementale</>:<>Government <br />Fee</>}
-                    </span>
-                    <span className={titleItem}>
+                    </h3>
+                    <h3 className={titleItem}>
                         {isFrench?<>Vitesse <br /> de transition</>:<>Transition <br />speed</>}
-                    </span>
-                    <span className={titleItem}>
+                    </h3>
+                    <h3 className={titleItem}>
                         {isFrench?'Par minute': 'Per minute'}
-                    </span>
-                    <span className={titleItem}>
+                    </h3>
+                    <h3 className={titleItem}>
                         {isFrench?'Par km': 'Per km'}
-                    </span>
+                    </h3>
                 </div>
                 <div className={side + ' border-r'} style={{backgroundImage:`url(${day})` }}>
                     <h1 className={title}>{isFrench?'Tariffication du jour': 'Day Fare'}</h1>
-                    <h2 className={time}>
-                        <span className='bg-white rounded-t-lg bg-opacity-90 px-2'>{isFrench? 'Plage horaire':'Time Range'} </span> 
-                        <br/><span className='bg-white rounded-lg bg-opacity-90 px-2'>05:00:00 am To 22:59:59</span> </h2>
-                    <div className={priceItem+ ' mb-6'}>{store.dayPrices[0]}$</div>
-                    <div className={priceItem+ ' mb-6'}>{store.dayPrices[1]}$</div>
-                    <div className={priceItem+ ' mb-[14px]'}> A = {store.dayPrices[2]} km/h</div>
-                    <div className={priceItem}>{"if speed < A =>"+store.dayPrices[3]}$</div>
-                    <div className={priceItem}>if speed &#x2265;{" A =>"+store.dayPrices[4]}$</div>
+                    <div className={time}>
+                        <h2 className={timeHeader}>{isFrench? 'Plage horaire':'Time Range'} </h2> 
+                        <span className='bg-white rounded-lg bg-opacity-90 px-2'>05:00:00 am To 22:59:59</span> 
+                    </div>
+                    <span className={priceItem+ ' mb-6'}>{store.dayPrices[0]}$</span>
+                    <span className={priceItem+ ' mb-6'}>{store.dayPrices[1]}$</span>
+                    <span className={priceItem+ ' mb-[14px]'}> A = {store.dayPrices[2]} km/h</span>
+                    <span className={priceItem}>{"if speed < A =>"+store.dayPrices[3]}$</span>
+                    <span className={priceItem}>if speed &#x2265;{" A =>"+store.dayPrices[4]}$</span>
 
                 </div>
                 <div className={side2} style={{backgroundImage:`url(${night})` }}>
                     <h1 className={title}>{isFrench?'Tariffication de nuit': 'Night Fare'}</h1>
                     <h2 className={time}>
-                        <span className='bg-black rounded-t-lg bg-opacity-75 px-2'>{isFrench? 'Plage horaire':'Time Range'} </span> 
-                        <br/><span className='bg-black rounded-lg bg-opacity-75 px-2'>23:00:00   To 04:59:59</span>
+                        <h2 className={timeHeader2}>{isFrench? 'Plage horaire':'Time Range'} </h2> 
+                        <span className='bg-black rounded-lg bg-opacity-75 px-2'>23:00:00   To 04:59:59</span>
                     </h2>
-                    <div className={priceItem2+ ' mb-6'}>{store.nightPrices[0]}$</div>
-                    <div className={priceItem2+ ' mb-6'}>{store.nightPrices[1]}$</div>
-                    <div className={priceItem2+ ' mb-[14px]'}>B = {store.nightPrices[2]} km/h</div>
-                    <div className={priceItem2}>{"if speed < B =>"+store.nightPrices[3]}$</div>
-                    <div className={priceItem2}>if speed &#x2265;{" B =>"+store.nightPrices[4]}$</div>
+                    <span className={priceItem2+ ' mb-6'}>{store.nightPrices[0]}$</span>
+                    <span className={priceItem2+ ' mb-6'}>{store.nightPrices[1]}$</span>
+                    <span className={priceItem2+ ' mb-[14px]'}>B = {store.nightPrices[2]} km/h</span>
+                    <span className={priceItem2}>{"if speed < B =>"+store.nightPrices[3]}$</span>
+                    <span className={priceItem2}>if speed &#x2265;{" B =>"+store.nightPrices[4]}$</span>
                 </div>
             </div>
 
-            <div className={infoOpen ? fees: 'opacity-0'}>Au montant de départ s’ajoute une redevance de 0,90 $ + taxes (1,05 $) </div>
-        </div>
+            <span className={infoOpen ? fees: 'opacity-0'}>Au montant de départ s’ajoute une redevance de 0,90 $ + taxes (1,05 $) </span>
+        </section>
     );
 };
 
 export default InfoMenu;
 
-const titleItem = 'bg-white px-3 rounded border border-black'
+const timeHeader = 'bg-white rounded-t-lg bg-opacity-90 px-2 mb-0 w-[90px] mx-auto'
+const timeHeader2 = 'bg-black rounded-t-lg bg-opacity-90 px-2 mb-0 w-[90px] mx-auto'
+
+const titleItem = 'bg-white px-3 rounded border border-black mb-0'
 const time = ' mb-[141px] text-center '
 const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-center top-28  rounded-lg  w-full'
 const titles = ' absolute px-1  w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[200px]   space-y-1 py-2 text-center rounded-lg'

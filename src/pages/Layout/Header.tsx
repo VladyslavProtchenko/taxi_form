@@ -29,15 +29,15 @@ const Header = (): React.ReactNode => {
     }
 
     return (
-        <div className={header}>
-            <div className={wrapper}>
+        <header className={header}>
+            <section className={wrapper}>
                 <div className={content}>
-                    <div className={lang} onClick={() => setIsFrench(!isFrench)}>
+                    <button className={lang} onClick={() => setIsFrench(!isFrench)}>
                         {isFrench
-                            ? <><div style={{ backgroundImage: `url(${en})` }} className={image} ></div><div className={langItem} >EN</div></>
-                            : <><div style={{ backgroundImage: `url(${fr})` }} className={image} ></div><div className={langItem} >FR</div></>
+                            ? <><div style={{ backgroundImage: `url(${en})` }} className={image} /><span className={langItem} >EN</span></>
+                            : <><div style={{ backgroundImage: `url(${fr})` }} className={image} /><span className={langItem} >FR</span></>
                         }
-                    </div>
+                    </button>
                     <div className={submit ? headerText +' opacity-0': headerText}>
                         { list[activeCarId - 1].isEdit? isFrench ? 'Modification ' : 'Editing ': isFrench ? 'Ajout ' : 'Adding '}
                         {activeCarId === 1
@@ -53,16 +53,16 @@ const Header = (): React.ReactNode => {
                     <div className={step}><span className='text-blue-500 font-black text-[22px] italic'>{list[activeCarId - 1].steps + 1}</span>|9</div>
                 </div>
 
-                {activeCarId ===1 
-                ?<div className={toggleButton}>
-                    <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
+                {(activeCarId ===1)
+                ?<div className={submit? 'hidden' : toggleButton}>
+                    <button onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</button>
                 </div>
-                :<div className={toggleButton}>
-                    <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
-                    <div onClick={restoreForm} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
+                :<div className={submit? 'hidden' : toggleButton}>
+                    <button onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</button>
+                    <button onClick={restoreForm} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</button>
                 </div>}
-            </div>
-        </div>
+            </section>
+        </header>
     );
 };
 
