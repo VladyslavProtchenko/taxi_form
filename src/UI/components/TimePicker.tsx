@@ -24,12 +24,12 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
         "20", "21", "22", "23", 
     ]
     const { list, activeCarId } = useMain()
-
     const ref = useOnclickOutside(() => setIsOpen(false));
 
     const [hour, setHour] = useState(time.replace(/:/g, '') ? time.slice(0,2): (dayjs().format('mm') > '30') ? dayjs().add(1, 'hours').format('HH'): dayjs().format('HH'))
     const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3): dayjs().add(30, 'minutes').format('mm'))
     const [isOpen, setIsOpen] = useState(false)
+    const [isFirstRender, setIsFirstRender] = useState(true)
     const [isTime, setIsTime] = useState(0)
     const [filteredMinutes, setFilteredMinutes] = useState<string[]>([])
     const [filteredHours, setFilteredHours] = useState<string[]>(hours)
@@ -94,6 +94,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
     }, [hour, minute])
 
     useEffect(()=>{
+        if(isFirstRender) return setIsFirstRender(false)
         
         if(isAm === 2) {
             if(hour < '12' ) setHour(String(+hour +12))
@@ -109,7 +110,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             setMinute('00')
             onChange('00:00')
         }
-    },[isAm])
+    },[isAm, date])
 
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>

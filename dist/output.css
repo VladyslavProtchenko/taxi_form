@@ -646,16 +646,12 @@ video {
   bottom: 50%;
 }
 
-.bottom-24{
-  bottom: 6rem;
-}
-
 .bottom-4{
   bottom: 1rem;
 }
 
-.bottom-\[84px\]{
-  bottom: 84px;
+.bottom-\[86px\]{
+  bottom: 86px;
 }
 
 .left-0{

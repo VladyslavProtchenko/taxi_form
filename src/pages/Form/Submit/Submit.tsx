@@ -71,7 +71,7 @@ const Submit = (): React.ReactNode => {
 
 export default Submit;
 
-const btns ="fixed bottom-24 flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5 right-1/2 translate-x-1/2 z-20"
+const btns ="fixed bottom-[86px] flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5 right-1/2 translate-x-1/2 z-20"
 
 const addCar = 'border-2 border-green-400 rounded-lg text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
 

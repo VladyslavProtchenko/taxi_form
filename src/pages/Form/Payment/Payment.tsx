@@ -34,14 +34,14 @@ const PaymentSection = ():React.ReactNode => {
                         Order&#20;
                         {
                             activeCarId === 1 
-                            ? isFrench ? '1er ' : ' 1st ' 
+                            ? isFrench ? '1er ' : '1st ' 
                             :activeCarId === 2
-                            ? isFrench ? '2e ' : ' 1nd ' 
+                            ? isFrench ? '2e ' : '2nd ' 
                             :activeCarId === 3
-                            ? isFrench ? '3e ' : ' 3rd ' 
+                            ? isFrench ? '3e ' : '3rd ' 
                             :activeCarId === 4
-                            ? isFrench ? '4e ' : ' 4th ' 
-                            : isFrench ? '5e ' : ' 5th ' 
+                            ? isFrench ? '4e ' : '4th ' 
+                            : isFrench ? '5e ' : '5th ' 
                         }
                         Car
                     </button>}
@@ -56,7 +56,7 @@ const PaymentSection = ():React.ReactNode => {
 
 export default PaymentSection;
 
-const btns = ' fixed bottom-24 w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
+const btns = ' fixed bottom-[86px] w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const nextBtn = 'w-[140px] bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white text-lg  cursor-pointer'
 const backBtn = 'w-[140px] px-2 bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-lg text-white cursor-pointer font-bold'
 const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-3 rounded-xl'
