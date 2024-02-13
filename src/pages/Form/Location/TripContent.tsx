@@ -171,7 +171,7 @@ const TripContent = ():React.ReactNode => {
         
         return setSteps(3)
     }
-    console.log(list[activeCarId-1].date)
+    
     return (
     <div className={container}>
             <div className={date}>
