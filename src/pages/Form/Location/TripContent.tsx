@@ -131,7 +131,7 @@ const TripContent = ():React.ReactNode => {
         setDay(list[activeCarId-1].time.slice(0,2) > '04' && list[activeCarId-1].time.slice(0,2) < '23')
     },[list[activeCarId-1].time, list[activeCarId-1].timeType])
 
-    useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId])
+    useEffect(()=>{setLocalStops(list[activeCarId-1].stops)},[activeCarId, list[activeCarId-1].isReset])
 
     useEffect(()=>{
         if(trigger){
@@ -167,11 +167,11 @@ const TripContent = ():React.ReactNode => {
         if(!list[activeCarId-1].date) return alert('need date')
         if(!list[activeCarId-1].time) return alert('need time')
         if(!list[activeCarId-1].from) return alert('need pick up location')
-        if(!list[activeCarId-1].toR) return alert('need drop of location')
+        if(!list[activeCarId-1].to) return alert('need drop of location')
         
         return setSteps(3)
     }
-    
+    console.log(list[activeCarId-1].to)
     return (
     <div className={container}>
             <div className={date}>

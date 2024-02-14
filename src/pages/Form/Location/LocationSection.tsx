@@ -6,7 +6,7 @@ import Boost from "./Boost";
 
 
 const LocationSection = ():React.ReactNode => {
-    const { list, setIsReturnStatus, setIsReturnTrip, activeCarId } = useMain()
+    const { list, setIsReturnStatus,setIsReset, setIsReturnTrip, activeCarId } = useMain()
 
     useEffect(()=>{
         if(list[activeCarId-1].type>2) {
@@ -14,6 +14,18 @@ const LocationSection = ():React.ReactNode => {
             setIsReturnStatus(false)
         }
     },[])
+
+    useEffect(()=>{
+        if( list[activeCarId-1].from.length > 0 
+            || list[activeCarId-1].to.length > 0 
+            || list[activeCarId-1].stops[1]
+            || list[activeCarId-1].stops[2]
+            || list[activeCarId-1].stops[3]
+            || list[activeCarId-1].stops[4] 
+            && list[activeCarId-1].isReset[2]) {
+            return setIsReset({...list[activeCarId-1].isReset, 2: false })
+        }
+    },[list[activeCarId-1].time,list[activeCarId-1].date, list[activeCarId-1].from, list[activeCarId-1].to, list[activeCarId-1].stops])
 
     return (
         <section className={section}>

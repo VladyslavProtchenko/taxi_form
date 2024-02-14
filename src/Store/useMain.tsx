@@ -180,6 +180,7 @@ interface IStore {
     reset4: () => void;
     reset5: () => void;
     reset6: () => void;
+    reset7: () => void;
 
     restore1: () => void;
     restore2: () => void;
@@ -187,6 +188,7 @@ interface IStore {
     restore4: () => void;
     restore5: () => void;
     restore6: () => void;
+    restore7: () => void;
 
     //trip data methods
     setDate: (value: string) => void;
@@ -255,7 +257,7 @@ interface IStore {
     setAirlinesBackR: (trip: string) => void;
 
     resetReturn: () => void;
-
+    setIsReset: (data:{[key:number]: boolean}) => void;
     //options methods
     setCarType: (value: number) => void;
     setAdults: (value: number) => void;
@@ -472,6 +474,7 @@ export const useMain = create<IStore>()(
 
         setPaymentMethod: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, paymentMethod: data } : item) })),
         setAdditionalText: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, additionalText: data } : item) })),
+        setIsReset: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, isReset: data } : item) })),
         resetForm: () => set((state) => ({
             ...state, list: state.list.map(item => item.id === state.activeCarId 
                 ? 
@@ -668,13 +671,13 @@ export const useMain = create<IStore>()(
         reset2: () => set((state) => ({
             ...state, list: state.list.map(item => item.id === state.activeCarId 
                 ? 
-                {   ...item,
+                {  ...item,
                     id: state.activeCarId,
                     filled: false,
                     isReset: { ...item.isReset, 2: true },
 
-                    date: '',
-                    time: '', 
+                    date: dayjs().format('MM/DD/YYYY'),
+                    time: dayjs().format('HH:mm'), 
                     dateNow: true,
     
                     //trip information
@@ -724,7 +727,8 @@ export const useMain = create<IStore>()(
                     dateR: '', 
                     timeR: '',
     
-                    iconR: 0, icon2R: 0,
+                    iconR: 0, 
+                    icon2R: 0,
                     flightR: {
                         title: '',
                         prefix: '',
@@ -856,7 +860,7 @@ export const useMain = create<IStore>()(
                 {   ...item,
                     id: state.activeCarId,
                     filled: false,
-                    isReset: { ...item.isReset, 5: true },
+                    isReset: { ...item.isReset, 6: true },
                     sport: [
                         { title: 'Bikes', quantity: 0, },
                         { title: 'Skis', quantity: 0, },
@@ -870,6 +874,19 @@ export const useMain = create<IStore>()(
                         { title: 'Service dog (Mira)', cage: false, quantity: 0 },
                         { title: 'Other', cage: false, quantity: 0, isOther: true, },
                     ],
+                    steps:item.steps,
+                } : item)
+        })),
+        reset7: () => set((state) => ({
+            ...state, list: state.list.map(item => item.id === state.activeCarId 
+                ? 
+                {   ...item,
+                    id: state.activeCarId,
+                    filled: false,
+                    isReset: { ...item.isReset, 7: true },
+                    tripType:'Vacation',
+                    paymentMethod: 'Cash',
+                    additionalText: '',
                     steps:item.steps,
                 } : item)
         })),
@@ -914,7 +931,7 @@ export const useMain = create<IStore>()(
                 from: state.list[0].from,
                 to: state.list[0].to,
 
-                stops: state.list[0].date,
+                stops: state.list[0].stops,
 
                 icon: state.list[0].icon, 
                 icon2: state.list[0].icon2,
@@ -1017,6 +1034,18 @@ export const useMain = create<IStore>()(
                 isReset: { ...item.isReset, 6: false },
                 sport: state.list[0].sport,
                 pets: state.list[0].pets,
+                steps:item.steps,
+            }
+            : item
+        )})),
+        restore7 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
+            ? 
+            {   ...item,
+                filled: false,
+                isReset: { ...item.isReset, 7: false },
+                tripType: state.list[0].tripType,
+                paymentMethod: state.list[0].paymentMethod,
+                additionalText: state.list[0].additionalText,
                 steps:item.steps,
             }
             : item

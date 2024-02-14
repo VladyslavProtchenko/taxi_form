@@ -16,6 +16,8 @@ const ReturnSection = ():React.ReactNode => {
             setIsReturnStatus(false)
         }
     },[])
+
+
     return (
         <section className={section}>
             <div className={list[activeCarId-1].isReturnTrip ? 'hidden':'absolute top-[90px] left-0 right-0 h-[600px] z-20 bg-white opacity-50'}></div>

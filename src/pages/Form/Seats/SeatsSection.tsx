@@ -1,11 +1,19 @@
 import CarSeatSelect from "./CarSeats/CarSeatsSelect";
 
 import { useMain } from "../../../Store/useMain";
-import React from "react";
+import React, { useEffect } from "react";
 import Buttons from "../Components/Buttons";
 
 const SeatsSection = ():React.ReactNode => {
-    const {setSteps} = useMain()
+    
+    const {list, activeCarId,setIsReset, setSteps} = useMain()
+
+    useEffect(()=>{
+        if(list[activeCarId-1].isReset[5] &&  list[activeCarId-1].carSeats.filter(item=>item.quantity>0).length) {
+            return setIsReset({...list[activeCarId-1].isReset, 5: false })
+        } 
+    },[list[activeCarId-1].carSeats])
+
     return (
         <section className={section}>
             <div className={content}>

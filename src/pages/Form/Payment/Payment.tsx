@@ -2,15 +2,28 @@ import { Select } from "antd";
 import { Input } from 'antd';
 import { useMain } from "../../../Store/useMain";
 import { useStore } from "../../../Store";
-import React from "react";
+import React, { useEffect } from "react";
 const { TextArea } = Input;
 import { MdDone } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 
 const PaymentSection = ():React.ReactNode => {
-    const {list,setSubmit, activeCarId, setPaymentMethod,setAdditionalText,setTripType,setFilled,setSteps,isFrench } = useMain()
+    const { list,setSubmit, activeCarId,setIsReset, setPaymentMethod,setAdditionalText,setTripType,setFilled,setSteps,isFrench } = useMain()
     const { store} = useStore()
+
+
+    useEffect(()=>{
+        if(
+            list[activeCarId-1].isReset[7] 
+            &&  list[activeCarId-1].paymentMethod !== 'Cash'
+            ||  list[activeCarId-1].tripType !== 'Vacation'
+            ||  list[activeCarId-1].additionalText
+            ) {
+            return setIsReset({...list[activeCarId-1].isReset, 7: false })
+        } 
+    },[list[activeCarId-1].paymentMethod,list[activeCarId-1].tripType,list[activeCarId-1].additionalText])
+
     return (
         <section className={section}>
             <div className={content}>
@@ -22,7 +35,7 @@ const PaymentSection = ():React.ReactNode => {
             
             <div className={additional}>
                 <span className={textArea}>
-                    <TextArea style={{borderRadius: '10px'}} rows={2} placeholder='Additional information' onChange={(e)=>{
+                    <TextArea style={{borderRadius: '10px'}} value={list[activeCarId-1].additionalText } rows={2} placeholder='Additional information' onChange={(e)=>{
                         setAdditionalText(e.target.value)
                     }}/></span>
             </div>
@@ -32,21 +45,21 @@ const PaymentSection = ():React.ReactNode => {
                 <div className={backBtn} onClick={()=>setSteps(6)}><MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{isFrench? 'Précédent': 'Previous'}</div>
                 {!list[activeCarId-1].filled && 
                     <button className={nextBtn} onClick={()=> setFilled(true, activeCarId)}>
-                        Order
+                        Order&#20;
                         {
                             activeCarId === 1 
-                            ? isFrench ? ' 1er ' : ' 1st ' 
+                            ? isFrench ? '1er ' : '1st ' 
                             :activeCarId === 2
-                            ? isFrench ? ' 2e ' : ' 2nd ' 
+                            ? isFrench ? '2e ' : '2nd ' 
                             :activeCarId === 3
-                            ? isFrench ? ' 3e ' : ' 3rd ' 
+                            ? isFrench ? '3e ' : '3rd ' 
                             :activeCarId === 4
-                            ? isFrench ? ' 4e ' : ' 4th ' 
-                            : isFrench ? ' 5e ' : ' 5th ' 
+                            ? isFrench ? '4e ' : '4th ' 
+                            : isFrench ? '5e ' : '5th ' 
                         }
                         Car
                     </button>}
-                {list.filter(item => item.filled).length>0 &&<button className={yellowBtn} onClick={()=> {
+                {list[activeCarId-1].filled && <button className={yellowBtn} onClick={()=> {
                         setSteps(8)
                         setSubmit(true)
                     }}>View Orders</button>}

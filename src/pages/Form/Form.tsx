@@ -36,7 +36,6 @@ const Form = (): React.ReactNode => {
                 && pattern.test(item.email)
                 && item.phone.length >= 11
             ){
-                
                 if(item.from 
                     && item.name.length > 3 
                     && item.title 
@@ -63,7 +62,7 @@ const Form = (): React.ReactNode => {
                     && item.to
                     && (item.adults>0 || (!item.adults && list[activeCarId-1].type ===2))
                 ){
-                        return cars = {...cars, [index+1]: true}
+                    return cars = {...cars, [index+1]: true}
                 } else if(
                     !item.isReturnTrip 
                     && item.name.length > 2 

@@ -1,43 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TiInfoLarge } from "react-icons/ti";
 import { useMain } from '../../Store/useMain';
 import en from '../../assets/usa.png'
 import fr from '../../assets/france.png'
 
 const Header = (): React.ReactNode => {
-    const { list, reset1, reset2, reset3, reset4, reset5, reset6, restore1 , restore2,restore3,restore4,restore5,restore6, restoreForm, submit, activeCarId, isFrench, setIsFrench, infoOpen, setInfoOpen } = useMain()
+    const { list, reset1, reset2, reset3, reset4, reset5, reset6,reset7, restore1, restore2,restore3,restore4,restore5,restore6,restore7, submit, activeCarId, isFrench, setIsFrench, infoOpen, setInfoOpen } = useMain()
+
+    const [resetOpen, setResetOpen] = useState(false)
 
     const resetHandler = () =>{
         if(list[activeCarId-1].steps === 1 ) {
             list[activeCarId-1].isReset[1] ?  restore1() : reset1()
+            return setResetOpen(false)
         }
         if(list[activeCarId-1].steps === 2 ) {
             list[activeCarId-1].isReset[2] ?  restore2() : reset2()
+            return setResetOpen(false)
         }
         if(list[activeCarId-1].steps === 3 ) {
+            
             list[activeCarId-1].isReset[3] ?  restore3() : reset3()
+            return setResetOpen(false)
         }
         if(list[activeCarId-1].steps === 4 ) {
             list[activeCarId-1].isReset[4] ?  restore4() : reset4()
+            return setResetOpen(false)
         }
         if(list[activeCarId-1].steps === 5 ) {
             list[activeCarId-1].isReset[5] ?  restore5() : reset5()
+            return setResetOpen(false)
         }
         if(list[activeCarId-1].steps === 6 ) {
             list[activeCarId-1].isReset[6] ?  restore6() : reset6()
+            return setResetOpen(false)
+        }
+        if(list[activeCarId-1].steps === 7 ) {
+            list[activeCarId-1].isReset[7] ?  restore7() : reset7()
+            return setResetOpen(false)
         }
     }
 
+
     return (
-        <header className={header}>
-            <section className={wrapper}>
+        <div className={header}>
+            <div className={wrapper}>
                 <div className={content}>
-                    <button className={lang} onClick={() => setIsFrench(!isFrench)}>
+                    <div className={lang} onClick={() => setIsFrench(!isFrench)}>
                         {isFrench
-                            ? <><div style={{ backgroundImage: `url(${en})` }} className={image} /><span className={langItem} >EN</span></>
-                            : <><div style={{ backgroundImage: `url(${fr})` }} className={image} /><span className={langItem} >FR</span></>
+                            ? <><div style={{ backgroundImage: `url(${en})` }} className={image} ></div><div className={langItem} >EN</div></>
+                            : <><div style={{ backgroundImage: `url(${fr})` }} className={image} ></div><div className={langItem} >FR</div></>
                         }
-                    </button>
+                    </div>
                     <div className={submit ? headerText +' opacity-0': headerText}>
                         { list[activeCarId - 1].isEdit? isFrench ? 'Modification ' : 'Editing ': isFrench ? 'Ajout ' : 'Adding '}
                         {activeCarId === 1
@@ -53,20 +67,31 @@ const Header = (): React.ReactNode => {
                     <div className={step}><span className='text-blue-500 font-black text-[22px] italic'>{list[activeCarId - 1].steps + 1}</span>|9</div>
                 </div>
 
-                {(activeCarId ===1)
-                ?<div className={submit? 'hidden' : toggleButton}>
-                    <button onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</button>
+                {activeCarId ===1 
+                ?<div className={list[activeCarId-1].steps>0 && !submit?toggleButton: 'hidden'}>
+                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
                 </div>
-                :<div className={submit? 'hidden' : toggleButton}>
-                    <button onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</button>
-                    <button onClick={restoreForm} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</button>
+                :<div className={list[activeCarId-1].steps>0 && !submit?toggleButton: 'hidden'}>
+                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
+                    <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
                 </div>}
-            </section>
-        </header>
+            </div>
+            {resetOpen && <div className={modal}>
+                <span className='text-lg'>Do you want to reset data?</span>
+                <div className='flex mt-3 w-full'>
+                    <button className={green} onClick={resetHandler}>accept</button>
+                    <button className={red} onClick={()=>setResetOpen(false)}>decline</button>
+                </div>
+            </div>}
+        </div>
     );
 };
 
 export default Header;
+
+const modal = 'absolute flex flex-col text-base top-full w-[250px] px-3 py-4 bg-white shadow-xl rounded border border-black flex'
+const green = 'px-2 py-1 bg-green-400 text-white font-bold rounded mr-2 active:bg-green-500'
+const red = 'px-2 py-1 bg-red-500 text-white font-bold rounded mr-2 active:bg-red-600'
 
 const toggle = 'px-2  border-purple-500 px-1 py-1'
 const toggleActive = 'px-2  border-purple-500 bg-purple-500 text-white px-1 py-1'

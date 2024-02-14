@@ -45,6 +45,7 @@ const ReturnTrip = ():React.ReactNode  => {
         resetReturn,
         setTimeTypeR,
         setSteps,
+        setIsReset
     } =useMain()
     const { store } = useStore()
     
@@ -58,6 +59,26 @@ const ReturnTrip = ():React.ReactNode  => {
     const [isDateR, setIsDateR] = useState(true)
     const [isFromR, setIsFromR] = useState(true)
     const [isToR, setIsToR] = useState(true)
+
+    
+
+    useEffect(()=>{
+        if(list[activeCarId-1].isReset[3]) {
+            setTrigger({1:0,2:0})
+        }
+        if( list[activeCarId-1].fromR
+            || list[activeCarId-1].toR 
+            || list[activeCarId-1].stopsR[1]
+            || list[activeCarId-1].stopsR[2]
+            || list[activeCarId-1].stopsR[3]
+            || list[activeCarId-1].stopsR[4] 
+            || list[activeCarId-1].dateR 
+            || list[activeCarId-1].timeR 
+            && list[activeCarId-1].isReset[3]
+        ) {
+            return setIsReset({...list[activeCarId-1].isReset, 3: false })
+        }
+    },[list[activeCarId-1].timeR, list[activeCarId-1].dateR, list[activeCarId-1].fromR, list[activeCarId-1].toR, list[activeCarId-1].stopsR ])
 
 
 
@@ -76,6 +97,7 @@ const ReturnTrip = ():React.ReactNode  => {
         //I get all stops revert it ans complete in new array, I want to display stops order without holes im order! so we need make a sort every time when stops changes
         if(stopTrigger) {
             const values = Object.values(list[activeCarId-1].stops).filter(value=>value).reverse()
+            
             setStop(values.length)
             const data: IObj ={}
             values.map((item, index) => {
@@ -84,7 +106,7 @@ const ReturnTrip = ():React.ReactNode  => {
                 if(item) { setStopsR(data) }
             })
         }
-    },[stopTrigger, list[activeCarId-1].stops])
+    },[stopTrigger, list[activeCarId-1].stops,list[activeCarId-1].isReset ])
 
     useEffect(()=>{
         if(trigger){
@@ -163,7 +185,7 @@ const ReturnTrip = ():React.ReactNode  => {
         setStopTrigger(false)
         resetReturn();
     }
-
+    console.log(list[activeCarId-1].stopsR, 'stops')
     return (
     <div className={container}>
             
@@ -509,8 +531,6 @@ const ReturnTrip = ():React.ReactNode  => {
                     </div> }
                 </div>}
             </div>
-
-
 
             <Buttons goNext={goNext} step={2} />
 
