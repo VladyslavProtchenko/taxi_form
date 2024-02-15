@@ -108,23 +108,55 @@ const InfoSection = () => {
             setIsName(true)
         } else {
             setValidation(1)
-            return setAlert('Name is required !')}
+            return setAlert(!isFrench
+                ? `At least one name are mandatories.
+            
+                Thanks`
+                
+                :`Au moins  un nom sont obligatoires.
+
+                Merci`)
+            }
         if(list[activeCarId-1].title.length>1) {
             setIsTitle(true)
         } else { 
             setValidation(1)
-            return setAlert('Title is required !')}
+            return setAlert(!isFrench
+                ? `At least one title are mandatories.
+            
+                Thanks`
+                
+                :`Au moins  un Titre sont obligatoires.
+
+                Merci`)
+        }
         if(pattern.test(list[activeCarId-1].email)) {
             setIsEmail(true)
         } else { 
             setValidation(1)
-            return setAlert('Email is required !')}
+            return setAlert(!isFrench
+                ? `At least one email address are mandatories.
+            
+                Thanks`
+                
+                :`Au moins  une adresse email sont obligatoires.
+
+                Merci`)
+        }
 
         if(isPhone) {
             setNoPhone(true)
         }else { 
             setValidation(1)
-            return setAlert('Phone is required !')}
+            return setAlert(!isFrench
+                ? `At least one phone are mandatories.
+            
+                Thanks`
+                
+                :`Au moins  un téléphone sont obligatoires.
+
+                Merci`)
+        }
     
         if(isTitle && isName &&  isPhone && isEmail && noPhone) {
             setValidation(2)
