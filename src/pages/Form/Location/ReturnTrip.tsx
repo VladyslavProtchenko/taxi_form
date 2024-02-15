@@ -46,7 +46,8 @@ const ReturnTrip = ():React.ReactNode  => {
         setTimeTypeR,
         setSteps,
         setIsReset,
-        setAlert
+        setAlert,
+        setValidation
     } =useMain()
     const { store } = useStore()
     
@@ -152,12 +153,27 @@ const ReturnTrip = ():React.ReactNode  => {
     },[list[activeCarId-1].from,list[activeCarId-1].fromR, list[activeCarId-1].to,list[activeCarId-1].toR])
 
     function goNext() {
-        if(!list[activeCarId-1].isReturnTrip) return setSteps(4)
+        if(!list[activeCarId-1].isReturnTrip) {
+            setValidation(4)
+            return setSteps(4)
+        }
 
-        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return setAlert('need return date !')
-        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return setAlert('need return time !')
-        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return setAlert('need return pick up location !')
-        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return setAlert('need return drop of location !')
+        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) {
+            setValidation(3)
+            return setAlert('need return date !')
+        }
+        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) {
+            setValidation(3)
+            return setAlert('need return time !')
+        }
+        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) {
+            setValidation(3)
+            return setAlert('need return pick up location !')
+        }
+        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) {
+            setValidation(3)
+            return setAlert('need return drop of location !')
+        }
         if(
             list[activeCarId-1].date 
             && list[activeCarId-1].from 
@@ -167,7 +183,10 @@ const ReturnTrip = ():React.ReactNode  => {
             && list[activeCarId-1].timeR
             && list[activeCarId-1].fromR 
             && list[activeCarId-1].toR 
-        ) return setSteps(4)
+        ) {
+            setValidation(4)
+            return setSteps(4)
+        }
     }
 
     function setBackSection(){
@@ -180,7 +199,7 @@ const ReturnTrip = ():React.ReactNode  => {
         setStopTrigger(false)
         resetReturn();
     }
-    console.log(list[activeCarId-1].stopsR, 'stops')
+
     return (
     <div className={container}>
             

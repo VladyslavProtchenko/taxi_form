@@ -14,7 +14,7 @@ import vanWhite from '../../../assets/vanWhite.png';
 
 const PassengersSection = ():React.ReactNode => {
     const { store } = useStore()
-    const {list, activeCarId, setCarType,setIsReset, isFrench,setSteps,setAlert } = useMain()
+    const {list,setValidation, activeCarId, setCarType,setIsReset, isFrench,setSteps,setAlert } = useMain()
     const [carList, setCarList] = useState(isFrench? store.carListF: store.carList)
 
     useEffect(()=>{
@@ -23,7 +23,7 @@ const PassengersSection = ():React.ReactNode => {
     const goNext =() => {
         (list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2))
         ? setAlert('Need at last 1 adult')
-        : setSteps(5)
+        : setValidation(5);setSteps(5);
     }
     useEffect(()=>{
         if(list[activeCarId-1].isReset[4]

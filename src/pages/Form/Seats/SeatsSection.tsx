@@ -6,7 +6,7 @@ import Buttons from "../Components/Buttons";
 
 const SeatsSection = ():React.ReactNode => {
     
-    const {list, activeCarId,setIsReset, setSteps} = useMain()
+    const {list, activeCarId,setIsReset, setSteps, setValidation } = useMain()
 
     useEffect(()=>{
         if(list[activeCarId-1].isReset[5] &&  list[activeCarId-1].carSeats.filter(item=>item.quantity>0).length) {
@@ -19,7 +19,9 @@ const SeatsSection = ():React.ReactNode => {
             <div className={content}>
                 <div className={contentItem}><CarSeatSelect /></div>
             </div>
-            <Buttons goNext={()=>setSteps(6)} step={4} />
+            <Buttons goNext={()=>{
+                setValidation(6)
+                setSteps(6)}} step={4} />
         </section>
     );
 };

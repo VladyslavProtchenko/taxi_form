@@ -9,9 +9,8 @@ import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 
 const PaymentSection = ():React.ReactNode => {
-    const { list,setSubmit, activeCarId,setIsReset, setPaymentMethod,setAdditionalText,setTripType,setFilled,setSteps,isFrench } = useMain()
+    const { list,setSubmit, activeCarId,setIsReset, setPaymentMethod,setAdditionalText,setTripType,setFilled,setSteps,isFrench,setValidation } = useMain()
     const { store} = useStore()
-
 
     useEffect(()=>{
         if(
@@ -44,7 +43,11 @@ const PaymentSection = ():React.ReactNode => {
             <div className={btns}>
                 <div className={backBtn} onClick={()=>setSteps(6)}><MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{isFrench? 'Précédent': 'Previous'}</div>
                 {!list[activeCarId-1].filled && 
-                    <button className={nextBtn} onClick={()=> setFilled(true, activeCarId)}>
+                    <button className={nextBtn} onClick={()=> {
+                            setSteps(8)
+                            setValidation(9)
+                            setFilled(true, activeCarId)
+                        }}>
                         Order 
                         {
                             activeCarId === 1 
@@ -60,7 +63,7 @@ const PaymentSection = ():React.ReactNode => {
                         Car
                     </button>}
                 {list[activeCarId-1].filled && <button className={yellowBtn} onClick={()=> {
-                        setSteps(8)
+                        
                         setSubmit(true)
                     }}>View Orders</button>}
             </div>

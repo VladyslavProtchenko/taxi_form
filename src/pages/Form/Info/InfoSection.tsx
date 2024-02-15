@@ -103,24 +103,31 @@ const InfoSection = () => {
         setIsName(false)
         setIsEmail(false)
         setNoPhone(false)
-        setValidation(0)
 
         if(list[activeCarId-1].name.length > 2) {
             setIsName(true)
-        } else { return setAlert('Name is required !')}
+        } else {
+            setValidation(1)
+            return setAlert('Name is required !')}
         if(list[activeCarId-1].title.length>1) {
             setIsTitle(true)
-        } else { return setAlert('Title is required !')}
+        } else { 
+            setValidation(1)
+            return setAlert('Title is required !')}
         if(pattern.test(list[activeCarId-1].email)) {
             setIsEmail(true)
-        } else { return setAlert('Email is required !')}
+        } else { 
+            setValidation(1)
+            return setAlert('Email is required !')}
 
         if(isPhone) {
             setNoPhone(true)
-        }else { return setAlert('Phone is required !')}
+        }else { 
+            setValidation(1)
+            return setAlert('Phone is required !')}
     
         if(isTitle && isName &&  isPhone && isEmail && noPhone) {
-            setValidation(1)
+            setValidation(2)
             setSteps(2)
         }
     }

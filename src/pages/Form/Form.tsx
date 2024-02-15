@@ -29,7 +29,7 @@ const Form = (): React.ReactNode => {
         }
 
         list.map((item,index)=>{
-
+            
             if(item.type>2
                 && item.from 
                 && item.name.length > 3 
@@ -95,7 +95,6 @@ const Form = (): React.ReactNode => {
 
     return (
         <div className={container}>
-            <Alert />
             {!submit ? <>
                 {list[activeCarId-1].steps === 0 && <Type />}
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
@@ -107,6 +106,8 @@ const Form = (): React.ReactNode => {
                 {list[activeCarId-1].steps === 6 && <SportSection />}
                 {list[activeCarId-1].steps === 7 && <PaymentSection/>}
             </> : <Submit/>}
+            <Alert />
+
         </div>
     );
 };

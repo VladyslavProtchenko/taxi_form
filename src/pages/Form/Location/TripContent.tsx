@@ -159,17 +159,26 @@ const TripContent = ():React.ReactNode => {
         setIsDate(list[activeCarId-1].date.length>0)
         setIsFrom(list[activeCarId-1].from.length>0)
         setIsTo(list[activeCarId-1].to.length>0)
-        setValidation(1)
 
-        if(list[activeCarId-1].date && list[activeCarId-1].from && list[activeCarId-1].to && !list[activeCarId-1].isReturnTrip) {
+
+        if(!list[activeCarId-1].date) {
             setValidation(2)
-            return setSteps(3)
+            return setAlert('Need date !')
         }
-        if(!list[activeCarId-1].date) return setAlert('Need date !')
-        if(!list[activeCarId-1].time) return setAlert('Need time !')
-        if(!list[activeCarId-1].from) return setAlert('Need Pick Up location !')
-        if(!list[activeCarId-1].to) return setAlert('Need Drop off location !')
-        
+        if(!list[activeCarId-1].time) {
+            setValidation(2)
+            return setAlert('Need time !')
+        }
+        if(!list[activeCarId-1].from) {
+            setValidation(2)
+            return setAlert('Need Pick Up location !')
+        }
+        if(!list[activeCarId-1].to) {
+            setValidation(2)
+            return setAlert('Need Drop off location !')
+        }
+
+        setValidation(3)
         return setSteps(3)
     }
     

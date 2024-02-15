@@ -67,6 +67,7 @@ const Footer = (): React.ReactNode => {
                             key={item}
                             className={submit ? footerTabActive : footerTab }
                             onClick={() => {
+                                if(list[activeCarId - 1].validation < 8) return;
                                 setSubmit(true)
                                 setSteps(index)
                             }}>
@@ -75,13 +76,16 @@ const Footer = (): React.ReactNode => {
                                 <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-green-500 border-green-500'}>{index+1}</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
-
                         : <span
                             key={item}
                             className={(list[activeCarId - 1].steps === index) ? footerTabActive : footerTab}
                             onClick={() => {
                                 if (index === 8) return setSubmit(true)
-                                setSubmit(false); setSteps(index)
+                                if(list[activeCarId - 1].validation < index ) {
+                                    return console.log('validation work ')
+                                }
+                                setSubmit(false); 
+                                setSteps(index)
                             }}>
                             <FaSortDown className={(list[activeCarId - 1].steps === index && list[activeCarId - 1].steps !== 8) ? arrIcon : ' hidden '}/>
                             {index === 0
@@ -124,8 +128,6 @@ const Footer = (): React.ReactNode => {
                                     <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-orange-900 border-orange-900 '}>{index+1}</div>
                                 </>
                             }
-                            
-                            
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
                     }
@@ -135,6 +137,7 @@ const Footer = (): React.ReactNode => {
         </div>
     );
 };
+
 
 const tabIndex = 'absolute flex font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow  border-black border-[0.5px] xs:left-3 -left-2 text-[24px] w-[26px] h-[26px] pt-[1px] '
 const tabIndexActive = 'absolute text-purple-500 border-purple-500 flex font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow  border-black border-[0.5px] xs:left-3 -left-2 text-[24px] w-[26px] h-[26px] pt-[1px] '

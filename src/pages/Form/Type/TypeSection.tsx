@@ -7,7 +7,7 @@ import boost from '../../../assets/boost2.png'
 import unlock from '../../../assets/lostKeys.png' 
 
 const Type = ():React.ReactNode => {
-    const { isFrench, setType, setSteps } = useMain()
+    const { isFrench, setType, setSteps,setValidation } = useMain()
     const { store } = useStore()
 
     return (
@@ -18,6 +18,7 @@ const Type = ():React.ReactNode => {
                 {(isFrench? store.typeListF: store.typeList).map((item,index)=>(
                         <div  key={item}><div className={button} onClick={()=>{
                             setType(index+1)
+                            setValidation(1)
                             setSteps(1)
                         }}>
                             <span className={icon}>

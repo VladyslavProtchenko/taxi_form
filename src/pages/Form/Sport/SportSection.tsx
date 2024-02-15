@@ -7,7 +7,7 @@ import Buttons from "../Components/Buttons";
 
 
 const SportSection = ():React.ReactNode => {
-    const {setSteps,activeCarId,list,setIsReset} = useMain()
+    const {setSteps,activeCarId,list,setIsReset,setValidation} = useMain()
 
     useEffect(()=>{
         if(
@@ -26,7 +26,10 @@ const SportSection = ():React.ReactNode => {
                 <SportSelect />
             </div>
 
-            <Buttons goNext={()=>setSteps(7)} step={5} />
+            <Buttons goNext={()=>{
+                setValidation(7)
+                setSteps(7)
+                }} step={5} />
 
         </section>
     );
