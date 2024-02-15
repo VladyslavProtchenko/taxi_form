@@ -96,7 +96,8 @@ const Form = (): React.ReactNode => {
     useEffect(() => {
         const handleBeforeUnload = (event:BeforeUnloadEvent) => {
             event.preventDefault();
-            event.returnValue = '';
+            alert('data caput')
+            event.returnValue = 'xxxxx';
             return '';
         };
     
