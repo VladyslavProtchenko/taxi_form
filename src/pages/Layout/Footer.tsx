@@ -61,6 +61,7 @@ const Footer = (): React.ReactNode => {
             >
                 {(isFrench ? store.menuTabsF : store.menuTabs).map((item, index) => {
                     
+
                     return index === 8
                         ? <span
                             key={item}
@@ -71,7 +72,7 @@ const Footer = (): React.ReactNode => {
                             }}>
                                 <FaSortDown className={list[activeCarId - 1].steps === 8 ? arrIcon : ' hidden '}/>
                                 <IoCheckmarkDoneSharp className={submit? footerIcon: footerIcon + ' text-green-500 '} />
-                                <div className={tabIndex+ ' pl-[1px]'}>9</div>
+                                <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-green-500 border-green-500'}>{index+1}</div>
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
 
@@ -84,22 +85,47 @@ const Footer = (): React.ReactNode => {
                             }}>
                             <FaSortDown className={(list[activeCarId - 1].steps === index && list[activeCarId - 1].steps !== 8) ? arrIcon : ' hidden '}/>
                             {index === 0
-                                ? <FcSettings className={ footerIcon} />
+                                ? <>
+                                    <FcSettings className={ footerIcon} />
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-slate-500 border-slate-600'}>{index+1}</div>
+                                </>
                                 : index === 1
-                                ? <PiUserListFill className={footerIcon} />
+                                ? <>
+                                    <PiUserListFill className={footerIcon} />
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex}>{index+1}</div>
+                                </>
                                 : index === 2
-                                ? <IoLocationOutline className={list[activeCarId - 1].steps===2 ? footerIcon: footerIcon + ' text-blue-500'} />
+                                ? <>
+                                    <IoLocationOutline className={list[activeCarId - 1].steps===2 ? footerIcon : footerIcon + ' text-blue-500'} />
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-blue-500 border-blue-500'}>{index+1}</div>
+                                </>
                                 : index === 3
-                                ? <IoLocationOutline className={list[activeCarId - 1].steps===3 ? footerIcon: footerIcon + ' text-orange-500'} />
+                                ? <>
+                                    <IoLocationOutline className={list[activeCarId - 1].steps===3 ? footerIcon: footerIcon + ' text-orange-500'} />
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-orange-500 border-orange-500'}>{index+1}</div>
+                                </>
                                 : index === 4
-                                ? <div style={{ backgroundImage: `url(${list[activeCarId - 1].steps === 4 ? carBagsPurple : carBags})` }} className={icon}></div>
+                                ? <>
+                                    <div style={{ backgroundImage: `url(${list[activeCarId - 1].steps === 4 ? carBagsPurple : carBags})` }} className={icon}></div>
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex}>{index+1}</div>
+                                </>
                                 : index === 5
-                                ? <div style={{ backgroundImage: `url(${list[activeCarId - 1].steps === 5 ? babiSeatPurple : babiSeat})` }} className={icon}></div>
+                                ? <>
+                                    <div style={{ backgroundImage: `url(${list[activeCarId - 1].steps === 5 ? babiSeatPurple : babiSeat})` }} className={icon}></div>
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-purple-500'}>{index+1}</div>
+                                </>
                                 : index === 6
-                                ? <FaRunning className={list[activeCarId - 1].steps===6 ? footerIcon: footerIcon + ' text-blue-700 '} />
-                                : <IoCardOutline className={list[activeCarId - 1].steps===7 ? footerIcon: footerIcon+' text-orange-900'} />
+                                ? <>
+                                    <FaRunning className={list[activeCarId - 1].steps===6 ? footerIcon: footerIcon + ' text-blue-700 '} />
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-blue-700 border-blue-700'}>{index+1}</div>
+                                </>
+                                : <>
+                                    <IoCardOutline className={list[activeCarId - 1].steps===7 ? footerIcon: footerIcon+' text-orange-900'} />
+                                    <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-orange-900 border-orange-900 '}>{index+1}</div>
+                                </>
                             }
-                            <div className={tabIndex}>{index+1}</div>
+                            
+                            
                             <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
                         </span>
                     }
@@ -111,6 +137,7 @@ const Footer = (): React.ReactNode => {
 };
 
 const tabIndex = 'absolute flex font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow  border-black border-[0.5px] xs:left-3 -left-2 text-[24px] w-[26px] h-[26px] pt-[1px] '
+const tabIndexActive = 'absolute text-purple-500 border-purple-500 flex font-bold -top-1 font bold flex items-center justify-center bg-white rounded-full shadow  border-black border-[0.5px] xs:left-3 -left-2 text-[24px] w-[26px] h-[26px] pt-[1px] '
 
 const icon = 'text-xs w-10 bg-center h-7 bg-contain bg-no-repeat' 
 const arrIcon = ' text-purple-500 text-2xl absolute -translate-y-9'

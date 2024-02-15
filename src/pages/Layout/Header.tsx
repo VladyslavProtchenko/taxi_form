@@ -69,10 +69,10 @@ const Header = (): React.ReactNode => {
 
                 {activeCarId ===1 
                 ?<div className={list[activeCarId-1].steps>0 && !submit?toggleButton: 'hidden'}>
-                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
+                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset this section\'s data'}</div>
                 </div>
                 :<div className={list[activeCarId-1].steps>0 && !submit?toggleButton: 'hidden'}>
-                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset data'}</div>
+                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset this section\'s data'}</div>
                     <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
                 </div>}
             </div>
@@ -93,8 +93,8 @@ const modal = 'absolute flex flex-col text-base top-full w-[250px] px-3 py-4 bg-
 const green = 'px-2 py-1 bg-green-400 text-white font-bold rounded mr-2 active:bg-green-500'
 const red = 'px-2 py-1 bg-red-500 text-white font-bold rounded mr-2 active:bg-red-600'
 
-const toggle = 'px-2  border-purple-500 px-1 py-1'
-const toggleActive = 'px-2  border-purple-500 bg-purple-500 text-white px-1 py-1'
+const toggle = 'px-2 bg-white shadow-xl border-purple-500 px-1 py-1'
+const toggleActive = 'px-2 bg-white shadow-xl border-purple-500 bg-purple-500 text-white px-1 py-1'
 const toggleButton = ' flex text-[20px] border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden '
 const content = 'flex items-center w-full justify-between' 
 const image = 'w-8 h-5 text-xs bg-center bg-cover bg-no-repeat'

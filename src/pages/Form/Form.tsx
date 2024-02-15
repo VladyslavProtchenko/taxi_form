@@ -82,7 +82,7 @@ const Form = (): React.ReactNode => {
             }
         })
         setIsCars(cars)
-    },[list])
+    },[list]) 
 
     useEffect(()=>{
         const days = dayjs().format('MM/DD/YYYY')
@@ -92,8 +92,25 @@ const Form = (): React.ReactNode => {
         setDate(days)
     },[activeCarId])
 
+
+    useEffect(() => {
+        const handleBeforeUnload = (event:BeforeUnloadEvent) => {
+            event.preventDefault();
+            event.returnValue = '';
+            return '';
+        };
+    
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+    
     return (
         <div className={container}>
+            
             {!submit ? <>
                 {list[activeCarId-1].steps === 0 && <Type />}
                 {list[activeCarId-1].steps === 1 && <InfoSection />}
