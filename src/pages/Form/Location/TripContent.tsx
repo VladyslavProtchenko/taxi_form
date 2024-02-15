@@ -44,6 +44,7 @@ const TripContent = ():React.ReactNode => {
         setTimeType,
         setSteps,
         setValidation,
+        setAlert,
     } = useMain()
     
     const { store } = useStore()
@@ -164,14 +165,14 @@ const TripContent = ():React.ReactNode => {
             setValidation(2)
             return setSteps(3)
         }
-        if(!list[activeCarId-1].date) return alert('need date')
-        if(!list[activeCarId-1].time) return alert('need time')
-        if(!list[activeCarId-1].from) return alert('need pick up location')
-        if(!list[activeCarId-1].to) return alert('need drop of location')
+        if(!list[activeCarId-1].date) return setAlert('Need date !')
+        if(!list[activeCarId-1].time) return setAlert('Need time !')
+        if(!list[activeCarId-1].from) return setAlert('Need Pick Up location !')
+        if(!list[activeCarId-1].to) return setAlert('Need Drop off location !')
         
         return setSteps(3)
     }
-    console.log(list[activeCarId-1].to)
+    
     return (
     <div className={container}>
             <div className={date}>

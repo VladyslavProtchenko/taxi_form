@@ -11,6 +11,7 @@ function App():React.ReactNode {
   useEffect(() => {
     const handleBeforeUnload = (event:BeforeUnloadEvent) => {
         event.preventDefault();
+        
         event.returnValue = 'xxxxx';
         return '';
     };

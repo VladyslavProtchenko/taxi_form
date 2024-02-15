@@ -123,6 +123,7 @@ interface IStore {
     isFrench: boolean;
     submit: boolean;
     infoOpen: boolean;
+    alert: string,
 
     isCars: {
         1: boolean,
@@ -134,6 +135,7 @@ interface IStore {
     activeCarId: number;
     list: ITaxi[];
     //info methods
+    setAlert: (value: string) => void;
     setDay: (value: boolean) => void;
     setInfoOpen: (value: boolean) => void;
     setType: (value: number) => void;
@@ -278,6 +280,7 @@ interface IStore {
 export const useMain = create<IStore>()(
     (set) => ({
         day: true,
+        alert: '',
         isFrench: false,
         infoOpen: false,
         isCars: {
@@ -392,7 +395,7 @@ export const useMain = create<IStore>()(
                         quantity: 0,
                     },
                     {
-                        title: 'Babi',
+                        title: 'Baby',
                         quantity: 0,
                     },
                     {
@@ -440,6 +443,7 @@ export const useMain = create<IStore>()(
         },
 
         setDay: (data) => set((state) => ({ ...state, day: data })),
+        setAlert: (data) => set((state) => ({ ...state, alert: data })),
         setInfoOpen: (data) => set((state) => ({ ...state, infoOpen: data })),
         setSubmit: (data) => set((state) => ({ ...state, submit: data })),
         setType: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, type: data } : item) })),

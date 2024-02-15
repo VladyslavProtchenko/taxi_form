@@ -12,6 +12,7 @@ import BagsSection from './Seats/SeatsSection';
 import SportSection from './Sport/SportSection';
 import ReturnSection from './Location/ReturnSection';
 import dayjs from 'dayjs';
+import Alert from './Components/Alert';
 
 const Form = (): React.ReactNode => {
     const { list,submit, activeCarId ,setIsCars,setTime, setDate, setFilled } = useMain()
@@ -92,12 +93,9 @@ const Form = (): React.ReactNode => {
         setDate(days)
     },[activeCarId])
 
-
-
-    
     return (
         <div className={container}>
-            
+            <Alert />
             {!submit ? <>
                 {list[activeCarId-1].steps === 0 && <Type />}
                 {list[activeCarId-1].steps === 1 && <InfoSection />}

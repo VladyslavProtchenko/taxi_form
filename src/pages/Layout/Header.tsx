@@ -97,13 +97,13 @@ const toggle = 'px-2 bg-white shadow-xl border-purple-500 px-1 py-1'
 const toggleActive = 'px-2 bg-white shadow-xl border-purple-500 bg-purple-500 text-white px-1 py-1'
 const toggleButton = ' flex text-[20px] border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden '
 const content = 'flex items-center w-full justify-between' 
-const image = 'w-8 h-5 text-xs bg-center bg-cover bg-no-repeat'
+const image = 'w-8 h-6 text-xs bg-center bg-cover bg-no-repeat'
 const iIcon = " flex items-center justify-center border-2  rounded-full border-orange-400 text-orange-400 "
 const headerText = 'flex font-bold items-center mx-auto text-blue-700 text-lg   '
 const step = "text-2xl ml-2 text-black font-bold "
 const wrapper = 'flex flex-col w-full max-w-[576px] px-2 '
 const lang = 'flex cursor-pointer items-center'
-const langItem = ' px-1 text-gray-600 bold text-xl'
+const langItem = ' px-1  font-bold text-xl border rounded-lg border-gray-500 h-7 ml-1'
 const header = 'fixed top-0 left-0 right-0 pt-4 pb-2 items-center justify-center z-40 bg-gray-50 flex w-full  '
 
 

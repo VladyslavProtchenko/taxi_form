@@ -28,6 +28,7 @@ const InfoSection = () => {
         setSteps,
         setValidation,
         setIsReset,
+        setAlert,
     } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -106,17 +107,17 @@ const InfoSection = () => {
 
         if(list[activeCarId-1].name.length > 2) {
             setIsName(true)
-        } else { return alert('Name is required')}
+        } else { return setAlert('Name is required !')}
         if(list[activeCarId-1].title.length>1) {
             setIsTitle(true)
-        } else { return alert('Title is required')}
+        } else { return setAlert('Title is required !')}
         if(pattern.test(list[activeCarId-1].email)) {
             setIsEmail(true)
-        } else { return alert('Email is required')}
+        } else { return setAlert('Email is required !')}
 
         if(isPhone) {
             setNoPhone(true)
-        }else { return alert('Phone is required')}
+        }else { return setAlert('Phone is required !')}
     
         if(isTitle && isName &&  isPhone && isEmail && noPhone) {
             setValidation(1)

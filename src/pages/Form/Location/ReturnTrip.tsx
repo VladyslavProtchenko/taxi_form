@@ -45,7 +45,8 @@ const ReturnTrip = ():React.ReactNode  => {
         resetReturn,
         setTimeTypeR,
         setSteps,
-        setIsReset
+        setIsReset,
+        setAlert
     } =useMain()
     const { store } = useStore()
     
@@ -80,9 +81,6 @@ const ReturnTrip = ():React.ReactNode  => {
         }
     },[list[activeCarId-1].timeR, list[activeCarId-1].dateR, list[activeCarId-1].fromR, list[activeCarId-1].toR, list[activeCarId-1].stopsR ])
 
-
-
-
     useEffect(()=>{
         setDay(list[activeCarId-1].timeR.slice(0,2) > '04' && list[activeCarId-1].timeR.slice(0,2) < '23')
     },[list[activeCarId-1].timeR,list[activeCarId-1].timeTypeR])
@@ -91,7 +89,6 @@ const ReturnTrip = ():React.ReactNode  => {
         if(trigger[1] ) setFromR(list[activeCarId-1].to)
         if(trigger[2] ) setToR(list[activeCarId-1].from)
     },[trigger,list[activeCarId-1].to, list[activeCarId-1].from])
-
 
     useEffect(()=>{
         //I get all stops revert it ans complete in new array, I want to display stops order without holes im order! so we need make a sort every time when stops changes
@@ -154,15 +151,13 @@ const ReturnTrip = ():React.ReactNode  => {
 
     },[list[activeCarId-1].from,list[activeCarId-1].fromR, list[activeCarId-1].to,list[activeCarId-1].toR])
 
-
-
     function goNext() {
         if(!list[activeCarId-1].isReturnTrip) return setSteps(4)
 
-        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return alert('need return date')
-        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return alert('need return time')
-        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return alert('need return pick up location')
-        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return alert('need return drop of location')
+        if(!list[activeCarId-1].dateR && list[activeCarId-1].isReturnTrip) return setAlert('need return date !')
+        if(!list[activeCarId-1].timeR && list[activeCarId-1].isReturnTrip ) return setAlert('need return time !')
+        if(!list[activeCarId-1].fromR && list[activeCarId-1].isReturnTrip) return setAlert('need return pick up location !')
+        if(!list[activeCarId-1].toR && list[activeCarId-1].isReturnTrip) return setAlert('need return drop of location !')
         if(
             list[activeCarId-1].date 
             && list[activeCarId-1].from 
