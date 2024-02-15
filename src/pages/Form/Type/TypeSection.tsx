@@ -16,7 +16,7 @@ const Type = ():React.ReactNode => {
             <h2 className={h2}>Make a choice of service, please!</h2>
             <div className={buttons}>
                 {(isFrench? store.typeListF: store.typeList).map((item,index)=>(
-                        <><div className={button} key={item} onClick={()=>{
+                        <div  key={item}><div className={button} onClick={()=>{
                             setType(index+1)
                             setSteps(1)
                         }}>
@@ -31,7 +31,7 @@ const Type = ():React.ReactNode => {
                                 }
                             </span>
                             <span className='text-xl text-start'>{item}</span>
-                        </div><div className="w-full border-b border-black"></div></>
+                        </div><div className="w-full border-b border-black"></div></div>
                     ))
                 }
             </div>

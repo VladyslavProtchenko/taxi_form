@@ -93,20 +93,6 @@ const Form = (): React.ReactNode => {
     },[activeCarId])
 
 
-    useEffect(() => {
-        const handleBeforeUnload = (event:BeforeUnloadEvent) => {
-            event.preventDefault();
-            alert('data caput')
-            event.returnValue = 'xxxxx';
-            return '';
-        };
-    
-        window.addEventListener('beforeunload', handleBeforeUnload);
-    
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
 
     
     return (

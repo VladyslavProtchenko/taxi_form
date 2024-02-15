@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Form from "./pages/Form/Form"
 
 import Header from "./pages/Layout/Header";
@@ -7,6 +7,21 @@ import InfoMenu from "./pages/Layout/InfoMenu";
 
 
 function App():React.ReactNode {
+
+  useEffect(() => {
+    const handleBeforeUnload = (event:BeforeUnloadEvent) => {
+        event.preventDefault();
+        event.returnValue = 'xxxxx';
+        return '';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+}, []);
+
   return (
     <div className={container} >
       <div className={wrapper} >
