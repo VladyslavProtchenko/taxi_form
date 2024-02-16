@@ -104,6 +104,6 @@ const step = "text-2xl ml-2 text-black font-bold "
 const wrapper = 'flex flex-col w-full max-w-[576px] px-2 '
 const lang = 'flex cursor-pointer items-center'
 const langItem = ' px-1  font-bold text-xl border rounded-lg border-gray-500 h-7 ml-1'
-const header = 'fixed top-0 left-0 right-0 pt-4 pb-2 items-center justify-center z-40 bg-gray-50 flex w-full  '
+const header = 'fixed top-0 left-0 right-0 pt-4 pb-2 items-center justify-center z-50 bg-gray-50 flex w-full  '
 
 
