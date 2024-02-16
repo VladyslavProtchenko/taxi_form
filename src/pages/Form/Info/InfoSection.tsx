@@ -54,7 +54,7 @@ const InfoSection = () => {
 
 
     useEffect(()=>{
-        setIsExtraNameOpen({ 1:list[activeCarId-1].name2.length>0 , 2:list[activeCarId-1].name3.length>0})
+        setIsExtraNameOpen({ 1:list[activeCarId-1].name2?.length>0 , 2:list[activeCarId-1].name3?.length>0})
         setIsExtraEmailOpen({ 1:list[activeCarId-1].email2.length>1 , 2:list[activeCarId-1].email3.length>1})
         setIsExtraPhoneOpen({ 1:list[activeCarId-1].phone2.length>0 , 2:list[activeCarId-1].phone3.length>0})
     },[])
