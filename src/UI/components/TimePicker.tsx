@@ -43,7 +43,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             setMinute(dayjs().add(15, 'minutes').format('mm'))
             
         } else {
-            console.log('work');
+            
 
                 (dayjs().format('mm') < '30')
                     ? setHour(dayjs().format('HH'))
@@ -58,8 +58,10 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             //DATE IS TODAY
 
             if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
+                (dayjs().format('mm') < '30')
+                ? setHour(dayjs().format('HH'))
+                : setHour(dayjs().add(1, 'hours').format('HH'))
                 setMinute(dayjs().add(30, 'minutes').format('mm'))
-                setHour(dayjs().format('HH'))
                 onChange(dayjs().add(30, 'minutes').format('HH:mm'))
             }
 

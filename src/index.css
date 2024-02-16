@@ -164,7 +164,8 @@ select option {
     font-weight: bold;
     width: 8px !important;
     height: 8px !important;
-    transform:rotate(-135deg)
+    transform:rotate(-135deg);
+    z-index: 100 !important;
 }
 
 .favorite .ant-select-arrow {

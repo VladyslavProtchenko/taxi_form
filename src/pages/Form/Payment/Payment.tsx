@@ -44,7 +44,6 @@ const PaymentSection = ():React.ReactNode => {
                 <div className={backBtn} onClick={()=>setSteps(6)}><MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{isFrench? 'Précédent': 'Previous'}</div>
                 {!list[activeCarId-1].filled && 
                     <button className={nextBtn} onClick={()=> {
-                            setSteps(8)
                             setValidation(9)
                             setFilled(true, activeCarId)
                         }}>

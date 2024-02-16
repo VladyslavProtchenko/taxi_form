@@ -75,7 +75,7 @@ const InfoSection = () => {
     },[list[activeCarId-1], isPhone])
 
     useEffect(()=>{
-        if(list[activeCarId-1].title.length > 0 || list[activeCarId-1].name.length > 0 || list[activeCarId-1].email.length > 1 || list[activeCarId-1].phone.length > 0 && list[activeCarId-1].isReset[1]) {
+        if(list[activeCarId-1].title?.length > 0 || list[activeCarId-1].name?.length > 0 || list[activeCarId-1].email.length > 1 || list[activeCarId-1].phone.length > 0 && list[activeCarId-1].isReset[1]) {
             return setIsReset({...list[activeCarId-1].isReset, 1: false })
         }
     },[list[activeCarId-1].name,list[activeCarId-1].title, list[activeCarId-1].email, list[activeCarId-1].phone])
@@ -109,24 +109,24 @@ const InfoSection = () => {
         } else {
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one name are mandatories.`
-                :`Au moins  un nom sont obligatoires`)
+                ? `At least one name are mandatory.`
+                :`Au moins  un nom sont obligatoire`)
             }
-        if(list[activeCarId-1].title.length>1) {
+        if(list[activeCarId-1].title?.length>1) {
             setIsTitle(true)
         } else { 
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one title are mandatories.`
-                :`Au moins  un Titre sont obligatoires.`)
+                ? `At least one title are mandatory.`
+                :`Au moins  un Titre sont obligatoire.`)
         }
         if(pattern.test(list[activeCarId-1].email)) {
             setIsEmail(true)
         } else { 
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one email address are mandatories.`
-                :`Au moins  une adresse email sont obligatoires.`)
+                ? `At least one email address are mandatory.`
+                :`Au moins  une adresse email sont obligatoire.`)
         }
 
         if(isPhone) {
@@ -134,16 +134,17 @@ const InfoSection = () => {
         }else { 
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one phone are mandatories.`
-                :`Au moins  un téléphone sont obligatoires.`)
-        }
+                ? `At least one phone are mandatory.`
+                :`Au moins  un téléphone sont obligatoire.`)
+            }
+        
     
         if(isTitle && isName &&  isPhone && isEmail && noPhone) {
             setValidation(2)
             setSteps(2)
         }
     }
-    
+    console.log(list[activeCarId-1].title, 'title')
     const options1 = isFrench ? store.titleListF.map(item=>({value: item, label: item })) : store.titleList.map(item=>({value: item, label: item }))
     return (
         <section className={section}>

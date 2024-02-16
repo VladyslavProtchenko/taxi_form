@@ -181,7 +181,7 @@ const TripContent = ():React.ReactNode => {
         setValidation(3)
         return setSteps(3)
     }
-    console.log(list[activeCarId-1].time, 'time')
+    
     return (
     <div className={container}>
             <div className={date}>
@@ -578,7 +578,7 @@ const toggleBg = 'absolute top-0 bottom-0 font-bold w-1/2 duration-300 justify-c
 const toggle ='relative  flex  rounded-lg border border-purple-500 duration-500 transition cursor-pointer overflow-hidden' 
 
 const toggleLabel ='flex items-center font-black duration-500 justify-center px-1 py-1 duration-1000 '
-const toggleLabelActive ='flex z-20 font-black items-center flex py-1 justify-center  duration-500 duration-1000 px-1 text-white font-bold 	'
+const toggleLabelActive ='flex z-20 font-black items-center flex py-1 justify-center  duration-500 duration-1000 px-1 text-white  	'
 
 
 
