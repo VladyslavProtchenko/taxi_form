@@ -109,39 +109,24 @@ const InfoSection = () => {
         } else {
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one name are mandatories.
-            
-                Thanks`
-                
-                :`Au moins  un nom sont obligatoires.
-
-                Merci`)
+                ? `At least one name are mandatories.`
+                :`Au moins  un nom sont obligatoires`)
             }
         if(list[activeCarId-1].title.length>1) {
             setIsTitle(true)
         } else { 
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one title are mandatories.
-            
-                Thanks`
-                
-                :`Au moins  un Titre sont obligatoires.
-
-                Merci`)
+                ? `At least one title are mandatories.`
+                :`Au moins  un Titre sont obligatoires.`)
         }
         if(pattern.test(list[activeCarId-1].email)) {
             setIsEmail(true)
         } else { 
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one email address are mandatories.
-            
-                Thanks`
-                
-                :`Au moins  une adresse email sont obligatoires.
-
-                Merci`)
+                ? `At least one email address are mandatories.`
+                :`Au moins  une adresse email sont obligatoires.`)
         }
 
         if(isPhone) {
@@ -149,13 +134,8 @@ const InfoSection = () => {
         }else { 
             setValidation(1)
             return setAlert(!isFrench
-                ? `At least one phone are mandatories.
-            
-                Thanks`
-                
-                :`Au moins  un téléphone sont obligatoires.
-
-                Merci`)
+                ? `At least one phone are mandatories.`
+                :`Au moins  un téléphone sont obligatoires.`)
         }
     
         if(isTitle && isName &&  isPhone && isEmail && noPhone) {

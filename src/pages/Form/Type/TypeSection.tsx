@@ -5,9 +5,10 @@ import transport from '../../../assets/taxiOrder.png'
 import delivery from '../../../assets/delivery.png' 
 import boost from '../../../assets/boost2.png' 
 import unlock from '../../../assets/lostKeys.png' 
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 const Type = ():React.ReactNode => {
-    const { isFrench, setType, setSteps,setValidation } = useMain()
+    const { list, isFrench,activeCarId, setType, setSteps,setValidation } = useMain()
     const { store } = useStore()
 
     return (
@@ -16,10 +17,9 @@ const Type = ():React.ReactNode => {
             <h2 className={h2}>Make a choice of service, please!</h2>
             <div className={buttons}>
                 {(isFrench? store.typeListF: store.typeList).map((item,index)=>(
-                        <div  key={item}><div className={button} onClick={()=>{
+                        <div key={item} className={list[activeCarId-1].type===index+1 ? buttonActive : button} onClick={()=>{
                             setType(index+1)
-                            setValidation(1)
-                            setSteps(1)
+                            
                         }}>
                             <span className={icon}>
                                 {index === 0 
@@ -32,7 +32,11 @@ const Type = ():React.ReactNode => {
                                 }
                             </span>
                             <span className='text-xl text-start'>{item}</span>
-                        </div><div className="w-full border-b border-black"></div></div>
+                            <button className={buttonNext} onClick={()=>{
+                                setValidation(1)
+                                setSteps(1)
+                            }}>{isFrench? 'Suivant': 'Next'}<MdOutlineKeyboardDoubleArrowRight className='text-2xl'/></button>
+                        </div>
                     ))
                 }
             </div>
@@ -42,11 +46,14 @@ const Type = ():React.ReactNode => {
 
 export default Type;
 
+const buttonNext = ' flex items-center absolute text-lg bottom-2 right-3 cursor-pointer text-purple-500'
+
 const iconImage =' z-10 w-20 h-20 bg-center mr-2 bg-contain bg-no-repeat '
 const icon = ''
 const h1 = ' text-3xl '
-const h2 = ' text-xl mb-'
-const button = ' w-[200px] px-2 bg-white h-[90px] border-black flex  items-center  py-2 cursor-pointer font-bold text-center hover:bg-gray-200 rounded-lg'
-const buttons = 'flex flex-col items-center justify-center rounded border-black overflow-hidden space-y-4'
+const h2 = ' text-xl mb-10'
+const button = ' w-[250px] px-6 py-2 h-[100px] border-black flex  items-center  py-2 cursor-pointer font-bold text-center  duration-500 opacity-50'
+const buttonActive = ' w-[250px] px-6 py-2 h-[100px] border-black flex  items-center  py-2 cursor-pointer font-bold text-center scale-125 duration-500 shadow-md rounded-xl bg-white shadow-purple-500 '
+const buttons = 'flex flex-col items-center justify-center space-y-6'
 
 const section = 'flex flex-col items-center  w-full  max-w-[576px] pt-12 pb-10 bg-white h-full'
