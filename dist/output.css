@@ -2594,7 +2594,7 @@ select option {
   font-size: 28px;
   font-weight: 900;
   color: #fe8191;
-  transform: translateY(-10px) translateX(-16px) rotate(45deg) !important;
+  transform: translateY(-10px) translateX(-14px) rotate(45deg) !important;
 }
 
 .blueInput .ant-input  {
