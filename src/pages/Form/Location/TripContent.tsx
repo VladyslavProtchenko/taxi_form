@@ -181,7 +181,7 @@ const TripContent = ():React.ReactNode => {
         setValidation(3)
         return setSteps(3)
     }
-    
+    console.log(list[activeCarId-1].time, 'time')
     return (
     <div className={container}>
             <div className={date}>
@@ -193,14 +193,14 @@ const TripContent = ():React.ReactNode => {
                                     if((list[activeCarId-1].type>2)) return setDateNow(true);
                                     setDateNow(!list[activeCarId-1].dateNow)
                                     if(list[activeCarId-1].dateNow) {
-                                        setTime(dayjs().format('hh:mm'))
+                                        setTime(dayjs().add(15, 'minutes').format('hh:mm'))
                                         setDate(dayjs().format('MM/DD/YYYY'))
                                         setFullDate(dayjs())
                                     } else {
-                                        (dayjs().format('mm') > '30') 
-                                            ? setTime((dayjs().add(1, 'hours').format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
-                                            : setTime((dayjs().format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
-                                        setDate(dayjs().format('MM/DD/YYYY'))
+                                        (dayjs().format('mm') > '30')
+                                            ? setTime((dayjs().add(1, 'hours').add(30, 'minutes').format('HH:mm')))
+                                            : setTime((dayjs().add(30, 'minutes').format('HH:mm')))
+                                        setDate(list[activeCarId-1].date ?list[activeCarId-1].date : dayjs().format('MM/DD/YYYY'))
                                     }
                                 }}>
                             <div style={{width: isFrench ? 70: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>

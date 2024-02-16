@@ -94,7 +94,7 @@ const green = 'px-2 py-1 bg-green-400 text-white font-bold rounded mr-2 active:b
 const red = 'px-2 py-1 bg-red-500 text-white font-bold rounded mr-2 active:bg-red-600'
 
 const toggle = 'px-2 bg-white shadow-xl border-purple-500 px-1 py-1'
-const toggleActive = 'px-2 bg-white shadow-xl border-purple-500 bg-purple-500 text-white px-1 py-1'
+const toggleActive = 'px-2 shadow-xl border-purple-500 bg-purple-500 text-white px-1 py-1'
 const toggleButton = ' flex text-[20px] border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden '
 const content = 'flex items-center w-full justify-between' 
 const image = 'w-8 h-6 text-xs bg-center bg-cover bg-no-repeat'

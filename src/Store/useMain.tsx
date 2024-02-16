@@ -295,7 +295,7 @@ export const useMain = create<IStore>()(
                 timeType: 0,
                 timeTypeR: 0,
                 filled: false,
-                validation:0,
+                validation:1,
                 isEdit: false,
                 isReset: {1:false, 2:false, 3:false, 4:false, 5:false, 6:false },
                 name: '',
@@ -315,7 +315,7 @@ export const useMain = create<IStore>()(
                 phone3: '',
 
                 date: '', 
-                time: dayjs().format('hh:mm'), 
+                time: dayjs().add(15,'minutes').format('hh:mm'), 
                 dateNow: true,
 
                 //trip information
@@ -432,7 +432,7 @@ export const useMain = create<IStore>()(
         addNewCar:() => {
             set((state)=>({
                 ...state,
-                list:[...state.list, {...state.list[state.list.length-1], id: (state.list[state.list.length-1].id+1), isEdit: false, filled: false } ]
+                list:[...state.list, {...state.list[state.list.length-1], id: (state.list[state.list.length-1].id+1), isEdit: false, filled: false, validation: 1 } ]
             }))
         },
         removeCar:(id) =>  set((state)=>({...state, list:state.list.filter(item => item.id !== id)})),
