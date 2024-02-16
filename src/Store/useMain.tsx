@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware'
+
 
 export interface IPet {
     isOther?: boolean;
@@ -7,7 +9,6 @@ export interface IPet {
     cage: boolean,
     quantity: number,
 }
-
 
 interface IItem {
     title: string,
@@ -278,6 +279,7 @@ interface IStore {
 }
 
 export const useMain = create<IStore>()(
+    persist(
     (set) => ({
         day: true,
         alert: '',
@@ -671,7 +673,6 @@ export const useMain = create<IStore>()(
                     steps:item.steps,
                 } : item)
         })),
-
         reset2: () => set((state) => ({
             ...state, list: state.list.map(item => item.id === state.activeCarId 
                 ? 
@@ -750,7 +751,6 @@ export const useMain = create<IStore>()(
                     steps:item.steps,
                 } : item)
         })),
-
         reset3: () => set((state) => ({
             ...state, list: state.list.map(item => item.id === state.activeCarId 
                 ? 
@@ -792,7 +792,6 @@ export const useMain = create<IStore>()(
                     steps:item.steps,
                 } : item)
         })),
-
         reset4: () => set((state) => ({
             ...state, list: state.list.map(item => item.id === state.activeCarId 
                 ? 
@@ -816,7 +815,6 @@ export const useMain = create<IStore>()(
                     steps:item.steps,
                 } : item)
         })),
-
         reset5: () => set((state) => ({
             ...state, list: state.list.map(item => item.id === state.activeCarId 
                 ? 
@@ -894,7 +892,6 @@ export const useMain = create<IStore>()(
                     steps:item.steps,
                 } : item)
         })),
-
         restore1 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
             ? {   
                 ...item,
@@ -920,7 +917,6 @@ export const useMain = create<IStore>()(
             } 
             : item
         )})),
-
         restore2 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
             ? 
             {   ...item,
@@ -974,7 +970,6 @@ export const useMain = create<IStore>()(
             }
             : item
         )})),
-
         restore3 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
             ? 
             {   ...item,
@@ -1004,7 +999,6 @@ export const useMain = create<IStore>()(
             }
             : item
         )})),
-
         restore4 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
             ? 
             {   ...item,
@@ -1020,7 +1014,6 @@ export const useMain = create<IStore>()(
             }
             : item
         )})),
-
         restore5 : () => set((state) => ({...state, list: state.list.map(item=> item.id === state.activeCarId
             ? 
             {   ...item,
@@ -1173,5 +1166,8 @@ export const useMain = create<IStore>()(
         setCarSeats: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, carSeats: data } : item) })),
 
         setSteps: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, steps: data } : item) })),
-    }))
+    }),
+    { name: 'taxi-form' },
+    )
+    )
 

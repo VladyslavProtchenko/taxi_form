@@ -19,7 +19,6 @@ const Form = (): React.ReactNode => {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     useEffect(()=>{
-
         let cars = {
             1: false,
             2: false,
@@ -27,7 +26,6 @@ const Form = (): React.ReactNode => {
             4: false,
             5: false,
         }
-
         list.map((item,index)=>{
             
             if(item.type>2
@@ -107,7 +105,6 @@ const Form = (): React.ReactNode => {
                 {list[activeCarId-1].steps === 7 && <PaymentSection/>}
             </> : <Submit/>}
             <Alert />
-
         </div>
     );
 };

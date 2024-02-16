@@ -11,10 +11,10 @@ import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 const sendOrder = async (data: ITaxi[], isFrench: boolean): Promise<AxiosResponse> => {
 
-    const response = await axios.post("http://localhost:7010/order",{list:data, isFrench})
-    // const response = await axios.post("https://taxibeckend.onrender.com/order",{data, isFrench})
+    // const response = await axios.post("http://localhost:7010/order",{list:data, isFrench})
+    const response = await axios.post("https://taxibeckend.onrender.com/order",{data, isFrench})
     console.log(response, 'response from server')
-    
+    localStorage.clear()
     return response;
 };
 
@@ -63,6 +63,7 @@ const Submit = (): React.ReactNode => {
                 <div onClick={async () => {
                     const data = list.filter(item=>item.filled).map(car =>{return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car})
                     await sendOrder(data, isFrench )
+
                     // navigate('success')
                 }} className={greenBtn}>Submit</div>
             </div>
