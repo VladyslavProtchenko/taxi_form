@@ -30,7 +30,7 @@ const CarSeatsSelect = () => {
                             }}
                         
                     >-</button>
-                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[0].quantity}</div>
+                    <div className={count}>{list[activeCarId-1].carSeats[0].quantity}</div>
                     <button
                         className={button} 
                         onClick={()=>{
@@ -55,7 +55,7 @@ const CarSeatsSelect = () => {
                             setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[1].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}
                     >-</button>
-                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[1].quantity}</div>
+                    <div className={count}>{list[activeCarId-1].carSeats[1].quantity}</div>
                     <button
                         className={button} 
                         onClick={()=>{
@@ -79,7 +79,7 @@ const CarSeatsSelect = () => {
                             setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[2].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                         }}
                     >-</button>
-                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[2].quantity}</div>
+                    <div className={count}>{list[activeCarId-1].carSeats[2].quantity}</div>
                     <button
                         className={button} 
                         onClick={()=>{
@@ -111,7 +111,7 @@ const CarSeatsSelect = () => {
                             }}
                         
                     >-</button>
-                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[3].quantity}</div>
+                    <div className={count}>{list[activeCarId-1].carSeats[3].quantity}</div>
                     <button
                         className={button} 
                         onClick={()=>{
@@ -134,7 +134,7 @@ const CarSeatsSelect = () => {
                             setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[4].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}  
                     >-</button>
-                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[4].quantity}</div>
+                    <div className={count}>{list[activeCarId-1].carSeats[4].quantity}</div>
                     <button
                         className={button+ ' text-green-500 active:text-green-300'} 
                         onClick={()=>{
@@ -158,7 +158,7 @@ const CarSeatsSelect = () => {
                                 }}
                             
                         >-</button>
-                        <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[5].quantity}</div>
+                        <div className={count}>{list[activeCarId-1].carSeats[5].quantity}</div>
                         <button
                             className={button+ ' text-green-500 active:text-green-300'} 
                             onClick={()=>{
@@ -182,7 +182,7 @@ const CarSeatsSelect = () => {
                             setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[6].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}
                     >-</button>
-                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[6].quantity}</div>
+                    <div className={count}>{list[activeCarId-1].carSeats[6].quantity}</div>
                     <button
                         className={button} 
                         onClick={()=>{
@@ -210,8 +210,10 @@ export default CarSeatsSelect;
 const text = ' text-gray-500 self-center text-base font-bold truncate'
 
 const part = 'relative flex px-2 flex-col w-full mb-4 pt-2 border border-purple-500 rounded-xl divide-y'
-const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-2xl text-green-500 active:text-green-300'"
-const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-3xl text-red-500 active:text-red-300"
+
+const count = ' text-3xl px-2'
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-4xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-5xl text-red-500 active:text-red-300"
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 

@@ -19,7 +19,7 @@ const BagsSelect = ():React.ReactNode => {
                                 }}
                             
                         >-</button>
-                        <div className='text-xl text-center w-7'>{item.quantity}</div>
+                        <div className={count}>{item.quantity}</div>
                         <button
                             className={button} 
                             onClick={()=>{
@@ -40,9 +40,10 @@ const BagsSelect = ():React.ReactNode => {
 export default BagsSelect;
 
 const countBox =' flex items-center'
-const button = "   cursor-pointer items-center flex duration-300  text-2xl pb-1  text-green-500 active:text-green-300'"
-const button2 = "   cursor-pointer items-center flex  duration-300  text-4xl pb-1 text-red-500 active:text-red-300"
 
+const count = ' text-3xl px-2'
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-4xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-5xl text-red-500 active:text-red-300"
 
 const card = 'relative flex justify-between pr-3 py-2 cursor-pointer border-purple-500 text-sm w-full h-[45px] '
 const container = 'relative rounded-xl px-2 flex w-full mb-6 pt-2 divide-y flex-col items-center border border-purple-500'

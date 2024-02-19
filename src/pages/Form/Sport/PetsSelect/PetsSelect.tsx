@@ -19,7 +19,7 @@ const PetsSelect = () => {
 
         {list[activeCarId-1].pets.map((item, index)=>(
             <div className={card} key={item.title}>
-                <div className='flex items-center space-x-2'>
+                <div className='flex  items-center space-x-2'>
                     {(item.title =='Dog')
                     ?<div style={{backgroundImage:`url(${dog})` }} className={' z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                     :(item.title =='Cat')
@@ -33,7 +33,7 @@ const PetsSelect = () => {
                     
                 </div>
                 
-                <div className='flex flex-col ml-1 w-full'>
+                <div className='flex ml-1 w-full items-center'>
                     {item.isOther 
                         ? <input 
                                 className=' text-gray-400 w-full  border outline-none' 
@@ -61,7 +61,7 @@ const PetsSelect = () => {
                                 setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}
                         >-</button>
-                        <div className='text-xl text-center px-1'>{item.quantity}</div>
+                        <div className={count}>{item.quantity}</div>
                         <button
                             className={button} 
                             onClick={()=>{
@@ -83,8 +83,9 @@ const PetsSelect = () => {
 export default PetsSelect;
 
 const title = ' text-gray-500 text-base font-bold'
-const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-2xl text-green-500 active:text-green-300'"
-const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-3xl text-red-500 active:text-red-300"
+const count = ' text-3xl px-2'
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-4xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-5xl text-red-500 active:text-red-300"
 
 const bagCount ='flex  items-center'
 const card = 'relative flex  border-purple-500 cursor-pointer text-sm w-full  h-[45px] '

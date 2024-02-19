@@ -79,18 +79,18 @@ export default InfoMenu;
 
 const titleItem = 'bg-white px-3 rounded border border-black'
 const time = ' mb-[141px] text-center '
-const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-center top-28  rounded-lg  w-full'
-const titles = ' absolute px-1  w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[200px]   space-y-1 py-2 text-center rounded-lg'
+const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-center top-36  rounded-lg  w-full'
+const titles = ' absolute px-1  w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[240px]   space-y-1 py-2 text-center rounded-lg'
 
 const priceItem = ' flex mb-1 h-[22px] pr-[32px] justify-center w-full font-bold'
 const priceItem2 = ' flex mb-1 h-[22px] pl-[40px] justify-center w-full font-bold'
 
-const title = 'text-cente mb-4 border-[1px] self-start px-2 mx-auto rounded border-black bg-white text-black'
+const title = 'text-center mb-4 border-[1px] self-start px-2 mx-auto rounded border-black bg-white text-black'
 
-const side = 'w-1/2  h-full px-2 flex flex-col  border-black pt-4 bg-no-repeat bg-cover'
-const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-4 bg-cover bg-right'
+const side = 'w-1/2  h-full px-2 flex flex-col  border-black pt-14 bg-no-repeat bg-cover'
+const side2 = 'w-1/2  h-full px-2 flex flex-col text-white pt-14 bg-cover bg-right'
 const modalContent = 'flex  mb-6 duration-[3000ms] h-full relative'
-const closeIcon = 'absolute top-1 left-1 z-20 text-3xl cursor-pointer shadow-lg rounded-full hover:bg-white hover:bg-opacity-25'
+const closeIcon = 'absolute text-white top-1 left-1 z-20 text-3xl cursor-pointer  rounded-lg  border-2 border-white b'
 
-const modal = 'fixed overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[0px] bg-white z-50 duration-500 '
-const modalOpen = 'fixed overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[360px] bg-white z-50 duration-500'
+const modal = 'fixed  overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[0px] bg-white z-50 duration-500 '
+const modalOpen = 'fixed  overflow-hidden flex flex-col top-4 bottom-4 shadow-xl rounded-l-xl right-0 w-[360px] bg-white z-50 duration-500'

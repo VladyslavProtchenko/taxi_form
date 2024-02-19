@@ -40,7 +40,7 @@ const PassengersSelect = () => {
                             }}
                             
                         >-</button>
-                        <div className='text-xl text-center w-7'>{list[activeCarId-1].adults}</div>
+                        <div className={count}>{list[activeCarId-1].adults}</div>
                         <button
                             className={button}
                             onClick={()=>{
@@ -143,13 +143,13 @@ const fee='text-gray-400 italic text-xs'
 const extraFee =' flex px-4 py-2  justify-between '
 
 const childrenCard = 'flex px-6 border-gray-400 shadow bg-white rounded border border-gray-200 mb-2 items-center justify-between '
-const kidsContainer = 'flex flex-col py-4'
+const kidsContainer = 'flex flex-col py-4 ml-10'
 
 const label = 'pl-2 text-gray-500 text-base font-bold'
 
-const count = ' text-xl px-2'
-const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-2xl text-green-500 active:text-green-300'"
-const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-3xl text-red-500 active:text-red-300"
+const count = ' text-3xl px-2'
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-4xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-5xl text-red-500 active:text-red-300"
 
 const bagCount ='flex items-center'
 

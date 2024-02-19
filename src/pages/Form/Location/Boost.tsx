@@ -14,6 +14,7 @@ import React from "react";
 import sky from './../../../assets/day.png'
 import sun from './../../../assets/sun.png'
 import stars from './../../../assets/stars.jpg'
+import SelectAmPm from "../Components/SelectAmPm";
 
 
 const Boost = ():React.ReactNode => {
@@ -86,21 +87,26 @@ const Boost = ():React.ReactNode => {
 
                 <div className={dateRow}>
                     <div className='flex w-full justify-between mb-2'>
-                        <div className={!list[activeCarId-1].dateNow ? toggle+ ' ' : toggle +' bg-white'} onClick={()=>{
+                    <div className={!list[activeCarId-1].dateNow ? toggle + ' ' : toggle +' bg-white'} onClick={()=>{
+                                    
                                     setDateNow(!list[activeCarId-1].dateNow)
                                     if(list[activeCarId-1].dateNow) {
-                                        setTime('')
-                                        setDate('')
+                                        setTimeType(0)
+                                        setTime(dayjs().add(15, 'minutes').format('hh:mm'))
+                                        setDate(dayjs().format('MM/DD/YYYY'))
+                                        setFullDate(dayjs())
                                     } else {
-                                        (dayjs().format('mm') > '30') 
-                                            ? setTime((dayjs().add(1, 'hours').format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
-                                            : setTime((dayjs().format('HH')) + ':' + (dayjs().add(30, 'minutes').format('mm')))
-                                        setDate(dayjs().format('DD/MM/YYYY'))
+                                        
+                                        (dayjs().format('mm') > '30')
+                                            ? setTime((dayjs().add(1, 'hours').add(30, 'minutes').format('HH:mm')))
+                                            : setTime((dayjs().add(30, 'minutes').format('HH:mm')))
+                                        setDate(list[activeCarId-1].date ?list[activeCarId-1].date : dayjs().format('MM/DD/YYYY'))
+                                        
                                     }
                                 }}>
-                            <span className={list[activeCarId-1].dateNow ? toggleLabelActive :toggleLabel}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</span>
-                            <span className={!list[activeCarId-1].dateNow ? toggleLabelActive :toggleLabel}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</span>
-                            <div className={list[activeCarId-1].dateNow ? toggleBg+ ' bg-red-500' :toggleBg + ' translate-x-full bg-green-400 ' }></div>
+                            <div style={{width: isFrench ? 70: 44 }} className={`${list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[0]:store.nowLater[0] }</div>
+                            <div  style={{width:isFrench ? 40: 44}} className={`${!list[activeCarId-1].dateNow ? toggleLabelActive : toggleLabel } `}>{isFrench? store.nowLaterF[1]:store.nowLater[1] }</div>
+                            <div className={list[activeCarId-1].dateNow ? toggleBg + ` bg-rose-500 ${isFrench? ' w-[70px] ': 'w-[44px]'}` :toggleBg + ` translate-x-full bg-green-400 ${isFrench? ' w-[70px] ': 'w-[44px]'}` }></div>
                         </div>
 
                         <div className={isDate ? dateInput: dateInput+' border-red-500'} onClick={()=> setIsDateOpen(true)} ref={ref}> 
@@ -140,17 +146,13 @@ const Boost = ():React.ReactNode => {
                         </div>
                     </div>
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[48px] left-0 right-0 bottom-0  bg-white opacity-25 cursor-not-allowed transition duration-1000 "></div>}
+                    <div className='flex justify-between items-center'>
+                        <SelectAmPm type={list[activeCarId-1].timeType} onChange={setTimeType}/>
 
-                    <div className='flex   rounded-lg px-2 bg-cover py-2 mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
-                        {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-gray-600 ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
-                            <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
-                            <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
-                            <div className="absolute border-b border-black w-[30px] right-[21.5px] rotate-[117deg]"></div>
-                            <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
-                        </div>}
-                        <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
-                        {day && <div  className='absolute  left-1/2 w-8 h-8 bg-no-repeat z-10 bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
-
+                        <div className='flex w-1/2 ml-auto rounded-lg px-2 bg-cover py-2 mx-1' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                            {day && <div  className='absolute  right-32 w-8 h-8 bg-no-repeat z-10 bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
+                            <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,18 +177,6 @@ export default Boost;
 
 
 const nextBtn = 'w-1/3 mb-20 bg-purple-500 mt-10 self-end text-center active:bg-purple-700 py-3 rounded-full text-white'
-
-
-const amText = 'pl-2 flex items-center py-1 pr-[2px] text-xl h-full'
-const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-gray-600 text-white text-xl h-full'
-
-const pmText = 'px-2 pl-4 rounded-tl triangle flex bg-white items-center py-1 text-xl '
-const pmTextActive = 'px-2 pl-4 text-white bg-gray-600  rounded-tl triangle flex items-center py-1 text-xl h-full '
-
-const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black text-xl '
-const selectTextActive = 'px-2  bg-gray-600 text-white flex items-center py-1 border-r border-black text-xl h-full'
-
-const timeToggle = ' font-bold right-2 flex  items-center text-xs  cursor-pointer  rounded overflow-hidden border border-black '
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] right-0 overflow-hidden z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl'
