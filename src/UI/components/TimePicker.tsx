@@ -33,31 +33,31 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
     const [isTime, setIsTime] = useState(0)
     const [filteredMinutes, setFilteredMinutes] = useState<string[]>([])
     const [filteredHours, setFilteredHours] = useState<string[]>(hours)
+    const [first, setFirst] = useState(true)
 
     useEffect(()=>{
-        if(list[activeCarId-1].dateNow) {
-            (dayjs().format('mm') < '45')
-                ?setHour(dayjs().format('HH'))
-                :setHour(dayjs().add(1, 'hour').format('HH'))
-
-            setMinute(dayjs().add(15, 'minutes').format('mm'))
-            
-        } else {
-            
-
-                (dayjs().format('mm') < '30')
-                    ? setHour(dayjs().format('HH'))
-                    : setHour(dayjs().add(1, 'hours').format('HH')) 
-            setMinute(dayjs().add(30, 'minutes').format('mm'))
-        }
+        if(!first) {
+            if(list[activeCarId-1].dateNow) {
+                (dayjs().format('mm') < '45')
+                    ?setHour(dayjs().format('HH'))
+                    :setHour(dayjs().add(1, 'hour').format('HH'))
+                setMinute(dayjs().add(15, 'minutes').format('mm'))
+            } else {
+                    (dayjs().format('mm') < '30')
+                        ? setHour(dayjs().format('HH'))
+                        : setHour(dayjs().add(1, 'hours').format('HH')) 
+                setMinute(dayjs().add(30, 'minutes').format('mm'))
+            }
+        } else{ setFirst(false)}
+        
     },[list[activeCarId-1].dateNow])
 
     useEffect(()=>{
 
         if(!list[activeCarId-1].dateNow && JSON.stringify(dayjs().format('MM/DD/YYYY')) === JSON.stringify(date)) {
             //DATE IS TODAY
-
-            if(list[activeCarId-1].time < dayjs().format('HH:mm')) {
+            if(list[activeCarId-1].time < dayjs().format('HH:mm') && JSON.stringify(dayjs().format('MM/DD/YYYY')) === JSON.stringify(date)) {
+                
                 (dayjs().format('mm') < '30')
                 ? setHour(dayjs().format('HH'))
                 : setHour(dayjs().add(1, 'hours').format('HH'))
@@ -118,6 +118,8 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
             onChange('00:00')
         }
     },[isAm, date])
+
+    console.log(list[activeCarId-1].time, 'time')
 
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>
@@ -200,4 +202,4 @@ const input2 ='pr-2 py-1 pl-[2px] w-[35px] outline-none'
 const button ='absolute top-[120px] rounded left-2 bg-blue-600 px-3 py-1 text-xs text-white active:bg-blue-400'
 const submenu = "absolute z-50 flex shadow-xl top-[104%] overflow-hidden pb-6 max-h-[150px] bg-white rounded "
 
-const container = 'flex cursor-pointer relative h-[40px]  bg-white items-center border border-purple-500 text-sm relative w-[100px] outline-none cursor-text rounded-xl ml-auto'
+const container = 'flex cursor-pointer relative h-[40px]  bg-white items-center border border-purple-500 text-sm relative w-[100px] z-10 outline-none cursor-text rounded-xl ml-auto'

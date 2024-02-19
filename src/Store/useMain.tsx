@@ -278,6 +278,7 @@ interface IStore {
     setSteps: (value: number) => void;
 }
 
+
 export const useMain = create<IStore>()(
     persist(
     (set) => ({
@@ -294,8 +295,8 @@ export const useMain = create<IStore>()(
             {
                 id: 1,
                 type: 1,
-                timeType: 0,
-                timeTypeR: 0,
+                timeType: dayjs().isBefore(dayjs().set('hour', 12).set('minute', 0).set('second', 0))? 1: 2,
+                timeTypeR: dayjs().isBefore(dayjs().set('hour', 12).set('minute', 0).set('second', 0))? 1: 2,
                 filled: false,
                 validation:1,
                 isEdit: false,

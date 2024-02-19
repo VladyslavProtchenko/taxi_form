@@ -21,6 +21,8 @@ import stars from './../../../assets/stars.jpg'
 import train from './../../../assets/train.jpeg'
 import boat from './../../../assets/ship.png'
 import Buttons from "../Components/Buttons";
+import SelectAmPm from "../Components/SelectAmPm";
+import IconsFilter from "../../../services/IconsFilter";
 
 
 interface IObj {[key:number]: string}
@@ -73,47 +75,12 @@ const TripContent = ():React.ReactNode => {
         }
     },[list[activeCarId-1].dateNow])
     useEffect(()=>{
-        //if montreal airport is pick up location  we need require departure and flight.
-        //if if montreal airport is pick up location we need just show departure and flight.
-        //if just airport we need show flight number
-
         setIcon(0)
         setIcon2(0)
         setFlight({title:'', prefix:'',number:'' })
         setFlight2({title:'', prefix:'',number:'' })
-        //we try to find word airport|bus|room|train and set Icon
-        store.airportArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(1)
-        })
-        store.busArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon(3)
-        })
-        store.trainArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(2)
-        })
-        store.boatArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(4)
-        })
-        store.hotelArray.map(item =>{
-            if(list[activeCarId-1].from.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon(5)
-        })
-        store.airportArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(1)
-        })
-        store.busArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length >0) setIcon2(3)
 
-        })
-        store.trainArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(2)
-        })
-        store.boatArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(4)
-        })
-        store.hotelArray.map(item =>{
-            if(list[activeCarId-1].to.split(' ').filter((word)=> word.toLowerCase() === item.toLowerCase()).length > 0) setIcon2(5)
-        })
-
+        IconsFilter(store, list[activeCarId-1].from, list[activeCarId-1].to, setIcon, setIcon2)
     },[list[activeCarId-1].from, list[activeCarId-1].to])
 
     useEffect(()=>{
@@ -141,18 +108,6 @@ const TripContent = ():React.ReactNode => {
             setIsTo(list[activeCarId-1].to.length>0)
         }
     },[list[activeCarId-1]])
-
-    useEffect(()=>{
-        const now = dayjs();
-        const noon = dayjs().set('hour', 12).set('minute', 0).set('second', 0).set('millisecond', 0);
-        if (now.isBefore(noon)) {
-            setTimeType(1)
-        } else if (now.isAfter(noon)) {
-            setTimeType(2)
-        } else {
-            setTimeType(0)
-        }
-    }, [])
 
     function goNext() {
         setTrigger(true)
@@ -183,7 +138,7 @@ const TripContent = ():React.ReactNode => {
     }
     
     return (
-    <div className={container}>
+        <div className={container}>
             <div className={date}>
                 <div className={fare}>{day ? isFrench? 'Tarification du jour ': 'Day fare': isFrench? 'Tarification de nuit': 'Night fare'} </div>
 
@@ -244,17 +199,13 @@ const TripContent = ():React.ReactNode => {
                         </div>
                     </div>
                     {list[activeCarId-1].dateNow && <div className="absolute z-30 top-[53px] left-0 -right-2 bottom-0  bg-white opacity-25 cursor-not-allowed transition duration-1000 "></div>}
+                    <div className="flex justify-between items-center">
 
-                    <div className='flex relative w-full rounded-lg px-4 z-10 justify-between items-end bg-cover py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
-                        {!list[activeCarId-1].dateNow && <div className={list[activeCarId-1].timeType===1 ? timeToggle + ' bg-black ':list[activeCarId-1].timeType===1 ? timeToggle+ ' bg-gray-600':timeToggle+ ' bg-white' }>
-                            <div className={list[activeCarId-1].timeType===0 ? selectTextActive :selectText } onClick={()=>setTimeType(0)}>{isFrench? 'Choisir':'Select'}</div>
-                            <div className={list[activeCarId-1].timeType===1 ? amTextActive : amText} onClick={()=>setTimeType(1)}>am</div>
-                            <div className="absolute border-b border-black w-[35px] right-[24px] z-10 rotate-[114deg]"></div>
-                            <div className={list[activeCarId-1].timeType===2 ? pmTextActive: pmText} onClick={()=>setTimeType(2)}>PM</div>    
-                        </div>}
-                        <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
-                        {day && <div  className='absolute top-2 left-1/2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
-
+                        <SelectAmPm type={list[activeCarId-1].timeType} onChange={setTimeType}/>
+                        <div className='flex relative w-1/2 px-4 z-10 justify-between items-end bg-cover py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                            <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
+                            {day && <div  className='absolute top-3 left-16 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -539,20 +490,6 @@ const departureBox = "border border-purple-500 flex items-center w-1/3 rounded-x
 
 
 const box = 'flex relative border border-purple-500   bg-white rounded-xl w-full'
-
-
-const amText = 'pl-2 flex items-center py-1 pr-[2px] '
-const amTextActive = 'pl-2  flex items-center py-1 pr-[2px] bg-black text-white font-bold'
-
-const pmText = 'px-2 pl-4 rounded-tl triangle flex bg-white items-center py-1 '
-const pmTextActive = 'px-2 pl-4 text-white bg-black rounded-tl triangle flex items-center py-1 font-bold'
-
-const selectText = 'px-2 text-[#0C0B09] bg-gray-200 flex items-center py-1 border-r border-black '
-const selectTextActive = 'px-2  bg-black text-white flex items-center py-1 border-r border-black '
-
-const timeToggle = 'relative font-bold right-2 flex  items-center text-base  cursor-pointer  rounded overflow-hidden border border-black '
-
-
 const iconCard = 'flex items-center justify-center w-9 h-9 rounded-lg bg-white border border-black shadow-lg'
 
 const iconsType = 'flex mb-2 justify-between w-full py-2'

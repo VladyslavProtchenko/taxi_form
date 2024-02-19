@@ -1,0 +1,29 @@
+{
+    "type_title": "Make a choice of service, please!",
+    "type_transport":"Transport",
+    "type_delivery":"Delivery",
+    "type_boost":"Boost",
+    "type_unlock": "Unlocking doors",
+
+    "adding":"Adding",
+    "editting":"Editting",
+    "car":"Car",
+
+    "service_type":"Service Type",
+    "contacts": "Contacts",
+    "one-way":"One-Way",
+    "return":"Return",
+    "passengers":"Vehicle & Passengers",
+    "seats": "Seats & Strollers!",
+    "sport":"Sport & Pets",
+    "paiement":"Paiement",
+    "confirmation":"Confirmation",
+    "type_title": "Make a choice of service, please!",
+    "type_transport":"Transport",
+    "type_delivery":"Delivery",
+    "type_boost":"Boost",
+    "type_title": "Make a choice of service, please!",
+    "type_transport":"Transport",
+    "type_delivery":"Delivery",
+    "type_boost":"Boost"
+}

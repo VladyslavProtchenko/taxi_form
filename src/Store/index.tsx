@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface IStore {
+export interface IStore {
     titleList: string[];
     titleListF: string[];
 
@@ -36,11 +36,9 @@ interface IStore {
     tripList: string[];
     departureSections: string[];
     flights: string[];
-    airportArray: string[];
-    busArray: string[];
-    trainArray: string[];
-    boatArray: string[];
-    hotelArray: string[];
+
+    iconValues:{ [key: string]: string[] };
+
 
     menuTabs: string[];
     menuTabsF: string[];
@@ -133,31 +131,32 @@ export const useStore = create<Store>(() => ({
             'QATAR - QT',
             'RAM - RAM',
         ],
-        
-        airportArray: [
-            'plane',
-            'airport',
-            'airport,',
-            'Airport',
-            'Airport - Montreal ( 975 Roméo-Vachon)',
-            'Aéroport - Montréal ( 975 Roméo-Vachon)',
-            'YUL - Montreal Airport'
-        ],
-        busArray: [
-            'bus',
-            'bus station'
-        ],
-        trainArray: [
-            'train',
-            'train station underground'
-        ],
-        boatArray: [
-            'boat'
-        ],
-        hotelArray: [
-            'room',
-            'hotel'
-        ],
+        iconValues: {
+            airports: [
+                'plane',
+                'airport',
+                'airport,',
+                'Airport',
+                'Airport - Montreal ( 975 Roméo-Vachon)',
+                'Aéroport - Montréal ( 975 Roméo-Vachon)',
+                'YUL - Montreal Airport'
+            ],
+            train:[
+                'train',
+                'train station underground'
+            ],
+            bus: [
+                'bus',
+                'bus station'
+            ],
+            boat: [
+                'boat'
+            ],
+            hotel: [
+                'room',
+                'hotel'
+            ],
+        }
 
 
     },
