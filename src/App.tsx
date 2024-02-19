@@ -10,13 +10,13 @@ function App():React.ReactNode {
   return (
     <div className={container} >
       <div className={wrapper} >
-        <InfoMenu />
         <Header />
         <div className={content}>
           <Form />
         </div>
         <Footer />
       </div>
+        <InfoMenu />
     </div>
   )
 }

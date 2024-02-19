@@ -62,7 +62,7 @@ const Header = (): React.ReactNode => {
                             : isFrench ? activeCarId + 'e' : activeCarId + 'th'
                         } {isFrench ? ' Véhicule' : ' Car'}
                     </div>
-                    <div className={iIcon} onClick={()=>setInfoOpen(!infoOpen)}><TiInfoLarge className='cursor-pointer text-3xl' /></div>
+                    <div className={iIcon} onClick={()=> setInfoOpen(!infoOpen)}><TiInfoLarge className='cursor-pointer text-3xl' /></div>
                     <div className={step}><span className='text-blue-500 font-black text-[22px] italic'>{list[activeCarId - 1].steps + 1}</span>|9</div>
                 </div>
 

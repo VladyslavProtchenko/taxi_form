@@ -1,21 +1,18 @@
 import React from 'react';
 import { useMain } from '../../Store/useMain';
-import useOnclickOutside from "react-cool-onclickoutside";
 import { IoMdClose } from "react-icons/io";
 import { useStore } from '../../Store/index';
 import { PiArrowArcLeftBold } from "react-icons/pi";
 import day from './../../assets/day.png'
-// import night from './../../assets/stars.jpg'
 import night from './../../assets/night.png'
 
 const InfoMenu = (): React.ReactNode => {
-    const { infoOpen, setInfoOpen,isFrench } = useMain()
+    const { infoOpen, setInfoOpen, isFrench } = useMain()
     const { store } = useStore()
-    const ref = useOnclickOutside(() => setInfoOpen(false));  
-
+    
 
     return (
-        <div className={infoOpen ? modalOpen : modal} ref={ref}>
+        <div className={infoOpen ? modalOpen : modal} >
             <IoMdClose className={closeIcon} onClick={() => setInfoOpen(false)} />
             <div className={infoOpen ? modalContent : ' opacity-0 '}>
                 <div className={fromTo}>
@@ -74,7 +71,6 @@ const InfoMenu = (): React.ReactNode => {
                 </div>
             </div>
 
-            <div className={infoOpen ? fees: 'opacity-0'}>Au montant de départ s’ajoute une redevance de 0,90 $ + taxes (1,05 $) </div>
         </div>
     );
 };
@@ -86,7 +82,6 @@ const time = ' mb-[141px] text-center '
 const fromTo = ' absolute flex right-1/2 translate-x-1/2 justify-center items-center top-28  rounded-lg  w-full'
 const titles = ' absolute px-1  w-[140px] text-sm right-1/2 translate-x-1/2 flex flex-col items-center top-[200px]   space-y-1 py-2 text-center rounded-lg'
 
-const fees = 'px-4 text-gray-400 italic text-center mt-auto mb-4 duration-[3000ms]'
 const priceItem = ' flex mb-1 h-[22px] pr-[32px] justify-center w-full font-bold'
 const priceItem2 = ' flex mb-1 h-[22px] pl-[40px] justify-center w-full font-bold'
 

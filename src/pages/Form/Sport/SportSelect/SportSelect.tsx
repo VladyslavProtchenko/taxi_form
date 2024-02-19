@@ -1,6 +1,5 @@
 import { useMain } from '../../../../Store/useMain';
 import React from 'react';
-import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 import surfer from './../../../../assets/surfing.png'
 import golfer from './../../../../assets/golf.png'
 import ski from './../../../../assets/ski.png'
@@ -25,24 +24,23 @@ const SportsSelect = ():React.ReactNode => {
                         <span className={title}> {item.title}</span>
                     </div>
                     <div className={bagCount}>
-                        <div className='text-xl text-center w-7'>{item.quantity}</div>
-                        <div className={countBox}>
-                            <IoIosArrowUp
-                                className={button+ ' text-green-500 active:text-green-300'} 
-                                onClick={()=>{
-                                    if(item.quantity >= 4) return;
-                                    setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
-                                }}
-                            />
-                            <IoIosArrowDown 
-                                className={button+ ' text-red-500 active:text-red-300'} 
-                                onClick={()=>{
-                                    if(item.title === list[activeCarId-1].sport[0].title && item.quantity <= 0) return;
-                                    if(item.quantity <= 0 ) return setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
-                                        setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}
-                            />
-                        </div>
+                        <button 
+                            className={button2} 
+                            onClick={()=>{
+                                if(item.title === list[activeCarId-1].sport[0].title && item.quantity <= 0) return;
+                                if(item.quantity <= 0 ) return setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, isActive: false} : rem ))
+                                    setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                            }}
+                        >-</button>
+                        <div className='text-xl text-center px-1'>{item.quantity}</div>
+                        <button
+                            className={button} 
+                            onClick={()=>{
+                                if(item.quantity >= 4) return;
+                                setSport(list[activeCarId-1].sport.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                            }}
+                        >+</button>
+                        
                     </div>
 
                 </div>
@@ -56,8 +54,8 @@ const SportsSelect = ():React.ReactNode => {
 export default SportsSelect;
 
 const title = ' text-gray-500 text-base font-bold'
-const countBox =' flex flex-col space-y-1'
-const button = "   cursor-pointer scale-[160%] duration-300 "
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-2xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-3xl text-red-500 active:text-red-300"
 
 const bagCount ='flex space-x-1 ml-auto items-center'
 const card = 'relative flex pr-4  text-sm cursor-pointer w-full h-[45px] border-purple-500'

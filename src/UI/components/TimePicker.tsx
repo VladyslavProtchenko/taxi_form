@@ -29,7 +29,6 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
     const [hour, setHour] = useState(time.replace(/:/g, '') ? time.slice(0,2): (dayjs().format('mm') > '30') ? dayjs().add(1, 'hours').format('HH'): dayjs().format('HH'))
     const [minute, setMinute] = useState(time.replace(/:/g, '') ? time.slice(3): dayjs().add(30, 'minutes').format('mm'))
     const [isOpen, setIsOpen] = useState(false)
-    const [isFirstRender, setIsFirstRender] = useState(true)
     const [isTime, setIsTime] = useState(0)
     const [filteredMinutes, setFilteredMinutes] = useState<string[]>([])
     const [filteredHours, setFilteredHours] = useState<string[]>(hours)
@@ -101,7 +100,7 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
     }, [hour, minute])
 
     useEffect(()=>{
-        if(isFirstRender) return setIsFirstRender(false)
+        if(first) return setFirst(false)
         
         if(isAm === 2) {
             if(hour < '12' ) setHour(String(+hour +12))

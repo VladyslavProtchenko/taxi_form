@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { IoPeopleOutline, } from "react-icons/io5";
 import { useMain } from '../../../../Store/useMain';
-import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 import { Select } from 'antd';
 
 
@@ -33,56 +32,53 @@ const PassengersSelect = () => {
                 <div className={card}>
                     <span className={label}> {isFrench ? 'Adultes': 'Adults'}</span>
                     <div className={bagCount}>
+                        <button 
+                            className={button2} 
+                            onClick={()=>{
+                                if(!list[activeCarId-1].adults ) return;
+                                setAdults(list[activeCarId-1].adults - 1 )
+                            }}
+                            
+                        >-</button>
                         <div className='text-xl text-center w-7'>{list[activeCarId-1].adults}</div>
-                            <div className={countBox}>
-                                <IoIosArrowUp
-                                    className={button+ ' text-green-500 active:text-green-300'}
-                                    onClick={()=>{
-                                        if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType(3)
-                                        if((list[activeCarId-1].kids.length + list[activeCarId-1].adults)  >= 7) return;
-                                        setAdults(list[activeCarId-1].adults + 1)
-                                    }}
-                                />
-                                <IoIosArrowDown 
-                                    className={button+ ' text-red-500 active:text-red-300'} 
-                                    onClick={()=>{
-                                        if(!list[activeCarId-1].adults ) return;
-                                        setAdults(list[activeCarId-1].adults - 1 )
-                                    }}
-                                    
-                                />
-                        </div>
-                        
+                        <button
+                            className={button}
+                            onClick={()=>{
+                                if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType(3)
+                                if((list[activeCarId-1].kids.length + list[activeCarId-1].adults)  >= 7) return;
+                                setAdults(list[activeCarId-1].adults + 1)
+                            }}
+                        >+</button>
                     </div>
                 </div>
 
                 <div className={list[activeCarId-1].kids.length? card : card} >
                     <span className={label}>{isFrench ? 'Enfants': 'Kids'}</span>
                     <div className={bagCount}>
+                        
+                        <button 
+                            className={button2} 
+                            onClick={()=>{
+                                if(!list[activeCarId-1].kids.length) return;
+                                const newArray = [...list[activeCarId-1].kids]
+                                newArray.pop()
+                                setKids(newArray)
+                            }}
+                            
+                        >-</button>
                         <div className={count}>{list[activeCarId-1].kids.length}</div>
-                        <div className={countBox}>
-                            <IoIosArrowUp
-                                className={button+ ' text-green-500 active:text-green-300'}
-                                onClick={()=>{
-                                    if(!list[activeCarId-1].adults) return;
-                                    if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType(3)
-    
-                                    if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >= 7 ) return;
-                                    const newKid = 0
-                                    setKids([...list[activeCarId-1].kids, newKid] )
-                                }}
-                            />
-                            <IoIosArrowDown 
-                                className={button+ ' text-red-500 active:text-red-300'} 
-                                onClick={()=>{
-                                    if(!list[activeCarId-1].kids.length) return;
-                                    const newArray = [...list[activeCarId-1].kids]
-                                    newArray.pop()
-                                    setKids(newArray)
-                                }}
-                                
-                            />
-                        </div>
+                        <button
+                            className={button}
+                            onClick={()=>{
+                                if(!list[activeCarId-1].adults) return;
+                                if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >=4) setCarType(3)
+
+                                if((list[activeCarId-1].kids.length + list[activeCarId-1].adults) >= 7 ) return;
+                                const newKid = 0
+                                setKids([...list[activeCarId-1].kids, newKid] )
+                            }}
+                        >+</button>
+                        
                         
                     </div>
                 </div>
@@ -108,27 +104,25 @@ const PassengersSelect = () => {
                 <div className={list[activeCarId-1].kids.length ? card : card}>
                     <span className={label}>{isFrench ? 'Bébés': 'Babies'}</span>
                     <div className={bagCount}>
+                        <button 
+                            className={button2} 
+                            onClick={()=>{
+                                if(!list[activeCarId-1].babies ) return;
+                                setBabies(list[activeCarId-1].babies - 1 )
+                            }}
+                        >-</button>
                         <div className={count}>{list[activeCarId-1].babies}</div>
-                        <div className={countBox}>
-                            <IoIosArrowUp
-                                className={button+ ' text-green-500 active:text-green-300'}
-                                onClick={()=>{
-                                    if(list[activeCarId-1].babies >= 2 && list[activeCarId-1].carType !== 3) return;
-                                    if(list[activeCarId-1].babies >= 2) return;
-                                    if(list[activeCarId-1].babies >= 1 && list[activeCarId-1].adults >5) return;
-    
-                                    setBabies(list[activeCarId-1].babies + 1)
-                                }}
-                            />
-                            <IoIosArrowDown 
-                                className={button+ ' text-red-500 active:text-red-300'} 
-                                onClick={()=>{
-                                    if(!list[activeCarId-1].babies ) return;
-                                    setBabies(list[activeCarId-1].babies - 1 )
-                                }}
-                            />
-                        </div>
-                        
+                        <button
+                            className={button}
+                            onClick={()=>{
+                                if(list[activeCarId-1].babies >= 2 && list[activeCarId-1].carType !== 3) return;
+                                if(list[activeCarId-1].babies >= 2) return;
+                                if(list[activeCarId-1].babies >= 1 && list[activeCarId-1].adults >5) return;
+
+                                setBabies(list[activeCarId-1].babies + 1)
+                            }}
+                        >+</button>
+                            
                     </div>
                 </div>
 
@@ -148,16 +142,16 @@ export default PassengersSelect;
 const fee='text-gray-400 italic text-xs'
 const extraFee =' flex px-4 py-2  justify-between '
 
-const childrenCard = 'flex px-6  border-gray-400 shadow bg-white rounded border border-gray-200 mb-2 items-center justify-between '
+const childrenCard = 'flex px-6 border-gray-400 shadow bg-white rounded border border-gray-200 mb-2 items-center justify-between '
 const kidsContainer = 'flex flex-col py-4'
 
 const label = 'pl-2 text-gray-500 text-base font-bold'
 
 const count = ' text-xl px-2'
-const countBox =' flex flex-col space-y-1'
-const button = "   cursor-pointer scale-[160%]  duration-300 "
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-2xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-3xl text-red-500 active:text-red-300"
 
-const bagCount ='flex space-x-1 ml-auto items-center'
+const bagCount ='flex items-center'
 
 const card = 'relative text-sm flex pr-4 items-center py-2 justify-between cursor-pointer h-[45px] border-purple-500 '
 const content = 'relative border px-2 mb-10 h-min border-purple-500 rounded-xl pt-2 divide-y flex flex-col bg-white relative text-sm w-full'

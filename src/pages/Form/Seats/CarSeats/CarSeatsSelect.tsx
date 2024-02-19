@@ -1,5 +1,4 @@
 import { useMain } from '../../../../Store/useMain';
-import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 import babiSeat from './../../../../assets/babySeat.png'
 import regularBaby from './../../../../assets/BabiSeat2.png'
 import stroller from './../../../../assets/stroller.png'
@@ -23,24 +22,23 @@ const CarSeatsSelect = () => {
                 <span className={text}> {list[activeCarId-1].carSeats[0].title}</span>
                 
                 <div className={bagCount}>
-                    <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[0].quantity}</div>
-                    <div className={countBox}>
-                        <IoIosArrowUp
-                            className={button+ ' text-green-500 active:text-green-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[0].quantity >= 10) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[0].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                    <button 
+                        className={button2} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[0].quantity <= 0 ) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[0].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}
-                        />
-                        <IoIosArrowDown 
-                            className={button+ ' text-red-500 active:text-red-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[0].quantity <= 0 ) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[0].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}
-                            
-                        />
-                    </div>
+                        
+                    >-</button>
+                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[0].quantity}</div>
+                    <button
+                        className={button} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[0].quantity >= 10) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[0].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                        }}
+                    >+</button>
+                        
                 </div>
             </div>
 
@@ -50,23 +48,21 @@ const CarSeatsSelect = () => {
                 <span className={text}> {list[activeCarId-1].carSeats[1].title}</span>
                 
                 <div className={bagCount}>
-                    <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[1].quantity}</div>
-                    <div className={countBox}>
-                        <IoIosArrowUp
-                            className={button+ ' text-green-500 active:text-green-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[1].quantity >= 10) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[1].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                    <button 
+                        className={button2} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[1].quantity <= 0 ) return
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[1].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}
-                        />
-                        <IoIosArrowDown 
-                            className={button+ ' text-red-500 active:text-red-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[1].quantity <= 0 ) return
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[1].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}
-                        />
-                    </div>
+                    >-</button>
+                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[1].quantity}</div>
+                    <button
+                        className={button} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[1].quantity >= 10) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[1].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                        }}
+                    >+</button>
                 </div>
             </div>
 
@@ -76,23 +72,21 @@ const CarSeatsSelect = () => {
                 <span className={text}> {list[activeCarId-1].carSeats[2].title}</span>
                 
                 <div className={bagCount}>
-                    <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[2].quantity}</div>
-                    <div className={countBox}>
-                        <IoIosArrowUp
-                            className={button+ ' text-green-500 active:text-green-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[2].quantity >= 10) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[2].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
-                            }}
-                        />
-                        <IoIosArrowDown 
-                            className={button+ ' text-red-500 active:text-red-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[2].quantity <= 0 ) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[2].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                            }}
-                        />
-                    </div>
+                    <button 
+                        className={button2} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[2].quantity <= 0 ) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[2].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                        }}
+                    >-</button>
+                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[2].quantity}</div>
+                    <button
+                        className={button} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[2].quantity >= 10) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[2].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                        }}
+                    >+</button>
                 </div>
             </div>
 
@@ -109,24 +103,22 @@ const CarSeatsSelect = () => {
                 <span className={text}> {list[activeCarId-1].carSeats[3].title}</span>
                 
                 <div className={bagCount}>
-                    <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[3].quantity}</div>
-                    <div className={countBox}>
-                        <IoIosArrowUp
-                            className={button+ ' text-green-500 active:text-green-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[3].quantity >= 10) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[3].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                    <button 
+                        className={button2} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[3].quantity <= 0 ) return 
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[3].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}
-                        />
-                        <IoIosArrowDown 
-                            className={button+ ' text-red-500 active:text-red-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[3].quantity <= 0 ) return 
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[3].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}
-                            
-                        />
-                    </div>
+                        
+                    >-</button>
+                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[3].quantity}</div>
+                    <button
+                        className={button} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[3].quantity >= 10) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[3].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                        }}
+                    >+</button>
                 </div>
             </div>
 
@@ -135,23 +127,21 @@ const CarSeatsSelect = () => {
                 <span className={text}> {list[activeCarId-1].carSeats[4].title}</span>
                 
                 <div className={bagCount}>
-                    <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[4].quantity}</div>
-                    <div className={countBox}>
-                        <IoIosArrowUp
-                            className={button+ ' text-green-500 active:text-green-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[4].quantity >= 10) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[4].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
-                            }}
-                        />
-                        <IoIosArrowDown 
-                            className={button+ ' text-red-500 active:text-red-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[4].quantity <= 0 ) return ;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[4].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}  
-                        />
-                    </div>
+                    <button 
+                        className={button+ ' text-red-500 active:text-red-300'} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[4].quantity <= 0 ) return ;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[4].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                            }}  
+                    >-</button>
+                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[4].quantity}</div>
+                    <button
+                        className={button+ ' text-green-500 active:text-green-300'} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[4].quantity >= 10) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[4].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                        }}
+                    >+</button>
                 </div>
             </div>
 
@@ -160,24 +150,23 @@ const CarSeatsSelect = () => {
                 <span className={text}> {list[activeCarId-1].carSeats[5].title}</span>
                 
                 <div className={bagCount}>
-                    <div className='text-xl text-center w-7'>{list[activeCarId-1].carSeats[5].quantity}</div>
-                    <div className={countBox}>
-                        <IoIosArrowUp
-                            className={button+ ' text-green-500 active:text-green-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[5].quantity >= 10) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[5].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
-                            }}
-                        />
-                        <IoIosArrowDown 
+                        <button 
                             className={button+ ' text-red-500 active:text-red-300'} 
                             onClick={()=>{
                                 if(list[activeCarId-1].carSeats[5].quantity <= 0 ) return 
                                 setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[5].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}
                             
-                        />
-                    </div>
+                        >-</button>
+                        <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[5].quantity}</div>
+                        <button
+                            className={button+ ' text-green-500 active:text-green-300'} 
+                            onClick={()=>{
+                                if(list[activeCarId-1].carSeats[5].quantity >= 10) return;
+                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[5].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                            }}
+                        >+</button>
+                        
                 </div>
             </div>
 
@@ -186,23 +175,22 @@ const CarSeatsSelect = () => {
                 <span className={text}> {list[activeCarId-1].carSeats[6].title}</span>
                 
                 <div className={bagCount}>
-                    <div className='text-xl text-center w-5'>{list[activeCarId-1].carSeats[6].quantity}</div>
-                    <div className={countBox}>
-                        <IoIosArrowUp
-                            className={button+ ' text-green-500 active:text-green-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[6].quantity >= 10) return;
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[6].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                    <button 
+                        className={button2} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[6].quantity <= 0 ) return 
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[6].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                             }}
-                        />
-                        <IoIosArrowDown 
-                            className={button+ ' text-red-500 active:text-red-300'} 
-                            onClick={()=>{
-                                if(list[activeCarId-1].carSeats[6].quantity <= 0 ) return 
-                                setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[6].title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}
-                        />
-                    </div>
+                    >-</button>
+                    <div className='text-xl text-center px-1'>{list[activeCarId-1].carSeats[6].quantity}</div>
+                    <button
+                        className={button} 
+                        onClick={()=>{
+                            if(list[activeCarId-1].carSeats[6].quantity >= 10) return;
+                            setCarSeats(list[activeCarId-1].carSeats.map(rem=>list[activeCarId-1].carSeats[6].title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                        }}
+                    >+</button>
+                    
                 </div>
             </div>
 
@@ -222,8 +210,9 @@ export default CarSeatsSelect;
 const text = ' text-gray-500 self-center text-base font-bold truncate'
 
 const part = 'relative flex px-2 flex-col w-full mb-4 pt-2 border border-purple-500 rounded-xl divide-y'
-const countBox =' flex flex-col space-y-1'
-const button = "   cursor-pointer scale-[160%]  duration-300 "
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-2xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-3xl text-red-500 active:text-red-300"
+
 const bagCount ='flex space-x-1 ml-auto items-center'
 
 const card = 'relative flex  pr-4 py-2 cursor-pointer w-full text-sm max-h-[45px] border-purple-500'

@@ -25,7 +25,7 @@ const ReturnSection = ():React.ReactNode => {
                 <div className={returnTabActiveOne} onClick={()=>{setIsReturnTrip(!list[activeCarId-1].isReturnTrip )}}>
                     <span
                         className={list[activeCarId-1].isReturnTrip ? tab+ ' bg-rose-500' : tab + ' bg-green-400 ' }
-                    >{list[activeCarId-1].isReturnTrip ? isFrench? '- décoller Retour ':'- take off Return':isFrench? '+ ajouter Retour': '+ add Return'}</span>
+                    >{list[activeCarId-1].isReturnTrip ? isFrench? '- Annuler le Retour ':'- take off Return':isFrench? '+ ajouter Retour': '+ add Return'}</span>
                 </div>
             </div>
 

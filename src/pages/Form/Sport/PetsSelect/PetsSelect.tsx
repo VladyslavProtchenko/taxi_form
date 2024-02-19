@@ -1,6 +1,5 @@
 import { IPet, useMain } from '../../../../Store/useMain';
 import {  useState } from 'react';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import rabbit from './../../../../assets/rabbit2.png'
 import cat from './../../../../assets/cat.png'
 import mira from './../../../../assets/serviceDog3.png'
@@ -55,23 +54,21 @@ const PetsSelect = () => {
                         </div>}
                 </div>
                 <div className={bagCount}>
-                        <div className='text-xl text-center w-7'>{item.quantity}</div>
-                        <div className={countBox}>
-                            <IoIosArrowUp
-                                className={button+ ' text-green-500 active:text-green-300'} 
-                                onClick={()=>{
-                                    if(item.quantity >= 4) return;
-                                    setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
-                                }}
-                            />
-                            <IoIosArrowDown 
-                                className={button+ ' text-red-500 active:text-red-300'} 
-                                onClick={()=>{
-                                    if(item.quantity === 0) return;
-                                    setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                }}
-                            />
-                        </div>
+                        <button 
+                            className={button2} 
+                            onClick={()=>{
+                                if(item.quantity === 0) return;
+                                setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
+                            }}
+                        >-</button>
+                        <div className='text-xl text-center px-1'>{item.quantity}</div>
+                        <button
+                            className={button} 
+                            onClick={()=>{
+                                if(item.quantity >= 4) return;
+                                setPets(list[activeCarId-1].pets.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                            }}
+                        >+</button>
                     </div>
                 
             </div>
@@ -86,8 +83,8 @@ const PetsSelect = () => {
 export default PetsSelect;
 
 const title = ' text-gray-500 text-base font-bold'
-const countBox =' flex flex-col space-y-1'
-const button = "   cursor-pointer scale-[160%] duration-300 "
+const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-2xl text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 text-3xl text-red-500 active:text-red-300"
 
 const bagCount ='flex  items-center'
 const card = 'relative flex  border-purple-500 cursor-pointer text-sm w-full  h-[45px] '

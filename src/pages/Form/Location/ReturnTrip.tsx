@@ -178,7 +178,7 @@ const ReturnTrip = ():React.ReactNode  => {
             <div className={fare}>{day ? isFrench? 'Tarification jour ': 'Day fare': isFrench? 'Tarification nuit': 'Night fare'} </div>
 
             <div className={dateRow}>
-                <div className="flex pb-3 justify-end w-[200px] self-end text-blue-700">
+                <div className="flex pb-3 justify-end w-[200px] text-blue-700">
 
                     <div className={isDateR ? dateInput : dateInput +' border-red-500'}  onClick={()=> setIsDateOpen(true)} ref={ref}> 
                         <span className='flex items-center text-xl '><PiCalendarCheckLight/></span>
@@ -548,7 +548,7 @@ const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-6
 const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] right-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl overflow-hidden'
 const dateRow = 'flex relative w-full justify-between flex-col'
 
-const dateInput = 'flex border bg-white border-purple-500 cursor-pointer h-[40px] relative max-w-[210px] w-full rounded-xl'
+const dateInput = 'flex border bg-white border-purple-500 pl-[2px] cursor-pointer h-[40px] relative max-w-[210px] w-full rounded-xl'
 
 const locationCard = 'flex relative items-center w-full space-x-2 mb-2'
 

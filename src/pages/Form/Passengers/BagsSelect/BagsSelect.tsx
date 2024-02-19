@@ -1,6 +1,5 @@
 import { useMain } from '../../../../Store/useMain';
 import React from 'react';
-import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 import bags from '../../../../assets/bags.png'
 
 const BagsSelect = ():React.ReactNode => {
@@ -11,26 +10,23 @@ const BagsSelect = ():React.ReactNode => {
             {list[activeCarId-1].baggage.map((item)=>(
                 <div className={card} key={item.title}>
                     <span className=' text-gray-500 ml-2 font-bold text-base'>{item.title}</span>
-                    <div className={bagCount}>
-                        <div className='text-xl text-center w-7'>{item.quantity}</div>
-                        <div className={countBox}>
-                            <IoIosArrowUp
-                                className={button+ ' text-green-500 active:text-green-300'} 
-                                onClick={()=>{
-                                    if(item.quantity >= 10) return;
-                                    setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                    <div className={countBox}>
+                        <button 
+                            className={button2} 
+                            onClick={()=>{
+                                    if(item.quantity <= 0 ) return;
+                                    setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
                                 }}
-                            />
-                            <IoIosArrowDown 
-                                className={button+ ' text-red-500 active:text-red-300'} 
-                                onClick={()=>{
-                                        if(item.quantity <= 0 ) return;
-                                        setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
-                                    }}
-                                
-                            />
-                        </div>
-                        
+                            
+                        >-</button>
+                        <div className='text-xl text-center w-7'>{item.quantity}</div>
+                        <button
+                            className={button} 
+                            onClick={()=>{
+                                if(item.quantity >= 10) return;
+                                setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity + 1} : rem ))
+                            }}
+                        >+</button>
                     </div>
                 </div>
             ))}
@@ -43,8 +39,10 @@ const BagsSelect = ():React.ReactNode => {
 };
 export default BagsSelect;
 
-const countBox =' flex flex-col space-y-1'
-const button = "   cursor-pointer scale-[160%]  duration-300 "
-const bagCount ='flex space-x-1 ml-auto items-center'
-const card = 'relative flex pr-3 py-2 cursor-pointer border-purple-500 text-sm w-full h-[45px] '
+const countBox =' flex items-center'
+const button = "   cursor-pointer items-center flex duration-300  text-2xl pb-1  text-green-500 active:text-green-300'"
+const button2 = "   cursor-pointer items-center flex  duration-300  text-4xl pb-1 text-red-500 active:text-red-300"
+
+
+const card = 'relative flex justify-between pr-3 py-2 cursor-pointer border-purple-500 text-sm w-full h-[45px] '
 const container = 'relative rounded-xl px-2 flex w-full mb-6 pt-2 divide-y flex-col items-center border border-purple-500'
