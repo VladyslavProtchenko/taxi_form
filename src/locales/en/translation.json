@@ -22,8 +22,15 @@
     "type_transport":"Transport",
     "type_delivery":"Delivery",
     "type_boost":"Boost",
-    "type_title": "Make a choice of service, please!",
-    "type_transport":"Transport",
+
+
+    "tab_passengers": "Vehicule & Passengers",
+    "tab_carSeats":"Seats & Strollers",
+    "tab_sport":"Sport & Pets",
+
+
     "type_delivery":"Delivery",
     "type_boost":"Boost"
+
+
 }

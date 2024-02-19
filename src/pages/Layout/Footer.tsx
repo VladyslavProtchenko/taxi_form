@@ -18,9 +18,13 @@ import babiSeat from '../../assets/babySeat.png'
 import babiSeatPurple from '../../assets/babySeatPurple.png'
 import carBags from '../../assets/carBags.png'
 import carBagsPurple from '../../assets/carBagsPurple.png'
+// import { useTranslation } from 'react-i18next';
+
+
 
 
 const Footer = (): React.ReactNode => {
+    // const { t } = useTranslation();
 
     const { list, submit, setSubmit, activeCarId, isFrench, setSteps } = useMain()
     const { store } = useStore()

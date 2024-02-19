@@ -22,7 +22,7 @@ const SportsSelect = ():React.ReactNode => {
                         :(item.title =='Surf')
                         ?<div style={{backgroundImage:`url(${surfer})` }} className={' bg-gray-50  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                         :<div style={{backgroundImage:`url(${golfer})` }} className={'    bg-gray-50  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>}
-                        <span className=' text-gray-400' > {item.title}</span>
+                        <span className={title}> {item.title}</span>
                     </div>
                     <div className={bagCount}>
                         <div className='text-xl text-center w-7'>{item.quantity}</div>
@@ -55,7 +55,7 @@ const SportsSelect = ():React.ReactNode => {
 
 export default SportsSelect;
 
-
+const title = ' text-gray-500 text-base font-bold'
 const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%] duration-300 "
 

@@ -119,7 +119,6 @@ const TimePicker: React.FC<InputProps> = ({ isAm, style, onChange, date, time })
         }
     },[isAm, date])
 
-    console.log(list[activeCarId-1].time, 'time')
 
     return (
         <div className={container + `${(isTime === 1) ? ' error' :(isTime=== 2) ? ' ' : ' '}` + ' '+ style} onClick={() => setIsOpen(true)} ref={ref}>

@@ -855,10 +855,6 @@ video {
   margin-bottom: 5rem;
 }
 
-.mb-3{
-  margin-bottom: 0.75rem;
-}
-
 .mb-4{
   margin-bottom: 1rem;
 }
@@ -907,8 +903,8 @@ video {
   margin-right: 0.5rem;
 }
 
-.mr-auto{
-  margin-right: auto;
+.mr-\[2px\]{
+  margin-right: 2px;
 }
 
 .mt-0{
@@ -935,12 +931,12 @@ video {
   margin-top: 0.75rem;
 }
 
-.mt-4{
-  margin-top: 1rem;
+.mt-36{
+  margin-top: 9rem;
 }
 
-.mt-6{
-  margin-top: 1.5rem;
+.mt-4{
+  margin-top: 1rem;
 }
 
 .mt-8{
@@ -1212,10 +1208,6 @@ video {
   width: 44px;
 }
 
-.w-\[50\%\]{
-  width: 50%;
-}
-
 .w-\[60\%\]{
   width: 60%;
 }
@@ -1349,12 +1341,6 @@ video {
 .scale-125{
   --tw-scale-x: 1.25;
   --tw-scale-y: 1.25;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.scale-\[130\%\]{
-  --tw-scale-x: 130%;
-  --tw-scale-y: 130%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1762,10 +1748,6 @@ video {
 
 .bg-opacity-90{
   --tw-bg-opacity: 0.9;
-}
-
-.bg-\[url\(\"https\:\/\/cdn1\.iconfinder\.com\/data\/icons\/car-engine-dashboard-lights-outline-set-2\/91\/Car_Engine_-_Dashboard_Lights_73-512\.png\"\)\]{
-  background-image: url("https://cdn1.iconfinder.com/data/icons/car-engine-dashboard-lights-outline-set-2/91/Car_Engine_-_Dashboard_Lights_73-512.png");
 }
 
 .bg-contain{

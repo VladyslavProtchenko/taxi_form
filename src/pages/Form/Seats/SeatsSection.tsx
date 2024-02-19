@@ -16,9 +16,7 @@ const SeatsSection = ():React.ReactNode => {
 
     return (
         <section className={section}>
-            <div className={content}>
-                <div className={contentItem}><CarSeatSelect /></div>
-            </div>
+            <CarSeatSelect />
             <Buttons goNext={()=>{
                 setValidation(6)
                 setSteps(6)}} step={4} />
@@ -28,7 +26,5 @@ const SeatsSection = ():React.ReactNode => {
 
 export default SeatsSection;
 
-const contentItem = '  flex relative w-full mb-3 space-x-1 items-start' 
 
-const content = 'flex flex-wrap w-full h-min rounded mt-6'
-const section = 'flex h-full w-full flex-col mt-10 mb-10 max-w-[576px] px-10 '
+const section = 'flex h-full w-full flex-col mt-36 mb-10 max-w-[576px] px-10 '

@@ -31,9 +31,7 @@ const PassengersSelect = () => {
             <ul className={content}>
 
                 <div className={card}>
-                    <label className={label}>
-                    <span className='ml-2 text-gray-400'>{isFrench ? 'Adultes': 'Adults'}</span>
-                    </label>
+                    <span className={label}> {isFrench ? 'Adultes': 'Adults'}</span>
                     <div className={bagCount}>
                         <div className='text-xl text-center w-7'>{list[activeCarId-1].adults}</div>
                             <div className={countBox}>
@@ -59,7 +57,7 @@ const PassengersSelect = () => {
                 </div>
 
                 <div className={list[activeCarId-1].kids.length? card : card} >
-                    <span className='ml-2 text-gray-400 mr-auto pt-1'>{isFrench ? 'Enfants': 'Kids'}</span>
+                    <span className={label}>{isFrench ? 'Enfants': 'Kids'}</span>
                     <div className={bagCount}>
                         <div className={count}>{list[activeCarId-1].kids.length}</div>
                         <div className={countBox}>
@@ -108,9 +106,7 @@ const PassengersSelect = () => {
                 </div>}
                 
                 <div className={list[activeCarId-1].kids.length ? card : card}>
-                    <span className={label}>
-                        <span className='ml-2 text-gray-400 mr-auto pt-1'>{isFrench ? 'Bébés': 'Babies'}</span>
-                    </span>
+                    <span className={label}>{isFrench ? 'Bébés': 'Babies'}</span>
                     <div className={bagCount}>
                         <div className={count}>{list[activeCarId-1].babies}</div>
                         <div className={countBox}>
@@ -155,7 +151,7 @@ const extraFee =' flex px-4 py-2  justify-between '
 const childrenCard = 'flex px-6  border-gray-400 shadow bg-white rounded border border-gray-200 mb-2 items-center justify-between '
 const kidsContainer = 'flex flex-col py-4'
 
-const label = 'flex items-center'
+const label = 'pl-2 text-gray-500 text-base font-bold'
 
 const count = ' text-xl px-2'
 const countBox =' flex flex-col space-y-1'
@@ -164,4 +160,4 @@ const button = "   cursor-pointer scale-[160%]  duration-300 "
 const bagCount ='flex space-x-1 ml-auto items-center'
 
 const card = 'relative text-sm flex pr-4 items-center py-2 justify-between cursor-pointer h-[45px] border-purple-500 '
-const content = 'relative border px-2 h-min border-purple-500 rounded-xl pt-2 divide-y flex flex-col bg-white relative text-sm w-full'
+const content = 'relative border px-2 mb-10 h-min border-purple-500 rounded-xl pt-2 divide-y flex flex-col bg-white relative text-sm w-full'

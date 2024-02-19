@@ -10,9 +10,7 @@ const BagsSelect = ():React.ReactNode => {
         <div className={container} >
             {list[activeCarId-1].baggage.map((item)=>(
                 <div className={card} key={item.title}>
-                    <div className='flex items-center'>
-                        <span className=' text-gray-400 ml-2'>{item.title}</span>
-                    </div>
+                    <span className=' text-gray-500 ml-2 font-bold text-base'>{item.title}</span>
                     <div className={bagCount}>
                         <div className='text-xl text-center w-7'>{item.quantity}</div>
                         <div className={countBox}>

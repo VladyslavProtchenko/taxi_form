@@ -22,14 +22,14 @@ const PetsSelect = () => {
             <div className={card} key={item.title}>
                 <div className='flex items-center space-x-2'>
                     {(item.title =='Dog')
-                    ?<div style={{backgroundImage:`url(${dog})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                    ?<div style={{backgroundImage:`url(${dog})` }} className={' z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                     :(item.title =='Cat')
-                    ?<div style={{backgroundImage:`url(${cat})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                    ?<div style={{backgroundImage:`url(${cat})` }} className={' z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                     :(item.title =='Rabbit')
-                    ?<div style={{backgroundImage:`url(${rabbit})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                    ?<div style={{backgroundImage:`url(${rabbit})` }} className={' z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                     :(item.title =='Service dog (Mira)')
-                    ? <div style={{backgroundImage:`url(${mira})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
-                    :<div style={{backgroundImage:`url(${other})` }} className={'   z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                    ? <div style={{backgroundImage:`url(${mira})` }} className={' z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
+                    :<div style={{backgroundImage:`url(${other})` }} className={' z-10 bg-white  text-xs w-6 bg-center h-7 bg-contain bg-no-repeat'} ></div>
                     }
                     
                 </div>
@@ -42,7 +42,7 @@ const PetsSelect = () => {
                                 onChange={(e)=>setPet(e.target.value)}
                                 onBlur={(e)=>setOther(item, e.target.value)}
                             />
-                        :<span className=' text-gray-400' > {item.title}</span>}
+                        :<span className={title} > {item.title}</span>}
                         {index !==3 && <div className='flex items-center'>
                             <input type="checkbox" 
                                 className=' -translate-y-[1px] mr-2 mt-1 ml-1'
@@ -85,6 +85,7 @@ const PetsSelect = () => {
 
 export default PetsSelect;
 
+const title = ' text-gray-500 text-base font-bold'
 const countBox =' flex flex-col space-y-1'
 const button = "   cursor-pointer scale-[160%] duration-300 "
 

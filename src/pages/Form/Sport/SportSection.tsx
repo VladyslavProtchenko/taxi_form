@@ -21,21 +21,13 @@ const SportSection = ():React.ReactNode => {
 
     return (
         <section className={section}>
-            <div className={content}>
-                <PetsSelect />
-                <SportSelect />
-            </div>
-
-            <Buttons goNext={()=>{
-                setValidation(7)
-                setSteps(7)
-                }} step={5} />
-
+            <PetsSelect />
+            <SportSelect />
+            <Buttons goNext={()=>{setValidation(7); setSteps(7) }} step={5} />
         </section>
     );
 };
 
 export default SportSection;
 
-const content = 'flex  flex-col w-full h-min rounded mt-6'
-const section = 'flex h-full w-full flex-col mt-10 mb-10 max-w-[576px] px-10 pb-20'
+const section = 'flex h-full w-full flex-col mt-36 mb-10 max-w-[576px] px-10 pb-20'
