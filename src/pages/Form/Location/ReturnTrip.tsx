@@ -216,7 +216,7 @@ const ReturnTrip = ():React.ReactNode  => {
                 <div className='flex justify-between items-center'>
 
                     <SelectAmPm type={list[activeCarId-1].timeTypeR} onChange={setTimeTypeR}/>
-                    <div className='flex w-1/2 relative  px-2 justify-end items-end bg-cover py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                    <div className='flex w-1/2 relative  px-2 justify-end items-end bg-cover rounded-lg py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                         <TimePicker isAm={list[activeCarId-1].timeTypeR} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].timeR}  onChange={setTimeR} date={list[activeCarId-1].dateR}/> 
                         {day && <div  className='absolute top-2 left-1/2 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                     </div>

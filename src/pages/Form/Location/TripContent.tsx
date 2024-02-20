@@ -205,7 +205,7 @@ const TripContent = ():React.ReactNode => {
                     <div className="flex justify-between items-center">
 
                         <SelectAmPm type={list[activeCarId-1].timeType} onChange={setTimeType}/>
-                        <div className='flex relative w-1/2 px-4 z-10 justify-between items-end bg-cover py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
+                        <div className='flex relative w-1/2 px-4 z-10 rounded-lg justify-between items-end bg-cover py-2 ' style={{backgroundImage:`url(${day? sky :stars})`, backgroundPosition:`${day? ' ': '0px 0px'}` }} >
                             <TimePicker isAm={list[activeCarId-1].timeType} time={list[activeCarId-1].dateNow ? dayjs().add(30,'minutes').format('HH:mm'): list[activeCarId-1].time}  onChange={setTime} date={list[activeCarId-1].date}/> 
                             {day && <div  className='absolute top-3 left-16 w-8 h-8 bg-no-repeat  bg-cover rotate-45' style={{backgroundImage:`url(${sun})` }}></div>}
                         </div>

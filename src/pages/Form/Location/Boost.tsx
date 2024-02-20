@@ -176,7 +176,7 @@ const Boost = ():React.ReactNode => {
 export default Boost;
 
 
-const nextBtn = 'w-1/3 mb-20 bg-purple-500 mt-10 self-end text-center active:bg-purple-700 py-3 rounded-full text-white'
+const nextBtn = 'w-[120px] font-bold text-lg mb-20 bg-purple-500 mt-10 self-end text-center active:bg-purple-700 py-3 rounded-xl text-white'
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
 const dateTimeSubmenu ='absolute flex flex-col item-star top-[102%] right-0 overflow-hidden z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl'

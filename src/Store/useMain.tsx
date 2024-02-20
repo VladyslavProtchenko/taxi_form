@@ -222,7 +222,7 @@ interface IStore {
         number: string;
     }) => void;
 
-    setTripType?: (trip: string) => void;
+    setTripType: (trip: string) => void;
     setAirlines: (value: string) => void;
     setAirlinesBack: (value: string) => void;
 
@@ -344,7 +344,8 @@ export const useMain = create<IStore>()(
 
                 departure: '', departure2: '',
 
-                tripType: 'Vacation', paymentMethod: 'Cash',
+                tripType: 'Vacation',
+                paymentMethod: 'Cash',
                 additionalText: '',
 
                 //return trip information

@@ -12,7 +12,7 @@ const SelectAmPm = ({type, onChange}: IProps):React.ReactNode => {
         <div className={type===1 ? timeToggle + ' bg-black ': type===1 ? timeToggle+ ' bg-black':timeToggle+ ' bg-white' }>
             <div className={type===0 ? selectTextActive :selectText } onClick={()=>onChange(0)}>{isFrench? 'Choisir':'Select'}</div>
             <div className={type===1 ? amTextActive : amText} onClick={()=>onChange(1)}>am</div>
-            <div className="absolute border-b border-black w-[40px] left-[109px] z-10 rotate-[114deg]"></div>
+            <div className="absolute border-b border-black w-[41px] left-[102px] z-10 rotate-[114deg]"></div>
             <div className={type===2 ? pmTextActive: pmText} onClick={()=>onChange(2)}>PM</div>    
         </div>
     );

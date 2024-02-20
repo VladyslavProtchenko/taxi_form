@@ -33,7 +33,9 @@ export interface IStore {
     carListF: string[];
 
     paymentList: string[];
+    paymentListF: string[];
     tripList: string[];
+    tripListF: string[];
     departureSections: string[];
     flights: string[];
 
@@ -97,8 +99,8 @@ export const useStore = create<Store>(() => ({
         departureSections: ['Domestic', 'International', 'USA', 'Arrivals'],
         departureSectionsF: ['Domestique', 'International', 'États-Unis', 'Arrivés'],
 
-        paymentList: ['Cash', 'Debit', 'Credit Card(need receipt),', 'Voucher', 'Office Charges'],
-        paymentListF: ['Comptant', 'Débit', 'Carte crédit(besoin reçu),', 'Coupon', 'Charge Au Bureu'],
+        paymentList: ['Cash', 'Debit', 'Credit Card(need receipt)', 'Voucher', 'Office Charges'],
+        paymentListF: ['Comptant', 'Débit', 'Carte crédit(besoin reçu)', 'Coupon', 'Charge Au Bureu'],
 
 
         flights: [
