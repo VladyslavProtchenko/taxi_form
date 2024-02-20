@@ -53,7 +53,7 @@ const Submit = (): React.ReactNode => {
                 <div 
                     className={addCar}
                     onClick={newOrder}
-                >Add car</div>
+                >+Add Car</div>
             }
             <div className={btns}>
                 <div onClick={() => {
@@ -75,11 +75,11 @@ export default Submit;
 
 const btns ="fixed bottom-[86px] flex w-full mt-auto max-w-[400px] justify-between mx-auto px-5 right-1/2 translate-x-1/2 z-20"
 
-const addCar = 'border-2 border-green-400 rounded-lg text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
+const addCar = 'border-2 text-lg border-green-400 rounded-lg text-green-400 px-2 py-1 cursor-pointer bg-white mt-0 mb-4 z-20 self-start'
 
 const backBtn = 'w-[120px] flex items-center justify-center bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer font-bold text-lg pr-2'
 const greenBtn = 'w-[120px] border-2 border-green-400 bg-gray-50 active:bg-green-400 active:text-white flex items-center justify-center text-lg font-bold text-green-400 rounded-xl  cursor-pointer'
 
 
-const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-10 pb-20'
+const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-5 pb-20'
 

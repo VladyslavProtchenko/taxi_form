@@ -90,6 +90,7 @@ const PaymentSection = (): React.ReactNode => {
                     <button className={nextBtn} onClick={() => {
                         setValidation(9)
                         setFilled(true, activeCarId)
+                        setSubmit(true)
                     }}>
                         Order
                         {
@@ -119,7 +120,7 @@ export default PaymentSection;
 const btns = ' fixed bottom-[86px] w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const nextBtn = 'w-[130px] bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white text-lg  cursor-pointer font-bold'
 const backBtn = 'w-[120px] flex items-center justify-center  bg-rose-500 pr-2 active:bg-rose-700 text-center py-3 rounded-xl text-lg text-white cursor-pointer font-bold'
-const yellowBtn = 'w-1/3 border-2 border-yellow-300  active:bg-yellow-200 text-center py-3 rounded-xl'
+const yellowBtn = 'w-[120px] font-bold border-2 text-lg border-yellow-300 active:bg-yellow-200 text-center rounded-xl'
 
 const additional = 'flex w-full '
 const content = 'flex flex-col justify-between w-full mb-10 '

@@ -49,24 +49,25 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
     <div className={container}>
         {/* __________________________________CLOSE_MODAL---------------------------------- */}
         {openModal && <div className="absolute flex flex-col bg-white shadow-lg shadow-purple-700 p-4 rounded-xl">
-            <h1>Do you want decline car?</h1>
+            <h1>{isFrench? 'Voulez-vous annuler Véhicule': 'Do you want to delete the car '}</h1>
             <div className='flex space-x-2 self-end mt-4'>
-                <button className={green} onClick={()=>removeTaxi(item.id)}>yes</button>
-                <button className={red} onClick={()=>setOpenModal(false)}>not</button>
+                <button className={green} onClick={()=>removeTaxi(item.id)}>Yes</button>
+                <button className={red} onClick={()=>setOpenModal(false)}>No</button>
             </div>
         </div>}
         <div className="flex w-full flex-col">
-            <h1 className="text-gray-500 mb-0">
+            <h1 className="text-gray-500 mb-0 text-base">
                 {
                     item.id === 1 
-                    ? 'First'
+                    ? isFrench ? 'First Car': 'Premier Véhicule'
                     : item.id === 2
-                    ? 'Second'
+                    ? isFrench ? 'Second Car': 'Deuxième Véhicule'
                     : item.id === 3
-                    ? 'Third'
+                    ? isFrench ? 'Third Car': 'Troisième Véhicule'
                     : item.id === 4
-                    ? 'Fourth' : 'Fifth'
-                } car
+                    ?  isFrench ? 'Fourth Car': 'Quatrième Véhicule'
+                    : isFrench ? 'Fifth Car': 'Cinquième Véhicule'
+                }
             </h1>
             <h1 className='text-sm mb-0 pt-1 roboto w-full '>{dayjs(item.date.split('/').reverse().join('-')).format('dddd')}, {item.date}, {item.time}{(!item.dateNow && item.timeType===1) ? 'am': (!item.dateNow && item.timeType===2)? 'pm':''} </h1>
             <div className='flex  px-2  text-gray-500 italic text-[10px] '>{carTypes[item.carType]}</div>
@@ -336,9 +337,9 @@ export default CarCard;
 
 const contentItem= 'flex items-center space-x-2'
 
-const btn = 'text-[10px] mt-3  border text-center rounded cursor-pointer roboto text-thin px-2'
-const red ='text-sm border-2 border-rose-500 rounded-full px-3 text-rose-500 text-xs'
-const green ='text-sm border-2 border-green-500 rounded-full px-3 text-green-500 text-xs'
+const btn = 'text-base mt-3  border text-center rounded cursor-pointer roboto text-thin px-2'
+const red ='text-sm border-2 border-rose-500 rounded-lg px-3 text-rose-500 text-xs'
+const green ='text-sm border-2 border-green-500 rounded-lg px-3 text-green-500 text-xs'
 
 const type = 'flex border rounded border-black divide-x overflow-hidden w-full mb-4'
 const titles = 'flex border rounded border-black divide-x overflow-hidden w-3/4 mb-4'
@@ -359,7 +360,7 @@ const trip = 'flex space-x-1 w-full text-xs'
 const headItem = 'flex w-1/3  text-xs px-2 flex-col'
 const headers = 'flex divide-x w-full'
 
-const removeBtn ='absolute rounded top-2 right-2 text-rose-600 py-[2px] text-xs'
+const removeBtn ='absolute rounded text-base top-2 right-2 text-rose-600 py-[2px] '
 
 
 const stopIcon = 'min-w-[22px] text-yellow-400'
