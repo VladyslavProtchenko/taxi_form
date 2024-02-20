@@ -24,6 +24,7 @@ export interface ITaxi {
     validation:number;
     isEdit: boolean;
     isReset: {[key:number]: boolean};
+    weightType: boolean;
 
     name: string;
     name2: string;
@@ -137,6 +138,7 @@ interface IStore {
     list: ITaxi[];
     //info methods
     setAlert: (value: string) => void;
+    setWeightType: (value: boolean) => void;
     setDay: (value: boolean) => void;
     setInfoOpen: (value: boolean) => void;
     setType: (value: number) => void;
@@ -301,6 +303,8 @@ export const useMain = create<IStore>()(
                 validation:1,
                 isEdit: false,
                 isReset: {1:false, 2:false, 3:false, 4:false, 5:false, 6:false },
+                weightType: true,
+
                 name: '',
                 name2: '',
                 name3: '',
@@ -451,6 +455,7 @@ export const useMain = create<IStore>()(
         setInfoOpen: (data) => set((state) => ({ ...state, infoOpen: data })),
         setSubmit: (data) => set((state) => ({ ...state, submit: data })),
         setType: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, type: data } : item) })),
+        setWeightType: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, weightType: data } : item) })),
         setValidation: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, validation: data } : item) })),
         setIsEdit: (data) => set((state) => ({ ...state, list: state.list.map(item => item.id === state.activeCarId ? { ...item, isEdit: data } : item) })),
 

@@ -15,7 +15,7 @@ const CarSeatsSelect = () => {
     return (
         <div className={container}>
         
-        <div className={part}>
+        <div className={part+ ' mb-10'}>
 
             <div className={card} key={list[activeCarId-1].carSeats[0].title}>
                 <div style={{backgroundImage:`url(${regularBaby})` }} className={'w-5 h-5 self-center mr-1 bg-white  text-xs bg-center bg-contain bg-no-repeat'} ></div>
@@ -209,7 +209,7 @@ export default CarSeatsSelect;
 
 const text = ' text-gray-500 self-center text-base font-bold truncate'
 
-const part = 'relative flex px-2 flex-col w-full mb-4 pt-2 border border-purple-500 rounded-xl divide-y'
+const part = 'relative flex px-2 flex-col w-full  pt-2 border border-purple-500 rounded-xl divide-y'
 
 const count = ' text-3xl px-2'
 const button = "   cursor-pointer pb-1  items-center flex duration-300 h-1/2 text-4xl text-green-500 active:text-green-300'"

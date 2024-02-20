@@ -27,4 +27,4 @@ const SeatsSection = ():React.ReactNode => {
 export default SeatsSection;
 
 
-const section = 'flex h-full w-full flex-col mt-36 mb-10 max-w-[576px] px-10 '
+const section = 'flex h-full w-full flex-col mt-24 mb-10 max-w-[576px] px-10 '

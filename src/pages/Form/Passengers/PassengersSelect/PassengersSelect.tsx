@@ -8,7 +8,6 @@ const PassengersSelect = () => {
     const {list, activeCarId, setAdults, setKids, setBabies,setCarType, isFrench } = useMain()
     const years = [1,2,3,4,5,6,7,8,]
 
-
     useEffect(()=>{ 
         if(list[activeCarId-1].carType !== 3 && (list[activeCarId-1].adults + list[activeCarId-1].kids.length ) >=4) {
             setAdults((list[activeCarId-1].adults >= 4 ? 4: list[activeCarId-1].adults))

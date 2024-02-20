@@ -89,5 +89,5 @@ const button2 = "   cursor-pointer pb-1  items-center flex  duration-300 h-1/2 t
 
 const bagCount ='flex  items-center'
 const card = 'relative flex  border-purple-500 cursor-pointer text-sm w-full  h-[45px] '
-const container = 'relative px-2 pr-6 flex w-full mb-4 flex-col divide-y items-center  pt-2  border rounded-xl border-purple-500 '
+const container = 'relative px-2 pr-6 flex w-full mb-10 flex-col divide-y items-center  pt-2  border rounded-xl border-purple-500 '
 

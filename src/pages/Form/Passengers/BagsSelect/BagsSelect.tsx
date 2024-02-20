@@ -3,16 +3,26 @@ import React from 'react';
 import bags from '../../../../assets/bags.png'
 
 const BagsSelect = ():React.ReactNode => {
-    const {list, activeCarId, setBaggage} = useMain()
-
+    const {list, activeCarId, setBaggage, setWeightType} = useMain()
+    const weights:{[key:string]:string} = {
+        '32 kg': ' 70 lb',
+        '23 kg': '50 lb',
+        'Between': 'Between',
+        '10 kg': '22 lb',
+        '8 kg': '17 lb',
+    }
+    console.log(list[activeCarId-1],'type')
     return (
         <div className={container} >
-            {list[activeCarId-1].baggage.map((item)=>(
-                <div className={card} key={item.title}>
-                    <span className=' text-gray-500 ml-2 font-bold text-base'>{item.title}</span>
+            <div className={weightToggle} onClick={()=>setWeightType(!list[activeCarId-1].weightType)}>
+                {list[activeCarId-1].weightType? 'lb' : ' kg'}
+            </div>
+            {list[activeCarId-1].baggage.map((item,index)=>(
+                <div className={ index===0? card + 'border-t-white': card} key={item.title}>
+                    <span className=' text-gray-500 ml-2 font-bold text-base'>{list[activeCarId-1].weightType? item.title : weights[item.title]}</span>
                     <div className={countBox}>
                         <button 
-                            className={button2} 
+                            className={ button2} 
                             onClick={()=>{
                                     if(item.quantity <= 0 ) return;
                                     setBaggage(list[activeCarId-1].baggage.map(rem=>item.title === rem.title ? {...rem, quantity: rem.quantity - 1} : rem ))
@@ -30,6 +40,7 @@ const BagsSelect = ():React.ReactNode => {
                     </div>
                 </div>
             ))}
+            
             <div className='absolute -top-5 right-1/2 translate-x-1/2 border-none rounded-full px-2 flex bg-gray-50'>
                 <div style={{backgroundImage:`url(${bags})` }} className={' z-10 bg-gray-190  text-blue-500 w-6 bg-center h-8 bg-contain bg-no-repeat '} ></div>
             </div>
@@ -39,6 +50,7 @@ const BagsSelect = ():React.ReactNode => {
 };
 export default BagsSelect;
 
+const weightToggle = 'absolute -top-7 left-0 border border-black px-2 text-sm rounded-lg border-b ' 
 const countBox =' flex items-center'
 
 const count = ' text-3xl px-2'

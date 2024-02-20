@@ -66,7 +66,6 @@ const PassengersSection = ():React.ReactNode => {
             
             <PassengersSelect />
             <BagsSelect />
-
             <Buttons goNext={goNext} step={list[activeCarId-1].isReturnTrip ? 3: 2} />
         </section>
     );

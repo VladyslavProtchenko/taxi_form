@@ -30,4 +30,4 @@ const SportSection = ():React.ReactNode => {
 
 export default SportSection;
 
-const section = 'flex h-full w-full flex-col mt-36 mb-10 max-w-[576px] px-10 pb-20'
+const section = 'flex h-full w-full flex-col mt-24 mb-10 max-w-[576px] px-10 pb-20'
