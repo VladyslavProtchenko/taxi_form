@@ -1,36 +1,50 @@
 {
+    
+    "edit": "Editting",
+    "add": "Adding",
+    "car": "Car",
+    "1st": "1st",
+    "2nd": "2nd",
+    "3rd": "3rd",
+    "4th": "4th",
+    "5th": "5th",
+
     "type_title": "Make a choice of service, please!",
     "type_transport":"Transport",
     "type_delivery":"Delivery",
     "type_boost":"Boost",
     "type_unlock": "Unlocking doors",
 
-    "adding":"Adding",
-    "editting":"Editting",
-    "car":"Car",
+    "next":"Next",
+    "prev": "Previous",
+    "delete": "delete",
+
+    "select": "Select",
+
+    "reset_section": "Reset this section's data",
+    "restore_section": "Use available data",
 
     "service_type":"Service Type",
     "contacts": "Contacts",
     "one-way":"One-Way",
     "return":"Return",
     "passengers":"Vehicle & Passengers",
-    "seats": "Seats & Strollers!",
+    "seats": "Seats & Strollers",
     "sport":"Sport & Pets",
-    "paiement":"Paiement",
+    "payment":"Paiement",
     "confirmation":"Confirmation",
-    "type_title": "Make a choice of service, please!",
-    "type_transport":"Transport",
-    "type_delivery":"Delivery",
-    "type_boost":"Boost",
+
+    "first_car": "First Car",
+    "second_car": "Second Car",
+    "third_car": "Third Car",
+    "fourth_car": "Fourth Car",
+    "fifth_car": "Fifth Car",
 
 
-    "tab_passengers": "Vehicule & Passengers",
-    "tab_carSeats":"Seats & Strollers",
-    "tab_sport":"Sport & Pets",
+    "modal_text": "Do you want to delete the car?",
 
-
-    "type_delivery":"Delivery",
-    "type_boost":"Boost"
-
+    "adults": "Adults",
+    "kids": "Kids",
+    "babies": "Babies"
 
 }

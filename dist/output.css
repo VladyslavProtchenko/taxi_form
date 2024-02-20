@@ -698,10 +698,6 @@ video {
   left: 1.5rem;
 }
 
-.left-\[102px\]{
-  left: 102px;
-}
-
 .right-0{
   right: 0px;
 }
@@ -720,6 +716,10 @@ video {
 
 .right-32{
   right: 8rem;
+}
+
+.right-\[26px\]{
+  right: 26px;
 }
 
 .right-\[6px\]{

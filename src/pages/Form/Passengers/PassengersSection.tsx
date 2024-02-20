@@ -21,9 +21,13 @@ const PassengersSection = ():React.ReactNode => {
         setCarList(isFrench? store.carListF: store.carList)
     },[isFrench])
     const goNext =() => {
-        (list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2))
-        ? setAlert('Need at last 1 adult')
-        : setValidation(5);setSteps(5);
+        if(list[activeCarId-1].adults === 0  && (list[activeCarId-1].type!==2)){
+            setAlert('Need at last 1 adult') 
+            return setValidation(4)
+        } 
+        setValidation(5) 
+        setSteps(5);
+        
     }
     useEffect(()=>{
         if(list[activeCarId-1].isReset[4]

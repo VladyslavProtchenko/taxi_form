@@ -1,33 +1,48 @@
 {
-    "type_title": "Make a choice of service, please!",
+    "add":"Ajout",
+    "edit":"Modification",
+    "car":"Véhicule",
+    "1st": "1er",
+    "2nd": "2e",
+    "3rd": "3e",
+    "4th": "4e",
+    "5th": "5e",
+
+    "type_title": "Faites un choix de service S.V.P !",
+
     "type_transport":"Transport",
-    "type_delivery":"Delivery",
-    "type_boost":"Boost",
-    "type_unlock": "Unlocking doors",
+    "type_delivery":"Livraison",
+    "type_boost":"Survoltage",
+    "type_unlock": "Débarrage de portes",
 
-    "adding":"Adding",
-    "editting":"Editting",
-    "car":"Car",
+    "next":"Suivant",
+    "delete": "supprimer",
+    "prev": "Précédent",
 
-    "service_type":"Service Type",
+    "select": "Choisir",
+
+    "reset_section": "Effacer les données",
+    "restore_section": "Utiliser les données disponibles",
+
+    "service_type":"Type Service",
     "contacts": "Contacts",
-    "one-way":"One-Way",
-    "return":"Return",
-    "passengers":"Vehicle & Passengers",
-    "seats": "Seats & Strollers!",
-    "sport":"Sport & Pets",
-    "paiement":"Paiement",
+    "one-way":"Aller",
+    "return":"Retour",
+    "passengers":"Véhicule et Passagers",
+    "seats": "Sièges & Poussettes",
+    "sport":"Sport & Animaux",
+    "payment":"Paiement",
     "confirmation":"Confirmation",
-    "type_title": "Make a choice of service, please!",
-    "type_transport":"Transport",
-    "type_delivery":"Delivery",
-    "type_boost":"Boost",
 
+    "first_car": "Premier Véhicule",
+    "second_car": "Deuxième Véhicule",
+    "third_car": "Troisième Véhicule",
+    "fourth_car": "Quatrième Véhicule",
+    "fifth_car": "Cinquième Véhicule",
 
-    "tab_passengers": "Véhicule et Passagers",
-    "tab_carSeats":"Sièges & Poussettes",
-    "tab_sport":"Sport & Animaux",
-    "type_delivery":"Delivery",
-    "type_boost":"Boost"
+    "modal_text": "Voulez-vous annuler Véhicule?",
 
+    "adults": "Adultes",
+    "kids": "Enfants",
+    "babies": "Bébés"
 }

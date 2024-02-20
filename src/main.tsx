@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Success from './pages/Form/Submit/Success.tsx';
-
+import './i18next.ts';
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([

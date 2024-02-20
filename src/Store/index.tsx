@@ -16,8 +16,7 @@ export interface IStore {
     phoneTitleList: string[],
     phoneTitleListF: string[],
 
-    typeList: string[],
-    typeListF: string[],
+
 
     nowLater: string[],
     nowLaterF: string[],
@@ -47,6 +46,9 @@ export interface IStore {
     dayPrices: string[];
     nightPrices: string[];
 
+    // typeList: string[],
+    // typeListF: string[],
+
 }
 interface Store {
     store: IStore;
@@ -57,8 +59,8 @@ export const useStore = create<Store>(() => ({
 
         menuTabs: ['Service Type' , 'Contacts', 'One-Way','Return', 'Vehicle & Passengers', 'Seats & Strollers','Sport & Pets', 'Payment' , 'Confirmation'],
         menuTabsF: ['Type Service', 'Contacts', 'Aller', 'Retour', 'Véhicule et Passagers','Sièges & Poussettes','Sport & Animaux', 'Paiement', 'Confirmation'],
-        numbersList: ['st', 'nd', 'rd', 'th'],
-        numbersListF: ['st', 'nd', 'rd', 'th'],
+        // numbersList: ['st', 'nd', 'rd', 'th'],
+        // numbersListF: ['st', 'nd', 'rd', 'th'],
 
         dayPrices: [ '4.10', '1.05','22.537','0.77', '2.05'],//prices:  from start/ per km/ minute of waiting / fee 0.9/ tax  1.05
         nightPrices: ['4.70', '1.05','22.573','0.89', '2.35' ],
@@ -81,8 +83,7 @@ export const useStore = create<Store>(() => ({
         tripTitles: ['One-Way', 'Return'],
         tripTitlesF: ['Aller', 'Retour'],
 
-        typeList: ['Transport', 'Delivery', 'Boost', 'Unlocking doors'],
-        typeListF: ['Transport', 'Livraison', 'Survoltage', 'Débarrage de portes'],
+
 
         nowLater: ['Now', 'Later'],
         nowLaterF: ['Maintenant', 'Après'],
@@ -99,8 +100,8 @@ export const useStore = create<Store>(() => ({
         departureSections: ['Domestic', 'International', 'USA', 'Arrivals'],
         departureSectionsF: ['Domestique', 'International', 'États-Unis', 'Arrivés'],
 
-        paymentList: ['Cash', 'Debit', 'Credit Card(need receipt)', 'Voucher', 'Office Charges'],
-        paymentListF: ['Comptant', 'Débit', 'Carte crédit(besoin reçu)', 'Coupon', 'Charge Au Bureu'],
+        paymentList: ['Cash', 'Debit', 'Credit Card (need receipt)', 'Voucher', 'Office Charges'],
+        paymentListF: ['Comptant', 'Débit', 'Carte crédit (besoin reçu)', 'Coupon', 'Charge Au Bureu'],
 
 
         flights: [
@@ -159,7 +160,8 @@ export const useStore = create<Store>(() => ({
                 'hotel'
             ],
         }
-
+        // typeList: ['Transport', 'Delivery', 'Boost', 'Unlocking doors'],
+        // typeListF: ['Transport', 'Livraison', 'Survoltage', 'Débarrage de portes'],
 
     },
 

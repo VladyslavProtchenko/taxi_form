@@ -1,25 +1,24 @@
-import React from 'react';
+import React  from 'react';
 import { useMain } from '../../../Store/useMain';
-import { useStore } from '../../../Store/index';
 import transport from '../../../assets/taxiOrder.png' 
 import delivery from '../../../assets/delivery.png' 
 import boost from '../../../assets/boost2.png' 
 import unlock from '../../../assets/lostKeys.png' 
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 
 const Type = ():React.ReactNode => {
-    const { list, isFrench,activeCarId, setType, setSteps,setValidation } = useMain()
-    const { store } = useStore()
-
+    const { list, activeCarId, setType, setSteps,setValidation } = useMain()
+    const { t } = useTranslation();
+    
     return (
         <section className={section}>
             <h1 className={h1}>Bonjour taxi!</h1>
-            <h2 className={h2}>{isFrench?'Faites un choix de service S.V.P !' :'Make a choice of service, please!'}</h2>
+            <h2 className={h2}>{t('type_title')}</h2>
             <div className={buttons}>
-                {(isFrench? store.typeListF: store.typeList).map((item,index)=>(
+                {['type_transport','type_delivery','type_boost','type_unlock'].map((item,index)=>(
                         <div key={item} className={list[activeCarId-1].type===index+1 ? buttonActive : button} onClick={()=>{
                             setType(index+1)
-                            
                         }}>
                             <span className={icon}>
                                 {index === 0 
@@ -31,11 +30,11 @@ const Type = ():React.ReactNode => {
                                     : <div style={{backgroundImage:`url(${unlock})` }} className={iconImage}></div>
                                 }
                             </span>
-                            <span className='text-xl text-start'>{item}</span>
+                            <span className='text-xl text-start'>{t(item)}</span>
                             <button className={buttonNext} onClick={()=>{
                                 setValidation(1)
                                 setSteps(1)
-                            }}>{isFrench? 'Suivant': 'Next'}<MdOutlineKeyboardDoubleArrowRight className='text-2xl'/></button>
+                            }}>{t('next')}<MdOutlineKeyboardDoubleArrowRight className='text-2xl'/></button>
                         </div>
                     ))
                 }

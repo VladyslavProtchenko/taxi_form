@@ -3,12 +3,13 @@ import { TiInfoLarge } from "react-icons/ti";
 import { useMain } from '../../Store/useMain';
 import en from '../../assets/usa.png'
 import fr from '../../assets/france.png'
+import { useTranslation } from 'react-i18next';
+
 
 const Header = (): React.ReactNode => {
     const { list, reset1, reset2, reset3, reset4, reset5, reset6,reset7, restore1, restore2,restore3,restore4,restore5,restore6,restore7, submit, activeCarId, isFrench, setIsFrench, infoOpen, setInfoOpen } = useMain()
-
+    const { t, i18n } = useTranslation();
     const [resetOpen, setResetOpen] = useState(false)
-
     const resetHandler = () =>{
         if(list[activeCarId-1].steps === 1 ) {
             list[activeCarId-1].isReset[1] ?  restore1() : reset1()
@@ -41,26 +42,29 @@ const Header = (): React.ReactNode => {
         }
     }
 
+    const cars:{[key:string]:string} = {
+        1: '1st',
+        2: '2nd',
+        3: '3rd',
+        4: '4th',
+        5: '5th'
+    }
+    
     return (
         <div className={header}>
             <div className={wrapper}>
                 <div className={content}>
-                    <div className={lang} onClick={() => setIsFrench(!isFrench)}>
-                        {isFrench
-                            ? <><div style={{ backgroundImage: `url(${en})` }} className={image} ></div><div className={langItem} >EN</div></>
-                            : <><div style={{ backgroundImage: `url(${fr})` }} className={image} ></div><div className={langItem} >FR</div></>
+                    <div className={lang} onClick={() => {
+                            setIsFrench(!isFrench)
+                            i18n.changeLanguage(i18n.language ==='en'? 'fr' : 'en')
+                        }}>
+                        {i18n.language ==='en'
+                            ? <><div style={{ backgroundImage: `url(${fr})` }} className={image} ></div><div className={langItem} >FR</div></>
+                            : <><div style={{ backgroundImage: `url(${en})` }} className={image} ></div><div className={langItem} >EN</div></>
                         }
                     </div>
                     <div className={submit ? headerText +' opacity-0': headerText}>
-                        { list[activeCarId - 1].isEdit? isFrench ? 'Modification ' : 'Editing ': isFrench ? 'Ajout ' : 'Adding '}
-                        {activeCarId === 1
-                            ? isFrench ? '1er' : '1st'
-                            : activeCarId === 2
-                            ? isFrench ? '2e' : '2nd'
-                            : activeCarId === 3
-                            ? isFrench ? '3e' : '3rd'
-                            : isFrench ? activeCarId + 'e' : activeCarId + 'th'
-                        } {isFrench ? ' Véhicule' : ' Car'}
+                        {(list[activeCarId - 1].isEdit? t('edit') : t('add')) + ' ' + t(cars[activeCarId]) +' '+ t('car')}
                     </div>
                     <div className={iIcon} onClick={()=> setInfoOpen(!infoOpen)}><TiInfoLarge className='cursor-pointer text-3xl' /></div>
                     <div className={step}><span className='text-blue-500 font-black text-[22px] italic'>{list[activeCarId - 1].steps + 1}</span>|9</div>
@@ -68,11 +72,11 @@ const Header = (): React.ReactNode => {
 
                 {activeCarId ===1 
                 ?<div className={list[activeCarId-1].steps>0 && !submit?toggleButton: 'hidden'}>
-                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset this section\'s data'}</div>
+                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{t('reset_section')}</div>
                 </div>
                 :<div className={list[activeCarId-1].steps>0 && !submit?toggleButton: 'hidden'}>
-                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{isFrench? 'Effacer les données':'Reset this section\'s data'}</div>
-                    <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{isFrench? 'Utiliser les données disponibles':'Use available data'}</div>
+                    <div onClick={()=>setResetOpen(true)} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggleActive: toggle}>{t('reset_section')}</div>
+                    <div onClick={resetHandler} className={list[activeCarId-1].isReset[list[activeCarId-1].steps] ? toggle: toggleActive}>{t('restore_section')}</div>
                 </div>}
             </div>
             {resetOpen && <div className={modal}>
@@ -92,13 +96,13 @@ const modal = 'absolute flex flex-col text-base top-full w-[250px] px-3 py-4 bg-
 const green = 'px-2 py-1 bg-green-400 text-white font-bold rounded mr-2 active:bg-green-500'
 const red = 'px-2 py-1 bg-red-500 text-white font-bold rounded mr-2 active:bg-red-600'
 
-const toggle = 'px-2 bg-white shadow-xl border-purple-500 px-1 '
-const toggleActive = 'px-2 shadow-xl border-purple-500 bg-purple-500 text-white px-1 '
-const toggleButton = 'mt-1 flex text-base border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden '
-const content = 'flex items-center w-full justify-between' 
+const toggle = 'px-2 bg-white shadow-xl border-purple-500 px-1  truncate'
+const toggleActive = 'px-2 shadow-xl border-purple-500 bg-purple-500 text-white px-1 truncate'
+const toggleButton = 'mt-1 flex mx-5 text-sm border rounded self-center divide-x cursor-pointer border-purple-500 overflow-hidden '
+const content = 'flex items-start w-full justify-between' 
 const image = 'w-8 h-6 text-xs bg-center bg-cover bg-no-repeat'
 const iIcon = " flex items-center justify-center border-2  rounded-full border-orange-400 text-orange-400 "
-const headerText = 'flex font-bold items-center mx-auto text-blue-700 text-lg   '
+const headerText = 'flex font-bold items-center text-center mx-auto text-blue-700 text-lg   '
 const step = "text-2xl ml-2 text-black font-bold "
 const wrapper = 'flex flex-col w-full max-w-[576px] px-2 '
 const lang = 'flex cursor-pointer items-center'

@@ -2,6 +2,7 @@ import React from 'react';
 import { useMain } from '../../../Store/useMain';
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
     goNext: () => void;
@@ -9,13 +10,13 @@ interface IProps {
 
 }
 const Buttons = ({goNext, step}: IProps): React.ReactNode => {
-
-    const { setSteps, isFrench } = useMain()
+    const { t } = useTranslation();
+    const { setSteps } = useMain()
 
     return (
         <div className={btns}>
-            <div className={backBtn} onClick={()=>setSteps(step)}><MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{isFrench? 'Précédent': 'Previous'}</div>
-            <div className={nextBtn} onClick={goNext} >{isFrench? 'Suivant': 'Next'}<MdOutlineKeyboardDoubleArrowRight className='text-2xl'/></div>
+            <div className={backBtn} onClick={()=>setSteps(step)}><MdOutlineKeyboardDoubleArrowLeft className='text-2xl'/>{t('prev')}</div>
+            <div className={nextBtn} onClick={goNext} >{t('next')}<MdOutlineKeyboardDoubleArrowRight className='text-2xl'/></div>
         </div>
     );
 };

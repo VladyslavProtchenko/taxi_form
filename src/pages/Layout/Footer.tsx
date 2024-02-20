@@ -11,20 +11,19 @@ import { IoCardOutline } from "react-icons/io5";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 
 import { FaSortDown } from "react-icons/fa";
-// import { MdDirectionsBike } from "react-icons/md";
 import { FaRunning } from "react-icons/fa";
 
 import babiSeat from '../../assets/babySeat.png'
 import babiSeatPurple from '../../assets/babySeatPurple.png'
 import carBags from '../../assets/carBags.png'
 import carBagsPurple from '../../assets/carBagsPurple.png'
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 
 
 
 const Footer = (): React.ReactNode => {
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
 
     const { list, submit, setSubmit, activeCarId, isFrench, setSteps } = useMain()
     const { store } = useStore()
@@ -53,6 +52,17 @@ const Footer = (): React.ReactNode => {
             }
         }
     }, [list[activeCarId - 1].steps])
+    const menuTabs:{[key:string]:string} = {
+        0:"service_type",
+        1:"contacts",
+        2:"one-way",
+        3:"return",
+        4:"passengers",
+        5:"seats",
+        6:"sport",
+        7:"payment",
+        8:"confirmation"
+    }
 
     return (
         <div className={footer}>
@@ -64,8 +74,6 @@ const Footer = (): React.ReactNode => {
                 responsive={responsive}
             >
                 {(isFrench ? store.menuTabsF : store.menuTabs).map((item, index) => {
-                    
-
                     return index === 8
                         ? <span
                             key={item}
@@ -132,7 +140,7 @@ const Footer = (): React.ReactNode => {
                                     <div className={list[activeCarId - 1].steps === index? tabIndexActive : tabIndex+ ' text-orange-900 border-orange-900 '}>{index+1}</div>
                                 </>
                             }
-                            <span className={footerTabText}>{isFrench ? store.menuTabsF[index] : store.menuTabs[index]}</span>
+                            <span className={footerTabText}>{t(menuTabs[index])}</span>
                         </span>
                     }
                     )

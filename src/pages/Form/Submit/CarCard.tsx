@@ -10,17 +10,27 @@ import { AiOutlineStop } from 'react-icons/ai';
 import { LiaShuttleVanSolid } from 'react-icons/lia';
 import { PiCreditCard, PiJeepLight } from 'react-icons/pi';
 import { BsChatSquareText } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 
 const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false)
     const {store} = useStore()
-    const {list,setList, setSubmit,setFilled,setIsEdit, isFrench, setActiveCarId,setSteps } = useMain()
+    const {list,setList, setSubmit,setFilled,setIsEdit, setActiveCarId,setSteps } = useMain()
     const [openModal, setOpenModal] = useState(false)
     const carTypes:{[key:number]:string} = {
         1: 'Sedan',
         2: 'SUV',
         3: "VAN",
     }
+    const numbers:{[key:number]:string} = {
+        1:"first_car",
+        2:"second_car",
+        3:"third_car",
+        4:"fourth_car",
+        5:"fifth_car"
+    }
+
     const removeTaxi = (id:number) => {
         if(list.length === 1 ) {
             setFilled(false, id)
@@ -45,50 +55,45 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
         setOpenModal(false)
     }
 
+    const getFullDate = () => {
+        return dayjs(item.date.split('/').reverse().join('-')).format('dddd') 
+            + ' ' + item.date
+            + ' ' +item.time
+            + ' ' +((!item.dateNow && item.timeType===1) 
+            ? 'am'
+            : (!item.dateNow && item.timeType===2)
+            ? 'pm'
+            : '')
+    } 
+
     return ( 
     <div className={container}>
-        {/* __________________________________CLOSE_MODAL---------------------------------- */}
-        {openModal && <div className="absolute flex flex-col bg-white shadow-lg shadow-purple-700 p-4 rounded-xl">
-            <h1>{isFrench? 'Voulez-vous annuler Véhicule': 'Do you want to delete the car '}</h1>
-            <div className='flex space-x-2 self-end mt-4'>
+        
+        <div className={openModal? modal: ' hidden'}>
+            <h1>{t('modal_text')}</h1>
+            <div className={modalButtons}>
                 <button className={green} onClick={()=>removeTaxi(item.id)}>Yes</button>
                 <button className={red} onClick={()=>setOpenModal(false)}>No</button>
             </div>
-        </div>}
-        <div className="flex w-full flex-col">
-            <h1 className="text-gray-500 mb-0 text-base">
-                {
-                    item.id === 1 
-                    ? isFrench ? 'First Car': 'Premier Véhicule'
-                    : item.id === 2
-                    ? isFrench ? 'Second Car': 'Deuxième Véhicule'
-                    : item.id === 3
-                    ? isFrench ? 'Third Car': 'Troisième Véhicule'
-                    : item.id === 4
-                    ?  isFrench ? 'Fourth Car': 'Quatrième Véhicule'
-                    : isFrench ? 'Fifth Car': 'Cinquième Véhicule'
-                }
-            </h1>
-            <h1 className='text-sm mb-0 pt-1 roboto w-full '>{dayjs(item.date.split('/').reverse().join('-')).format('dddd')}, {item.date}, {item.time}{(!item.dateNow && item.timeType===1) ? 'am': (!item.dateNow && item.timeType===2)? 'pm':''} </h1>
-            <div className='flex  px-2  text-gray-500 italic text-[10px] '>{carTypes[item.carType]}</div>
+        </div>
+        <div className={content}>
+            <h1 className={carTitle}> {t(numbers[item.id])}</h1>
+
+            <h2 className={dateTitle}>{getFullDate()}</h2>
+            <div className={typeTitle}>{carTypes[item.carType]}</div>
             
-            <div className='flex w-full pr-4'>
-                <div className="flex flex-col items-center justify-around ml-2 mr-1 w-1  my-2 mt-[12px] border border-r-white border-purple-500 "></div>
+            <div className={locations}>
+                <div className={locationsLine}></div>
                 <div className="flex flex-col mb-1 w-full">
                     <div className="flex truncate mt-1 w-full">{item.from} </div>
                     <div className="flex  truncate mt-1 w-full"> {item.to}</div>
                 </div>
             </div>
-            <div className="flex flex-col ml-auto justify-between">
-                <button className={removeBtn} onClick={()=>setOpenModal(true)}>{isFrench? 'supprimer': 'delete'}</button>
-            </div>
-            <div className='flex justify-between w-full px-4'>
-                <div 
-                    className={btn+ ' border-purple-500 text-purple-500 '}
-                    onClick={()=>setOpen(!open)}
-                >Full info</div>
-                <div 
-                    className={btn+ ' border-blue-500 text-blue-500 '}  
+            <button className={removeBtn} onClick={()=>setOpenModal(true)}>{t('delete')}</button>
+            
+            <div className={btns}>
+                <div className={btn+ ' border-purple-500 text-purple-500 '} onClick={()=>setOpen(!open)}>{open? ' hide': 'Full info'}</div>
+                <div className={btn+ ' border-blue-500 text-blue-500 '}  
                     onClick={()=>{
                         setIsEdit(true);
                         setActiveCarId(item.id)
@@ -99,7 +104,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
             </div>
         </div>
         
-        <div className={open ? " flex w-full flex-col  mt-4 ":  ' hidden '}>
+        <div className={open ? submenu : ' hidden '}>
             <div className='flex w-full flex-col space-y-2'>
                 <div className={InfoCard}>
                     <div className={header}>
@@ -134,7 +139,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
                     <div className={trip}>
                         <div className={tripItem}>
-                            <h1 className={tripHeader}>{isFrench? store.tripTitlesF[0]: store.tripTitles[0]}</h1>
+                            <h1 className={tripHeader}>{t('one-way')}</h1>
 
                             <div className={tripContent}>
                                 {<div className={'flex items-start mb-2'}><IoTimeOutline className={icon+ ' mt-[2px]' }/>
@@ -160,7 +165,7 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                         </div>
 
                         {item.isReturnTrip && <div className={tripItem}>
-                            <h1 className={tripHeader}>{isFrench? store.tripTitlesF[1]: store.tripTitles[1]}</h1>
+                            <h1 className={tripHeader}>{t('return')}</h1>
 
                             <div className={tripContent}>
                                 {<div className={'flex items-start mb-2'}><IoTimeOutline className={icon + ' mt-[2px]' }/>
@@ -214,13 +219,13 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
                     {(list[item.id-1].type<3) && <div className={titles}>
                         <div className={item.adults ? typeItem2 + ' bg-purple-500 text-white': typeItem2 } onClick={()=>{ }}>
-                            <div className='truncate flex justify-center w-full'>{isFrench? 'Adultes': 'Adults'}</div>
+                            <div className='truncate flex justify-center w-full'>{t('adults')}</div>
                         </div>
                         <div className={item.kids.length ? typeItem2 + ' bg-purple-500 text-white': typeItem2 } onClick={()=>{ }}>
-                            <div className='truncate flex justify-center w-full'>{isFrench? 'Enfants': 'Kids'}</div>
+                            <div className='truncate flex justify-center w-full'>{t('kids')}</div>
                         </div>
                         <div className={item.babies ? typeItem2 + ' bg-purple-500 text-white': typeItem2 } onClick={()=>{ }}>
-                            <div className='truncate flex justify-center w-full'>{isFrench? 'Bébés': 'Babies'}</div>
+                            <div className='truncate flex justify-center w-full'>{t('babies')}</div>
                         </div>
                     </div>}
 
@@ -316,18 +321,12 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
                             </div>}
                         </div>
                         
-                        {item.additionalText && <div className={contentItem}>
-                        <BsChatSquareText className={'locationIcon'}/>
-
-                        <span className={'optionsItem'}></span>
-                            {item.additionalText} 
-                        </div>}
-                        
+                        <div className={item.additionalText ? contentItem: 'hidden'}>
+                            <BsChatSquareText className='locationIcon'/><span className='optionsItem'></span>{item.additionalText} 
+                        </div>
                     </div>
                 </div>
-
-            </div> 
-            
+            </div>
         </div>
     </div>
     );
@@ -335,6 +334,17 @@ const CarCard = ({item}:{item: ITaxi}):React.ReactNode => {
 
 export default CarCard;
 
+const btns = 'flex justify-between w-full px-4'
+const submenu = "flex w-full flex-col  mt-4"
+const locations = 'flex w-full pr-4'
+const locationsLine = "flex flex-col items-center justify-around ml-2 mr-1 w-1  my-2 mt-[12px] border border-r-white border-purple-500 "
+
+const carTitle = "text-gray-500 mb-0 text-base"
+const dateTitle = 'text-sm mb-0 pt-1 roboto w-full '
+const typeTitle = 'flex  px-2  text-gray-500 italic text-[10px] '
+const content = "flex w-full flex-col"
+const modalButtons = 'flex space-x-2 self-end mt-4'
+const modal = 'absolute flex flex-col bg-white shadow-lg shadow-purple-700 p-4 rounded-xl'
 const contentItem= 'flex items-center space-x-2'
 
 const btn = 'text-base mt-3  border text-center rounded cursor-pointer roboto text-thin px-2'
@@ -362,11 +372,7 @@ const headers = 'flex divide-x w-full'
 
 const removeBtn ='absolute rounded text-base top-2 right-2 text-rose-600 py-[2px] '
 
-
 const stopIcon = 'min-w-[22px] text-yellow-400'
-
 const header = ' mb-2 bg-white px-1 absolute -top-2 left-3 text-xs'
-
 const InfoCard = 'flex w-full  py-4 pt-4 border-t   relative text-sm'
-
 const container = 'relative flex flex-col shadow-xl rounded-lg w-full px-2 py-2 items-center bg-white rounded mb-4'

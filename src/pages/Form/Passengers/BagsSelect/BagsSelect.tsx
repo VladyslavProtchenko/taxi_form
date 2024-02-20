@@ -11,7 +11,6 @@ const BagsSelect = ():React.ReactNode => {
         '10 kg': '22 lb',
         '8 kg': '17 lb',
     }
-    console.log(list[activeCarId-1],'type')
     return (
         <div className={container} >
             <div className={weightToggle} onClick={()=>setWeightType(!list[activeCarId-1].weightType)}>
