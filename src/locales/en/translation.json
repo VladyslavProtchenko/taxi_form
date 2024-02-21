@@ -21,7 +21,7 @@
 
     "select": "Select",
 
-    "reset_section": "Reset this section's data",
+    "reset_section": "Reset all Fields",
     "restore_section": "Use available data",
 
     "service_type":"Service Type",

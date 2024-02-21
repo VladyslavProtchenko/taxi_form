@@ -4,13 +4,14 @@ import React, { useEffect } from 'react';
 import CarCard from './CarCard';
 import axios, { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
-// import {  useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import BoostCard from './BoostCard';
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 
 
 const sendOrder = async (data: ITaxi[], isFrench: boolean): Promise<AxiosResponse> => {
 
+    console.log(data)
     // const response = await axios.post("http://localhost:7010/order",{list:data, isFrench})
     const response = await axios.post("https://taxibeckend.onrender.com/order",{data, isFrench})
     console.log(response, 'response from server')
@@ -20,7 +21,7 @@ const sendOrder = async (data: ITaxi[], isFrench: boolean): Promise<AxiosRespons
 
 const Submit = (): React.ReactNode => {
     const { list,addNewCar, setSubmit,setActiveCarId, isFrench ,setSteps } = useMain()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     useEffect(()=>{},[list])
 
     const newOrder = () => {
@@ -64,7 +65,7 @@ const Submit = (): React.ReactNode => {
                     const data = list.filter(item=>item.filled).map(car =>{return car.dateNow?  {...car, date: dayjs().format('MM/DD/YYYY'), time: dayjs().format('HH:mm')} : car})
                     await sendOrder(data, isFrench )
 
-                    // navigate('success')
+                    navigate('success')
                 }} className={greenBtn}>Submit</div>
             </div>
         </section>
@@ -79,7 +80,6 @@ const addCar = 'border-2 text-lg border-green-400 rounded-lg text-green-400 px-2
 
 const backBtn = 'w-[120px] flex items-center justify-center bg-rose-500 active:bg-rose-700 text-center py-3 rounded-xl text-white  cursor-pointer font-bold text-lg pr-2'
 const greenBtn = 'w-[120px] border-2 border-green-400 bg-gray-50 active:bg-green-400 active:text-white flex items-center justify-center text-lg font-bold text-green-400 rounded-xl  cursor-pointer'
-
 
 const section = 'flex w-full h-full flex-col max-w-[576px] py-8 pt-14 px-5 pb-20'
 

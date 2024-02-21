@@ -545,7 +545,7 @@ const openStop ="absolute top-2 text-purple-500 text-xl rounded flex cursor-poin
 
 
 const setDateBtn = ' border bg-purple-500 active:bg-purple-400 hover:bg-purple-600 shadow cursor-pointer rounded-lg px-3 py-2 flex text-white items-center'
-const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] right-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl overflow-hidden'
+const dateTimeSubmenu ='absolute z-30 flex flex-col item-star top-[102%] left-0 z-20 max-w-[300px] pb-2 bg-white shadow-xl shadow-purple-200 rounded-xl overflow-hidden'
 const dateRow = 'flex relative w-full justify-between flex-col'
 
 const dateInput = 'flex border bg-white border-purple-500 pl-[2px] cursor-pointer h-[40px] relative max-w-[210px] w-full rounded-xl'

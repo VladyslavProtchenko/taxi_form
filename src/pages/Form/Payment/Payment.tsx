@@ -92,6 +92,7 @@ const PaymentSection = (): React.ReactNode => {
                 {!list[activeCarId - 1].filled &&
                     <button className={nextBtn} onClick={() => {
                         setValidation(9)
+                        setSteps(8)
                         setFilled(true, activeCarId)
                         setSubmit(true)
                     }}>
@@ -110,7 +111,7 @@ const PaymentSection = (): React.ReactNode => {
                         {t('car')}
                     </button>}
                 {list[activeCarId - 1].filled && <button className={yellowBtn} onClick={() => {
-
+                    setSteps(8)
                     setSubmit(true)
                 }}>View Orders</button>}
             </div>
@@ -120,10 +121,10 @@ const PaymentSection = (): React.ReactNode => {
 
 export default PaymentSection;
 
-const toggleItem = ' w-1/3 text-center py-1'
-const toggleItemActive = 'text-white bg-purple-500 w-1/3 text-center py-1'
-const toggleItem2 = ' w-1/5 text-center py-1 truncate'
-const toggleItemActive2 = 'text-white bg-purple-500 w-1/5 text-center py-1 truncate'
+const toggleItem = ' w-1/3 justify-center flex items-center p-1 border-black '
+const toggleItemActive = 'text-white bg-purple-500 w-1/3 justify-center flex items-center p-1  border-black'
+const toggleItem2 = ' w-1/5 flex items-center justify-center flex items-center p-1 border-black '
+const toggleItemActive2 = 'text-white bg-purple-500 border-black w-1/5 justify-center flex items-center p-1 '
 const toggleContainer = ' flex w-full border border-gray-800 rounded cursor-pointer text-sm divide-x'
 
 const btns = ' fixed bottom-[86px] w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
