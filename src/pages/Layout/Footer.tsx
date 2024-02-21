@@ -19,9 +19,6 @@ import carBags from '../../assets/carBags.png'
 import carBagsPurple from '../../assets/carBagsPurple.png'
 import { useTranslation } from 'react-i18next';
 
-
-
-
 const Footer = (): React.ReactNode => {
     const { t } = useTranslation();
 

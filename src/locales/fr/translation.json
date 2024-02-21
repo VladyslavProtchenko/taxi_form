@@ -44,5 +44,29 @@
 
     "adults": "Adultes",
     "kids": "Enfants",
-    "babies": "Bébés"
+    "babies": "Bébés",
+
+    "name_alert": "Au moins  un nom sont obligatoire.",
+    "title_alert": "Au moins  un Titre sont obligatoire.",
+    "email_alert": "Au moins  une adresse email sont obligatoire.",
+    "phone_alert": "Au moins  un téléphone sont obligatoire.",
+    "date_alert": "At least one name are mandatory.",
+    "time_alert": "At least one name are mandatory.",
+    "from_alert": "At least one name are mandatory.",
+    "to_alert": "At least one name are mandatory.",
+
+    "title": "Titre",
+    "+name": "+ nom",
+    "+email": "+ courrier",
+    "+phone": "+ téléphone",
+
+
+    "name_placeholder": "Votre nom",
+    "name_placeholder2": "Deuxième nom",
+    "name_placeholder3": "Troisième nom",
+
+    "email_placeholder": "Votre courriel",
+    "email_placeholder2": "Deuxième courriel",
+    "email_placeholder3": "Troisième courriel"
+
 }

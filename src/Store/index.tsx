@@ -4,11 +4,7 @@ export interface IStore {
     titleList: string[];
     titleListF: string[];
 
-    nameList: string[],
-    nameListF: string[],
 
-    emailList: string[],
-    emailListF: string[],
 
     phoneList: string[],
     phoneListF: string[],
@@ -46,6 +42,12 @@ export interface IStore {
     dayPrices: string[];
     nightPrices: string[];
 
+    // emailList: string[],
+    // emailListF: string[],
+    // nameList: string[],
+    // nameListF: string[],
+
+
     // typeList: string[],
     // typeListF: string[],
 
@@ -68,11 +70,8 @@ export const useStore = create<Store>(() => ({
         titleList: ['Mr.', 'Mrs.', 'Miss.', 'Prefer Not To say'],
         titleListF: ['M.', 'Mme.', 'Mlle.', 'Préfère ne pas dire'],
 
-        nameList: ['Your name', 'Second name', 'Third name'],
-        nameListF: ['Votre nom', 'Deuxième nom', 'Troisième nom'],
 
-        emailList: ['Your e-mail', 'Second e-mail', 'Third e-mail'],
-        emailListF: ['Votre courriel', 'Deuxième courriel', 'Troisième courriel'],
+
 
         phoneList: ['Your phone', 'Second phone', 'Third phone'],
         phoneListF: ['Votre cellulaire', 'Deuxième cellulaire ', 'Troisième cellulaire'],
@@ -160,6 +159,11 @@ export const useStore = create<Store>(() => ({
                 'hotel'
             ],
         }
+
+        // emailList: ['Your e-mail', 'Second e-mail', 'Third e-mail'],
+        // emailListF: ['Votre courriel', 'Deuxième courriel', 'Troisième courriel'],
+        // nameList: ['Your name', 'Second name', 'Third name'],
+        // nameListF: ['Votre nom', 'Deuxième nom', 'Troisième nom'],
         // typeList: ['Transport', 'Delivery', 'Boost', 'Unlocking doors'],
         // typeListF: ['Transport', 'Livraison', 'Survoltage', 'Débarrage de portes'],
 

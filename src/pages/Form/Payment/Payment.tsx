@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 const { TextArea } = Input;
 import { MdDone } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 
 
 const PaymentSection = (): React.ReactNode => {
@@ -12,6 +13,8 @@ const PaymentSection = (): React.ReactNode => {
     const { store } = useStore()
     const ref = useRef<HTMLDivElement | null>(null)
     const [paymentTab, setPaymentTab] = useState(0)
+    const { t } = useTranslation();
+
     useEffect(()=>{
         const container = ref.current;
         if (container) {
@@ -49,23 +52,23 @@ const PaymentSection = (): React.ReactNode => {
             <div className={content}>
 
 
-                <div className="w-full flex text-sm justify-around mb-10">
+                <div className={toggleContainer + ' mb-10 ' }>
                     {
                         (isFrench ? store.tripListF : store.tripList).map((item, index) =>
                             <div
                                 key={item}
-                                className={isActiveTripType(index) ? 'px-1 text-purple-500 border-b-2 border-purple-500' : 'px-1'}
+                                className={isActiveTripType(index) ? toggleItemActive : toggleItem}
                                 onClick={() => setTripType(item)}
                             >{item}</div>
                         )
                     }
                 </div>
-                <div ref={ref} className="w-full scroll-smooth duration-500 flex text-sm justify-between overflow-x-scroll">
+                <div ref={ref} className={toggleContainer}>
                     {
                         (isFrench ? store.paymentListF : store.paymentList).map((item, index) =>
                             <div
                                 key={item}
-                                className={isActivePaymentMethod(index) ? 'px-1 cursor-pointer  text-purple-500 whitespace-nowrap border-b-2  border-purple-500  ' : 'px-1  cursor-pointer  border-b-2 border-gray-50 whitespace-nowrap '}
+                                className={isActivePaymentMethod(index) ? toggleItemActive2: toggleItem2}
                                 onClick={() => {
                                     setPaymentTab(index)
                                     setPaymentMethod(item)
@@ -95,16 +98,16 @@ const PaymentSection = (): React.ReactNode => {
                         Order
                         {
                             activeCarId === 1
-                                ? isFrench ? ' 1er ' : ' 1st '
-                                : activeCarId === 2
-                                    ? isFrench ? ' 2e ' : ' 2nd '
-                                    : activeCarId === 3
-                                        ? isFrench ? ' 3e ' : ' 3rd '
-                                        : activeCarId === 4
-                                            ? isFrench ? ' 4e ' : ' 4th '
-                                            : isFrench ? ' 5e ' : ' 5th '
+                            ? t('1st')
+                            : activeCarId === 2
+                            ? t('2nd')
+                            : activeCarId === 3
+                            ? t('3rd')
+                            : activeCarId === 4
+                            ? t('4th')
+                            : t('5th')
                         }
-                        Car
+                        {t('car')}
                     </button>}
                 {list[activeCarId - 1].filled && <button className={yellowBtn} onClick={() => {
 
@@ -116,6 +119,12 @@ const PaymentSection = (): React.ReactNode => {
 };
 
 export default PaymentSection;
+
+const toggleItem = ' w-1/3 text-center py-1'
+const toggleItemActive = 'text-white bg-purple-500 w-1/3 text-center py-1'
+const toggleItem2 = ' w-1/5 text-center py-1 truncate'
+const toggleItemActive2 = 'text-white bg-purple-500 w-1/5 text-center py-1 truncate'
+const toggleContainer = ' flex w-full border border-gray-800 rounded cursor-pointer text-sm divide-x'
 
 const btns = ' fixed bottom-[86px] w-full flex justify-between max-w-[400px] px-5 right-1/2 translate-x-1/2'
 const nextBtn = 'w-[130px] bg-purple-500 text-center active:bg-purple-700 py-3 rounded-xl text-white text-lg  cursor-pointer font-bold'

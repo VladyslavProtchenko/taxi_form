@@ -7,10 +7,11 @@ import { useMain } from '../../../Store/useMain';
 import { useStore } from '../../../Store';
 import React from 'react';
 import Buttons from '../Components/Buttons';
+import { useTranslation } from 'react-i18next';
+
 const InfoSection = () => {
     const { store } = useStore()
     const {
-        isFrench,
         activeCarId,
         list, 
         setTitle,
@@ -31,6 +32,7 @@ const InfoSection = () => {
         setAlert,
     } = useMain()
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const { t, i18n } = useTranslation();
 
     const [isTitle, setIsTitle] = useState(true)
     const [isName, setIsName] = useState(true)
@@ -83,19 +85,18 @@ const InfoSection = () => {
     useEffect(()=>{
         if(titleTrigger) {
             if(list[activeCarId-1].title?.length>1) {
-            
-                isFrench ? setTitle(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title)]) : setTitle(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title)])
+                i18n.language === 'fr' ? setTitle(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title)]) : setTitle(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title)])
             }
             if(list[activeCarId-1].title2?.length>1) {
-                isFrench ? setTitle2(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title2)]) : setTitle2(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title2)])
+                i18n.language === 'fr' ? setTitle2(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title2)]) : setTitle2(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title2)])
             }
             if(list[activeCarId-1].title3?.length>1) {
-                isFrench ? setTitle3(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title3)]) : setTitle3(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title3)])
+                i18n.language === 'fr' ? setTitle3(store.titleListF[store.titleList.indexOf(list[activeCarId-1].title3)]) : setTitle3(store.titleList[store.titleListF.indexOf(list[activeCarId-1].title3)])
             }
         }
         setTitleTrigger(true)
         
-    },[isFrench])
+    },[i18n.language])
 
     function goNext(){
         setTrigger(true)
@@ -108,34 +109,26 @@ const InfoSection = () => {
             setIsName(true)
         } else {
             setValidation(1)
-            return setAlert(!isFrench
-                ? `At least one name are mandatory.`
-                :`Au moins  un nom sont obligatoire`)
+            return setAlert(t('name_alert'))
             }
         if(list[activeCarId-1].title?.length>1) {
             setIsTitle(true)
         } else { 
             setValidation(1)
-            return setAlert(!isFrench
-                ? `At least one title are mandatory.`
-                :`Au moins  un Titre sont obligatoire.`)
+            return setAlert(t('title_alert'))
         }
         if(pattern.test(list[activeCarId-1].email)) {
             setIsEmail(true)
         } else { 
             setValidation(1)
-            return setAlert(!isFrench
-                ? `At least one email address are mandatory.`
-                :`Au moins  une adresse email sont obligatoire.`)
+            return setAlert(t('email_alert'))
         }
 
         if(isPhone) {
             setNoPhone(true)
         }else { 
             setValidation(1)
-            return setAlert(!isFrench
-                ? `At least one phone are mandatory.`
-                :`Au moins  un téléphone sont obligatoire.`)
+            return setAlert(t('phone_alert'))
             }
         
     
@@ -144,8 +137,8 @@ const InfoSection = () => {
             setSteps(2)
         }
     }
-    console.log(list[activeCarId-1].title, 'title')
-    const options1 = isFrench ? store.titleListF.map(item=>({value: item, label: item })) : store.titleList.map(item=>({value: item, label: item }))
+    
+    const options1 = i18n.language === 'fr'  ? store.titleListF.map(item=>({value: item, label: item })) : store.titleList.map(item=>({value: item, label: item }))
     return (
         <section className={section}>
 
@@ -154,20 +147,19 @@ const InfoSection = () => {
                     <div className={ (isTitle && isName) ? box: box + '  border-red-500' }>
                         {isExtraNameOpen[1] && <div className={number}>1</div>}
                         <span className='icon ml-1'><IoIosPerson/></span>
-                        <Select allowClear  className='arrow-right'  placeholder={isFrench? 'Titre':'Title' } style={{width: 118, height: 40}} onChange={setTitle} options={options1} value={list[activeCarId-1].title || null} />
-                        <Input allowClear value={list[activeCarId-1].name} placeholder={isFrench? store.nameListF[0]:store.nameList[0] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{  borderRadius: 5, height: 30}}/>
+                        <Select allowClear  className='arrow-right'  placeholder={t('title')} style={{width: 118, height: 40}} onChange={setTitle} options={options1} value={list[activeCarId-1].title || null} />
+                        <Input allowClear value={list[activeCarId-1].name} placeholder={t('name_placeholder') } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{setName(e.target.value)}}style={{  borderRadius: 5, height: 30}}/>
                     </div>
                 </div>
 
-                <div className={list[activeCarId-1].name.length>2 ? nameCard : 'hidden'}>
+                <div className={list[activeCarId-1].name.length > 2 || isExtraNameOpen[1]  ? nameCard : 'hidden'}>
                     <div className={isExtraNameOpen[1] ? box : box + ' opacity-0'}>
                         <div className={number}>2</div>
-                        <div className={(list[activeCarId-1].name === list[activeCarId-1].name2)? warn: 'hidden'}>name cannot be repeated</div>
+                        <div className={(list[activeCarId-1].name.length>2 && list[activeCarId-1].name === list[activeCarId-1].name2) ? warn: 'hidden'}>name cannot be repeated</div>
                         {!isExtraNameOpen[1] &&  <div className='absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-100 rounded cursor-not-allowed'></div>}
                         <span className='icon ml-1'><IoIosPerson/></span>
-                        <Select allowClear placeholder={isFrench? 'Titre':'Title'  }  className='arrow-right' style={{width: 118, height: 40}} onChange={setTitle2} options={options1} value={list[activeCarId-1].title2 || null}/> 
-                        <Input value={list[activeCarId-1].name2} allowClear placeholder={isFrench? store.nameListF[1]:store.nameList[1] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{  borderRadius: 5, height: 30}}/>
-                        
+                        <Select allowClear placeholder={t('title')}  className='arrow-right' style={{width: 118, height: 40}} onChange={setTitle2} options={options1} value={list[activeCarId-1].title2 || null}/> 
+                        <Input value={list[activeCarId-1].name2} allowClear placeholder={t('name_placeholder2') } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName2(e.target.value)} style={{  borderRadius: 5, height: 30}}/>
                     </div>
                     <button 
                         className={(isExtraNameOpen[1]) ? 'hidden' : addExtraBtn } 
@@ -183,7 +175,7 @@ const InfoSection = () => {
                                 setName2('');
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 1: !isExtraNameOpen[1] })
                             }}>
-                        {`${ isFrench?'+ nom':'+ name'}`}
+                        {t('+name')}
                     </button>
                     <button 
                         className={(isExtraNameOpen[1]) ? extraNameClose : 'hidden' } 
@@ -202,14 +194,14 @@ const InfoSection = () => {
                     ><span className='scale-[150%] font-bold rotate-45'>+</span></button>
                 </div>
                 
-                <div className={list[activeCarId-1].name2.length<2 ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard : nameCard + ' border-white h-[32px]'}>
-                    <div className={(list[activeCarId-1].name === list[activeCarId-1].name3 || list[activeCarId-1].name2 === list[activeCarId-1].name3)? warn: 'hidden'}>name cannot be repeated</div>
+                <div className={(list[activeCarId-1].name2.length<2 && !isExtraNameOpen[2])  ? 'hidden': (isExtraNameOpen[1] || isExtraNameOpen[2])? nameCard : nameCard + ' border-white h-[32px]'}>
+                    <div className={(list[activeCarId-1].name.length>2 && list[activeCarId-1].name === list[activeCarId-1].name3 || list[activeCarId-1].name2 === list[activeCarId-1].name3)? warn: 'hidden'}>name cannot be repeated</div>
                     <div className={(isExtraNameOpen[2])? box: box +' opacity-0'}>
                         <div className={number}>3</div>
                         {!isExtraNameOpen[2] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>}
                         <span className='icon  ml-1'><IoIosPerson/></span>
-                        <Select allowClear placeholder={isFrench? 'Titre':'Title'  }  className=' arrow-right ' style={{width: 118, height: 40}} onChange={setTitle3}options={options1} value={list[activeCarId-1].title3 || null}/> 
-                        <Input  value={list[activeCarId-1].name3 } allowClear placeholder={isFrench? store.nameListF[2]:store.nameList[2] } onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{ borderRadius: 5, height: 30}}/>
+                        <Select allowClear placeholder={t('title')} className=' arrow-right ' style={{width: 118, height: 40}} onChange={setTitle3}options={options1} value={list[activeCarId-1].title3 || null}/> 
+                        <Input  value={list[activeCarId-1].name3 } allowClear placeholder={t('name_placeholder3')} onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>setName3(e.target.value)} style={{ borderRadius: 5, height: 30}}/>
                     </div>
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
                     && <button 
@@ -217,11 +209,11 @@ const InfoSection = () => {
                             onClick={()=>{
                                 if(isExtraNameOpen[2]) {
                                     setName3('')
-                                    setTitle3('Undefined')
+                                    setTitle3('')
                                 }
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })
                             }}
-                        >{`${(isExtraNameOpen[2]) ? isFrench?'Supprimer':'Delete' : isFrench?'+ nom':'+ name'}`}</button>}
+                        >{t('+name')}</button>}
 
                     {(isExtraNameOpen[1] || isExtraNameOpen[2]) 
                     && <button 
@@ -229,11 +221,11 @@ const InfoSection = () => {
                             onClick={()=>{
                                 if(isExtraNameOpen[2]) {
                                     setName3('')
-                                    setTitle3('Undefined')
+                                    setTitle3('')
                                 }
                                 setIsExtraNameOpen({ ...isExtraNameOpen, 2: !isExtraNameOpen[2] })
                             }}
-                        ><span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span></button>}
+                        ><span className='scale-[150%] font-bold rotate-45'>+</span></button>}
                 </div>
             </div>
 
@@ -246,7 +238,7 @@ const InfoSection = () => {
                             mainMail={true} 
                             noMail={isEmail} 
                             onChange={setEmail} 
-                            placeholder={isFrench? store.emailListF[0]:store.emailList[0] }
+                            placeholder={t('email_placeholder')}
                         />
                     </div>
                 </div>
@@ -257,10 +249,10 @@ const InfoSection = () => {
                         <div className={number}>2</div>
                         <div className={(list[activeCarId-1].email === list[activeCarId-1].email2)? warn: 'hidden'}>email cannot be repeated</div>
                         {!isExtraEmailOpen[1] &&  <div className={'absolute -top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-0 rounded cursor-not-allowed'}></div>}
-                        <MailInput value={list[activeCarId-1].email2} mainMail={false} onChange={setEmail2} placeholder={isFrench? store.emailListF[1]:store.emailList[1]}/>
+                        <MailInput value={list[activeCarId-1].email2} mainMail={false} onChange={setEmail2} placeholder={t('email_placeholder2')}/>
                     </div>
                     <button className={(isExtraEmailOpen[1]) ? 'hidden' : addExtraBtn } onClick={()=> setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: true })}>
-                        {isFrench?'+ courrier':'+ email'}
+                        {t('+email')}
                     </button>
                     <button 
                         className={(isExtraEmailOpen[1]) ? extraNameClose : 'hidden' } 
@@ -274,7 +266,7 @@ const InfoSection = () => {
                             setIsExtraEmailOpen({ ...isExtraEmailOpen, 1: false })
                         }}
                     >
-                        <span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span>
+                        <span className='scale-[150%] font-bold rotate-45'>+</span>
                     </button>  
                 </div>
                 
@@ -284,11 +276,11 @@ const InfoSection = () => {
                         <div className={(list[activeCarId-1].email2 === list[activeCarId-1].email3 || list[activeCarId-1].email === list[activeCarId-1].email3)? warn: 'hidden'}>email cannot be repeated</div>
                         <div className={isExtraEmailOpen[2]? 'hidden':'absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'}></div>
                         
-                        <MailInput value={list[activeCarId-1].email3} onChange={setEmail3}placeholder={isFrench? store.emailListF[2]:store.emailList[2] }/>
+                        <MailInput value={list[activeCarId-1].email3} onChange={setEmail3}placeholder={t('email_placeholder3')}/>
                     </div>
                     
                     <button className={(isExtraEmailOpen[2]) ? ' hidden ' : addExtraBtn } onClick={()=>{setIsExtraEmailOpen({ ...isExtraEmailOpen, 2: true })}}>
-                        {isFrench?'+ courrier':'+ email'}
+                    {t('+email')} 
                     </button>
                     <button className={(isExtraEmailOpen[2]) ? extraNameClose : ' hidden ' } onClick={()=>{
                                     setEmail3('@')
@@ -309,7 +301,7 @@ const InfoSection = () => {
 
                 <div className={list[activeCarId-1].phone.length>=10 ? nameCard + ' z-20' : 'hidden'}>
                     <div className={( list[activeCarId-1].phone === list[activeCarId-1].phone2)? warn: 'hidden'}>phone cannot be repeated</div>
-                    <div className={isExtraPhoneOpen[1]? box : box+ ' opacity-0 '}>
+                    <div className={isExtraPhoneOpen[1] ? box : box+ ' opacity-0 '}>
                         <div className={number}>2</div>
                         {!isExtraPhoneOpen[1] &&  <div className='absolute top-0 left-0 right-0 bottom-0 z-10 bg-white opacity-75 rounded cursor-not-allowed'></div>} 
                         <PhoneNumberInput  setValidation={setIsPhone} type={3}  value={list[activeCarId-1].phone2} onChange={setPhone2}/>
@@ -326,7 +318,7 @@ const InfoSection = () => {
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })
                         }}
                     > 
-                        {isFrench?'+ téléphone':'+ phone'} 
+                        {t('+phone')} 
                     </button>
                     <button 
                         className={(isExtraPhoneOpen[1]) ? extraNameClose : 'hidden ' } 
@@ -340,7 +332,7 @@ const InfoSection = () => {
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 1: !isExtraPhoneOpen[1] })
                         }}
                     > 
-                        <span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span>
+                        <span className='scale-[150%] font-bold rotate-45'>+</span>
                     </button>      
                 </div>
 
@@ -358,13 +350,13 @@ const InfoSection = () => {
                             setPhone3('')
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: !isExtraPhoneOpen[2] })
                                 }}>
-                        {isFrench?'+ téléphone':'+ phone'}
+                        {t('+phone')}
                     </button>
                     <button className={(isExtraPhoneOpen[2]) ? extraNameClose : 'hidden' } onClick={()=>{
                             setPhone3('')
                             setIsExtraPhoneOpen({ ...isExtraPhoneOpen, 2: !isExtraPhoneOpen[2] })
                                 }}>
-                        <span className='scale-[150%] font-bold rotate-45'>{`${ isFrench?'+':'+'}`}</span>
+                        <span className='scale-[150%] font-bold rotate-45'>+</span>
                     </button>
                 </div>
             </div>
